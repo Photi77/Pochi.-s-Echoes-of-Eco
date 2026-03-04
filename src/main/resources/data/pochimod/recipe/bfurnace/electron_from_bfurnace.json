@@ -1,0 +1,14 @@
+{
+  "type": "pochimod:bfurnace",
+  "ingredients": [
+    {
+      "item": "pochimod:magunesium_ingot"
+    },
+    {
+      "item": "pochimod:aluminium_ingot"
+    }
+  ],
+  "output": {
+    "item": "pochimod:electron"
+  }
+}

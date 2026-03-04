@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "pochimod:coffee_log",
+    "pochimod:coffee_wood",
+    "pochimod:stripped_coffee_log",
+    "pochimod:stripped_coffee_wood"
+  ]
+}

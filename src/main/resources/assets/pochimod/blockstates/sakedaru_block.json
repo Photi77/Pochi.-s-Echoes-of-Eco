@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": {"model": "pochimod:block/sakedaru_block"},
+    "facing=east": {"model": "pochimod:block/sakedaru_block","y": 90},
+    "facing=south": {"model": "pochimod:block/sakedaru_block","y": 180},
+    "facing=west": {"model": "pochimod:block/sakedaru_block","y": 270}
+  }
+}

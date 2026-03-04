@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "minecraft:flower_forest",
+  "spawners": {
+    "type": "pochimod:flower_mantis",
+    "weight": 30,
+    "minCount": 1,
+    "maxCount": 3
+  }
+}

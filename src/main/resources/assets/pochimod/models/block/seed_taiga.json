@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "pochimod:block/seed_taiga"
+  },
+  "render_type": "cutout"
+}

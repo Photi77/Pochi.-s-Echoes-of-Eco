@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "pochimod:stainless"
+    },
+    "X": {
+      "item": "minecraft:glass_bottle"
+    }
+  },
+  "pattern": [
+    " # ",
+    " X ",
+    "###"
+  ],
+  "result": {
+    "item": "pochimod:mixer_block"
+  }
+}

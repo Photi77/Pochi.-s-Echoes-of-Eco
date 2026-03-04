@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "pochimod:zhangjia_biome",
+  "spawners": {
+    "type": "pochimod:tapir",
+    "weight": 30,
+    "minCount": 2,
+    "maxCount": 3
+  }
+}

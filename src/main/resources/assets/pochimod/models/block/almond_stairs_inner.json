@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "pochimod:block/almond_planks",
+    "side": "pochimod:block/almond_planks",
+    "top": "pochimod:block/almond_planks"
+  }
+}

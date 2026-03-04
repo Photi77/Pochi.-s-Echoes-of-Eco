@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "pochimod:block/euclase_cluster"
+  },
+  "render_type": "cutout"
+}

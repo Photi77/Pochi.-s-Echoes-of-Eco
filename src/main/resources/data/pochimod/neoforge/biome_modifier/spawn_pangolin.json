@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "minecraft:windswept_savanna",
+  "spawners": {
+    "type": "pochimod:pangolin",
+    "weight": 30,
+    "minCount": 2,
+    "maxCount": 3
+  }
+}

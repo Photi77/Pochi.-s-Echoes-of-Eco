@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/crop",
+  "textures": {
+    "crop": "pochimod:block/eggplant_stage0"
+  },
+  "render_type": "cutout"
+}

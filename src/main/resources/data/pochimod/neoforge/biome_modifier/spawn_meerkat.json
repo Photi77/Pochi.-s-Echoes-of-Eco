@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "minecraft:badlands",
+  "spawners": {
+    "type": "pochimod:meerkat",
+    "weight": 30,
+    "minCount": 2,
+    "maxCount": 4
+  }
+}

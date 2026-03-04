@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "pochimod:block/cabernet_sauvignon_log",
+    "side": "pochimod:block/cabernet_sauvignon_log"
+  }
+}

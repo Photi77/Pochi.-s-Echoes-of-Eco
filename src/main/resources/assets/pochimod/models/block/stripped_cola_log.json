@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "pochimod:block/stripped_cola_log_top",
+    "side": "pochimod:block/stripped_cola_log"
+  }
+}

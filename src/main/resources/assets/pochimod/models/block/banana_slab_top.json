@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "pochimod:block/banana_planks",
+    "side": "pochimod:block/banana_planks",
+    "top": "pochimod:block/banana_planks"
+  }
+}

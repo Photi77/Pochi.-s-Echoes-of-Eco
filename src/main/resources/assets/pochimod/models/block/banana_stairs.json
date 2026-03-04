@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/stairs",
+  "textures": {
+    "bottom": "pochimod:block/banana_planks",
+    "side": "pochimod:block/banana_planks",
+    "top": "pochimod:block/banana_planks"
+  }
+}

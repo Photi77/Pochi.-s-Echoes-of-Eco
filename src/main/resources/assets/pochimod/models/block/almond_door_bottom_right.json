@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_bottom_right",
+  "textures": {
+    "bottom": "pochimod:block/almond_door_bottom",
+    "top": "pochimod:block/almond_door_top"
+  }
+}

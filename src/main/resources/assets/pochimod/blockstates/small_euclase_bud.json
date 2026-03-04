@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "pochimod:block/small_euclase_bud",
+      "x": 180
+    },
+    "facing=east": {
+      "model": "pochimod:block/small_euclase_bud",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north": {
+      "model": "pochimod:block/small_euclase_bud",
+      "x": 90
+    },
+    "facing=south": {
+      "model": "pochimod:block/small_euclase_bud",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up": {
+      "model": "pochimod:block/small_euclase_bud"
+    },
+    "facing=west": {
+      "model": "pochimod:block/small_euclase_bud",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

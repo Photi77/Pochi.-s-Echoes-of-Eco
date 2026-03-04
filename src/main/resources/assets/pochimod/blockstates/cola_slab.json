@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "pochimod:block/cola_slab"
+    },
+    "type=double": {
+      "model": "pochimod:block/cola_planks"
+    },
+    "type=top": {
+      "model": "pochimod:block/cola_slab_top"
+    }
+  }
+}

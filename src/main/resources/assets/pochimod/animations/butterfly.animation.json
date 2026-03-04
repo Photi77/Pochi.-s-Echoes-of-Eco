@@ -1,0 +1,76 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.butterfly.idle": {
+			"loop": true,
+			"animation_length": 0.96,
+			"bones": {
+				"lwing": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.48": {
+							"vector": [1.63107, -1.51701, 24.85525]
+						},
+						"0.96": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"rwing": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.48": {
+							"vector": [0, 0, -32.5]
+						},
+						"0.96": {
+							"vector": [0, 0, 0]
+						}
+					}
+				}
+			}
+		},
+		"animation.butterfly.fly": {
+			"loop": true,
+			"animation_length": 0.96,
+			"bones": {
+				"lwing": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 2.5]
+						},
+						"0.48": {
+							"vector": [0, 0, 57.5],
+							"easing": "easeInElastic",
+							"easingArgs": [3]
+						},
+						"0.96": {
+							"vector": [0, 0, 0],
+							"easing": "easeInBack"
+						}
+					}
+				},
+				"rwing": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.48": {
+							"vector": [0, 0, -50],
+							"easing": "easeInElastic",
+							"easingArgs": [3]
+						},
+						"0.96": {
+							"vector": [0, 0, 0],
+							"easing": "easeInBack"
+						}
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

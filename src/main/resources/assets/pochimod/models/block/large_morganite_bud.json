@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "pochimod:block/large_morganite_bud"
+  },
+  "render_type": "cutout"
+}

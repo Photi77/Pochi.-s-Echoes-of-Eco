@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "pochimod:chromite_block"
+    }
+  ],
+  "result": {
+    "item": "pochimod:chromite_ingot",
+    "count": 9
+  }
+}

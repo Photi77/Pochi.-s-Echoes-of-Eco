@@ -1,0 +1,21 @@
+{
+  "type": "pochimod:mineral_shaped",
+  "tool_type": "pickaxe",
+  "pattern": [
+    "CCC",
+    " S ",
+    " S "
+  ],
+  "key": {
+    "C": {
+      "item": "pochimod:mineral_chunk"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "id": "pochimod:mineral_pickaxe",
+    "count": 1
+  }
+}

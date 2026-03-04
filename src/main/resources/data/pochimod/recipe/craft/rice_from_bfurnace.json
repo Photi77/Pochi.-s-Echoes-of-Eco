@@ -1,0 +1,14 @@
+{
+  "type": "pochimod:bfurnace",
+  "ingredients": [
+    {
+      "item": "pochimod:row_rice"
+    },
+    {
+      "item": "pochimod:filtered_water"
+    }
+  ],
+  "output": {
+    "item": "pochimod:rice"
+  }
+}

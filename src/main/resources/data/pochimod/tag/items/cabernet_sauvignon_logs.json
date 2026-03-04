@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "pochimod:cabernet_sauvignon_log",
+    "pochimod:cabernet_sauvignon_wood",
+    "pochimod:stripped_cabernet_sauvignon_log",
+    "pochimod:stripped_cabernet_sauvignon_wood"
+  ]
+}

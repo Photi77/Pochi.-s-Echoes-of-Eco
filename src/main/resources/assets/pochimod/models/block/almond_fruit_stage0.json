@@ -1,0 +1,28 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "pochimod:block/almond_fruit_stage0",
+    "almond_fruit": "pochimod:block/almond_fruit_stage0"
+  },
+  "elements": [
+    {   "from": [ 6, 7, 11 ],
+      "to": [ 10, 12, 15 ],
+      "faces": {
+        "down":  { "uv": [  0, 0,  4, 4 ], "texture": "#almond_fruit" },
+        "up":    { "uv": [  0, 0,  4, 4 ], "texture": "#almond_fruit" },
+        "north": { "uv": [ 11, 4, 15, 9 ], "texture": "#almond_fruit" },
+        "south": { "uv": [ 11, 4, 15, 9 ], "texture": "#almond_fruit" },
+        "west":  { "uv": [ 11, 4, 15, 9 ], "texture": "#almond_fruit" },
+        "east":  { "uv": [ 11, 4, 15, 9 ], "texture": "#almond_fruit" }
+      }
+    },
+    {   "from": [ 8, 12, 12 ],
+      "to": [ 8, 16, 16 ],
+      "faces": {
+        "west": { "uv": [ 12, 0, 16, 4 ], "texture": "#almond_fruit" },
+        "east": { "uv": [ 16, 0, 12, 4 ], "texture": "#almond_fruit" }
+      }
+    }
+  ],
+  "render_type": "cutout"
+}

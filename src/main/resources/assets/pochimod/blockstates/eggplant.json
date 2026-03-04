@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "pochimod:block/eggplant_stage0"
+    },
+    "age=1": {
+      "model": "pochimod:block/eggplant_stage1"
+    },
+    "age=2": {
+      "model": "pochimod:block/eggplant_stage2"
+    },
+    "age=3": {
+      "model": "pochimod:block/eggplant_stage3"
+    }
+  }
+}

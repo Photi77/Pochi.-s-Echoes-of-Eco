@@ -1,0 +1,30 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "pochimod:block/durian_fruit_stage2",
+    "durian_fruit": "pochimod:block/durian_fruit_stage2"
+  },
+  "elements": [
+    {
+      "from": [ 4, 3, 7 ],
+      "to": [ 12, 12, 15 ],
+      "faces": {
+        "up":    { "uv": [ 0, 0,  8,  8 ], "texture": "#durian_fruit" },
+        "down":  { "uv": [ 0, 0,  8,  8 ], "texture": "#durian_fruit" },
+        "north": { "uv": [ 8, 4, 16, 13 ], "texture": "#durian_fruit" },
+        "south": { "uv": [ 8, 4, 16, 13 ], "texture": "#durian_fruit" },
+        "west":  { "uv": [ 8, 4, 16, 13 ], "texture": "#durian_fruit" },
+        "east":  { "uv": [ 8, 4, 16, 13 ], "texture": "#durian_fruit" }
+      }
+    },
+    {
+      "from": [ 8, 12, 12 ],
+      "to": [ 8, 16, 16 ],
+      "faces": {
+        "east": { "uv": [ 16, 0, 12, 4 ], "texture": "#durian_fruit" },
+        "west": { "uv": [ 12, 0, 16, 4 ], "texture": "#durian_fruit" }
+      }
+    }
+  ],
+  "render_type": "cutout"
+}

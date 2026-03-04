@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "pochimod:almond_log",
+    "pochimod:almond_wood",
+    "pochimod:stripped_almond_log",
+    "pochimod:stripped_almond_wood"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "minecraft:forest",
+  "spawners": {
+    "type": "pochimod:fruit_fly",
+    "weight": 10,
+    "minCount": 2,
+    "maxCount": 4
+  }
+}

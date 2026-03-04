@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#i#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:copper_ingot"
+    },
+    "i": {
+      "item": "pochimod:row_fluorite"
+    }
+  },
+  "result": {
+    "item": "pochimod:distiller_block"
+  }
+}

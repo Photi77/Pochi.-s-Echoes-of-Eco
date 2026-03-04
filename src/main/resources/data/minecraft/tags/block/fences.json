@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "pochimod:cabernet_sauvignon_fence",
+    "pochimod:maple_fence",
+    "pochimod:cinnamon_fence",
+    "pochimod:cola_fence",
+    "pochimod:lemon_fence",
+    "pochimod:plum_fence",
+    "pochimod:cherry_fence",
+    "pochimod:banana_fence",
+    "pochimod:coconut_fence",
+    "pochimod:peach_fence",
+    "pochimod:almond_fence",
+    "pochimod:durian_fence",
+    "pochimod:coffee_fence",
+    "pochimod:kiwi_fence"
+  ]
+}

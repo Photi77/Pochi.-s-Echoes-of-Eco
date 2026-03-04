@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "pochimod:block/create_tnt_bottom",
+    "side": "pochimod:block/create_tnt_side",
+    "top": "pochimod:block/create_tnt_top"
+  }
+}

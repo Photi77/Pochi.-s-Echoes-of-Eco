@@ -1,0 +1,57 @@
+[033月2026 14:23:18.073] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--mod, pochimod, --all, --output, E:\mod\PochiMod\src\generated\resources, --existing, E:\mod\PochiMod\src\main\resources, --launchTarget, forgedatadev, --assetIndex, asset-index, --assetsDir, C:\Users\20171\.gradle\caches\minecraft\assets, --gameDir, ., --fml.fmlVersion, 4.0.42, --fml.mcVersion, 1.21.1, --fml.neoForgeVersion, 21.1.219, --fml.neoFormVersion, 20240808.144430]
+[033月2026 14:23:18.078] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: JVM identified as Eclipse Adoptium OpenJDK 64-Bit Server VM 21.0.4+7-LTS
+[033月2026 14:23:18.080] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 11.0.5+main.901c6ea8 starting: java version 21.0.4 by Eclipse Adoptium; OS Windows 11 arch amd64 version 10.0
+[033月2026 14:23:18.185] [main/INFO] [net.neoforged.fml.loading.ImmediateWindowHandler/]: ImmediateWindowProvider not loading because launch target is forgedatadev
+[033月2026 14:23:18.234] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=union:/C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.15.2+mixin.0.8.7/2af2f021d8e02a0220dc27a7a72b4666d66d44ca/sponge-mixin-0.15.2+mixin.0.8.7.jar%23142!/ Service=ModLauncher Env=CLIENT
+[033月2026 14:23:18.338] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "neoforge-21.1.219.jar" [locator: neoforge devenv provider ([E:\mod\PochiMod\.gradle\repositories\ng_dummy_ng\net\neoforged\neoforge\21.1.219\neoforge-21.1.219.jar])]
+[033月2026 14:23:18.365] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "neoforge-21.1.219.jar" [locator: neoforge devenv provider ([E:\mod\PochiMod\.gradle\repositories\ng_dummy_ng\net\neoforged\neoforge\21.1.219\neoforge-21.1.219.jar])]
+[033月2026 14:23:18.377] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "main" [locator: userdev mods and services, reader: mod manifest]
+[033月2026 14:23:18.387] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "neoforge-21.1.219.jar" [locator: userdev mods and services, reader: mod manifest]
+[033月2026 14:23:18.391] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "geckolib-neoforge-1.21.1-4.7.6.jar" [locator: userdev mods and services, reader: mod manifest]
+[033月2026 14:23:18.395] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "player-animation-lib-forge-2.0.4+1.21.1.jar" [locator: userdev mods and services, reader: mod manifest]
+[033月2026 14:23:18.405] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "TerraBlender-neoforge-1.21.1-4.1.0.8.jar" [locator: userdev mods and services, reader: mod manifest]
+[033月2026 14:23:18.410] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found mod file "jei-1.21.1-neoforge-19.21.1.312.jar" [locator: userdev mods and services, reader: mod manifest]
+[033月2026 14:23:18.466] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found gamelibrary file "mixinextras-neoforge-0.5.0.jar" [locator: userdev mods and services, reader: mod manifest]
+[033月2026 14:23:18.642] [main/WARN] [net.neoforged.jarjar.selection.JarSelector/]: Attempted to select a dependency jar for JarJar which was passed in as source: library:mixinextras.neoforge. Using Mod File: C:\Users\20171\.gradle\caches\modules-2\files-2.1\io.github.llamalad7\mixinextras-neoforge\0.5.0\d734b83ce6542bb70ea31755c1595b88992dbe65\mixinextras-neoforge-0.5.0.jar
+[033月2026 14:23:18.643] [main/INFO] [net.neoforged.fml.loading.moddiscovery.locators.JarInJarDependencyLocator/]: Found 1 dependencies adding them to mods collection
+[033月2026 14:23:18.643] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/SCAN]: Found library file "net.neoforged.neoforge-coremods-21.1.219.jar" [parent: neoforge-21.1.219.jar, locator: jarinjar, reader: mod manifest]
+[033月2026 14:23:18.644] [main/INFO] [net.neoforged.fml.loading.moddiscovery.ModDiscoverer/]: 
+     Mod List:
+		Name Version (Mod Id)
+
+		Echoes of Eco 0.0.5-1.21.1 (pochimod)
+		GeckoLib 4 4.7.6 (geckolib)
+		Just Enough Items 19.21.1.312 (jei)
+		Minecraft 1.21.1 (minecraft)
+		NeoForge 21.1.219 (neoforge)
+		Player Animator 2.0.4+1.21.1 (playeranimator)
+		TerraBlender 4.1.0.8 (terrablender)
+[033月2026 14:23:19.424] [main/INFO] [mixin/]: Compatibility level set to JAVA_17
+[033月2026 14:23:19.430] [main/INFO] [mixin/]: Compatibility level set to JAVA_21
+[033月2026 14:23:19.438] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'forgedatadev' with arguments [--gameDir, ., --assetsDir, C:\Users\20171\.gradle\caches\minecraft\assets, --mod, pochimod, --all, --output, E:\mod\PochiMod\src\generated\resources, --existing, E:\mod\PochiMod\src\main\resources, --assetIndex, asset-index]
+[033月2026 14:23:19.539] [main/WARN] [mixin/]: Reference map 'terrablender.refmap.json' for terrablender.mixins.json could not be read. If this is a development environment you can ignore this message
+[033月2026 14:23:19.540] [main/WARN] [mixin/]: Reference map 'terrablender.refmap.json' for terrablender_neoforge.mixins.json could not be read. If this is a development environment you can ignore this message
+[033月2026 14:23:19.540] [main/WARN] [mixin/]: Reference map 'geckolib.refmap.json' for geckolib.mixins.json could not be read. If this is a development environment you can ignore this message
+[033月2026 14:23:20.253] [main/INFO] [net.neoforged.neoforge.data.loading.DatagenModLoader/]: Initializing Data Gatherer for mods [pochimod]
+[033月2026 14:23:20.267] [main/INFO] [MixinExtras|Service/]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.0).
+[033月2026 14:23:25.231] [modloading-worker-0/INFO] [net.neoforged.neoforge.common.NeoForgeMod/NEOFORGE-MOD]: NeoForge mod loading, version 21.1.219, for MC 1.21.1
+[033月2026 14:23:25.327] [modloading-worker-0/INFO] [mezz.jei.library.load.PluginCaller/]: Sending ConfigManager...
+[033月2026 14:23:25.334] [modloading-worker-0/INFO] [mezz.jei.library.load.PluginCaller/]: Sending ConfigManager took 4.944 milliseconds
+[033月2026 14:23:25.482] [modloading-worker-0/INFO] [terrablender/]: Registered region minecraft:overworld to index 0 for type OVERWORLD
+[033月2026 14:23:25.483] [modloading-worker-0/INFO] [terrablender/]: Registered region minecraft:nether to index 0 for type NETHER
+[033月2026 14:23:25.483] [modloading-worker-0/INFO] [terrablender/]: Registered region pochimod:overworld to index 1 for type OVERWORLD
+[033月2026 14:23:25.483] [modloading-worker-0/INFO] [terrablender/]: Registered region pochimod:overworld_rare to index 2 for type OVERWORLD
+[033月2026 14:23:26.003] [modloading-sync-worker/WARN] [net.minecraft.network.syncher.SynchedEntityData/]: defineId called for: class net.minecraft.world.entity.ambient.Bat from class net.pochi.pochimod.entity.custom.Cicada
+[033月2026 14:23:26.003] [modloading-sync-worker/WARN] [net.minecraft.network.syncher.SynchedEntityData/]: defineId called for: class net.minecraft.world.entity.ambient.Bat from class net.pochi.pochimod.entity.custom.Dragonfly
+[033月2026 14:23:26.003] [modloading-sync-worker/WARN] [net.minecraft.network.syncher.SynchedEntityData/]: defineId called for: class net.minecraft.world.entity.ambient.Bat from class net.pochi.pochimod.entity.custom.Butterfly
+[033月2026 14:23:26.009] [modloading-sync-worker/WARN] [net.minecraft.network.syncher.SynchedEntityData/]: defineId called for: class net.pochi.pochimod.entity.custom.Emu from class net.pochi.pochimod.entity.custom.Cassowary
+[033月2026 14:23:26.241] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/E:/mod/PochiMod/.gradle/repositories/ng_dummy_ng/net/neoforged/neoforge/21.1.219/neoforge-21.1.219.jar%23195!/assets/.mcassetsroot' uses unexpected schema
+[033月2026 14:23:26.242] [main/WARN] [net.minecraft.server.packs.VanillaPackResourcesBuilder/]: Assets URL 'union:/E:/mod/PochiMod/.gradle/repositories/ng_dummy_ng/net/neoforged/neoforge/21.1.219/neoforge-21.1.219.jar%23195!/data/.mcassetsroot' uses unexpected schema
+[033月2026 14:23:26.498] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Registries
+[033月2026 14:23:26.700] [main/INFO] [net.minecraft.data.DataGenerator/]: Registries finished after 201 ms
+[033月2026 14:23:26.701] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Languages: ja_jp for mod: pochimod
+[033月2026 14:23:26.709] [main/INFO] [net.minecraft.data.DataGenerator/]: Languages: ja_jp for mod: pochimod finished after 7 ms
+[033月2026 14:23:26.709] [main/INFO] [net.minecraft.data.DataGenerator/]: Starting provider: Languages: en_us for mod: pochimod
+[033月2026 14:23:26.714] [main/INFO] [net.minecraft.data.DataGenerator/]: Languages: en_us for mod: pochimod finished after 4 ms
+[033月2026 14:23:26.714] [main/INFO] [net.minecraft.data.DataGenerator/]: All providers took: 215 ms
+[033月2026 14:23:26.719] [main/INFO] [net.minecraft.data.HashCache/]: Caching: total files: 142, old count: 142, new count: 143, removed stale: 0, written: 0

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "pochimod:block/coconut_planks",
+    "side": "pochimod:block/coconut_planks",
+    "top": "pochimod:block/coconut_planks"
+  }
+}

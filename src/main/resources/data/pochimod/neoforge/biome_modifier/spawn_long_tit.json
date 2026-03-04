@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "minecraft:snowy_taiga",
+  "spawners": {
+    "type": "pochimod:long_tit",
+    "weight": 30,
+    "minCount": 2,
+    "maxCount": 2
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "pochimod:guyana_biome",
+  "spawners": {
+    "type": "pochimod:perisso",
+    "weight": 20,
+    "minCount": 1,
+    "maxCount": 2
+  }
+}

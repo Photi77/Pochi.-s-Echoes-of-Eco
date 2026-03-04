@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "pochimod:block/japanese_malt_p",
+    "side": "pochimod:block/japanese_malt_p",
+    "top": "pochimod:block/japanese_malt_p"
+  }
+}

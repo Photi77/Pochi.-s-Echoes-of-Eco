@@ -1,0 +1,18 @@
+{
+  "type": "pochimod:mineral_shaped",
+  "tool_type": "ring",
+  "pattern": [
+    " C ",
+    "C C",
+    " C "
+  ],
+  "key": {
+    "C": {
+      "item": "pochimod:mineral_chunk"
+    }
+  },
+  "result": {
+    "id": "pochimod:mineral_ring",
+    "count": 1
+  }
+}

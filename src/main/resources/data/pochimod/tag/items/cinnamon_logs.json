@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "pochimod:cinnamon_log",
+    "pochimod:cinnamon_wood",
+    "pochimod:stripped_cinnamon_log",
+    "pochimod:stripped_cinnamon_wood"
+  ]
+}

@@ -1,0 +1,50 @@
+/place feature pochimod:almond
+/place feature pochimod:banana
+/place feature pochimod:coffee
+/locate biome minecraft:jungle
+/tp @s -984 93 956
+/locate biome minecraft:jungle
+/tp @s -514 114 -517
+/place feature pochimod:cabernet_sauvignon
+/gamerule randomTickSpeed 1000
+/locate biome minecraft:jungle
+/tp @s -90 65 -106
+/place feature pochimod:cola
+/locate biome minecraft:jungle
+/tp @s 51 97 -708
+/summon pochimod:indicator_idae
+/locate biome minecraft:birch_forest
+/tp @s 1 82 -1
+/locate biome minecraft:birch_forest
+/tp @s 452 66 -896
+/locate biome minecraft:birch_forest
+/tp @s -615 66 657
+/effect give @e minecraft:glowing
+/give Dev pochimod:river_brush
+/locate biome minecraft:jungle
+/tp @s -1061 63 -464
+/recipe give Dev *
+/gamerule randomTickSpeed 1000
+/give Dev pochimod:river_brush
+/locate biome pochimod:guyana_biome
+/tp @s 3660 111 3234
+/locate biome pochimod:guyana_biome
+/tp @s -1865 118 698
+/locate biome pochimod:cappadocia_biome
+/tp @s -3 136 -67
+/tp @s 0 ~ 0
+/locate biome minecraft:jagged_peaks
+/tp @s 3569 158 1235
+/locate biome minecraft:jagged_peaks
+/tp @s 1521 190 162
+/locate biome minecraft:jagged_peaks
+/tp @s 514 172 -173
+/locate biome minecraft:jagged_peaks
+/tp @s -6404 179 5522
+/locate biome minecraft:ocean
+/tp @s -1853 156 1838
+/locate biome minecraft:ocean
+/tp @s 2701 141 2414
+/locate biome pochimod:guyana_biome
+/tp @s -55 141 1188
+/give Dev pochimod:river_brush

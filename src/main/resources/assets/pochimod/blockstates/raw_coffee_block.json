@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "pochimod:block/raw_coffee_block"
+    }
+  }
+}

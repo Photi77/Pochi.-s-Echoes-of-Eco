@@ -1,0 +1,18 @@
+{
+  "type": "pochimod:mineral_shaped",
+  "tool_type": "helmet",
+  "pattern": [
+    "CCC",
+    "C C",
+    "   "
+  ],
+  "key": {
+    "C": {
+      "item": "pochimod:mineral_chunk"
+    }
+  },
+  "result": {
+    "id": "pochimod:mineral_helmet",
+    "count": 1
+  }
+}

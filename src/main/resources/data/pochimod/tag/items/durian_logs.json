@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "pochimod:durian_log",
+    "pochimod:durian_wood",
+    "pochimod:stripped_durian_log",
+    "pochimod:stripped_durian_wood"
+  ]
+}

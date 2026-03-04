@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "pochimod:block/lemon_slab"
+    },
+    "type=double": {
+      "model": "pochimod:block/lemon_planks"
+    },
+    "type=top": {
+      "model": "pochimod:block/lemon_slab_top"
+    }
+  }
+}

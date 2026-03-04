@@ -1,0 +1,18 @@
+{
+  "type": "pochimod:mineral_shaped",
+  "tool_type": "chestplate",
+  "pattern": [
+    "C C",
+    "CCC",
+    "CCC"
+  ],
+  "key": {
+    "C": {
+      "item": "pochimod:mineral_chunk"
+    }
+  },
+  "result": {
+    "id": "pochimod:mineral_chestplate",
+    "count": 1
+  }
+}

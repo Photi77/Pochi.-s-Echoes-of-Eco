@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "minecraft:stony_shore",
+  "spawners": {
+    "type": "pochimod:sooty_shearwater",
+    "weight": 30,
+    "minCount": 2,
+    "maxCount": 3
+  }
+}

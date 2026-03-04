@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": {"model": "pochimod:block/bfurnace_block"},
+    "facing=east": {"model": "pochimod:block/bfurnace_block","y": 90},
+    "facing=south": {"model": "pochimod:block/bfurnace_block","y": 180},
+    "facing=west": {"model": "pochimod:block/bfurnace_block","y": 270}
+  }
+}

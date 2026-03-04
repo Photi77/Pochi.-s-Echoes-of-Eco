@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "minecraft:swamp",
+  "spawners": {
+    "type": "pochimod:dragonfly",
+    "weight": 20,
+    "minCount": 2,
+    "maxCount": 3
+  }
+}

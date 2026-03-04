@@ -1,0 +1,11 @@
+{
+  "type": "pochimod:low_stone_peck",
+  "config": {
+    "state": {
+      "Name": "minecraft:basalt",
+      "Properties": {
+        "axis": "y"
+      }
+    }
+  }
+}

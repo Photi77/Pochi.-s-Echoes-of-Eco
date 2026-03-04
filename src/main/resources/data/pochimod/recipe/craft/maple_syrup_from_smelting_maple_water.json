@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "cookingtime": 450,
+  "experience": 0.9,
+  "group": "copper_ingot",
+  "ingredient": {
+    "item": "pochimod:maple_water"
+  },
+  "result": "pochimod:maple_syrup"
+}

@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "minecraft:plains",
+  "spawners": {
+    "type": "pochimod:sparrow",
+    "weight": 30,
+    "minCount": 2,
+    "maxCount": 5
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "cicada_ambient": {
+    "subtitle": "sounds.pochimod.cicada_ambient",
+    "sounds": [
+      "pochimod:cicada_ambient"
+    ]
+  },
+  "cicada_hurt": {
+    "subtitle": "sounds.pochimod.cicada_hurt",
+    "sounds": [
+      "pochimod:cicada_hurt"
+    ]
+  },
+  "cicada_death": {
+    "subtitle": "sounds.pochimod.cicada_death",
+    "sounds": [
+      "pochimod:cicada_death"
+    ]
+  }
+}

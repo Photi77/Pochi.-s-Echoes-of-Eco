@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "pochimod:guyana_biome",
+  "spawners": {
+    "type": "pochimod:guyana_rupicola",
+    "weight": 30,
+    "minCount": 2,
+    "maxCount": 4
+  }
+}

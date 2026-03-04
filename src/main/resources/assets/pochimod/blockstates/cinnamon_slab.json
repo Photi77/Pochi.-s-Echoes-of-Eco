@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "pochimod:block/cinnamon_slab"
+    },
+    "type=double": {
+      "model": "pochimod:block/cinnamon_planks"
+    },
+    "type=top": {
+      "model": "pochimod:block/cinnamon_slab_top"
+    }
+  }
+}

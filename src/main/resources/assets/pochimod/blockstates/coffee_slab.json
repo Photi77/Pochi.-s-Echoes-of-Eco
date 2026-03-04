@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "pochimod:block/coffee_slab"
+    },
+    "type=double": {
+      "model": "pochimod:block/coffee_planks"
+    },
+    "type=top": {
+      "model": "pochimod:block/coffee_slab_top"
+    }
+  }
+}

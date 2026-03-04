@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "minecraft:sparse_jungle",
+  "spawners": {
+    "type": "pochimod:musk_cat",
+    "weight": 30,
+    "minCount": 2,
+    "maxCount": 3
+  }
+}

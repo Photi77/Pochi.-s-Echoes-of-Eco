@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "pochimod:coconut_log",
+    "pochimod:coconut_wood",
+    "pochimod:stripped_coconut_log",
+    "pochimod:stripped_coconut_wood"
+  ]
+}

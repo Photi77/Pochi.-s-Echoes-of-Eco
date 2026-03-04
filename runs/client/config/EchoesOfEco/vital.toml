@@ -1,0 +1,178 @@
+["Vital System Configuration"]
+	#Natural Depletion Over Time
+	#Based on vanilla Minecraft food system (107 minutes to deplete fully when idle)
+	#How much hydration depletes per interval (default: 1)
+	# Default: 1
+	# Range: 0 ~ 100
+	hydrationDepletionRate = 1
+	#How much nutrition depletes per interval (default: 1)
+	#Applied to all nutrients equally including lipid
+	# Default: 1
+	# Range: 0 ~ 100
+	nutritionDepletionRate = 1
+	#Interval between depletions in ticks (20 ticks = 1 second)
+	#Default: 2140 ticks = 107 seconds (vanilla equivalent)
+	# Default: 2140
+	# Range: 20 ~ 24000
+	depletionInterval = 2140
+	# 
+	#Action-Based Consumption
+	#Enable additional consumption during actions
+	enableActionConsumption = true
+	# 
+	#Sprint Settings (continuous running)
+	#Vanilla: Can sprint for ~13 minutes continuously
+	#How often to consume nutrition while sprinting (ticks)
+	#Default: 100 = 5 seconds
+	# Default: 100
+	# Range: 1 ~ 1200
+	sprintNutritionInterval = 200
+	#Carbohydrate cost per sprint interval (primary fast fuel)
+	# Default: 2
+	# Range: 0 ~ 100
+	sprintCarbohydrateCost = 1
+	#How often to consume hydration while sprinting (ticks)
+	#Default: 160 = 8 seconds (vanilla equivalent)
+	# Default: 160
+	# Range: 20 ~ 1200
+	sprintHydrationInterval = 160
+	#Hydration cost per sprint interval
+	# Default: 1
+	# Range: 0 ~ 100
+	sprintHydrationCost = 1
+	# 
+	#Swim Settings
+	#Vanilla: Very slow consumption while swimming
+	#How often to consume nutrition while swimming (ticks)
+	#Default: 40 = 2 seconds
+	# Default: 40
+	# Range: 1 ~ 1200
+	swimNutritionInterval = 20
+	#Lipid cost per swim interval (primary depletion source for lipid)
+	# Default: 2
+	# Range: 0 ~ 100
+	swimLipidCost = 1
+	#Carbohydrate cost per swim interval
+	# Default: 0
+	# Range: 0 ~ 100
+	swimCarbohydrateCost = 0
+	#How often to consume hydration while swimming (ticks)
+	#Default: 800 = 40 seconds (vanilla equivalent)
+	# Default: 800
+	# Range: 20 ~ 2400
+	swimHydrationInterval = 800
+	#Hydration cost per swim interval
+	# Default: 1
+	# Range: 0 ~ 100
+	swimHydrationCost = 1
+	# 
+	#Jump Settings
+	#Vanilla: ~800 jumps to deplete food bar
+	#Consume nutrition every N jumps
+	#Default: 5
+	# Default: 5
+	# Range: 1 ~ 100
+	jumpCounterThreshold = 8
+	#Carbohydrate cost per jump threshold
+	# Default: 1
+	# Range: 0 ~ 100
+	jumpCarbohydrateCost = 1
+	#Protein cost per jump threshold (leg muscle exertion)
+	# Default: 1
+	# Range: 0 ~ 100
+	jumpProteinCost = 0
+	# 
+	#Block Break Settings
+	#Vanilla: ~8000 block (without tools) to deplete food bar
+	#Consume nutrition every N block broken
+	#Default: 10 (fast feedback for mining loops)
+	# Default: 10
+	# Range: 1 ~ 1000
+	blockBreakCounterThreshold = 80
+	#Protein cost per block threshold (muscle use)
+	# Default: 2
+	# Range: 0 ~ 100
+	blockBreakProteinCost = 1
+	#Carbohydrate cost per block threshold (energy)
+	# Default: 1
+	# Range: 0 ~ 100
+	blockBreakCarbohydrateCost = 0
+	#Mineral cost per block threshold (bone/nerve load)
+	# Default: 2
+	# Range: 0 ~ 100
+	blockBreakMineralCost = 0
+	# 
+	#Attack Settings
+	#Vanilla: ~400 attacks to deplete food bar
+	#Consume nutrition every N attacks
+	#Default: 3
+	# Default: 3
+	# Range: 1 ~ 100
+	attackCounterThreshold = 4
+	#Protein cost per attack threshold (muscle exertion)
+	# Default: 2
+	# Range: 0 ~ 100
+	attackProteinCost = 1
+	#Carbohydrate cost per attack threshold (burst energy)
+	# Default: 2
+	# Range: 0 ~ 100
+	attackCarbohydrateCost = 0
+	# 
+	#Damage Received Settings
+	#Protein cost when taking damage (tissue repair demand)
+	# Default: 3
+	# Range: 0 ~ 100
+	damageProteinCost = 1
+	#Vitamin cost when taking damage (immune/antioxidant response)
+	# Default: 3
+	# Range: 0 ~ 100
+	damageVitaminCost = 1
+	#Mineral cost when taking damage (electrolyte/bone stress)
+	# Default: 2
+	# Range: 0 ~ 100
+	damageMineralCost = 1
+	# 
+	#Climbing Settings (ladders, vines)
+	#How often to consume nutrition while climbing (ticks)
+	#Default: 60 = 3 seconds
+	# Default: 60
+	# Range: 1 ~ 1200
+	climbNutritionInterval = 20
+	#Protein cost per climb interval (upper body muscle use)
+	# Default: 2
+	# Range: 0 ~ 100
+	climbProteinCost = 1
+	#Carbohydrate cost per climb interval (sustained effort)
+	# Default: 1
+	# Range: 0 ~ 100
+	climbCarbohydrateCost = 0
+	# 
+	#Difficulty Scaling
+	#Scale depletion rates with game difficulty
+	#Peaceful=0.5x, Easy=1x, Normal=1.5x, Hard=2x
+	scaleWithDifficulty = true
+	# 
+	#Deficiency Effects (debuffs when stats are low)
+	#Enable debuff effects when vital stats are low
+	enableDeficiencyEffects = true
+	#Enable debuffs from low hydration
+	enableHydrationDebuffs = true
+	#Enable debuffs from low nutrition
+	enableNutritionDebuffs = true
+	#Enable debuffs from excess nutrition (over 120/150)
+	#Lipid excess causes movement slowdown (obesity), carb excess causes hunger, etc.
+	enableExcessEffects = true
+	#Lipid cost per sprint interval (aerobic fat burning)
+	#Sprinting is the primary way to reduce lipid in daily gameplay.
+	#Swimming (swimLipidCost) should be higher for dedicated fat burning.
+	# Default: 1
+	# Range: 0 ~ 100
+	sprintLipidCost = 1
+	#Mineral cost per swim interval (electrolyte loss from exertion)
+	# Default: 1
+	# Range: 0 ~ 100
+	swimMineralCost = 1
+	#Vitamin cost per attack threshold (stress response, immune activation)
+	# Default: 1
+	# Range: 0 ~ 100
+	attackVitaminCost = 1

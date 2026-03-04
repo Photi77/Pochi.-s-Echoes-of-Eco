@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "pochimod:block/cabernet_sauvignon_pressure_plate"
+    },
+    "powered=true": {
+      "model": "pochimod:block/cabernet_sauvignon_pressure_plate_down"
+    }
+  }
+}

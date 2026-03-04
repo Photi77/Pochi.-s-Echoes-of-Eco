@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "pochimod:block/queen_of_night_bottom"
+  },
+  "render_type": "cutout"
+}

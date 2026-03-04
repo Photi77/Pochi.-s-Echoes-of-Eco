@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "pochimod:block/kiwi_slab"
+    },
+    "type=double": {
+      "model": "pochimod:block/kiwi_planks"
+    },
+    "type=top": {
+      "model": "pochimod:block/kiwi_slab_top"
+    }
+  }
+}

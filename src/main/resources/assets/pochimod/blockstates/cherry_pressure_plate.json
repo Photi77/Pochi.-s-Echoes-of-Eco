@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "pochimod:block/cherry_pressure_plate"
+    },
+    "powered=true": {
+      "model": "pochimod:block/cherry_pressure_plate_down"
+    }
+  }
+}

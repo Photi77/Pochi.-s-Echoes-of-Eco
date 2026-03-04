@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "pochimod:block/coconut_log",
+    "side": "pochimod:block/coconut_log"
+  }
+}

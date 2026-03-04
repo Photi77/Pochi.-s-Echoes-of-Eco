@@ -1,0 +1,14 @@
+{
+  "variants": {
+    "visual_height=1": { "model": "pochimod:block/pottery_on_wheel_h1" },
+    "visual_height=2": { "model": "pochimod:block/pottery_on_wheel_h2" },
+    "visual_height=3": { "model": "pochimod:block/pottery_on_wheel_h3" },
+    "visual_height=4": { "model": "pochimod:block/pottery_on_wheel_h4" },
+    "visual_height=5": { "model": "pochimod:block/pottery_on_wheel_h5" },
+    "visual_height=6": { "model": "pochimod:block/pottery_on_wheel_h6" },
+    "visual_height=7": { "model": "pochimod:block/pottery_on_wheel_h7" },
+    "visual_height=8": { "model": "pochimod:block/pottery_on_wheel_h8" },
+    "visual_height=9": { "model": "pochimod:block/pottery_on_wheel_h9" },
+    "visual_height=10": { "model": "pochimod:block/pottery_on_wheel_h10" }
+  }
+}

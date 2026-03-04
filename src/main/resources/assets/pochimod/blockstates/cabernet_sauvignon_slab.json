@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "pochimod:block/cabernet_sauvignon_slab"
+    },
+    "type=double": {
+      "model": "pochimod:block/cabernet_sauvignon_planks"
+    },
+    "type=top": {
+      "model": "pochimod:block/cabernet_sauvignon_slab_top"
+    }
+  }
+}

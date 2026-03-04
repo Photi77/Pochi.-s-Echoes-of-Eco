@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "pochimod:block/cabernet_sauvignon_planks",
+    "side": "pochimod:block/cabernet_sauvignon_planks",
+    "top": "pochimod:block/cabernet_sauvignon_planks"
+  }
+}

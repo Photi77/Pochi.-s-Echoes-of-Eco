@@ -1,0 +1,11 @@
+{
+  "type": "pochimod:quality_shapeless",
+  "category": "misc",
+  "ingredients": [
+    { "item": "minecraft:wheat" },
+    { "item": "minecraft:wheat" }
+  ],
+  "result": {
+    "id": "minecraft:bread"
+  }
+}

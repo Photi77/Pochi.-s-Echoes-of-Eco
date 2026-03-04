@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/inner_stairs",
+  "textures": {
+    "bottom": "pochimod:block/durian_planks",
+    "side": "pochimod:block/durian_planks",
+    "top": "pochimod:block/durian_planks"
+  }
+}

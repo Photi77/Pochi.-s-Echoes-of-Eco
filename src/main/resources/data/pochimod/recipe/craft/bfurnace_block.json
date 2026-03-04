@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "#i#",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "pochimod:chromite_ingot"
+    },
+    "i": {
+      "item": "pochimod:row_fluorite"
+    }
+  },
+  "result": {
+    "item": "pochimod:bfurnace_block"
+  }
+}

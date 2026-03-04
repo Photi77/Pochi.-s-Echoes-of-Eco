@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "pochimod:cola_log",
+    "pochimod:cola_wood",
+    "pochimod:stripped_cola_log",
+    "pochimod:stripped_cola_wood"
+  ]
+}

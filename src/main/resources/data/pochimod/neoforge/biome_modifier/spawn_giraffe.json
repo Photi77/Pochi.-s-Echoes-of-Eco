@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "minecraft:savanna_plateau",
+  "spawners": {
+    "type": "pochimod:giraffe",
+    "weight": 30,
+    "minCount": 1,
+    "maxCount": 1
+  }
+}

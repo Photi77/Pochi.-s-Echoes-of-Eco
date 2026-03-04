@@ -1,0 +1,18 @@
+{
+  "type": "pochimod:mineral_shaped",
+  "tool_type": "boots",
+  "pattern": [
+    "   ",
+    "C C",
+    "C C"
+  ],
+  "key": {
+    "C": {
+      "item": "pochimod:mineral_chunk"
+    }
+  },
+  "result": {
+    "id": "pochimod:mineral_boots",
+    "count": 1
+  }
+}

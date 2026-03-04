@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "pochimod:block/banana_stage4"
+  },
+  "render_type": "cutout"
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "AiA",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "tag": "minecraft:planks"
+    },
+    "i": {
+      "item": "pochimod:baked_alum"
+    },
+    "A": {
+      "item": "pochimod:stainless"
+    }
+  },
+  "result": {
+    "item": "pochimod:sakedaru_block"
+  }
+}

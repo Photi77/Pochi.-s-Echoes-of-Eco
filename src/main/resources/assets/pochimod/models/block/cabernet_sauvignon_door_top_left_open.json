@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_top_left_open",
+  "textures": {
+    "bottom": "pochimod:block/cabernet_sauvignon_door_bottom",
+    "top": "pochimod:block/cabernet_sauvignon_door_top"
+  }
+}

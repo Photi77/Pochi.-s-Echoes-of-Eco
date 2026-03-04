@@ -1,0 +1,14 @@
+{
+  "type": "pochimod:bfurnace",
+  "ingredients": [
+    {
+      "item": "minecraft:iron_ingot"
+    },
+    {
+      "item": "pochimod:chromite_ingot"
+    }
+  ],
+  "output": {
+    "item": "pochimod:stainless"
+  }
+}

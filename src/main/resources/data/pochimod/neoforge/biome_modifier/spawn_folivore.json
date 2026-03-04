@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "pochimod:guyana_biome",
+  "spawners": {
+    "type": "pochimod:folivore",
+    "weight": 30,
+    "minCount": 2,
+    "maxCount": 4
+  }
+}

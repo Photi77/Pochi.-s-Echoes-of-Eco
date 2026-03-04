@@ -1,0 +1,32 @@
+{
+  "replace": false,
+  "values": [
+    "pochimod:bfurnace_block",
+    "pochimod:chromite_ore",
+    "pochimod:deepslate_chromite_ore",
+    "pochimod:netherrack_chromite_ore",
+    "pochimod:fluorite_ore",
+    "pochimod:deepslate_fluorite_ore",
+    "pochimod:netherrack_fluorite_ore",
+    "pochimod:alunite_ore",
+    "pochimod:deepslate_alunite_ore",
+    "pochimod:netherrack_alunite_ore",
+    "pochimod:bauxite_ore",
+    "pochimod:deepslate_bauxite_ore",
+    "pochimod:netherrack_bauxite_ore",
+    "pochimod:magunesium_ore",
+    "pochimod:deepslate_magunesium_ore",
+    "pochimod:netherrack_magunesium_ore",
+    "pochimod:vanadium_ore",
+    "pochimod:deepslate_vanadium_ore",
+    "pochimod:netherrack_vanadium_ore",
+    "pochimod:chromite_block",
+    "pochimod:stainless_block",
+    "pochimod:fluorite_block",
+    "pochimod:alunite_block",
+    "pochimod:bfurnace_block",
+    "pochimod:sanitary_block",
+    "pochimod:pammukale_block"
+
+  ]
+}

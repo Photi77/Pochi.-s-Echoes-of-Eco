@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "half=lower": {
+      "model": "pochimod:block/queen_of_night_bottom"
+    },
+    "half=upper": {
+      "model": "pochimod:block/queen_of_night_top"
+    }
+  }
+}

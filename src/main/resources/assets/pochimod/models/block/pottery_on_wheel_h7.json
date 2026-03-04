@@ -1,0 +1,20 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "particle": "minecraft:block/clay"
+  },
+  "elements": [
+    {
+      "from": [4, 0, 4],
+      "to": [12, 10, 12],
+      "faces": {
+        "down": {"texture": "#particle", "cullface": "down"},
+        "up": {"texture": "#particle"},
+        "north": {"texture": "#particle"},
+        "south": {"texture": "#particle"},
+        "west": {"texture": "#particle"},
+        "east": {"texture": "#particle"}
+      }
+    }
+  ]
+}

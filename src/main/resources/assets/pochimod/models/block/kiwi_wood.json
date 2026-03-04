@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "pochimod:block/kiwi_log",
+    "side": "pochimod:block/kiwi_log"
+  }
+}

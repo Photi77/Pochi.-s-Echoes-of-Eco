@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "pochimod:block/hop_bush_stage0"
+    },
+    "age=1": {
+      "model": "pochimod:block/hop_bush_stage1"
+    }
+  }
+}

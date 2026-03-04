@@ -1,0 +1,12 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "minecraft:deep_ocean",
+  "spawners": [
+    {
+      "type": "pochimod:hammer_head",
+      "weight": 5,
+      "minCount": 1,
+      "maxCount": 2
+    }
+  ]
+}

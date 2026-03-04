@@ -1,0 +1,69 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.sakaban.idle": {
+			"loop": true,
+			"animation_length": 0.96,
+			"bones": {
+				"tail3": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.08": {
+							"vector": [0, 20, 0]
+						},
+						"0.32": {
+							"vector": [0, 0, 0]
+						},
+						"0.56": {
+							"vector": [0, -20, 0]
+						},
+						"0.8": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"tail1": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.24": {
+							"vector": [0, 20, 0]
+						},
+						"0.48": {
+							"vector": [0, 0, 0]
+						},
+						"0.72": {
+							"vector": [0, -20, 0]
+						},
+						"0.96": {
+							"vector": [0, 0, 0],
+							"easing": "linear"
+						}
+					}
+				},
+				"tail2": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.16": {
+							"vector": [1.38134, 19.91082, 7.85783]
+						},
+						"0.4": {
+							"vector": [0, 0, 0]
+						},
+						"0.64": {
+							"vector": [0, -20, 0]
+						},
+						"0.88": {
+							"vector": [0, 0, 0]
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "pochimod:item/titan_alloy_axe"
+  }
+}

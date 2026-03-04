@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "pochimod:block/stripped_cabernet_sauvignon_wood_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "pochimod:block/stripped_cabernet_sauvignon_wood"
+    },
+    "axis=z": {
+      "model": "pochimod:block/stripped_cabernet_sauvignon_wood_horizontal",
+      "x": 90
+    }
+  }
+}

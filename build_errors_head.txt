@@ -1,0 +1,200 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.13/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+Java: 21.0.4, JVM: 21.0.4+7-LTS (Eclipse Adoptium), Arch: amd64
+-------------------------------------
+NeoGradle detected a problem with your project: Run.getProgramArguments()
+Details: The method getProgramArguments() is deprecated and will be removed in the future
+Potential Solution: Use getArguments() instead of getProgramArguments()
+More information: https://github.com/neoforged/NeoGradle/blob/NG_7.0/README.md#common-runs-configuration-types-configure-by-type
+-------------------------------------
+-------------------------------------
+NeoGradle detected a problem with your project: Run.getProgramArguments()
+Details: The method getProgramArguments() is deprecated and will be removed in the future
+Potential Solution: Use getArguments() instead of getProgramArguments()
+More information: https://github.com/neoforged/NeoGradle/blob/NG_7.0/README.md#common-runs-configuration-types-configure-by-type
+-------------------------------------
+
+> Task :cacheVersionManifest1.21.1 UP-TO-DATE
+> Task :cacheVersionExecutableClient1.21.1 UP-TO-DATE
+> Task :cacheVersionExecutableServer1.21.1 UP-TO-DATE
+> Task :cacheVersionMappingsClient1.21.1 UP-TO-DATE
+> Task :cacheVersionMappingsServer1.21.1 UP-TO-DATE
+> Task :neoFormListLibraries UP-TO-DATE
+> Task :neoFormStripClient UP-TO-DATE
+> Task :neoFormExtractServer UP-TO-DATE
+> Task :neoFormStripServer UP-TO-DATE
+> Task :neoFormMerge UP-TO-DATE
+> Task :neoFormMergeMappings UP-TO-DATE
+> Task :neoFormRename UP-TO-DATE
+> Task :neoFormDecompile UP-TO-DATE
+> Task :neoFormApplyForgesAccessTransformer UP-TO-DATE
+> Task :neoFormInject UP-TO-DATE
+> Task :neoFormPatch UP-TO-DATE
+> Task :neoFormPatchUserDev UP-TO-DATE
+> Task :neoFormApplyOfficialMappings UP-TO-DATE
+> Task :neoFormUnzipAdditionalSources UP-TO-DATE
+> Task :neoFormUnzipSources UP-TO-DATE
+> Task :create1.21.1ClientExtraJar UP-TO-DATE
+> Task :selectRawArtifactNg_dummy_ng.net.minecraft_client_1.21.1_client-extra UP-TO-DATE
+> Task :neoFormRecompile UP-TO-DATE
+> Task :neoFormPackRecomp UP-TO-DATE
+> Task :supplyRawJarForneoFormJoined1.21.1-20240808.144430 UP-TO-DATE
+> Task :selectRawArtifactNg_dummy_ng.net.neoforged_neoforge_21.1.219 UP-TO-DATE
+
+> Task :compileJava
+E:\mod\PochiMod\src\main\java\net\pochi\pochimod\command\SoilDebugCommand.java:20: エラー: シンボルを見つけられません
+@Mod.EventBusSubscriber(modid = PochiMod.MOD_ID)
+    ^
+  シンボル:   クラス EventBusSubscriber
+  場所: @interface Mod
+E:\mod\PochiMod\src\main\java\net\pochi\pochimod\datagen\DataGenerators.java:15: エラー: シンボルを見つけられません
+@Mod.EventBusSubscriber(modid = PochiMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+    ^
+  シンボル:   クラス EventBusSubscriber
+  場所: @interface Mod
+E:\mod\PochiMod\src\main\java\net\pochi\pochimod\datagen\ModBlockStateProvider.java:449: エラー: シンボルを見つけられません
+    private void blockWithItem(DeferredHolder<Block, Block> blockRegistryObject) {
+                               ^
+  シンボル:   クラス DeferredHolder
+  場所: クラス ModBlockStateProvider
+E:\mod\PochiMod\src\main\java\net\pochi\pochimod\datagen\ModBlockStateProvider.java:453: エラー: シンボルを見つけられません
+    private void saplingBlock(DeferredHolder<Block, Block> blockRegistryObject) {
+                              ^
+  シンボル:   クラス DeferredHolder
+  場所: クラス ModBlockStateProvider
+E:\mod\PochiMod\src\main\java\net\pochi\pochimod\datagen\ModItemModelProvider.java:282: エラー: シンボルを見つけられません
+    private ItemModelBuilder saplingItem(DeferredHolder<Block, Block> item) {
+                                         ^
+  シンボル:   クラス DeferredHolder
+  場所: クラス ModItemModelProvider
+E:\mod\PochiMod\src\main\java\net\pochi\pochimod\datagen\ModItemModelProvider.java:288: エラー: シンボルを見つけられません
+    private ItemModelBuilder simpleItem(DeferredHolder<Item, Item> item) {
+                                        ^
+  シンボル:   クラス DeferredHolder
+  場所: クラス ModItemModelProvider
+E:\mod\PochiMod\src\main\java\net\pochi\pochimod\datagen\ModItemModelProvider.java:294: エラー: シンボルを見つけられません
+    private ItemModelBuilder simpleItemBlock(DeferredHolder<Block, Block> block) {
+                                             ^
+  シンボル:   クラス DeferredHolder
+  場所: クラス ModItemModelProvider
+E:\mod\PochiMod\src\main\java\net\pochi\pochimod\datagen\ModItemModelProvider.java:300: エラー: シンボルを見つけられません
+    private ItemModelBuilder handheldItem(DeferredHolder<Item, Item> item) {
+                                          ^
+  シンボル:   クラス DeferredHolder
+  場所: クラス ModItemModelProvider
+E:\mod\PochiMod\src\main\java\net\pochi\pochimod\datagen\ModRecipeProvider.java:13: エラー: パッケージnet.neoforged.neoforge.common.crafting.conditionsは存在しません
+import net.neoforged.neoforge.common.crafting.conditions.IConditionBuilder;
+                                                        ^
+E:\mod\PochiMod\src\main\java\net\pochi\pochimod\datagen\ModRecipeProvider.java:22: エラー: シンボルを見つけられません
+public class ModRecipeProvider extends RecipeProvider implements IConditionBuilder {
+                                                                 ^
+  シンボル: クラス IConditionBuilder
+E:\mod\PochiMod\src\main\java\net\pochi\pochimod\datagen\ModRecipeProvider.java:28: エラー: シンボルを見つけられません
+    protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
+                                         ^
+  シンボル:   クラス FinishedRecipe
+  場所: クラス ModRecipeProvider
+E:\mod\PochiMod\src\main\java\net\pochi\pochimod\datagen\ModRecipeProvider.java:2368: エラー: シンボルを見つけられません
+    protected static void oreSmelting(Consumer<FinishedRecipe> p_250654_, List<ItemLike> p_250172_, RecipeCategory p_250588_, ItemLike p_251868_, float p_250789_, int p_252144_, String p_251687_) {
+                                               ^
+  シンボル:   クラス FinishedRecipe
+  場所: クラス ModRecipeProvider
+E:\mod\PochiMod\src\main\java\net\pochi\pochimod\datagen\ModRecipeProvider.java:2372: エラー: シンボルを見つけられません
+    protected static void oreCooking(Consumer<FinishedRecipe> p_250791_, RecipeSerializer<? extends AbstractCookingRecipe> p_251817_, List<ItemLike> p_249619_, RecipeCategory p_251154_, ItemLike p_250066_, float p_251871_, int p_251316_, String p_251450_, String p_249236_) {
+                                              ^
+  シンボル:   クラス FinishedRecipe
+  場所: クラス ModRecipeProvider
+E:\mod\PochiMod\src\main\java\net\pochi\pochimod\enchantment\BLockArrowEnchant.java:4: エラー: シンボルを見つけられません
+import net.minecraft.world.item.enchantment.ArrowInfiniteEnchantment;
+                                           ^
+  シンボル:   クラス ArrowInfiniteEnchantment
+  場所: パッケージ net.minecraft.world.item.enchantment
+E:\mod\PochiMod\src\main\java\net\pochi\pochimod\enchantment\BLockArrowEnchant.java:6: エラー: シンボルを見つけられません
+import net.minecraft.world.item.enchantment.EnchantmentCategory;
+                                           ^
+  シンボル:   クラス EnchantmentCategory
+  場所: パッケージ net.minecraft.world.item.enchantment
+E:\mod\PochiMod\src\main\java\net\pochi\pochimod\enchantment\BLockArrowEnchant.java:8: エラー: final Enchantmentからは継承できません
+public class BLockArrowEnchant extends Enchantment {
+                                       ^
+E:\mod\PochiMod\src\main\java\net\pochi\pochimod\enchantment\BLockArrowEnchant.java:9: エラー: シンボルを見つけられません
+    protected BLockArrowEnchant(Rarity p_44676_, EnchantmentCategory p_44677_, EquipmentSlot... p_44678_) {
+                                ^
+  シンボル:   クラス Rarity
+  場所: クラス BLockArrowEnchant
+E:\mod\PochiMod\src\main\java\net\pochi\pochimod\enchantment\BLockArrowEnchant.java:9: エラー: シンボルを見つけられません
+    protected BLockArrowEnchant(Rarity p_44676_, EnchantmentCategory p_44677_, EquipmentSlot... p_44678_) {
+                                                 ^
+  シンボル:   クラス EnchantmentCategory
+  場所: クラス BLockArrowEnchant
+E:\mod\PochiMod\src\main\java\net\pochi\pochimod\enchantment\ModEnchantments.java:5: エラー: シンボルを見つけられません
+import net.minecraft.world.item.enchantment.EnchantmentCategory;
+                                           ^
+  シンボル:   クラス EnchantmentCategory
+  場所: パッケージ net.minecraft.world.item.enchantment
+E:\mod\PochiMod\src\main\java\net\pochi\pochimod\entity\custom\MantisShrimp.java:33: エラー: シンボルを見つけられません
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
+                                           ^
+  シンボル:   クラス BlockPathTypes
+  場所: パッケージ net.minecraft.world.level.pathfinder
+E:\mod\PochiMod\src\main\java\net\pochi\pochimod\entity\ai\WallClimbingNodeEvaluator.java:8: エラー: シンボルを見つけられません
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
+                                           ^
+  シンボル:   クラス BlockPathTypes
+  場所: パッケージ net.minecraft.world.level.pathfinder
+E:\mod\PochiMod\src\main\java\net\pochi\pochimod\entity\ai\WallClimbingNodeEvaluator.java:13: エラー: シンボルを見つけられません
+    public BlockPathTypes getBlockPathType(BlockGetter level, int x, int y, int z, Mob mob) {
+           ^
+  シンボル:   クラス BlockPathTypes
+  場所: クラス WallClimbingNodeEvaluator
+E:\mod\PochiMod\src\main\java\net\pochi\pochimod\entity\ai\WallClimbingNodeEvaluator.java:29: エラー: シンボルを見つけられません
+    protected BlockPathTypes evaluateBlockPathType(BlockGetter level, BlockPos pos, BlockPathTypes pathType) {
+                                                                                    ^
+  シンボル:   クラス BlockPathTypes
+  場所: クラス WallClimbingNodeEvaluator
+E:\mod\PochiMod\src\main\java\net\pochi\pochimod\entity\ai\WallClimbingNodeEvaluator.java:29: エラー: シンボルを見つけられません
+    protected BlockPathTypes evaluateBlockPathType(BlockGetter level, BlockPos pos, BlockPathTypes pathType) {
+              ^
+  シンボル:   クラス BlockPathTypes
+  場所: クラス WallClimbingNodeEvaluator
+E:\mod\PochiMod\src\main\java\net\pochi\pochimod\entity\custom\Albatross.java:34: エラー: シンボルを見つけられません
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
+                                           ^
+  シンボル:   クラス BlockPathTypes
+  場所: パッケージ net.minecraft.world.level.pathfinder
+E:\mod\PochiMod\src\main\java\net\pochi\pochimod\entity\custom\BurrowingOwl.java:32: エラー: シンボルを見つけられません
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
+                                           ^
+  シンボル:   クラス BlockPathTypes
+  場所: パッケージ net.minecraft.world.level.pathfinder
+E:\mod\PochiMod\src\main\java\net\pochi\pochimod\entity\custom\Butterfly.java:30: エラー: パッケージsoftware.bernie.geckolib.core.animatable.instanceは存在しません
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+                                                        ^
+E:\mod\PochiMod\src\main\java\net\pochi\pochimod\entity\custom\Butterfly.java:31: エラー: パッケージsoftware.bernie.geckolib.core.animatable.instanceは存在しません
+import software.bernie.geckolib.core.animatable.instance.SingletonAnimatableInstanceCache;
+                                                        ^
+E:\mod\PochiMod\src\main\java\net\pochi\pochimod\entity\custom\Butterfly.java:32: エラー: パッケージsoftware.bernie.geckolib.core.animationは存在しません
+import software.bernie.geckolib.core.animation.AnimationState;
+                                              ^
+E:\mod\PochiMod\src\main\java\net\pochi\pochimod\entity\custom\Butterfly.java:34: エラー: パッケージsoftware.bernie.geckolib.core.objectは存在しません
+import software.bernie.geckolib.core.object.PlayState;
+                                           ^
+E:\mod\PochiMod\src\main\java\net\pochi\pochimod\entity\custom\Butterfly.java:40: エラー: シンボルを見つけられません
+    private AnimatableInstanceCache factory = new SingletonAnimatableInstanceCache(this);
+            ^
+  シンボル:   クラス AnimatableInstanceCache
+  場所: クラス Butterfly
+E:\mod\PochiMod\src\main\java\net\pochi\pochimod\entity\custom\Butterfly.java:144: エラー: シンボルを見つけられません
+    private PlayState predicate(AnimationState animationState) {
+            ^
+  シンボル:   クラス PlayState
+  場所: クラス Butterfly
+E:\mod\PochiMod\src\main\java\net\pochi\pochimod\entity\custom\Butterfly.java:239: エラー: パッケージAnimatableManagerは存在しません
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+                                                     ^
+E:\mod\PochiMod\src\main\java\net\pochi\pochimod\entity\custom\Butterfly.java:245: エラー: シンボルを見つけられません
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+           ^
+  シンボル:   クラス AnimatableInstanceCache

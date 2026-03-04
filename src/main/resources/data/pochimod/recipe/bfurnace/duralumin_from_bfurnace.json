@@ -1,0 +1,14 @@
+{
+  "type": "pochimod:bfurnace",
+  "ingredients": [
+    {
+      "item": "minecraft:copper_ingot"
+    },
+    {
+      "item": "pochimod:aluminium_ingot"
+    }
+  ],
+  "output": {
+    "item": "pochimod:duralumin"
+  }
+}

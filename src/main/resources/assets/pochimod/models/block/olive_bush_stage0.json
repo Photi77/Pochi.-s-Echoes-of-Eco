@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/template_azalea",
+  "textures": {
+    "side": "pochimod:block/cutted_olive_bush_side",
+    "top": "pochimod:block/cutted_olive_bush_top"
+  },
+  "render_type": "cutout"
+}

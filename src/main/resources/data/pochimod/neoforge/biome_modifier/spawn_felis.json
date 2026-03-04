@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "minecraft:desert",
+  "spawners": {
+    "type": "pochimod:felis",
+    "weight": 30,
+    "minCount": 2,
+    "maxCount": 3
+  }
+}

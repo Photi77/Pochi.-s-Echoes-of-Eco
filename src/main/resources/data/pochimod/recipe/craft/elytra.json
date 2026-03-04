@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#i#",
+    "# #",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "item": "pochimod:duralumin"
+    },
+    "i": {
+      "item": "pochimod:electron"
+    }
+  },
+  "result": {
+    "item": "minecraft:elytra"
+  }
+}

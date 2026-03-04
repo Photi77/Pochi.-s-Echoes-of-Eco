@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "minecraft:flower_forest",
+  "spawners": {
+    "type": "pochimod:wombat",
+    "weight": 30,
+    "minCount": 2,
+    "maxCount": 3
+  }
+}
