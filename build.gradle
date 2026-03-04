@@ -24,14 +24,14 @@ runs {
     }
 
     server {
-        programArgument '--nogui'
+        argument '--nogui'
         systemProperty 'neoforge.enabledGameTestNamespaces', 'pochimod'
     }
 
-    data {
-        programArguments.addAll '--mod', 'pochimod', '--all',
-                '--output', file('src/generated/resources/').absolutePath,
-                '--existing', file('src/main/resources/').absolutePath
+    clientData {
+        arguments.addAll '--mod', 'pochimod', '--all',
+                '--output', file('src/generated/resources/').getAbsolutePath(),
+                '--existing', file('src/main/resources/').getAbsolutePath()
     }
 }
 

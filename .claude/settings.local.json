@@ -60,7 +60,8 @@
       "Bash(grep ^  E:\\\\|エラー::*)",
       "WebFetch(domain:neoforged.net)",
       "WebFetch(domain:cloudsmith.io)",
-      "WebFetch(domain:maven.blamejared.com)"
+      "WebFetch(domain:maven.blamejared.com)",
+      "WebFetch(domain:raw.githubusercontent.com)"
     ]
   }
 }
