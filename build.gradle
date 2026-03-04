@@ -1,10 +1,10 @@
 plugins {
     id 'eclipse'
     id 'maven-publish'
-    id 'net.neoforged.gradle.userdev' version '7.0.+'
+    id 'net.neoforged.gradle.userdev' version '7.1.20'
 }
 
-version = '0.0.5-1.21.1'
+version = '0.0.5-1.21.11'
 group = 'com.pochi.pochimod'
 archivesBaseName = 'EchoesOfEco'
 
@@ -54,10 +54,6 @@ repositories {
         url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
     }
     maven {
-        name = "KosmX's maven"
-        url = 'https://maven.kosmx.dev/'
-    }
-    maven {
         name = "MinecraftForge Maven (TerraBlender)"
         url = "https://maven.minecraftforge.net/"
     }
@@ -67,14 +63,11 @@ dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
 
     // JEI — compile against API only, use full jar at runtime
-    compileOnly("mezz.jei:jei-1.21.1-neoforge-api:${jei_version}")
-    runtimeOnly("mezz.jei:jei-1.21.1-neoforge:${jei_version}")
+    compileOnly("mezz.jei:jei-1.21.11-neoforge-api:${jei_version}")
+    runtimeOnly("mezz.jei:jei-1.21.11-neoforge:${jei_version}")
 
     // GeckoLib
-    implementation("software.bernie.geckolib:geckolib-neoforge-1.21.1:${geckolib_version}")
-
-    // PlayerAnimLib
-    implementation("dev.kosmx.player-anim:player-animation-lib-forge:${playeranim_version}")
+    implementation("software.bernie.geckolib:geckolib-neoforge-1.21.11:${geckolib_version}")
 
     // TerraBlender
     implementation("com.github.glitchfiend:TerraBlender-neoforge:${terrablender_version}")

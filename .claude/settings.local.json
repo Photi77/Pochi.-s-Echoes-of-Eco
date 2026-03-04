@@ -57,7 +57,10 @@
       "Bash(find \"/c/Users/20171/.gradle/caches/ng_execute/50437706f5f23f4c1f24ce80c843105fb9961f934a269e072c84cfc7ec3023f7/output/net/minecraft/world/item/crafting/\" -name \"*.class\" | xargs -I{} basename {} .class | grep -i \"Factory\\\\|cooking\" 2>/dev/null)",
       "Bash(grep ^  E:\\\\\\\\:*)",
       "Bash(grep \\\\.java:[0-9]:*)",
-      "Bash(grep ^  E:\\\\|エラー::*)"
+      "Bash(grep ^  E:\\\\|エラー::*)",
+      "WebFetch(domain:neoforged.net)",
+      "WebFetch(domain:cloudsmith.io)",
+      "WebFetch(domain:maven.blamejared.com)"
     ]
   }
 }

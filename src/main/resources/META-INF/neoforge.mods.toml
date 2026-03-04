@@ -4,7 +4,7 @@ license="All rights reserved"
 
 [[mods]]
 modId="pochimod"
-version="0.0.5-1.21.1"
+version="0.0.5-1.21.11"
 displayName="Echoes of Eco"
 logoFile="EchoesofEco.png"
 credits="Pochi"
@@ -16,20 +16,20 @@ Echoes of Eco - A nature and ecology focused mod for Minecraft.
 [[dependencies.pochimod]]
     modId="neoforge"
     type="required"
-    versionRange="[21.1,)"
+    versionRange="[21.11,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.pochimod]]
     modId="minecraft"
     type="required"
-    versionRange="[1.21.1,1.22)"
+    versionRange="[1.21.11,1.22)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.pochimod]]
     modId="terrablender"
     type="required"
-    versionRange="[4.1.0,)"
+    versionRange="[21.11.0,)"
     ordering="NONE"
     side="BOTH"

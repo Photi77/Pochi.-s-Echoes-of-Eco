@@ -12,6 +12,7 @@ out
 *.iws
 *.iml
 .idea
+*.py
 
 # gradle
 build
@@ -23,3 +24,5 @@ run
 
 # Files from Forge MDK
 forge*changelog.txt
+.claude/
+video/
