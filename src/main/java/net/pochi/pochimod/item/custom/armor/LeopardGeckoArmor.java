@@ -8,13 +8,17 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.equipment.ArmorMaterial;
+import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.level.Level;
-import software.bernie.geckolib.animation.AnimationState;
-import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.state.AnimationTest;
+import software.bernie.geckolib.animation.object.PlayState;
 
+import net.minecraft.world.item.component.TooltipDisplay;
 import java.util.List;
+import java.util.function.Consumer;
 
-public class LeopardGeckoArmor extends ArmorItem {
+public class LeopardGeckoArmor extends Item {
 
     //private AnimatableInstanceCache cache = new SingletonAnimatableInstanceCache(this);
 
@@ -37,16 +41,16 @@ public class LeopardGeckoArmor extends ArmorItem {
     // 再生中のデバフ
     public static final float REGEN_SPEED_PENALTY = -0.20F;
 
-    public LeopardGeckoArmor(Holder<ArmorMaterial> p_40386_, Type p_266831_, Properties p_40388_) {
-        super(p_40386_, p_266831_, p_40388_);
+    public LeopardGeckoArmor(Holder<ArmorMaterial> p_40386_, ArmorType p_266831_, Properties p_40388_) {
+        super(p_40388_);
     }
-    private PlayState predicate(AnimationState animationState) {
+    private PlayState predicate(AnimationTest animationState) {
         return PlayState.STOP;
     }
 
     //@Override
     //public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-    //    controllerRegistrar.add(new AnimationController(this, "controller", 0, this::predicate));
+    //    controllerRegistrar.add(new AnimationController("controller", 0, this::predicate));
     //}
 //
     //@Override
@@ -55,13 +59,13 @@ public class LeopardGeckoArmor extends ArmorItem {
     //}
 
     public void onArmorTick(ItemStack stack, Level level, Player player) {
-        if (level.isClientSide) {
+        if (level.isClientSide()) {
             return;
         }
 
         if (isRegenerating(stack)) {
             CompoundTag tag = getOrCreateCustomTag(stack);
-            int regenTicks = tag.getInt(REGEN_TICKS_TAG) - 1;
+            int regenTicks = tag.getIntOr(REGEN_TICKS_TAG, 0) - 1;
 
             if (regenTicks <= 0) {
                 tag.putBoolean(REGENERATING_TAG, false);
@@ -88,7 +92,7 @@ public class LeopardGeckoArmor extends ArmorItem {
     public static float getNutrition(ItemStack stack) {
         CustomData cd = stack.get(DataComponents.CUSTOM_DATA);
         if (cd == null) return 0.0F;
-        return cd.copyTag().getFloat(NUTRITION_TAG);
+        return cd.copyTag().getFloatOr(NUTRITION_TAG, 0.0F);
     }
 
     /**
@@ -125,7 +129,7 @@ public class LeopardGeckoArmor extends ArmorItem {
     public static boolean isRegenerating(ItemStack stack) {
         CustomData cd = stack.get(DataComponents.CUSTOM_DATA);
         if (cd == null) return false;
-        return cd.copyTag().getBoolean(REGENERATING_TAG);
+        return cd.copyTag().getBooleanOr(REGENERATING_TAG, false);
     }
 
     /**
@@ -148,7 +152,7 @@ public class LeopardGeckoArmor extends ArmorItem {
         }
         CustomData cd = stack.get(DataComponents.CUSTOM_DATA);
         if (cd == null) return 0;
-        return cd.copyTag().getInt(REGEN_TICKS_TAG) / 20;
+        return cd.copyTag().getIntOr(REGEN_TICKS_TAG, 0) / 20;
     }
 
     /**
@@ -173,34 +177,34 @@ public class LeopardGeckoArmor extends ArmorItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        super.appendHoverText(stack, context, tooltip, flag);
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
+        super.appendHoverText(stack, context, display, tooltip, flag);
 
         float nutrition = getNutrition(stack);
         float percentage = (nutrition / MAX_NUTRITION) * 100;
 
         if (isRegenerating(stack)) {
             int seconds = getRemainingRegenSeconds(stack);
-            tooltip.add(Component.literal("状態: 再生中 (" + seconds + "秒)")
+            tooltip.accept(Component.literal("状態: 再生中 (" + seconds + "秒)")
                     .withStyle(ChatFormatting.RED));
-            tooltip.add(Component.literal("栄養摂取: 不可").withStyle(ChatFormatting.GRAY));
-            tooltip.add(Component.literal("移動速度: -20%").withStyle(ChatFormatting.RED));
+            tooltip.accept(Component.literal("栄養摂取: 不可").withStyle(ChatFormatting.GRAY));
+            tooltip.accept(Component.literal("移動速度: -20%").withStyle(ChatFormatting.RED));
         } else {
-            tooltip.add(Component.literal(String.format("尻尾栄養: %.1f/%.1f (%.0f%%)",
+            tooltip.accept(Component.literal(String.format("尻尾栄養: %.1f/%.1f (%.0f%%)",
                             nutrition, MAX_NUTRITION, percentage))
                     .withStyle(ChatFormatting.YELLOW));
 
             float speedBonus = getSpeedBonus(stack);
             if (speedBonus > 0) {
-                tooltip.add(Component.literal(String.format("移動速度: +%.0f%%", speedBonus * 100))
+                tooltip.accept(Component.literal(String.format("移動速度: +%.0f%%", speedBonus * 100))
                         .withStyle(ChatFormatting.GREEN));
             }
         }
 
-        tooltip.add(Component.literal(""));
-        tooltip.add(Component.literal("特性: HP30%以下で自動発動")
+        tooltip.accept(Component.literal(""));
+        tooltip.accept(Component.literal("特性: HP30%以下で自動発動")
                 .withStyle(ChatFormatting.GOLD));
-        tooltip.add(Component.literal("またはShift長押しで手動発動")
+        tooltip.accept(Component.literal("またはShift長押しで手動発動")
                 .withStyle(ChatFormatting.GOLD));
     }
 

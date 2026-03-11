@@ -10,7 +10,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.monster.Spider;
+import net.minecraft.world.entity.monster.spider.Spider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -76,7 +76,7 @@ public class Kiwi extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-        return ModEntityTypes.KIWI.get().create(p_146743_);
+        return ModEntityTypes.KIWI.get().create(p_146743_, net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
     }
 
     private void setupAnimationStates() {
@@ -96,7 +96,7 @@ public class Kiwi extends Animal {
             f = 0.0F;
         }
 
-        this.walkAnimation.update(f, 0.2F);
+        this.walkAnimation.update(f, 0.2F, this.tickCount);
     }
 
     @Override
@@ -151,7 +151,7 @@ public class Kiwi extends Animal {
         }
 
         protected void onReachedTarget() {
-            if (net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(new net.neoforged.neoforge.event.entity.EntityMobGriefingEvent(Kiwi.this.level(), Kiwi.this)).canGrief()) {
+            if (net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(new net.neoforged.neoforge.event.entity.EntityMobGriefingEvent((net.minecraft.server.level.ServerLevel)Kiwi.this.level(), Kiwi.this)).canGrief()) {
                 BlockState blockstate = Kiwi.this.level().getBlockState(this.blockPos);
                 if (blockstate.is(Blocks.GRASS_BLOCK)) {
                     this.stripped(blockstate, blockPos);
@@ -179,9 +179,11 @@ public class Kiwi extends Animal {
                     Block.popResource(Kiwi.this.level(), this.blockPos, new ItemStack(white.get(random.nextInt(white.size())).getDefaultInstance().getItem(), j));
                 }
             } else if(ran >=10){
-                Spider dirtGolem = EntityType.SPIDER.create(this.mob.level());
-                dirtGolem.moveTo(this.mob.getX(), this.mob.getY(), this.mob.getZ());
-                this.mob.level().addFreshEntity(dirtGolem);
+                Spider dirtGolem = EntityType.SPIDER.create((ServerLevel) this.mob.level(), net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
+                if (dirtGolem != null) {
+                    dirtGolem.setPos(this.mob.getX(), this.mob.getY(), this.mob.getZ());
+                    this.mob.level().addFreshEntity(dirtGolem);
+                }
             } else {
                 if (itemstack.isEmpty()) {
                     Kiwi.this.setItemSlot(EquipmentSlot.MAINHAND, ModBlocks.KIWI_SAPLING.get().asItem().getDefaultInstance());

@@ -67,7 +67,7 @@ public class Mole extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-        return ModEntityTypes.PANGOLIN.get().create(p_146743_);
+        return ModEntityTypes.PANGOLIN.get().create(p_146743_, net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
     }
 
     private void setupAnimationStates() {
@@ -87,7 +87,7 @@ public class Mole extends Animal {
             f = 0.0F;
         }
 
-        this.walkAnimation.update(f, 0.2F);
+        this.walkAnimation.update(f, 0.2F, this.tickCount);
     }
 
     @Override

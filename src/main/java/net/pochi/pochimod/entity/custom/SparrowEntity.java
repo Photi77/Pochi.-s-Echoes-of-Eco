@@ -45,14 +45,16 @@ import net.pochi.pochimod.item.ModItems;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.animation.state.AnimationTest;
+import software.bernie.geckolib.animatable.manager.AnimatableManager;
 import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.object.LoopType;
+import software.bernie.geckolib.animation.object.PlayState;
 
 import javax.annotation.Nullable;
 import java.util.Set;
 
-import static net.minecraft.world.entity.animal.Parrot.imitateNearbyMobs;
+import static net.minecraft.world.entity.animal.parrot.Parrot.imitateNearbyMobs;
 
 public class SparrowEntity extends Animal implements GeoEntity, FlyingAnimal {
     private AnimatableInstanceCache factory = new SingletonAnimatableInstanceCache(this);
@@ -96,7 +98,7 @@ public class SparrowEntity extends Animal implements GeoEntity, FlyingAnimal {
         FlyingPathNavigation flyingpathnavigation = new FlyingPathNavigation(this, pLevel);
         flyingpathnavigation.setCanOpenDoors(false);
         flyingpathnavigation.setCanFloat(true);
-        flyingpathnavigation.setCanPassDoors(true);
+        //flyingpathnavigation.setCanPassDoors(true); // removed in 1.21.11
         return flyingpathnavigation;
     }
 
@@ -152,7 +154,7 @@ public class SparrowEntity extends Animal implements GeoEntity, FlyingAnimal {
                 this.level().playSound((Player)null, this.getX(), this.getY(), this.getZ(), SoundEvents.PARROT_EAT, this.getSoundSource(), 1.0F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.2F);
             }
 
-            if (!this.level().isClientSide) {
+            if (!this.level().isClientSide()) {
                 if (this.random.nextInt(10) == 0 && !NeoForge.EVENT_BUS.post(new AnimalTameEvent(this, pPlayer)).isCanceled()) {
                     this.level().broadcastEntityEvent(this, (byte)7);
                 } else {
@@ -160,7 +162,7 @@ public class SparrowEntity extends Animal implements GeoEntity, FlyingAnimal {
                 }
             }
 
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
+            return InteractionResult.SUCCESS;
         } else if (itemstack.is(POISONOUS_FOOD)) {
             if (!pPlayer.getAbilities().instabuild) {
                 itemstack.shrink(1);
@@ -171,7 +173,7 @@ public class SparrowEntity extends Animal implements GeoEntity, FlyingAnimal {
                 this.hurt(this.damageSources().playerAttack(pPlayer), Float.MAX_VALUE);
             }
 
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
+            return InteractionResult.SUCCESS;
         }  else {
             return super.mobInteract(pPlayer, pHand);
         }
@@ -187,27 +189,27 @@ public class SparrowEntity extends Animal implements GeoEntity, FlyingAnimal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-        return ModEntityTypes.SPARROW.get().create(p_146743_);
+        return ModEntityTypes.SPARROW.get().create(p_146743_, net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
     }
 
-    private PlayState predicate(AnimationState animationState) {
+    private PlayState predicate(AnimationTest animationState) {
         if (animationState.isMoving() && this.onGround()) {
-            animationState.getController().setAnimation(RawAnimation.begin().then("animation.sparrow.walk", Animation.LoopType.LOOP));
+            animationState.controller().setAnimation(RawAnimation.begin().then("animation.sparrow.walk", LoopType.LOOP));
             return PlayState.CONTINUE;
 
         }else if(!this.onGround()){
-            animationState.getController().setAnimation(RawAnimation.begin().then("animation.sparrow.fly", Animation.LoopType.LOOP));
+            animationState.controller().setAnimation(RawAnimation.begin().then("animation.sparrow.fly", LoopType.LOOP));
             return PlayState.CONTINUE;
 
         }
 
-        animationState.getController().setAnimation(RawAnimation.begin().then("animation.sparrow.walk", Animation.LoopType.LOOP));
+        animationState.controller().setAnimation(RawAnimation.begin().then("animation.sparrow.walk", LoopType.LOOP));
         return PlayState.CONTINUE;
     }
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController(this, "controller",
+        controllers.add(new AnimationController("controller",
                 0, this::predicate));
     }
 
@@ -341,7 +343,7 @@ public class SparrowEntity extends Animal implements GeoEntity, FlyingAnimal {
         }
 
         protected void onReachedTarget() {
-            if (NeoForge.EVENT_BUS.post(new EntityMobGriefingEvent(SparrowEntity.this.level(), SparrowEntity.this)).canGrief()) {
+            if (NeoForge.EVENT_BUS.post(new EntityMobGriefingEvent((net.minecraft.server.level.ServerLevel)SparrowEntity.this.level(), SparrowEntity.this)).canGrief()) {
                 BlockState blockstate = SparrowEntity.this.level().getBlockState(this.blockPos);
                 if (blockstate.is(Blocks.WHEAT)) {
                     this.pickWheat(blockstate);

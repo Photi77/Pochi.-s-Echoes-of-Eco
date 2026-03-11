@@ -5,11 +5,13 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
@@ -19,17 +21,22 @@ import net.pochi.pochimod.PochiMod;
 import net.pochi.pochimod.entity.projectile.HookArrow;
 import org.joml.Matrix4f;
 
-public class HookArrowRenderer extends EntityRenderer<HookArrow> {
+public class HookArrowRenderer extends EntityRenderer<HookArrow, EntityRenderState> {
     public HookArrowRenderer(EntityRendererProvider.Context p_174008_) {
         super(p_174008_);
     }
 
-    @Override
-    public ResourceLocation getTextureLocation(HookArrow pEntity) {
+    public Identifier getTextureLocation(EntityRenderState pState) {
         return TEXTURE_LOCATION;
     }
-    private static final ResourceLocation TEXTURE_LOCATION = ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "textures/entity/hook_arrow.png");
-    private static final RenderType RENDER_TYPE = RenderType.entityCutout(TEXTURE_LOCATION);
+
+    @Override
+    public EntityRenderState createRenderState() {
+        return new EntityRenderState();
+    }
+
+    private static final Identifier TEXTURE_LOCATION = Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "textures/entity/hook_arrow.png");
+    private static final RenderType RENDER_TYPE = RenderTypes.entityTranslucent(TEXTURE_LOCATION);
 
 
     public void render(HookArrow pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
@@ -38,7 +45,7 @@ public class HookArrowRenderer extends EntityRenderer<HookArrow> {
             pMatrixStack.pushPose();
             pMatrixStack.pushPose();
             pMatrixStack.scale(0.5F, 0.5F, 0.5F);
-            pMatrixStack.mulPose(this.entityRenderDispatcher.cameraOrientation());
+            pMatrixStack.mulPose(this.entityRenderDispatcher.camera.rotation());
             pMatrixStack.mulPose(Axis.YP.rotationDegrees(180.0F));
             PoseStack.Pose posestack$pose = pMatrixStack.last();
             Matrix4f matrix4f = posestack$pose.pose();
@@ -88,7 +95,7 @@ public class HookArrowRenderer extends EntityRenderer<HookArrow> {
             float f4 = (float)(d4 - d9);
             float f5 = (float)(d5 - d10) + f3;
             float f6 = (float)(d6 - d8);
-            VertexConsumer vertexconsumer1 = pBuffer.getBuffer(RenderType.lineStrip());
+            VertexConsumer vertexconsumer1 = pBuffer.getBuffer(RenderTypes.lines());
             PoseStack.Pose posestack$pose1 = pMatrixStack.last();
             int j = 16;
 
@@ -97,7 +104,6 @@ public class HookArrowRenderer extends EntityRenderer<HookArrow> {
             }
 
             pMatrixStack.popPose();
-            super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
         }
     }
 

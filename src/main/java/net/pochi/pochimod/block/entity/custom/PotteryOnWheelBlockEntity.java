@@ -49,7 +49,7 @@ public class PotteryOnWheelBlockEntity extends BlockEntity {
         if (be.state == PotteryState.DRYING) {
             be.progressTicks++;
 
-            if (level.isClientSide && level.random.nextFloat() < 0.1f) {
+            if (level.isClientSide() && level.random.nextFloat() < 0.1f) {
                 level.addParticle(ParticleTypes.SMOKE,
                         pos.getX() + 0.5 + (level.random.nextDouble() - 0.5) * 0.5,
                         pos.getY() + 0.5,
@@ -76,7 +76,7 @@ public class PotteryOnWheelBlockEntity extends BlockEntity {
                 changed = true;
 
                 // パーティクルエフェクト
-                if (level.isClientSide && level.random.nextFloat() < 0.3f) {
+                if (level.isClientSide() && level.random.nextFloat() < 0.3f) {
                     level.addParticle(ParticleTypes.FLAME,
                             pos.getX() + 0.5 + (level.random.nextDouble() - 0.5) * 0.6,
                             pos.getY() + 0.1,
@@ -85,14 +85,14 @@ public class PotteryOnWheelBlockEntity extends BlockEntity {
                 }
 
                 // 焼成時間に応じた視覚効果の変化
-                if (be.firingTime % 100 == 0 && !level.isClientSide) {
+                if (be.firingTime % 100 == 0 && !level.isClientSide()) {
                     // 100ティックごとに音を鳴らす（焼成進行の合図）
                     level.playSound(null, pos, SoundEvents.BLASTFURNACE_FIRE_CRACKLE,
                             SoundSource.BLOCKS, 0.3F, 1.0F + (be.firingTime / 1000f));
                 }
             } else {
                 // キャンプファイアが消えた場合、焼成中断
-                if (!level.isClientSide) {
+                if (!level.isClientSide()) {
                     level.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH,
                             SoundSource.BLOCKS, 0.5F, 0.8F);
                 }
@@ -173,7 +173,7 @@ public class PotteryOnWheelBlockEntity extends BlockEntity {
 
     // ビジュアルの更新
     private void updateVisualHeight() {
-        if (level != null && !level.isClientSide) {
+        if (level != null && !level.isClientSide()) {
             BlockState currentState = level.getBlockState(worldPosition);
             level.setBlock(worldPosition,
                     currentState.setValue(PotteryOnWheelBlock.VISUAL_HEIGHT, height), 3);
@@ -236,8 +236,8 @@ public class PotteryOnWheelBlockEntity extends BlockEntity {
 
     // NBT保存/読込
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
+    protected void saveAdditional(net.minecraft.world.level.storage.ValueOutput tag) {
+        super.saveAdditional(tag);
         tag.putString("State", state.name());
         tag.putInt("ProgressTicks", progressTicks);
         tag.putInt("FiringTime", firingTime);
@@ -250,25 +250,23 @@ public class PotteryOnWheelBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        state = PotteryState.valueOf(tag.getString("State"));
-        progressTicks = tag.getInt("ProgressTicks");
-        firingTime = tag.getInt("FiringTime");
-        height = tag.getInt("Height");
-        diameter = tag.getInt("Diameter");
-        wallThickness = tag.getInt("WallThickness");
-        mouthWidth = tag.getInt("MouthWidth");
-        shape = PotteryShape.valueOf(tag.getString("Shape"));
-        glazeColor = tag.getInt("GlazeColor");
+    public void loadAdditional(net.minecraft.world.level.storage.ValueInput tag) {
+        super.loadAdditional(tag);
+        state = PotteryState.valueOf(tag.getStringOr("State", "SHAPING"));
+        progressTicks = tag.getIntOr("ProgressTicks", 0);
+        firingTime = tag.getIntOr("FiringTime", 0);
+        height = tag.getIntOr("Height", 0);
+        diameter = tag.getIntOr("Diameter", 0);
+        wallThickness = tag.getIntOr("WallThickness", 0);
+        mouthWidth = tag.getIntOr("MouthWidth", 0);
+        shape = PotteryShape.valueOf(tag.getStringOr("Shape", "BOWL"));
+        glazeColor = tag.getIntOr("GlazeColor", 0xFFFFFF);
     }
 
     // クライアント同期
     @Override
     public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
-        CompoundTag tag = new CompoundTag();
-        saveAdditional(tag, registries);
-        return tag;
+        return saveCustomOnly(registries);
     }
 
     @Nullable
@@ -278,7 +276,7 @@ public class PotteryOnWheelBlockEntity extends BlockEntity {
     }
 
     private void syncToClient() {
-        if (level != null && !level.isClientSide) {
+        if (level != null && !level.isClientSide()) {
             level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
         }
     }

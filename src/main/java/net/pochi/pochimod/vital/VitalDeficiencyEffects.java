@@ -78,9 +78,9 @@ public class VitalDeficiencyEffects {
     // =========================================================================
 
     public static class HydrationEffects {
-        public static Holder<MobEffect> getMildEffect()        { return MobEffects.DIG_SLOWDOWN; }
+        public static Holder<MobEffect> getMildEffect()        { return MobEffects.MINING_FATIGUE; }
         public static int               getMildAmplifier()     { return 0; }
-        public static Holder<MobEffect> getModerateEffect()    { return MobEffects.MOVEMENT_SLOWDOWN; }
+        public static Holder<MobEffect> getModerateEffect()    { return MobEffects.SLOWNESS; }
         public static int               getModerateAmplifier() { return 0; }
         public static Holder<MobEffect> getSevereEffect()      { return MobEffects.WEAKNESS; }
         public static int               getSevereAmplifier()   { return 1; }
@@ -95,33 +95,33 @@ public class VitalDeficiencyEffects {
 
     static {
         NUTRITION_EFFECTS.put(NutritionType.CARBOHYDRATE, new NutritionDeficiencyEffect(
-                MobEffects.DIG_SLOWDOWN,       // mild:     採掘遅延
-                MobEffects.MOVEMENT_SLOWDOWN,  // moderate: 移動遅延
+                MobEffects.MINING_FATIGUE,       // mild:     採掘遅延
+                MobEffects.SLOWNESS,  // moderate: 移動遅延
                 MobEffects.WEAKNESS            // severe:   脱力
         ));
 
         NUTRITION_EFFECTS.put(NutritionType.PROTEIN, new NutritionDeficiencyEffect(
                 MobEffects.WEAKNESS,           // mild:     脱力
-                MobEffects.DIG_SLOWDOWN,       // moderate: 採掘遅延
+                MobEffects.MINING_FATIGUE,       // moderate: 採掘遅延
                 MobEffects.WITHER              // severe:   衰弱
         ));
 
         NUTRITION_EFFECTS.put(NutritionType.LIPID, new NutritionDeficiencyEffect(
                 MobEffects.HUNGER,             // mild:     空腹感
-                MobEffects.MOVEMENT_SLOWDOWN,  // moderate: 移動遅延
+                MobEffects.SLOWNESS,  // moderate: 移動遅延
                 MobEffects.WEAKNESS            // severe:   脱力
         ));
 
         NUTRITION_EFFECTS.put(NutritionType.VITAMIN, new NutritionDeficiencyEffect(
                 MobEffects.HUNGER,             // mild:     食欲不振
-                MobEffects.CONFUSION,          // moderate: 混乱
+                MobEffects.NAUSEA,          // moderate: 混乱
                 MobEffects.POISON              // severe:   ポイズン
         ));
 
         NUTRITION_EFFECTS.put(NutritionType.MINERAL, new NutritionDeficiencyEffect(
-                MobEffects.DIG_SLOWDOWN,       // mild:     採掘遅延
+                MobEffects.MINING_FATIGUE,       // mild:     採掘遅延
                 MobEffects.WEAKNESS,           // moderate: 脱力
-                MobEffects.MOVEMENT_SLOWDOWN   // severe:   移動遅延
+                MobEffects.SLOWNESS   // severe:   移動遅延
         ));
     }
 
@@ -177,11 +177,11 @@ public class VitalDeficiencyEffects {
         // Moderate: かなり遅い  MOVEMENT_SLOWDOWN II
         // Severe:   肥満状態    MOVEMENT_SLOWDOWN III + DIG_SLOWDOWN I
         EXCESS_EFFECTS.put(NutritionType.LIPID, new NutritionExcessEffect(
-                List.of(new EffectEntry(MobEffects.MOVEMENT_SLOWDOWN, 0)),
-                List.of(new EffectEntry(MobEffects.MOVEMENT_SLOWDOWN, 1)),
+                List.of(new EffectEntry(MobEffects.SLOWNESS, 0)),
+                List.of(new EffectEntry(MobEffects.SLOWNESS, 1)),
                 List.of(
-                        new EffectEntry(MobEffects.MOVEMENT_SLOWDOWN, 2),
-                        new EffectEntry(MobEffects.DIG_SLOWDOWN,       0)
+                        new EffectEntry(MobEffects.SLOWNESS, 2),
+                        new EffectEntry(MobEffects.MINING_FATIGUE,       0)
                 )
         ));
 
@@ -191,14 +191,14 @@ public class VitalDeficiencyEffects {
                 List.of(new EffectEntry(MobEffects.HUNGER, 1)),
                 List.of(
                         new EffectEntry(MobEffects.HUNGER,    1),
-                        new EffectEntry(MobEffects.CONFUSION, 0)
+                        new EffectEntry(MobEffects.NAUSEA, 0)
                 )
         ));
 
         // タンパク質過剰: 腎臓負担・吐き気
         EXCESS_EFFECTS.put(NutritionType.PROTEIN, new NutritionExcessEffect(
-                List.of(new EffectEntry(MobEffects.CONFUSION, 0)),
-                List.of(new EffectEntry(MobEffects.CONFUSION, 0)),
+                List.of(new EffectEntry(MobEffects.NAUSEA, 0)),
+                List.of(new EffectEntry(MobEffects.NAUSEA, 0)),
                 List.of(new EffectEntry(MobEffects.POISON,    0))
         ));
 
@@ -215,7 +215,7 @@ public class VitalDeficiencyEffects {
                 List.of(new EffectEntry(MobEffects.WEAKNESS, 1)),
                 List.of(
                         new EffectEntry(MobEffects.WEAKNESS,          1),
-                        new EffectEntry(MobEffects.MOVEMENT_SLOWDOWN, 0)
+                        new EffectEntry(MobEffects.SLOWNESS, 0)
                 )
         ));
     }

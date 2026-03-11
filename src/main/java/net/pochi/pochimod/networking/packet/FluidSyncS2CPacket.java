@@ -4,7 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.pochi.pochimod.PochiMod;
@@ -12,7 +12,7 @@ import net.pochi.pochimod.PochiMod;
 public record FluidSyncS2CPacket(FluidStack fluidStack, BlockPos pos) implements CustomPacketPayload {
 
     public static final CustomPacketPayload.Type<FluidSyncS2CPacket> TYPE =
-            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "fluid_sync"));
+            new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "fluid_sync"));
 
 
     public static final StreamCodec<RegistryFriendlyByteBuf, FluidSyncS2CPacket> STREAM_CODEC =

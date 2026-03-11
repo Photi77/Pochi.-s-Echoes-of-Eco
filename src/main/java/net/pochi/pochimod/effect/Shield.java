@@ -18,8 +18,8 @@ public class Shield extends MobEffect {
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
-        Level level = pLivingEntity.level();
+    public boolean applyEffectTick(ServerLevel pLevel, LivingEntity pLivingEntity, int pAmplifier) {
+        ServerLevel level = pLevel;
         Player player = (Player) pLivingEntity;
         if (!level.isClientSide()) {
 
@@ -44,7 +44,7 @@ public class Shield extends MobEffect {
                 }
             }
         }
-        return super.applyEffectTick(pLivingEntity, pAmplifier);
+        return super.applyEffectTick(pLevel, pLivingEntity, pAmplifier);
     }
 
     @Override

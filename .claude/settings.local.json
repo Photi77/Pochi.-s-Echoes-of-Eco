@@ -1,6 +1,17 @@
 {
   "permissions": {
     "allow": [
+      "Bash",
+      "Read",
+      "Write",
+      "Edit",
+      "MultiEdit",
+      "Glob",
+      "Grep",
+      "WebFetch",
+      "Task",
+      "TodoWrite",
+      "NotebookEdit",
       "mcp__ide__getDiagnostics",
       "Bash(find /e/mod/PochiMod/src/main/java/net/pochi/pochimod/world -type f -name \"*.java\" | xargs grep -l \"NoiseRouter\\\\|DensityFunction\\\\|CubicSpline\" 2>/dev/null)",
       "Bash(head:*)",
@@ -61,7 +72,33 @@
       "WebFetch(domain:neoforged.net)",
       "WebFetch(domain:cloudsmith.io)",
       "WebFetch(domain:maven.blamejared.com)",
-      "WebFetch(domain:raw.githubusercontent.com)"
-    ]
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(tee:*)",
+      "WebFetch(domain:docs.neoforged.net)",
+      "WebFetch(domain:maven.fabricmc.net)",
+      "Bash(unzip:*)",
+      "Bash(zcat:*)",
+      "Bash(grep エラー: \\\\|error::*)",
+      "Bash(find /e/mod/PochiMod/.gradle -name \"*.jar\" 2>/dev/null | xargs -I{} sh -c 'result=$\\(jar tf \"{}\" 2>/dev/null | grep \"^net/neoforged\" | head -1\\); if [ -n \"$result\" ]; then echo \"FILE: {}\"; echo \"$result\"; fi' 2>/dev/null)",
+      "Bash(grep neoforge:*)",
+      "Bash(grep エラー100個\\\\|エラー[0-9]*個:*)",
+      "Bash(grep エラー[0-9]*個:*)",
+      "Bash(perl:*)",
+      "Bash(grep error::*)",
+      "Bash(grep AbstractMineralItem\\\\|ModTiers\\\\|ModItems.java:6\\\\|ModItemProperties:*)",
+      "Bash(find /c/Users/20171/.gradle -name \"*.jar\" 2>/dev/null | xargs -I{} sh -c 'jar tf \"{}\" 2>/dev/null | grep -q \"EventBusSubscriber.class\" && echo {}' 2>/dev/null)",
+      "Bash(find /e/mod/PochiMod/.gradle -name \"*.jar\" | xargs -I{} sh -c 'jar tf \"{}\" 2>/dev/null | grep -q \"EventBusSubscriber.class\" && echo \"{}\"' 2>/dev/null)",
+      "Bash(grep ModItemProperties\\\\|PickaxeItem:*)",
+      "Bash(grep BlockEntityWithoutLevelRenderer\\\\|getCustomRenderer\\\\|initializeClient:*)",
+      "Bash(grep -l \"InteractionResult\" /e/mod/PochiMod/src/main/java/net/pochi/pochimod/item/custom/weapon/*.java | xargs -I{} grep -L \"import.*InteractionResult\" {} 2>/dev/null)",
+      "Bash(grep ^E:\\\\|^  E::*)",
+      "Bash(grep \\\\.java:[0-9]*: エラー::*)",
+      "Bash(grep LeavesBlock:*)",
+      "Bash(mkdir:*)",
+      "Bash(grep BFurnaceBlockEntity:*)",
+      "Bash(cd \"E:/mod/PochiMod\" && find \".\" -name \"*.class\" -path \"*/geckolib/*\" | xargs -I{} basename {} .class | sort | grep -i \"render.state\\\\|renderstate\\\\|RenderState\" | head -20 2>/dev/null)",
+      "Bash(grep BFurnaceBlockEntity\\\\|BFurnaceRecipe:*)"
+    ],
+    "defaultMode": "bypassPermissions"
   }
 }

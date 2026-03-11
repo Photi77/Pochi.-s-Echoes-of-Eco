@@ -1,6 +1,6 @@
 package net.pochi.pochimod.mineral.tools;
 
-import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -45,22 +45,22 @@ public class MineralToolItems {
     // ==============================
     public static final DeferredHolder<Item, Item>MINERAL_HELMET = ITEMS.register(
             "mineral_helmet",
-            () -> new MineralArmorItem(ArmorItem.Type.HELMET, new Item.Properties())
+            () -> new MineralArmorItem(ArmorType.HELMET, new Item.Properties())
     );
 
     public static final DeferredHolder<Item, Item>MINERAL_CHESTPLATE = ITEMS.register(
             "mineral_chestplate",
-            () -> new MineralArmorItem(ArmorItem.Type.CHESTPLATE, new Item.Properties())
+            () -> new MineralArmorItem(ArmorType.CHESTPLATE, new Item.Properties())
     );
 
     public static final DeferredHolder<Item, Item>MINERAL_LEGGINGS = ITEMS.register(
             "mineral_leggings",
-            () -> new MineralArmorItem(ArmorItem.Type.LEGGINGS, new Item.Properties())
+            () -> new MineralArmorItem(ArmorType.LEGGINGS, new Item.Properties())
     );
 
     public static final DeferredHolder<Item, Item>MINERAL_BOOTS = ITEMS.register(
             "mineral_boots",
-            () -> new MineralArmorItem(ArmorItem.Type.BOOTS, new Item.Properties())
+            () -> new MineralArmorItem(ArmorType.BOOTS, new Item.Properties())
     );
 
     // ==============================

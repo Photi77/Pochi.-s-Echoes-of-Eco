@@ -1,6 +1,6 @@
 package net.pochi.pochimod.fluid;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.fluids.FluidType;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -11,33 +11,33 @@ import net.pochi.pochimod.PochiMod;
 import org.joml.Vector3f;
 
 public class ModFluidTypes {
-    public static final ResourceLocation BROWN_STILL_RL = ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "block/whiskey_still");
-    public static final ResourceLocation BROWN_FLOWING_RL = ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "block/whiskey_flow");
-    public static final ResourceLocation BROWN_OVERLAY_RL = ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "misc/in_whiskey");
+    public static final Identifier BROWN_STILL_RL = Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "block/whiskey_still");
+    public static final Identifier BROWN_FLOWING_RL = Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "block/whiskey_flow");
+    public static final Identifier BROWN_OVERLAY_RL = Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "misc/in_whiskey");
 
-    public static final ResourceLocation SKYBLUE_STILL_RL = ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "block/sake_still");
-    public static final ResourceLocation SKYBLUE_FLOWING_RL = ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "block/sake_flow");
-    public static final ResourceLocation SKYBLUE_OVERLAY_RL = ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "misc/in_whiskey");
+    public static final Identifier SKYBLUE_STILL_RL = Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "block/sake_still");
+    public static final Identifier SKYBLUE_FLOWING_RL = Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "block/sake_flow");
+    public static final Identifier SKYBLUE_OVERLAY_RL = Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "misc/in_whiskey");
 
-    public static final ResourceLocation PURPLE_STILL_RL = ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "block/grape_still");
-    public static final ResourceLocation PURPLE_FLOWING_RL = ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "block/grape_flow");
-    public static final ResourceLocation PURPLE_OVERLAY_RL = ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "misc/in_whiskey");
+    public static final Identifier PURPLE_STILL_RL = Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "block/grape_still");
+    public static final Identifier PURPLE_FLOWING_RL = Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "block/grape_flow");
+    public static final Identifier PURPLE_OVERLAY_RL = Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "misc/in_whiskey");
 
-    public static final ResourceLocation GREEN_STILL_RL = ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "block/green_still");
-    public static final ResourceLocation GREEN_FLOWING_RL = ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "block/green_flow");
-    public static final ResourceLocation GREEN_OVERLAY_RL = ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "misc/in_whiskey");
+    public static final Identifier GREEN_STILL_RL = Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "block/green_still");
+    public static final Identifier GREEN_FLOWING_RL = Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "block/green_flow");
+    public static final Identifier GREEN_OVERLAY_RL = Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "misc/in_whiskey");
 
-    public static final ResourceLocation WHITE_STILL_RL = ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "block/coconut_still");
-    public static final ResourceLocation WHITE_FLOWING_RL = ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "block/coconut_flow");
-    public static final ResourceLocation WHITE_OVERLAY_RL = ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "misc/in_whiskey");
+    public static final Identifier WHITE_STILL_RL = Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "block/coconut_still");
+    public static final Identifier WHITE_FLOWING_RL = Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "block/coconut_flow");
+    public static final Identifier WHITE_OVERLAY_RL = Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "misc/in_whiskey");
 
-    public static final ResourceLocation MASH_STILL_RL = ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "block/mash");
-    public static final ResourceLocation MASH_FLOWING_RL = ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "block/mash");
-    public static final ResourceLocation MASH_OVERLAY_RL = ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "misc/in_whiskey");
+    public static final Identifier MASH_STILL_RL = Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "block/mash");
+    public static final Identifier MASH_FLOWING_RL = Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "block/mash");
+    public static final Identifier MASH_OVERLAY_RL = Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "misc/in_whiskey");
 
-    public static final ResourceLocation YEAST_STILL_RL = ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "block/yeast");
-    public static final ResourceLocation YEAST_FLOWING_RL = ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "block/yeast");
-    public static final ResourceLocation YEAST_OVERLAY_RL = ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "misc/in_whiskey");
+    public static final Identifier YEAST_STILL_RL = Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "block/yeast");
+    public static final Identifier YEAST_FLOWING_RL = Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "block/yeast");
+    public static final Identifier YEAST_OVERLAY_RL = Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "misc/in_whiskey");
 
     public static final DeferredRegister<FluidType> FLUID_TYPES =
             DeferredRegister.create(NeoForgeRegistries.Keys.FLUID_TYPES, PochiMod.MOD_ID);

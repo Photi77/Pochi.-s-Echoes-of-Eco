@@ -1,18 +1,15 @@
 package net.pochi.pochimod.ferm;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
-import net.neoforged.neoforge.common.util.INBTSerializable;
-
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.neoforged.neoforge.common.util.ValueIOSerializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 // SoilData.java（Attachmentで保持するデータ本体）
-public class SoilData implements INBTSerializable<CompoundTag> {
+public class SoilData implements ValueIOSerializable {
     private final Map<Long, float[]> nutrientMap = new HashMap<>();
     // float[0]=N, float[1]=P, float[2]=K
     private boolean dirty = false;
@@ -47,46 +44,31 @@ public class SoilData implements INBTSerializable<CompoundTag> {
     public void setDirty()   { this.dirty = true; }
     public void clearDirty() { this.dirty = false; }
 
-    // --- INBTSerializable (Attachment API) ---
+    // --- ValueIOSerializable (Attachment API) ---
     @Override
-    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
-        return serializeNBT();
-    }
-
-    @Override
-    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag tag) {
-        deserializeNBT(tag);
-    }
-
-    // --- NBTシリアライズ ---
-    public CompoundTag serializeNBT() {
-        CompoundTag tag = new CompoundTag();
-        ListTag list = new ListTag();
+    public void serialize(ValueOutput output) {
+        ValueOutput.ValueOutputList list = output.childrenList("soils");
         nutrientMap.forEach((posLong, npk) -> {
-            CompoundTag entry = new CompoundTag();
+            ValueOutput entry = list.addChild();
             entry.putLong("pos", posLong);
             entry.putFloat("n", npk[0]);
             entry.putFloat("p", npk[1]);
             entry.putFloat("k", npk[2]);
-            list.add(entry);
         });
-        tag.put("soils", list);
-        return tag;
     }
 
-    public void deserializeNBT(CompoundTag tag) {
+    @Override
+    public void deserialize(ValueInput input) {
         nutrientMap.clear();
-        ListTag list = tag.getList("soils", Tag.TAG_COMPOUND);
-        for (int i = 0; i < list.size(); i++) {
-            CompoundTag entry = list.getCompound(i);
-            long posLong = entry.getLong("pos");
+        input.childrenListOrEmpty("soils").forEach(entry -> {
+            long posLong = entry.getLongOr("pos", 0L);
             float[] npk = {
-                    entry.getFloat("n"),
-                    entry.getFloat("p"),
-                    entry.getFloat("k")
+                    entry.getFloatOr("n", 0.0f),
+                    entry.getFloatOr("p", 0.0f),
+                    entry.getFloatOr("k", 0.0f)
             };
             nutrientMap.put(posLong, npk);
-        }
+        });
     }
 
     // SoilData.java に追加

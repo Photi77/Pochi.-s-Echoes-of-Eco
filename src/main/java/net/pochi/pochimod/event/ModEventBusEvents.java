@@ -7,7 +7,7 @@ import net.pochi.pochimod.PochiMod;
 import net.pochi.pochimod.entity.client.*;
 import net.pochi.pochimod.entity.layer.ModModelLayers;
 
-@EventBusSubscriber(modid = PochiMod.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = PochiMod.MOD_ID)
 public class ModEventBusEvents {
 
 

@@ -1,5 +1,6 @@
 package net.pochi.pochimod.effect;
 
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -17,9 +18,9 @@ public class Inv extends MobEffect {
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
+    public boolean applyEffectTick(ServerLevel pLevel, LivingEntity pLivingEntity, int pAmplifier) {
         Random random = new Random();
-        Level level = pLivingEntity.level();
+        ServerLevel level = pLevel;
         if (!pLivingEntity.level().isClientSide()) {
             List<LivingEntity> list = level.getEntitiesOfClass(LivingEntity.class, pLivingEntity.getBoundingBox().inflate(10,10,10));
             if (!list.isEmpty()) {
@@ -40,7 +41,7 @@ public class Inv extends MobEffect {
                 }
             }
         }
-        return super.applyEffectTick(pLivingEntity, pAmplifier);
+        return super.applyEffectTick(pLevel, pLivingEntity, pAmplifier);
     }
 
     @Override

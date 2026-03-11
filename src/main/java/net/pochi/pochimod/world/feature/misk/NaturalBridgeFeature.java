@@ -133,7 +133,7 @@ public class NaturalBridgeFeature extends Feature<NoneFeatureConfiguration> {
      * 地表レベルを見つける
      */
     private int findSurfaceLevel(WorldGenLevel level, BlockPos pos) {
-        for (int y = level.getMaxBuildHeight() - 1; y >= level.getMinBuildHeight(); y--) {
+        for (int y = level.getMaxY() - 1; y >= level.getMinY(); y--) {
             BlockPos checkPos = new BlockPos(pos.getX(), y, pos.getZ());
             if (!level.getBlockState(checkPos).isAir()) {
                 return y;

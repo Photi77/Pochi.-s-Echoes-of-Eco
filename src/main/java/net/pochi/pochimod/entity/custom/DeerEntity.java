@@ -12,7 +12,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.entity.animal.equine.AbstractHorse;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -93,7 +93,7 @@ public class DeerEntity extends AbstractHorse{
 
                 if (!this.isTamed()) {
                     this.makeMad();
-                    return InteractionResult.sidedSuccess(this.level().isClientSide);
+                    return InteractionResult.SUCCESS;
                 }
             }
 
@@ -117,9 +117,9 @@ public class DeerEntity extends AbstractHorse{
     public AgeableMob getBreedOffspring(ServerLevel p_149533_, AgeableMob p_149534_) {
         if (p_149534_ instanceof DoeEntity) {
             if (this.random.nextInt(1) == 0) {
-                return ModEntityTypes.DOE.get().create(p_149533_);
+                return ModEntityTypes.DOE.get().create(p_149533_, net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
             }
-            return ModEntityTypes.DEER.get().create(p_149533_);
+            return ModEntityTypes.DEER.get().create(p_149533_, net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
         } else {
             return null;
         }
@@ -142,7 +142,7 @@ public class DeerEntity extends AbstractHorse{
             f = 0.0F;
         }
 
-        this.walkAnimation.update(f, 0.2F);
+        this.walkAnimation.update(f, 0.2F, this.tickCount);
     }
 
     @Override
@@ -196,7 +196,7 @@ public class DeerEntity extends AbstractHorse{
         }
 
         protected void onReachedTarget() {
-            if (net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(new net.neoforged.neoforge.event.entity.EntityMobGriefingEvent(DeerEntity.this.level(), DeerEntity.this)).canGrief()) {
+            if (net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(new net.neoforged.neoforge.event.entity.EntityMobGriefingEvent((net.minecraft.server.level.ServerLevel)DeerEntity.this.level(), DeerEntity.this)).canGrief()) {
                 BlockState blockstate = DeerEntity.this.level().getBlockState(this.blockPos);
                 if (blockstate.is(ModBlocks.CINNAMON_LOG.get())) {
                     this.stripped(blockstate, blockPos);

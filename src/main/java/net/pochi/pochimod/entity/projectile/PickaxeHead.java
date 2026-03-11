@@ -12,7 +12,10 @@ import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.object.LoopType;
+import software.bernie.geckolib.animation.object.PlayState;
+import software.bernie.geckolib.animation.state.AnimationTest;
+import software.bernie.geckolib.animatable.manager.AnimatableManager;
 
 import java.util.List;
 import java.util.Random;
@@ -58,7 +61,7 @@ public class PickaxeHead extends TamableAnimal implements GeoEntity {
                             //this.lookAt(entity,360,360);
                         }
                         if (d0 < 2) {
-                            entity.kill();
+                            entity.kill((net.minecraft.server.level.ServerLevel) this.level());
                         }
                     }
                 }
@@ -66,14 +69,14 @@ public class PickaxeHead extends TamableAnimal implements GeoEntity {
         }
     }
 
-    private PlayState predicate(AnimationState animationState) {
-        animationState.getController().setAnimation(RawAnimation.begin().then("animation.iron_head.new", Animation.LoopType.LOOP));
+    private PlayState predicate(AnimationTest animationState) {
+        animationState.controller().setAnimation(RawAnimation.begin().then("animation.iron_head.new", LoopType.LOOP));
         return PlayState.CONTINUE;
     }
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController(this, "controller",
+        controllers.add(new AnimationController("controller",
                 0, this::predicate));
     }
 

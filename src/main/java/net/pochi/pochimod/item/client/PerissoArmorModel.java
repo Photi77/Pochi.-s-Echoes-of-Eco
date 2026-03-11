@@ -1,23 +1,24 @@
 package net.pochi.pochimod.item.client;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.pochi.pochimod.PochiMod;
 import net.pochi.pochimod.item.custom.armor.PerissoArmor;
 import software.bernie.geckolib.model.GeoModel;
+import software.bernie.geckolib.renderer.base.GeoRenderState;
 
 public class PerissoArmorModel extends GeoModel<PerissoArmor> {
     @Override
-    public ResourceLocation getModelResource(PerissoArmor animatable) {
-        return ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "geo/periso_armor.geo.json");
+    public Identifier getModelResource(GeoRenderState state) {
+        return Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "geo/periso_armor.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(PerissoArmor animatable) {
-        return ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "textures/armor/periso_armor.png");
+    public Identifier getTextureResource(GeoRenderState state) {
+        return Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "textures/armor/periso_armor.png");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(PerissoArmor animatable) {
-        return ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "animations/model.animation.json");
+    public Identifier getAnimationResource(PerissoArmor animatable) {
+        return Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "animations/model.animation.json");
     }
 }

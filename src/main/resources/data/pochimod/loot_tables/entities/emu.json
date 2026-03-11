@@ -14,10 +14,10 @@
                 "max": 1.0,
                 "min": 0.0
               },
-              "function": "minecraft:emu_boots"
+              "function": "minecraft:set_count"
             }
           ],
-          "name": "pochimod:habu"
+          "name": "pochimod:emu_boots"
         }
       ],
       "rolls": 1.0

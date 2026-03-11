@@ -5,7 +5,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -42,9 +42,9 @@ public class ModFlammableRotatedPillarDropBlock extends RotatedPillarBlock {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack itemstack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
-        if (itemstack.canPerformAction(ItemAbilities.AXE_DIG)) {
-            if (!pLevel.isClientSide) {
+    protected InteractionResult useItemOn(ItemStack itemstack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHit) {
+        if (itemstack.canPerformAction(ItemAbilities.AXE_STRIP)) {
+            if (!pLevel.isClientSide()) {
                 if(pState.is(ModBlocks.CINNAMON_LOG.get())) {
                     Direction direction = pHit.getDirection();
                     Direction direction1 = direction.getAxis() == Direction.Axis.Y ? pPlayer.getDirection().getOpposite() : direction;
@@ -57,9 +57,9 @@ public class ModFlammableRotatedPillarDropBlock extends RotatedPillarBlock {
                 }
             }
 
-            return ItemInteractionResult.sidedSuccess(pLevel.isClientSide);
+            return InteractionResult.SUCCESS;
         } else {
-            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+            return InteractionResult.PASS;
         }
     }
 }

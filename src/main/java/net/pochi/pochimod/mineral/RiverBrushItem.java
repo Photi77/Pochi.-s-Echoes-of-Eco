@@ -3,7 +3,7 @@ package net.pochi.pochimod.mineral;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -69,7 +69,7 @@ public class RiverBrushItem extends BrushItem {
         // バニラ挙動（SuspiciousSandへのパーティクル）はそのまま通す
         super.onUseTick(level, entity, stack, remainingTicks);
 
-        if (level.isClientSide) return;
+        if (level.isClientSide()) return;
         if (!(entity instanceof Player player)) return;
 
         // 10tick刻みのタイミングのみ処理
@@ -110,11 +110,12 @@ public class RiverBrushItem extends BrushItem {
     // ==============================
 
     @Override
-    public void releaseUsing(ItemStack stack, Level level, LivingEntity entity, int timeCharged) {
-        super.releaseUsing(stack, level, entity, timeCharged);
+    public boolean releaseUsing(ItemStack stack, Level level, LivingEntity entity, int timeCharged) {
+        boolean result = super.releaseUsing(stack, level, entity, timeCharged);
         if (entity instanceof Player player) {
             BRUSH_PROGRESS.remove(player.getUUID());
         }
+        return result;
     }
 
     @Override
@@ -153,7 +154,7 @@ public class RiverBrushItem extends BrushItem {
         String colorHex = MineralColorCalculator.calculate(impurities);
 
         // 6. comboBiomes（上位3バイオーム）
-        List<ResourceLocation> comboBiomes = new ArrayList<>();
+        List<Identifier> comboBiomes = new ArrayList<>();
         List<BiomeScanResult.WeightedBiome> allBiomes = scanResult.getAllBiomes();
         for (int i = 0; i < Math.min(3, allBiomes.size()); i++) {
             comboBiomes.add(allBiomes.get(i).id());

@@ -86,7 +86,7 @@ public class UralOwl extends Animal implements FlyingAnimal {
         FlyingPathNavigation flyingpathnavigation = new FlyingPathNavigation(this, pLevel);
         flyingpathnavigation.setCanOpenDoors(false);
         flyingpathnavigation.setCanFloat(true);
-        flyingpathnavigation.setCanPassDoors(true);
+        //flyingpathnavigation.setCanPassDoors(true); // removed in 1.21.11
         return flyingpathnavigation;
     }
 
@@ -109,15 +109,15 @@ public class UralOwl extends Animal implements FlyingAnimal {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag tag) {
+    public void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput tag) {
         super.addAdditionalSaveData(tag);
         tag.putInt("GrowthTimer", this.growthTimer);
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag tag) {
+    public void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput tag) {
         super.readAdditionalSaveData(tag);
-        this.growthTimer = tag.getInt("GrowthTimer");
+        this.growthTimer = tag.getIntOr("GrowthTimer", 0);
     }
 
     protected float getStandingEyeHeight(Pose pPose, EntityDimensions pSize) {
@@ -129,7 +129,7 @@ public class UralOwl extends Animal implements FlyingAnimal {
         this.calculateFlapping();
 
         // 通常時もたまに魔法的なパーティクルを出す
-        if (this.level().isClientSide && this.random.nextInt(20) == 0) {
+        if (this.level().isClientSide() && this.random.nextInt(20) == 0) {
             this.level().addParticle(
                     ParticleTypes.ENCHANT,
                     this.getX() + (this.random.nextDouble() - 0.5) * 0.5,
@@ -147,7 +147,7 @@ public class UralOwl extends Animal implements FlyingAnimal {
             this.setupAnimationStates();
         }
 
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             // タイマーの更新
             this.growthTimer++;
 
@@ -165,7 +165,7 @@ public class UralOwl extends Animal implements FlyingAnimal {
         if (this.currentGrowthTarget != null) {
             this.growthAnimationTimer++;
 
-            if (this.level().isClientSide) {
+            if (this.level().isClientSide()) {
                 spawnGrowthParticles();
             }
 
@@ -547,7 +547,7 @@ public class UralOwl extends Animal implements FlyingAnimal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-        return ModEntityTypes.URAL_OWL.get().create(p_146743_);
+        return ModEntityTypes.URAL_OWL.get().create(p_146743_, net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
     }
 
 

@@ -19,17 +19,20 @@ import net.pochi.pochimod.nutrition.FoodNutritionRegistry;
 import net.pochi.pochimod.nutrition.NutritionType;
 
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 
 public class QualityShapelessRecipe extends ShapelessRecipe {
 
-    // Store locally so the serializer codec can access it
+    // Store locally so the serializer codec can access them
     private final ItemStack result;
+    private final List<Ingredient> ingredients;
 
     public QualityShapelessRecipe(String group, CraftingBookCategory category,
-                                  ItemStack result, NonNullList<Ingredient> ingredients) {
+                                  ItemStack result, List<Ingredient> ingredients) {
         super(group, category, result, ingredients);
         this.result = result;
+        this.ingredients = ingredients;
     }
 
     @Override
@@ -96,8 +99,9 @@ public class QualityShapelessRecipe extends ShapelessRecipe {
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
-        return ModRecipes.QUALITY_SHAPELESS.get();
+    @SuppressWarnings("unchecked")
+    public RecipeSerializer<ShapelessRecipe> getSerializer() {
+        return (RecipeSerializer<ShapelessRecipe>)(RecipeSerializer<?>) ModRecipes.QUALITY_SHAPELESS.get();
     }
 
 
@@ -105,26 +109,19 @@ public class QualityShapelessRecipe extends ShapelessRecipe {
     public static class Serializer implements RecipeSerializer<QualityShapelessRecipe> {
 
         private static final MapCodec<QualityShapelessRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-                Codec.STRING.optionalFieldOf("group", "").forGetter(ShapelessRecipe::getGroup),
+                Codec.STRING.optionalFieldOf("group", "").forGetter(ShapelessRecipe::group),
                 CraftingBookCategory.CODEC.fieldOf("category").orElse(CraftingBookCategory.MISC).forGetter(ShapelessRecipe::category),
                 ItemStack.STRICT_CODEC.fieldOf("result").forGetter(r -> r.result),
-                Ingredient.CODEC_NONEMPTY.listOf().xmap(
-                        list -> {
-                            NonNullList<Ingredient> nl = NonNullList.withSize(list.size(), Ingredient.EMPTY);
-                            for (int i = 0; i < list.size(); i++) nl.set(i, list.get(i));
-                            return nl;
-                        },
-                        nl -> nl
-                ).fieldOf("ingredients").forGetter(Recipe::getIngredients)
+                Ingredient.CODEC.listOf().fieldOf("ingredients").forGetter(r -> r.ingredients)
         ).apply(inst, QualityShapelessRecipe::new));
 
         private static final StreamCodec<RegistryFriendlyByteBuf, QualityShapelessRecipe> STREAM_CODEC =
                 StreamCodec.of(
                         (buf, recipe) -> {
-                            buf.writeUtf(recipe.getGroup());
+                            buf.writeUtf(recipe.group());
                             buf.writeEnum(recipe.category());
-                            buf.writeVarInt(recipe.getIngredients().size());
-                            for (Ingredient ing : recipe.getIngredients()) {
+                            buf.writeVarInt(recipe.ingredients.size());
+                            for (Ingredient ing : recipe.ingredients) {
                                 Ingredient.CONTENTS_STREAM_CODEC.encode(buf, ing);
                             }
                             ItemStack.STREAM_CODEC.encode(buf, recipe.result);
@@ -133,9 +130,9 @@ public class QualityShapelessRecipe extends ShapelessRecipe {
                             String group = buf.readUtf();
                             CraftingBookCategory category = buf.readEnum(CraftingBookCategory.class);
                             int size = buf.readVarInt();
-                            NonNullList<Ingredient> ingredients = NonNullList.withSize(size, Ingredient.EMPTY);
+                            NonNullList<Ingredient> ingredients = NonNullList.create();
                             for (int i = 0; i < size; i++) {
-                                ingredients.set(i, Ingredient.CONTENTS_STREAM_CODEC.decode(buf));
+                                ingredients.add(Ingredient.CONTENTS_STREAM_CODEC.decode(buf));
                             }
                             ItemStack result = ItemStack.STREAM_CODEC.decode(buf);
                             return new QualityShapelessRecipe(group, category, result, ingredients);

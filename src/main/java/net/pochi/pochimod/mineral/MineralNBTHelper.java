@@ -2,8 +2,7 @@ package net.pochi.pochimod.mineral;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +52,7 @@ public final class MineralNBTHelper {
 
         // コンボバイオームリスト（StringTag の ListTag）
         ListTag biomeList = new ListTag();
-        for (ResourceLocation biome : data.getComboBiomes()) {
+        for (Identifier biome : data.getComboBiomes()) {
             biomeList.add(net.minecraft.nbt.StringTag.valueOf(biome.toString()));
         }
         root.put(KEY_COMBO_BIOMES, biomeList);
@@ -80,28 +79,28 @@ public final class MineralNBTHelper {
      * NBTが存在しない場合はnullを返す
      */
     public static MineralData read(CompoundTag tag) {
-        if (!tag.contains(KEY_ROOT, Tag.TAG_COMPOUND)) return null;
+        if (!tag.contains(KEY_ROOT)) return null;
 
-        CompoundTag root = tag.getCompound(KEY_ROOT);
+        CompoundTag root = tag.getCompoundOrEmpty(KEY_ROOT);
 
-        BaseGem baseGem    = BaseGem.fromId(root.getString(KEY_BASE_MINERAL));
-        String colorHex    = root.getString(KEY_COLOR_HEX);
-        int    depthLevel  = root.getInt(KEY_DEPTH_LEVEL);
+        BaseGem baseGem    = BaseGem.fromId(root.getStringOr(KEY_BASE_MINERAL, ""));
+        String colorHex    = root.getStringOr(KEY_COLOR_HEX, "");
+        int    depthLevel  = root.getIntOr(KEY_DEPTH_LEVEL, 0);
 
         // コンボバイオームリスト
-        List<ResourceLocation> comboBiomes = new ArrayList<>();
-        ListTag biomeList = root.getList(KEY_COMBO_BIOMES, Tag.TAG_STRING);
+        List<Identifier> comboBiomes = new ArrayList<>();
+        ListTag biomeList = root.getListOrEmpty(KEY_COMBO_BIOMES);
         for (int i = 0; i < biomeList.size(); i++) {
-            comboBiomes.add(ResourceLocation.parse(biomeList.getString(i)));
+            comboBiomes.add(Identifier.parse(biomeList.getStringOr(i, "")));
         }
 
         // 不純物リスト
         List<MineralImpurity> impurities = new ArrayList<>();
-        ListTag impList = root.getList(KEY_IMPURITIES, Tag.TAG_COMPOUND);
+        ListTag impList = root.getListOrEmpty(KEY_IMPURITIES);
         for (int i = 0; i < impList.size(); i++) {
-            CompoundTag impTag = impList.getCompound(i);
-            ImpurityType type  = ImpurityType.fromId(impTag.getString(KEY_IMP_TYPE));
-            float ratio        = impTag.getFloat(KEY_IMP_RATIO);
+            CompoundTag impTag = impList.getCompoundOrEmpty(i);
+            ImpurityType type  = ImpurityType.fromId(impTag.getStringOr(KEY_IMP_TYPE, ""));
+            float ratio        = impTag.getFloatOr(KEY_IMP_RATIO, 0f);
             impurities.add(new MineralImpurity(type, ratio));
         }
 
@@ -112,7 +111,7 @@ public final class MineralNBTHelper {
      * NBTにmineral_dataが含まれているか確認
      */
     public static boolean hasMineralData(CompoundTag tag) {
-        return tag.contains(KEY_ROOT, Tag.TAG_COMPOUND);
+        return tag.contains(KEY_ROOT);
     }
 
     // ==============================

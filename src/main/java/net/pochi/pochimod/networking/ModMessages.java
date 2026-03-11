@@ -3,6 +3,7 @@ package net.pochi.pochimod.networking;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.network.ClientPacketDistributor;
 import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
@@ -13,7 +14,7 @@ import net.pochi.pochimod.networking.packet.RhinoChargePacket;
 import net.pochi.pochimod.networking.packet.SoilDataPacket;
 import net.pochi.pochimod.nutrition.SyncVitalDataPacket;
 
-@EventBusSubscriber(modid = PochiMod.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = PochiMod.MOD_ID)
 public class ModMessages {
 
     @SubscribeEvent
@@ -48,7 +49,7 @@ public class ModMessages {
 
     /** サーバーへ送信（クライアント→サーバー） */
     public static <MSG> void sendToServer(MSG message) {
-        PacketDistributor.sendToServer((net.minecraft.network.protocol.common.custom.CustomPacketPayload) message);
+        ClientPacketDistributor.sendToServer((net.minecraft.network.protocol.common.custom.CustomPacketPayload) message);
     }
 
     /** 特定プレイヤーへ送信（サーバー→クライアント） */

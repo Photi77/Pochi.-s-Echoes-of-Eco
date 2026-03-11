@@ -86,21 +86,26 @@ public class BFurnaceBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        tag.put("inventory", itemHandler.serializeNBT(registries));
+    protected void saveAdditional(net.minecraft.world.level.storage.ValueOutput tag) {
+        itemHandler.serialize(tag.child("inventory"));
         tag.putInt("blaster.progress", progress);
         tag.putInt("blaster.fuelTime", fuelTime);
         tag.putInt("blaster.maxFuelTime", maxFuelTime);
-        super.saveAdditional(tag, registries);
+        super.saveAdditional(tag);
     }
 
     @Override
-    public void loadAdditional(CompoundTag nbt, HolderLookup.Provider registries) {
-        super.loadAdditional(nbt, registries);
-        itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
-        progress = nbt.getInt("blaster.progress");
-        fuelTime = nbt.getInt("blaster.fuelTime");
-        maxFuelTime = nbt.getInt("blaster.maxFuelTime");
+    public void loadAdditional(net.minecraft.world.level.storage.ValueInput nbt) {
+        super.loadAdditional(nbt);
+        itemHandler.deserialize(nbt.childOrEmpty("inventory"));
+        progress = nbt.getIntOr("blaster.progress", 0);
+        fuelTime = nbt.getIntOr("blaster.fuelTime", 0);
+        maxFuelTime = nbt.getIntOr("blaster.maxFuelTime", 0);
+    }
+
+    @Override
+    public void preRemoveSideEffects(net.minecraft.core.BlockPos pos, net.minecraft.world.level.block.state.BlockState state) {
+        this.drops();
     }
 
     public void drops() {
@@ -115,7 +120,7 @@ public class BFurnaceBlockEntity extends BlockEntity implements MenuProvider {
     private void consumeFuel() {
         if(!itemHandler.getStackInSlot(0).isEmpty()) {
             ItemStack fuel = this.itemHandler.extractItem(0, 1, false);
-            int burnTime = fuel.getItem().getBurnTime(fuel, RecipeType.SMELTING);
+            int burnTime = this.level.fuelValues().burnDuration(fuel);
             this.fuelTime = burnTime < 0 ? 0 : burnTime;
             this.maxFuelTime = this.fuelTime;
         }
@@ -164,7 +169,7 @@ public class BFurnaceBlockEntity extends BlockEntity implements MenuProvider {
             inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
         }
 
-        Optional<RecipeHolder<BFurnaceRecipe>> match = level.getRecipeManager()
+        Optional<RecipeHolder<BFurnaceRecipe>> match = ((net.minecraft.world.item.crafting.RecipeManager) level.recipeAccess())
                 .getRecipeFor(BFurnaceRecipe.Type.INSTANCE, new SimpleContainerRecipeInput(inventory), level);
 
         if (match.isPresent()) {
@@ -185,7 +190,7 @@ public class BFurnaceBlockEntity extends BlockEntity implements MenuProvider {
             inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
         }
 
-        Optional<RecipeHolder<BFurnaceRecipe>> match = level.getRecipeManager()
+        Optional<RecipeHolder<BFurnaceRecipe>> match = ((net.minecraft.world.item.crafting.RecipeManager) level.recipeAccess())
                 .getRecipeFor(BFurnaceRecipe.Type.INSTANCE, new SimpleContainerRecipeInput(inventory), level);
 
         return match.isPresent() && canInsertAmountIntoOutputSlot(inventory)

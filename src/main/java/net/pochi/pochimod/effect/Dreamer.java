@@ -2,6 +2,7 @@ package net.pochi.pochimod.effect;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -21,8 +22,8 @@ public class Dreamer extends MobEffect {
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
-        Level level = pLivingEntity.level();
+    public boolean applyEffectTick(ServerLevel pLevel, LivingEntity pLivingEntity, int pAmplifier) {
+        ServerLevel level = pLevel;
         Player player = (Player) pLivingEntity;
         if (!level.isClientSide()) {
             List<LivingEntity> list = level.getEntitiesOfClass(LivingEntity.class, player.getBoundingBox().inflate(10,10,10));
@@ -38,7 +39,7 @@ public class Dreamer extends MobEffect {
                 }
             }
         }
-        return super.applyEffectTick(pLivingEntity, pAmplifier);
+        return super.applyEffectTick(pLevel, pLivingEntity, pAmplifier);
     }
 
     public static BlockPos getPos() {

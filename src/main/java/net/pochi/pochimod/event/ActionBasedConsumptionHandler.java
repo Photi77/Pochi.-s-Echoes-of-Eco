@@ -55,7 +55,7 @@ public class ActionBasedConsumptionHandler {
     public static void onPlayerTick(PlayerTickEvent.Post event) {
         Player player = event.getEntity();
 
-        if (player.level().isClientSide || player.isCreative() || player.isSpectator()) {
+        if (player.level().isClientSide() || player.isCreative() || player.isSpectator()) {
             return;
         }
 
@@ -170,7 +170,7 @@ public class ActionBasedConsumptionHandler {
             return;
         }
 
-        if (player.level().isClientSide || player.isCreative() || player.isSpectator()) {
+        if (player.level().isClientSide() || player.isCreative() || player.isSpectator()) {
             return;
         }
 
@@ -201,7 +201,7 @@ public class ActionBasedConsumptionHandler {
     public static void onBlockBreak(BlockEvent.BreakEvent event) {
         Player player = event.getPlayer();
 
-        if (player.level().isClientSide || player.isCreative() || player.isSpectator()) {
+        if (player.level().isClientSide() || player.isCreative() || player.isSpectator()) {
             return;
         }
 
@@ -232,7 +232,7 @@ public class ActionBasedConsumptionHandler {
     public static void onLivingAttack(LivingIncomingDamageEvent event) {
         // 攻撁E��た�E
         if (event.getSource().getEntity() instanceof Player player) {
-            if (player.level().isClientSide || player.isCreative() || player.isSpectator()) {
+            if (player.level().isClientSide() || player.isCreative() || player.isSpectator()) {
                 return;
             }
 
@@ -261,7 +261,7 @@ public class ActionBasedConsumptionHandler {
 
         // ダメージを受けた側
         if (event.getEntity() instanceof Player player) {
-            if (player.level().isClientSide || player.isCreative() || player.isSpectator()) {
+            if (player.level().isClientSide() || player.isCreative() || player.isSpectator()) {
                 return;
             }
 

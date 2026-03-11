@@ -5,17 +5,18 @@ package net.pochi.pochimod.entity.client;// Made with Blockbench 5.0.4
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.animation.KeyframeAnimation;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.pochi.pochimod.entity.animations.ModAnimationDefinitions;
 import net.pochi.pochimod.entity.projectile.SummonedClioneEntity;
 
-public class SummonedClioneEntityModel<T extends SummonedClioneEntity> extends HierarchicalModel<T> {
+public class SummonedClioneEntityModel extends EntityModel<LivingEntityRenderState> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	//public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath("modid", "ClioneModel"), "main");
-	private final ModelPart root;
+	//public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(Identifier.fromNamespaceAndPath("modid", "ClioneModel"), "main");
 	private final ModelPart body;
 	private final ModelPart neck;
 	private final ModelPart head;
@@ -28,7 +29,7 @@ public class SummonedClioneEntityModel<T extends SummonedClioneEntity> extends H
 	private final ModelPart tail;
 
 	public SummonedClioneEntityModel(ModelPart root) {
-		this.root = root.getChild("root");
+		super(root.getChild("root"));
 		this.body = this.root.getChild("body");
 		this.neck = this.root.getChild("neck");
 		this.head = this.neck.getChild("head");
@@ -81,23 +82,13 @@ public class SummonedClioneEntityModel<T extends SummonedClioneEntity> extends H
 	}
 
 	@Override
-	public void setupAnim(SummonedClioneEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(LivingEntityRenderState state) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		if(entity.walkAnimation.isMoving()) {
-			this.animateWalk(ModAnimationDefinitions.CLIONE_SWIM, limbSwing, limbSwingAmount, 2f, 2.5f);
+		if((state.walkAnimationSpeed > 0.01F)) {
+			ModAnimationDefinitions.CLIONE_SWIM.bake(this.root()).applyWalk(state.walkAnimationPos, state.walkAnimationSpeed, 2f, 2.5f);
 		} else {
-			//this.animate(entity.idleAnimationState, ModAnimationDefinitions.ANT_IDLE, ageInTicks, 1f);
+			//// TODO: idle animation state not available in render state
 		}
-	}
-
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-	}
-
-	@Override
-	public ModelPart root() {
-		return root;
 	}
 }

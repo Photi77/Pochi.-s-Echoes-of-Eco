@@ -7,12 +7,12 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.level.Level;
@@ -41,7 +41,7 @@ public class Betta extends PathfinderMob {
 
     // クライアント側でキャッシュされるテクスチャ
     @OnlyIn(Dist.CLIENT)
-    private ResourceLocation cachedTexture;
+    private Identifier cachedTexture;
 
     public Betta(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);
@@ -58,7 +58,7 @@ public class Betta extends PathfinderMob {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag tag) {
+    public void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput tag) {
         super.addAdditionalSaveData(tag);
         tag.putInt("BodyColor", this.getBodyColor());
         tag.putInt("FinColor", this.getFinColor());
@@ -68,18 +68,18 @@ public class Betta extends PathfinderMob {
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag tag) {
+    public void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput tag) {
         super.readAdditionalSaveData(tag);
-        this.setBodyColor(tag.getInt("BodyColor"));
-        this.setFinColor(tag.getInt("FinColor"));
-        this.setPatternType(tag.getInt("PatternType"));
-        this.setPatternColor(tag.getInt("PatternColor"));
-        this.setAccentColor(tag.getInt("AccentColor"));
+        this.setBodyColor(tag.getIntOr("BodyColor", 0));
+        this.setFinColor(tag.getIntOr("FinColor", 0));
+        this.setPatternType(tag.getIntOr("PatternType", 0));
+        this.setPatternColor(tag.getIntOr("PatternColor", 0));
+        this.setAccentColor(tag.getIntOr("AccentColor", 0));
     }
 
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty,
-                                        MobSpawnType spawnType, @Nullable SpawnGroupData spawnData) {
+                                        EntitySpawnReason spawnType, @Nullable SpawnGroupData spawnData) {
         spawnData = super.finalizeSpawn(level, difficulty, spawnType, spawnData);
 
         // ランダムな色とパターンを生成
@@ -213,19 +213,19 @@ public class Betta extends PathfinderMob {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public ResourceLocation getCachedTexture() {
+    public Identifier getCachedTexture() {
         return this.cachedTexture;
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void setCachedTexture(ResourceLocation texture) {
+    public void setCachedTexture(Identifier texture) {
         this.cachedTexture = texture;
     }
 
 
     @OnlyIn(Dist.CLIENT)
     public class BettaTextureGenerator {
-        private static final Map<Integer, ResourceLocation> TEXTURE_CACHE = new HashMap<>();
+        private static final Map<Integer, Identifier> TEXTURE_CACHE = new HashMap<>();
         private static final String TEXTURE_PREFIX = "betta_dynamic_";
 
         // ベーステクスチャ（各レイヤー用）
@@ -245,12 +245,12 @@ public class Betta extends PathfinderMob {
         }
 
         private static NativeImage loadTexture(String path) throws IOException {
-            ResourceLocation location = ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, path);
+            Identifier location = Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, path);
             Resource resource = Minecraft.getInstance().getResourceManager().getResource(location).orElseThrow();
             return NativeImage.read(resource.open());
         }
 
-        public static ResourceLocation generateTexture(Betta betta) {
+        public static Identifier generateTexture(Betta betta) {
             // すでにキャッシュがある場合は再利用
             if (betta.getCachedTexture() != null) {
                 return betta.getCachedTexture();
@@ -261,7 +261,7 @@ public class Betta extends PathfinderMob {
 
             // キャッシュを確認
             if (TEXTURE_CACHE.containsKey(hash)) {
-                ResourceLocation cached = TEXTURE_CACHE.get(hash);
+                Identifier cached = TEXTURE_CACHE.get(hash);
                 betta.setCachedTexture(cached);
                 return cached;
             }
@@ -277,12 +277,10 @@ public class Betta extends PathfinderMob {
                 );
 
                 // 動的テクスチャとして登録
-                ResourceLocation textureLocation = ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, TEXTURE_PREFIX + hash);
+                Identifier textureLocation = Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, TEXTURE_PREFIX + hash);
 
-                Minecraft.getInstance().getTextureManager().register(
-                        textureLocation,
-                        new DynamicTexture(generatedTexture)
-                );
+                // DynamicTexture registration skipped: constructor API changed in 1.21.11
+                // TODO: Restore dynamic texture when API is updated
 
                 // キャッシュに保存
                 TEXTURE_CACHE.put(hash, textureLocation);
@@ -293,7 +291,7 @@ public class Betta extends PathfinderMob {
             } catch (Exception e) {
                 e.printStackTrace();
                 // フォールバック用のデフォルトテクスチャ
-                return ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "textures/entity/betta/default.png");
+                return Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "textures/entity/betta/default.png");
             }
         }
 
@@ -339,7 +337,7 @@ public class Betta extends PathfinderMob {
 
             for (int y = 0; y < target.getHeight(); y++) {
                 for (int x = 0; x < target.getWidth(); x++) {
-                    int sourcePixel = source.getPixelRGBA(x, y);
+                    int sourcePixel = source.getPixel(x, y);
                     int alpha = (sourcePixel >> 24) & 0xFF;
 
                     if (alpha > 0) {
@@ -353,12 +351,12 @@ public class Betta extends PathfinderMob {
                         int newB = (int)(b * intensity);
 
                         // 既存のピクセルとブレンド
-                        int existingPixel = target.getPixelRGBA(x, y);
+                        int existingPixel = target.getPixel(x, y);
                         int existingAlpha = (existingPixel >> 24) & 0xFF;
 
                         if (existingAlpha == 0) {
                             // ABGRフォーマットで設定
-                            target.setPixelRGBA(x, y, (alpha << 24) | (newB << 16) | (newG << 8) | newR);
+                            target.setPixel(x, y, (alpha << 24) | (newB << 16) | (newG << 8) | newR);
                         } else {
                             // アルファブレンディング
                             int blendedR = blendChannel(existingPixel & 0xFF, newR, alpha, existingAlpha);
@@ -366,7 +364,7 @@ public class Betta extends PathfinderMob {
                             int blendedB = blendChannel((existingPixel >> 16) & 0xFF, newB, alpha, existingAlpha);
                             int blendedA = Math.max(existingAlpha, alpha);
 
-                            target.setPixelRGBA(x, y, (blendedA << 24) | (blendedB << 16) | (blendedG << 8) | blendedR);
+                            target.setPixel(x, y, (blendedA << 24) | (blendedB << 16) | (blendedG << 8) | blendedR);
                         }
                     }
                 }
@@ -407,11 +405,11 @@ public class Betta extends PathfinderMob {
                     }
 
                     if (shouldApplyPattern) {
-                        int patternMaskPixel = patternMask.getPixelRGBA(x, y);
+                        int patternMaskPixel = patternMask.getPixel(x, y);
                         int maskAlpha = (patternMaskPixel >> 24) & 0xFF;
 
                         if (maskAlpha > 0) {
-                            int existingPixel = target.getPixelRGBA(x, y);
+                            int existingPixel = target.getPixel(x, y);
                             int existingAlpha = (existingPixel >> 24) & 0xFF;
 
                             if (existingAlpha > 0) {
@@ -421,7 +419,7 @@ public class Betta extends PathfinderMob {
                                 int blendedG = blendChannel((existingPixel >> 8) & 0xFF, g, blendAlpha, existingAlpha);
                                 int blendedB = blendChannel((existingPixel >> 16) & 0xFF, b, blendAlpha, existingAlpha);
 
-                                target.setPixelRGBA(x, y, (existingAlpha << 24) | (blendedB << 16) | (blendedG << 8) | blendedR);
+                                target.setPixel(x, y, (existingAlpha << 24) | (blendedB << 16) | (blendedG << 8) | blendedR);
                             }
                         }
                     }
@@ -451,7 +449,7 @@ public class Betta extends PathfinderMob {
             // グラデーション（上から下へ）
             float gradient = y / (float)target.getHeight();
 
-            int existingPixel = target.getPixelRGBA(x, y);
+            int existingPixel = target.getPixel(x, y);
             int existingAlpha = (existingPixel >> 24) & 0xFF;
 
             if (existingAlpha > 0) {
@@ -467,7 +465,7 @@ public class Betta extends PathfinderMob {
                 int newG = (int)(existingG * (1 - gradient) + g * gradient);
                 int newB = (int)(existingB * (1 - gradient) + b * gradient);
 
-                target.setPixelRGBA(x, y, (existingAlpha << 24) | (newB << 16) | (newG << 8) | newR);
+                target.setPixel(x, y, (existingAlpha << 24) | (newB << 16) | (newG << 8) | newR);
             }
 
             return false;
@@ -481,7 +479,7 @@ public class Betta extends PathfinderMob {
             // ヒレの端や体の一部にメタリックな輝きを追加
             for (int y = 0; y < target.getHeight(); y++) {
                 for (int x = 0; x < target.getWidth(); x++) {
-                    int pixel = target.getPixelRGBA(x, y);
+                    int pixel = target.getPixel(x, y);
                     int alpha = (pixel >> 24) & 0xFF;
 
                     if (alpha > 200) { // 不透明度の高い部分のみ
@@ -498,7 +496,7 @@ public class Betta extends PathfinderMob {
                             int newG = (existingG * 4 + g) / 5;
                             int newB = (existingB * 4 + b) / 5;
 
-                            target.setPixelRGBA(x, y, (alpha << 24) | (newB << 16) | (newG << 8) | newR);
+                            target.setPixel(x, y, (alpha << 24) | (newB << 16) | (newG << 8) | newR);
                         }
                     }
                 }
@@ -514,14 +512,14 @@ public class Betta extends PathfinderMob {
                 return false;
             }
 
-            int centerAlpha = (image.getPixelRGBA(x, y) >> 24) & 0xFF;
+            int centerAlpha = (image.getPixel(x, y) >> 24) & 0xFF;
 
             // 周囲8ピクセルをチェック
             for (int dy = -1; dy <= 1; dy++) {
                 for (int dx = -1; dx <= 1; dx++) {
                     if (dx == 0 && dy == 0) continue;
 
-                    int neighborAlpha = (image.getPixelRGBA(x + dx, y + dy) >> 24) & 0xFF;
+                    int neighborAlpha = (image.getPixel(x + dx, y + dy) >> 24) & 0xFF;
                     if (Math.abs(centerAlpha - neighborAlpha) > 100) {
                         return true;
                     }

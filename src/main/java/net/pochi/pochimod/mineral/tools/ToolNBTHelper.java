@@ -3,7 +3,6 @@ package net.pochi.pochimod.mineral.tools;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.ItemStack;
 import net.pochi.pochimod.mineral.BaseGem;
 import net.pochi.pochimod.mineral.ImpurityType;
@@ -128,11 +127,11 @@ public final class ToolNBTHelper {
 
     public static boolean hasToolData(ItemStack stack) {
         if (!stack.has(DataComponents.CUSTOM_DATA)) return false;
-        return stack.get(DataComponents.CUSTOM_DATA).copyTag().contains(KEY_ROOT, Tag.TAG_COMPOUND);
+        return stack.get(DataComponents.CUSTOM_DATA).copyTag().contains(KEY_ROOT);
     }
 
     public static boolean hasToolData(CompoundTag tag) {
-        return tag.contains(KEY_ROOT, Tag.TAG_COMPOUND);
+        return tag.contains(KEY_ROOT);
     }
 
     public static ToolData read(ItemStack stack) {
@@ -142,18 +141,18 @@ public final class ToolNBTHelper {
 
     public static ToolData read(CompoundTag itemTag) {
         if (!hasToolData(itemTag)) return null;
-        CompoundTag root = itemTag.getCompound(KEY_ROOT);
+        CompoundTag root = itemTag.getCompoundOrEmpty(KEY_ROOT);
 
-        BaseGem  baseGem  = BaseGem.fromId(root.getString(KEY_BASE_GEM));
-        ToolType toolType = ToolType.fromId(root.getString(KEY_TOOL_TYPE));
-        String   colorHex = root.getString(KEY_COLOR_HEX);
+        BaseGem  baseGem  = BaseGem.fromId(root.getStringOr(KEY_BASE_GEM, ""));
+        ToolType toolType = ToolType.fromId(root.getStringOr(KEY_TOOL_TYPE, ""));
+        String   colorHex = root.getStringOr(KEY_COLOR_HEX, "");
 
         List<MineralImpurity> impurities = new ArrayList<>();
-        ListTag impList = root.getList(KEY_IMPURITIES, Tag.TAG_COMPOUND);
+        ListTag impList = root.getListOrEmpty(KEY_IMPURITIES);
         for (int i = 0; i < impList.size(); i++) {
-            CompoundTag impTag = impList.getCompound(i);
-            ImpurityType type  = ImpurityType.fromId(impTag.getString(KEY_IMP_TYPE));
-            float ratio        = impTag.getFloat(KEY_IMP_RATIO);
+            CompoundTag impTag = impList.getCompoundOrEmpty(i);
+            ImpurityType type  = ImpurityType.fromId(impTag.getStringOr(KEY_IMP_TYPE, ""));
+            float ratio        = impTag.getFloatOr(KEY_IMP_RATIO, 0f);
             impurities.add(new MineralImpurity(type, ratio));
         }
 

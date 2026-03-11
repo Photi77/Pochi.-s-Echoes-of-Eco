@@ -8,7 +8,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
+import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -48,7 +48,7 @@ public class ScytheProjectileEntity extends ThrowableItemProjectile {
     }
 
     public ScytheProjectileEntity(Level level, LivingEntity shooter) {
-        super(ModEntityTypes.SCYTHE_PROJECTILE.get(), shooter, level);
+        super(ModEntityTypes.SCYTHE_PROJECTILE.get(), shooter, level, new net.minecraft.world.item.ItemStack(Items.EGG));
         this.OWNER_ID= shooter.getId();
         this.IS_RETURNING= false;
         this.ROTATION_ANGLE= 0.0F;
@@ -108,7 +108,7 @@ public class ScytheProjectileEntity extends ThrowableItemProjectile {
 
 
         // ブーメランパーティクル
-        if (this.level().isClientSide) {
+        if (this.level().isClientSide()) {
             this.spawnPetalParticles();
         }
     }
@@ -150,7 +150,7 @@ public class ScytheProjectileEntity extends ThrowableItemProjectile {
     protected void onHitEntity(EntityHitResult result) {
         super.onHitEntity(result);
 
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             Entity target = result.getEntity();
             Entity owner = this.getOwner();
 

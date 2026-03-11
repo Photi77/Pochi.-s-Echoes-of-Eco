@@ -1,17 +1,12 @@
 package net.pochi.pochimod;
 
 import com.mojang.logging.LogUtils;
-import dev.kosmx.playerAnim.api.layered.IAnimation;
-import dev.kosmx.playerAnim.api.layered.ModifierLayer;
-import dev.kosmx.playerAnim.minecraftApi.PlayerAnimationFactory;
-import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
-import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -927,20 +922,20 @@ public class PochiMod {
 
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
-    @EventBusSubscriber(modid = MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @EventBusSubscriber(modid = MOD_ID, value = Dist.CLIENT)
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
-            ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_WHISKEY.get(), RenderType.translucent());
-            ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_WHISKEY.get(), RenderType.translucent());
-            ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_MAPLE.get(), RenderType.translucent());
-            ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_MAPLE.get(), RenderType.translucent());
-            ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_SAKE.get(), RenderType.translucent());
-            ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_SAKE.get(), RenderType.translucent());
-            ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_WINE.get(), RenderType.translucent());
-            ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_WINE.get(), RenderType.translucent());
-            ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_WHITE_WINE.get(), RenderType.translucent());
-            ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_WHITE_WINE.get(), RenderType.translucent());
+            ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_WHISKEY.get(), ChunkSectionLayer.TRANSLUCENT);
+            ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_WHISKEY.get(), ChunkSectionLayer.TRANSLUCENT);
+            ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_MAPLE.get(), ChunkSectionLayer.TRANSLUCENT);
+            ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_MAPLE.get(), ChunkSectionLayer.TRANSLUCENT);
+            ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_SAKE.get(), ChunkSectionLayer.TRANSLUCENT);
+            ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_SAKE.get(), ChunkSectionLayer.TRANSLUCENT);
+            ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_WINE.get(), ChunkSectionLayer.TRANSLUCENT);
+            ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_WINE.get(), ChunkSectionLayer.TRANSLUCENT);
+            ItemBlockRenderTypes.setRenderLayer(ModFluids.SOURCE_WHITE_WINE.get(), ChunkSectionLayer.TRANSLUCENT);
+            ItemBlockRenderTypes.setRenderLayer(ModFluids.FLOWING_WHITE_WINE.get(), ChunkSectionLayer.TRANSLUCENT);
 
             //MenuScreens.register(ModMenuTypes.BFURNACE_MENU.get(), BFurnaceScreen::new);
             //MenuScreens.register(ModMenuTypes.DISTILLER_MENU.get(), DistillerScreen::new);
@@ -1035,10 +1030,11 @@ public class PochiMod {
             EntityRenderers.register(FLY_BOAT.get(), FlyBoatRenderer::new);
             EntityRenderers.register(FLY_CHEST_BOAT.get(), FlyChestBoatRenderer::new);
 
-            PlayerAnimationFactory.ANIMATION_DATA_FACTORY.registerFactory(
-                    ResourceLocation.fromNamespaceAndPath(MOD_ID, "animation"),
-                    42,
-                    ClientModEvents::registerPlayerAnimation);
+            // PlayerAnim removed
+            // PlayerAnimationFactory.ANIMATION_DATA_FACTORY.registerFactory(
+            //         Identifier.fromNamespaceAndPath(MOD_ID, "animation"),
+            //         42,
+            //         ClientModEvents::registerPlayerAnimation);
 
             event.enqueueWork(() -> {
                 ModItemProperties.addCustomItemProperties();
@@ -1050,10 +1046,11 @@ public class PochiMod {
             });
         }
 
-        private static IAnimation registerPlayerAnimation(AbstractClientPlayer player) {
-            //This will be invoked for every new player
-            return new ModifierLayer<>();
-        }
+        // PlayerAnim removed
+        // private static IAnimation registerPlayerAnimation(AbstractClientPlayer player) {
+        //     //This will be invoked for every new player
+        //     return new ModifierLayer<>();
+        // }
     }
 
 }

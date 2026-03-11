@@ -2,7 +2,9 @@ package net.pochi.pochimod.entity.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.animation.KeyframeAnimation;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -10,7 +12,7 @@ import net.minecraft.util.Mth;
 import net.pochi.pochimod.entity.animations.ModAnimationDefinitions;
 import net.pochi.pochimod.entity.custom.Mongoose;
 
-public class MongooseModel<T extends Mongoose> extends HierarchicalModel<T> {
+public class MongooseModel extends EntityModel<LivingEntityRenderState> {
     private final ModelPart mangoose;
     private final ModelPart body;
     private final ModelPart tail;
@@ -21,6 +23,7 @@ public class MongooseModel<T extends Mongoose> extends HierarchicalModel<T> {
     private final ModelPart frontright;
 
     public MongooseModel(ModelPart root) {
+        super(root.getChild("mangoose"));
         this.mangoose = root.getChild("mangoose");
         this.body = mangoose.getChild("body");
         this.tail = body.getChild("tail");
@@ -102,16 +105,16 @@ public class MongooseModel<T extends Mongoose> extends HierarchicalModel<T> {
     }
 
     @Override
-    public void setupAnim(Mongoose p_102618_, float p_102619_, float p_102620_, float p_102621_, float p_102622_, float p_102623_) {
+    public void setupAnim(LivingEntityRenderState state) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.applyHeadRotation(p_102622_, p_102623_, p_102621_);
+        this.applyHeadRotation((state.yRot - state.bodyRot), state.xRot, state.ageInTicks);
 
-        if(p_102618_.walkAnimation.isMoving()){
-            this.animateWalk(ModAnimationDefinitions.MONGOOSE_WALK, p_102619_, p_102620_, 2f, 2.5f);
+        if((state.walkAnimationSpeed > 0.01F)){
+            ModAnimationDefinitions.MONGOOSE_WALK.bake(this.root()).applyWalk(state.walkAnimationPos, state.walkAnimationSpeed, 2f, 2.5f);
         } else {
-            this.animate(p_102618_.idleAnimationState, ModAnimationDefinitions.MONGOOSE_IDLE, p_102621_, 1f);
+            // TODO: idle animation state not available in render state
         }
-        this.animate(p_102618_.attackAnimationState, ModAnimationDefinitions.MONGOOSE_ATTACH, p_102621_, 1f);
+        // TODO: attack animation state not available in render state
     }
 
     private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float pAgeInTicks) {
@@ -120,15 +123,5 @@ public class MongooseModel<T extends Mongoose> extends HierarchicalModel<T> {
 
         this.head.yRot = pNetHeadYaw * ((float)Math.PI / 180F);
         this.head.xRot = pHeadPitch * ((float)Math.PI / 180F);
-    }
-
-    @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-        mangoose.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-    }
-
-    @Override
-    public ModelPart root() {
-        return mangoose;
     }
 }

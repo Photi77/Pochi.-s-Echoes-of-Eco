@@ -1,6 +1,5 @@
 package net.pochi.pochimod.ferm;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.core.BlockPos;
@@ -18,7 +17,7 @@ import net.minecraft.world.phys.HitResult;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.event.RenderGuiLayerEvent;
-import net.neoforged.neoforge.client.event.RenderHighlightEvent;
+// import net.neoforged.neoforge.client.event.RenderHighlightEvent; // removed in NeoForge 1.21.11
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -80,11 +79,11 @@ public class SoilTooltipHandler {
         });
     }
 
-    @OnlyIn(Dist.CLIENT)
-    @SubscribeEvent
-    public static void onBlockHighlight(RenderHighlightEvent.Block event) {
+    // @OnlyIn(Dist.CLIENT)
+    // @SubscribeEvent // RenderHighlightEvent removed in NeoForge 1.21.11
+    // public static void onBlockHighlight(RenderHighlightEvent.Block event) {
         // 繝悶Ο繝・け繝輔か繝ｼ繧ｫ繧ｹ譎ゅ↓繝代こ繝・ヨ隕∵ｱ・竊・繝・・繝ｫ繝√ャ繝励・HUD縺ｧ陦ｨ遉ｺ
-    }
+    // }
 
     // 縺ｾ縺溘・ ItemTooltipEvent 繧剃ｽｿ繧上★縺ｫHUD謠冗判
     @OnlyIn(Dist.CLIENT)
@@ -106,7 +105,6 @@ public class SoilTooltipHandler {
 
         // 逕ｻ髱｢縺ｫ謠冗判
         Font font = mc.font;
-        PoseStack pose = event.getGuiGraphics().pose();
 
         int x = 4, y = 4;
         float n = SoilDataClientCache.getN();

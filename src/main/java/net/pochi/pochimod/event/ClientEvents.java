@@ -5,10 +5,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.ShoulderRidingEntity;
-import net.minecraft.world.entity.animal.Squid;
+import net.minecraft.world.entity.animal.parrot.ShoulderRidingEntity;
+import net.minecraft.world.entity.animal.squid.Squid;
 import net.minecraft.world.entity.animal.goat.Goat;
-import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.entity.animal.equine.AbstractHorse;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -90,10 +90,10 @@ public class ClientEvents {
             if (player.getVehicle() instanceof Rhino rhino) {
                 // Ctrl繧ｭ繝ｼ縺ｮ迥ｶ諷九ｒ蜿門ｾ・
                 boolean controlPressed = InputConstants.isKeyDown(
-                        mc.getWindow().getWindow(),
+                        mc.getWindow(),
                         GLFW.GLFW_KEY_LEFT_CONTROL
                 ) || InputConstants.isKeyDown(
-                        mc.getWindow().getWindow(),
+                        mc.getWindow(),
                         GLFW.GLFW_KEY_RIGHT_CONTROL
                 );
 
@@ -110,7 +110,7 @@ public class ClientEvents {
         }
     }
 
-    @EventBusSubscriber(modid = PochiMod.MOD_ID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
+    @EventBusSubscriber(modid = PochiMod.MOD_ID, value = Dist.CLIENT)
     public static class ClientModBusEvents {
 
         @SubscribeEvent
@@ -416,37 +416,38 @@ public class ClientEvents {
          * 繧｢繧､繝・Β繧ｫ繝ｩ繝ｼ繝上Φ繝峨Λ繝ｼ逋ｻ骭ｲ
          * mineral_chunk縺ｮ蜍慕噪逹濶ｲ繧偵％縺薙〒逋ｻ骭ｲ
          */
-        @SubscribeEvent
-        public static void registerMineralColors(RegisterColorHandlersEvent.Item event) {
+        // TODO: RegisterColorHandlersEvent.Item removed in MC 1.21.11, migrate to ItemTintSource
+        // @SubscribeEvent
+        // public static void registerMineralColors(RegisterColorHandlersEvent.Item event) {
             // mineral_chunk: MineralData の color_hex を tintIndex=0 に適用
-            event.register(
-                    MineralChunkItem::getItemColor,
-                    ModItems.MINERAL_CHUNK.get()
-            );
+            // event.register(
+                    // MineralChunkItem::getItemColor,
+                    // ModItems.MINERAL_CHUNK.get()
+            // );
 
             // mineral ツール類: ToolData の color_hex を tintIndex=0 に適用
             // item/generated / item/handheld は layer0 → tintIndex=0 を自動付与するため
             // 各 model JSON に tintindex を書く必要はない
-            event.register(
-                    AbstractMineralItem::getItemColor,
-                    ModItems.MINERAL_SWORD.get(),
-                    ModItems.MINERAL_AXE.get(),
-                    ModItems.MINERAL_PICKAXE.get(),
-                    ModItems.MINERAL_SHOVEL.get(),
-                    ModItems.MINERAL_HELMET.get(),
-                    ModItems.MINERAL_CHESTPLATE.get(),
-                    ModItems.MINERAL_LEGGINGS.get(),
-                    ModItems.MINERAL_BOOTS.get()
-            );
-        }
+            // event.register(
+                    // AbstractMineralItem::getItemColor,
+                    // ModItems.MINERAL_SWORD.get(),
+                    // ModItems.MINERAL_AXE.get(),
+                    // ModItems.MINERAL_PICKAXE.get(),
+                    // ModItems.MINERAL_SHOVEL.get(),
+                    // ModItems.MINERAL_HELMET.get(),
+                    // ModItems.MINERAL_CHESTPLATE.get(),
+                    // ModItems.MINERAL_LEGGINGS.get(),
+                    // ModItems.MINERAL_BOOTS.get()
+            // );
+        // }
 
 
         @SubscribeEvent
         public static void registerGuiLayers(RegisterGuiLayersEvent event) {
-            event.registerAboveAll(
-                    net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "vital_hud"),
-                    new VitalHudOverlay()
-            );
+            //event.registerAboveAll(
+                    //net.minecraft.resources.Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "vital_hud"),
+                    //new VitalHudOverlay()
+            //);
         }
 
         @SubscribeEvent
@@ -455,22 +456,23 @@ public class ClientEvents {
             event.register(KeyBinding.RIGHT);
         }
 
-        @SubscribeEvent
-        public static void registerItemColors(RegisterColorHandlersEvent.Item event) {
-            // 髯ｶ蝎ｨ繧｢繧､繝・Β縺ｮ濶ｲ繧・NBT 縺九ｉ蜿門ｾ・
-            event.register((stack, tintIndex) -> {
-                if (tintIndex == 0) {
-                    net.minecraft.world.item.component.CustomData customData = stack.get(net.minecraft.core.component.DataComponents.CUSTOM_DATA);
-                    if (customData != null) {
-                        net.minecraft.nbt.CompoundTag tag = customData.copyTag();
-                        if (tag.contains("GlazeColor")) {
-                            return tag.getInt("GlazeColor");
-                        }
-                    }
-                }
-                return 0xFFFFFF;
-            }, ModItems.FIRED_POTTERY.get(), ModItems.UNFIRED_POTTERY.get());
-        }
+        // TODO: RegisterColorHandlersEvent.Item removed in MC 1.21.11, migrate to ItemTintSource
+        // @SubscribeEvent
+        // public static void registerItemColors(RegisterColorHandlersEvent.Item event)         //{
+        //            // 髯ｶ蝎ｨ繧｢繧､繝・Β縺ｮ濶ｲ繧・NBT 縺九ｉ蜿門ｾ・
+        //            event.register((stack, tintIndex) -> {
+        //                if (tintIndex == 0) {
+        //                    net.minecraft.world.item.component.CustomData customData = stack.get(net.minecraft.core.component.DataComponents.CUSTOM_DATA);
+        //                    if (customData != null) {
+        //                        net.minecraft.nbt.CompoundTag tag = customData.copyTag();
+        //                        if (tag.getInt("GlazeColor").isPresent()) {
+        //                            return tag.getInt("GlazeColor");
+        //                        }
+        //                    }
+        //                }
+        //                return 0xFFFFFF;
+        //            }, ModItems.FIRED_POTTERY.get(), ModItems.UNFIRED_POTTERY.get());
+        //        }
 
         //@SubscribeEvent
         //public static void onCommandRegister(RegisterCommandsEvent event) {
@@ -480,12 +482,12 @@ public class ClientEvents {
         //@SubscribeEvent
         //public static void registerChunk(RegisterEvent event){
         //    event.register(Registries.CHUNK_GENERATOR,codecRegisterHelper ->
-        //            codecRegisterHelper.register(ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "guyane"), GuyaneMountain.CODEC));
+        //            codecRegisterHelper.register(Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "guyane"), GuyaneMountain.CODEC));
         //}
 
-        /** mineral 系アイテムの BEWLR 用ベースモデルを登録（MOD バスのみで動作） */
+        /** mineral 系アイテムのベースモデルを登録（MOD バスのみで動作） */
         @SubscribeEvent
-        public static void onRegisterAdditionalModels(net.neoforged.neoforge.client.event.ModelEvent.RegisterAdditional event) {
+        public static void onRegisterStandaloneModels(net.neoforged.neoforge.client.event.ModelEvent.RegisterStandalone event) {
             MineralItemRenderer.registerModels(event);
         }
     }

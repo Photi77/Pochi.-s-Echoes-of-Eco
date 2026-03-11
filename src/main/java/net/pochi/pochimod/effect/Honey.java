@@ -1,5 +1,6 @@
 package net.pochi.pochimod.effect;
 
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -13,13 +14,13 @@ public class Honey extends MobEffect {
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
-        Level level = pLivingEntity.level();
+    public boolean applyEffectTick(ServerLevel pLevel, LivingEntity pLivingEntity, int pAmplifier) {
+        ServerLevel level = pLevel;
         if (!level.isClientSide()) {
-            pLivingEntity.spawnAtLocation(Items.HONEYCOMB.getDefaultInstance(),1.5F);
-            pLivingEntity.spawnAtLocation(Items.HONEY_BOTTLE.getDefaultInstance(),1.5F);
+            pLivingEntity.spawnAtLocation(pLevel, Items.HONEYCOMB.getDefaultInstance(),1.5F);
+            pLivingEntity.spawnAtLocation(pLevel, Items.HONEY_BOTTLE.getDefaultInstance(),1.5F);
         }
-        return super.applyEffectTick(pLivingEntity, pAmplifier);
+        return super.applyEffectTick(pLevel, pLivingEntity, pAmplifier);
     }
 
     @Override

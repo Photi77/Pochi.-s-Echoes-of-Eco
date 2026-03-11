@@ -20,8 +20,8 @@ public class IndicateHoney extends MobEffect {
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
-        Level level = pLivingEntity.level();
+    public boolean applyEffectTick(ServerLevel pLevel, LivingEntity pLivingEntity, int pAmplifier) {
+        ServerLevel level = pLevel;
         if (!level.isClientSide()) {
             pos = null;
             if(pos == null) {
@@ -48,7 +48,7 @@ public class IndicateHoney extends MobEffect {
                 }
             }
         }
-        return super.applyEffectTick(pLivingEntity, pAmplifier);
+        return super.applyEffectTick(pLevel, pLivingEntity, pAmplifier);
     }
 
     @Override

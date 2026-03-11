@@ -80,17 +80,17 @@ public class Ant extends Animal implements InventoryCarrier {
         builder.define(DATA_GOAL_POS, Optional.empty());
     }
 
-    public void addAdditionalSaveData(CompoundTag p_32520_) {
+    public void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput p_32520_) {
         super.addAdditionalSaveData(p_32520_);
         BlockPos pos = this.getChestPos();
         if (pos != null) {
-            p_32520_.put("pos", NbtUtils.writeBlockPos(pos));
+            p_32520_.store("pos", net.minecraft.core.BlockPos.CODEC, pos);
         }
     }
 
-    public void readAdditionalSaveData(CompoundTag p_32511_) {
+    public void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput p_32511_) {
         super.readAdditionalSaveData(p_32511_);
-        NbtUtils.readBlockPos(p_32511_, "pos").ifPresent(this::setChestPos);
+        p_32511_.read("pos", net.minecraft.core.BlockPos.CODEC).ifPresent(this::setChestPos);
     }
 
     protected SoundEvent getAmbientSound() {
@@ -112,7 +112,7 @@ public class Ant extends Animal implements InventoryCarrier {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-        return ModEntityTypes.ANT.get().create(p_146743_);
+        return ModEntityTypes.ANT.get().create(p_146743_, net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
     }
 
     private void setupAnimationStates() {
@@ -132,7 +132,7 @@ public class Ant extends Animal implements InventoryCarrier {
             f = 0.0F;
         }
 
-        this.walkAnimation.update(f, 0.2F);
+        this.walkAnimation.update(f, 0.2F, this.tickCount);
     }
 
 
@@ -156,8 +156,7 @@ public class Ant extends Animal implements InventoryCarrier {
         return this.inventory;
     }
 
-    @Override
-    public void pickUpItem(ItemEntity itemEntity) {
+        public void pickUpItem(ItemEntity itemEntity) {
         SimpleContainer inventory = this.getInventory();
         ItemStack itemStack = itemEntity.getItem();
 
@@ -270,8 +269,8 @@ public class Ant extends Animal implements InventoryCarrier {
                 setChestPos(pos);
                 return InteractionResult.SUCCESS;
             } else {
-                if(!this.level().isClientSide) {
-                    p_27584_.sendSystemMessage(Component.literal("近くにチェストがない！"));
+                if(!this.level().isClientSide()) {
+                    p_27584_.displayClientMessage(Component.literal("近くにチェストがない！"), false);
                 }
             }
         }

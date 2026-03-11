@@ -33,7 +33,7 @@ public class BFurnaceMenu extends AbstractContainerMenu {
         addPlayerHotbar(inv);
 
         var handler = this.blockEntity.getItemHandler();
-        this.addSlot(new ModFuelSlot(handler, 0, 18, 50));
+        this.addSlot(new ModFuelSlot(handler, 0, 18, 50, this.level));
         this.addSlot(new SlotItemHandler(handler, 1, 66, 16));
         this.addSlot(new SlotItemHandler(handler, 2, 66, 50));
         this.addSlot(new ModResultSlot(handler, 3, 114, 33));

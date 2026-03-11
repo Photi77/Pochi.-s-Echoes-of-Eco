@@ -9,24 +9,25 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
 import net.minecraft.core.Holder;
-import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.equipment.ArmorMaterial;
+import net.minecraft.world.item.equipment.ArmorType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.pochi.pochimod.item.ModItems;
 
 import java.util.List;
 
-public class DuraluminArmorItem extends ArmorItem{
+public class DuraluminArmorItem extends Item {
 
     int effectTime = 0;
 
     private int count = 0;
 
-    public DuraluminArmorItem(Holder<ArmorMaterial> p_40386_, Type p_266831_, Properties p_40388_) {
-        super(p_40386_, p_266831_, p_40388_);
+    public DuraluminArmorItem(Holder<ArmorMaterial> p_40386_, ArmorType p_266831_, Properties p_40388_) {
+        super(p_40388_);
     }
     public void onArmorTick(ItemStack stack, Level level, Player player) {
         if(!level.isClientSide() && hasFullSuitOfArmorOn(player)) {
@@ -68,10 +69,10 @@ public class DuraluminArmorItem extends ArmorItem{
         }
     }
     private boolean hasFullSuitOfArmorOn(Player player) {
-        boolean boots = player.getInventory().getArmor(0).is(ModItems.DURALUMIN_BOOTS.get());
-        boolean leggings = player.getInventory().getArmor(1).is(ModItems.DURALUMIN_LEGGINGS.get());
-        boolean chestplate = player.getInventory().getArmor(2).is(ModItems.DURALUMIN_CHESTPLATE.get());
-        boolean helmet = player.getInventory().getArmor(3).is(ModItems.DURALUMIN_HELMET.get());
+        boolean boots = player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.FEET).is(ModItems.DURALUMIN_BOOTS.get());
+        boolean leggings = player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.LEGS).is(ModItems.DURALUMIN_LEGGINGS.get());
+        boolean chestplate = player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.CHEST).is(ModItems.DURALUMIN_CHESTPLATE.get());
+        boolean helmet = player.getItemBySlot(net.minecraft.world.entity.EquipmentSlot.HEAD).is(ModItems.DURALUMIN_HELMET.get());
 
         return helmet && leggings && chestplate && boots;
     }

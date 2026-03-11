@@ -2,18 +2,21 @@ package net.pochi.pochimod.screen.slot;
 
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
+import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.items.IItemHandler;
 import net.neoforged.neoforge.items.SlotItemHandler;
 
 public class ModFuelSlot extends SlotItemHandler {
-    public ModFuelSlot(IItemHandler itemHandler, int index, int x, int y) {
+    private final Level level;
+
+    public ModFuelSlot(IItemHandler itemHandler, int index, int x, int y, Level level) {
         super(itemHandler, index, x, y);
+        this.level = level;
     }
 
     @Override
     public boolean mayPlace(ItemStack stack) {
-        return AbstractFurnaceBlockEntity.isFuel(stack) || ModFuelSlot.isBucket(stack);
+        return level.fuelValues().isFuel(stack) || ModFuelSlot.isBucket(stack);
     }
 
     @Override

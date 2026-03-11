@@ -21,7 +21,7 @@ public class CalciteSpikeFeature extends Feature<NoneFeatureConfiguration> {
         RandomSource randomsource = p_159882_.random();
 
         WorldGenLevel worldgenlevel;
-        for(worldgenlevel = p_159882_.level(); worldgenlevel.isEmptyBlock(blockpos) && blockpos.getY() > worldgenlevel.getMinBuildHeight() + 2; blockpos = blockpos.below()) {
+        for(worldgenlevel = p_159882_.level(); worldgenlevel.isEmptyBlock(blockpos) && blockpos.getY() > worldgenlevel.getMinY() + 2; blockpos = blockpos.below()) {
         }
 
 

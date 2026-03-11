@@ -1,5 +1,6 @@
 package net.pochi.pochimod.block.custom.modleaves;
 
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -11,8 +12,17 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.pochi.pochimod.block.custom.fruits.BananaBlock;
 
 public class BananaLeavesBlock extends LeavesBlock implements BonemealableBlock {
+    public static final MapCodec<BananaLeavesBlock> CODEC = simpleCodec(BananaLeavesBlock::new);
+
+    @Override
+    public MapCodec<BananaLeavesBlock> codec() { return CODEC; }
+
     public BananaLeavesBlock(Properties pProperties) {
-        super(pProperties);
+        super(0.02f, pProperties);
+    }
+
+    @Override
+    protected void spawnFallingLeavesParticle(Level level, BlockPos pos, RandomSource random) {
     }
 
     @Override

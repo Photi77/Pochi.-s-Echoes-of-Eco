@@ -25,7 +25,7 @@ public class SoilDebugCommand {
     public static void onRegisterCommands(RegisterCommandsEvent event) {
         event.getDispatcher().register(
                 Commands.literal("soil")
-                        .requires(source -> source.hasPermission(2))
+                        .requires(source -> true)
                         .then(Commands.literal("set")
                                 .then(Commands.argument("nutrient", StringArgumentType.word())
                                         .suggests((ctx, builder) -> {

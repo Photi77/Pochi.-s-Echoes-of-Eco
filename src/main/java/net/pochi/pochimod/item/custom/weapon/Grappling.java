@@ -4,7 +4,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
+
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -29,10 +30,10 @@ public class Grappling extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level p_41432_, Player p_41433_, InteractionHand p_41434_) {
+    public InteractionResult use(Level p_41432_, Player p_41433_, InteractionHand p_41434_) {
         ItemStack itemStack = p_41433_.getItemInHand(p_41434_);
         if(!p_41433_.isShiftKeyDown()) {
-            if (!p_41432_.isClientSide) {
+            if (!p_41432_.isClientSide()) {
                 HitResult lookingAt = p_41433_.pick(100, 0.0F, true);
                 if(length == 0) {
                     for(int i = 0; i <=3 ; i++) {
@@ -54,7 +55,7 @@ public class Grappling extends Item {
                 }
             }
         }
-        return InteractionResultHolder.fail(itemStack);
+        return InteractionResult.FAIL;
     }
 
     public void setView(HitResult result){
@@ -67,11 +68,11 @@ public class Grappling extends Item {
 
 
     @Override
-    public void inventoryTick(ItemStack p_41404_, Level p_41405_, Entity p_41406_, int p_41407_, boolean p_41408_) {
-        super.inventoryTick(p_41404_, p_41405_, p_41406_, p_41407_, p_41408_);
+    public void inventoryTick(ItemStack p_41404_, net.minecraft.server.level.ServerLevel p_41405_, Entity p_41406_, net.minecraft.world.entity.EquipmentSlot p_41407_) {
+        super.inventoryTick(p_41404_, p_41405_, p_41406_, p_41407_);
         Player player = (Player) p_41406_;
         if(length > 0) {
-            if (!p_41405_.isClientSide) {
+            if (!p_41405_.isClientSide()) {
                 if(player.getMainHandItem() == p_41404_) {
                     if(p_41405_ instanceof ServerLevel level){
                         for (double l = 0; l < 100; l++) {

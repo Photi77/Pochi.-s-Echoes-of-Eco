@@ -1,7 +1,7 @@
 package net.pochi.pochimod.datagen;
 
-import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.advancements.criterion.StatePropertiesPredicate;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.flag.FeatureFlags;
@@ -44,7 +44,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
         //宝石の国
         dropSelf(ModBlocks.CINNABAR_BLOCK.get());
         add(ModBlocks.CINNABAR_CLUSTER.get(), (p_252201_) -> {
-            return createSilkTouchDispatchTable(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(4.0F))).apply(ApplyBonusCount.addOreBonusCount(this.registries.lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE))).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ItemTags.CLUSTER_MAX_HARVESTABLES))).otherwise(applyExplosionDecay(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
+            return createSilkTouchDispatchTable(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(4.0F))).apply(ApplyBonusCount.addOreBonusCount(this.registries.lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE))).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(this.registries.lookupOrThrow(net.minecraft.core.registries.Registries.ITEM), ItemTags.CLUSTER_MAX_HARVESTABLES))).otherwise(applyExplosionDecay(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
         });
         dropWhenSilkTouch(ModBlocks.LARGE_CINNABAR_BUD.get());
         dropWhenSilkTouch(ModBlocks.MEDIUM_CINNABAR_BUD.get());
@@ -53,7 +53,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 
         dropSelf(ModBlocks.BLACK_DIAMOND_BLOCK.get());
         add(ModBlocks.BLACK_DIAMOND_CLUSTER.get(), (p_252201_) -> {
-            return createSilkTouchDispatchTable(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(4.0F))).apply(ApplyBonusCount.addOreBonusCount(this.registries.lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE))).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ItemTags.CLUSTER_MAX_HARVESTABLES))).otherwise(applyExplosionDecay(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
+            return createSilkTouchDispatchTable(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(4.0F))).apply(ApplyBonusCount.addOreBonusCount(this.registries.lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE))).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(this.registries.lookupOrThrow(net.minecraft.core.registries.Registries.ITEM), ItemTags.CLUSTER_MAX_HARVESTABLES))).otherwise(applyExplosionDecay(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
         });
         dropWhenSilkTouch(ModBlocks.LARGE_BLACK_DIAMOND_BUD.get());
         dropWhenSilkTouch(ModBlocks.MEDIUM_BLACK_DIAMOND_BUD.get());
@@ -62,7 +62,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 
         dropSelf(ModBlocks.YELLOW_DIAMOND_BLOCK.get());
         add(ModBlocks.YELLOW_DIAMOND_CLUSTER.get(), (p_252201_) -> {
-            return createSilkTouchDispatchTable(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(4.0F))).apply(ApplyBonusCount.addOreBonusCount(this.registries.lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE))).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ItemTags.CLUSTER_MAX_HARVESTABLES))).otherwise(applyExplosionDecay(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
+            return createSilkTouchDispatchTable(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(4.0F))).apply(ApplyBonusCount.addOreBonusCount(this.registries.lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE))).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(this.registries.lookupOrThrow(net.minecraft.core.registries.Registries.ITEM), ItemTags.CLUSTER_MAX_HARVESTABLES))).otherwise(applyExplosionDecay(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
         });
         dropWhenSilkTouch(ModBlocks.LARGE_YELLOW_DIAMOND_BUD.get());
         dropWhenSilkTouch(ModBlocks.MEDIUM_YELLOW_DIAMOND_BUD.get());
@@ -71,7 +71,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 
         dropSelf(ModBlocks.MORGANITE_BLOCK.get());
         add(ModBlocks.MORGANITE_CLUSTER.get(), (p_252201_) -> {
-            return createSilkTouchDispatchTable(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(4.0F))).apply(ApplyBonusCount.addOreBonusCount(this.registries.lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE))).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ItemTags.CLUSTER_MAX_HARVESTABLES))).otherwise(applyExplosionDecay(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
+            return createSilkTouchDispatchTable(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(4.0F))).apply(ApplyBonusCount.addOreBonusCount(this.registries.lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE))).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(this.registries.lookupOrThrow(net.minecraft.core.registries.Registries.ITEM), ItemTags.CLUSTER_MAX_HARVESTABLES))).otherwise(applyExplosionDecay(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
         });
         dropWhenSilkTouch(ModBlocks.LARGE_MORGANITE_BUD.get());
         dropWhenSilkTouch(ModBlocks.MEDIUM_MORGANITE_BUD.get());
@@ -80,7 +80,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 
         dropSelf(ModBlocks.GOSHENITE_BLOCK.get());
         add(ModBlocks.GOSHENITE_CLUSTER.get(), (p_252201_) -> {
-            return createSilkTouchDispatchTable(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(4.0F))).apply(ApplyBonusCount.addOreBonusCount(this.registries.lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE))).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ItemTags.CLUSTER_MAX_HARVESTABLES))).otherwise(applyExplosionDecay(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
+            return createSilkTouchDispatchTable(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(4.0F))).apply(ApplyBonusCount.addOreBonusCount(this.registries.lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE))).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(this.registries.lookupOrThrow(net.minecraft.core.registries.Registries.ITEM), ItemTags.CLUSTER_MAX_HARVESTABLES))).otherwise(applyExplosionDecay(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
         });
         dropWhenSilkTouch(ModBlocks.LARGE_GOSHENITE_BUD.get());
         dropWhenSilkTouch(ModBlocks.MEDIUM_GOSHENITE_BUD.get());
@@ -89,7 +89,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 
         dropSelf(ModBlocks.RUTILE_BLOCK.get());
         add(ModBlocks.RUTILE_CLUSTER.get(), (p_252201_) -> {
-            return createSilkTouchDispatchTable(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(4.0F))).apply(ApplyBonusCount.addOreBonusCount(this.registries.lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE))).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ItemTags.CLUSTER_MAX_HARVESTABLES))).otherwise(applyExplosionDecay(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
+            return createSilkTouchDispatchTable(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(4.0F))).apply(ApplyBonusCount.addOreBonusCount(this.registries.lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE))).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(this.registries.lookupOrThrow(net.minecraft.core.registries.Registries.ITEM), ItemTags.CLUSTER_MAX_HARVESTABLES))).otherwise(applyExplosionDecay(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
         });
         dropWhenSilkTouch(ModBlocks.LARGE_RUTILE_BUD.get());
         dropWhenSilkTouch(ModBlocks.MEDIUM_RUTILE_BUD.get());
@@ -98,7 +98,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 
         dropSelf(ModBlocks.JADE_BLOCK.get());
         add(ModBlocks.JADE_CLUSTER.get(), (p_252201_) -> {
-            return createSilkTouchDispatchTable(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(4.0F))).apply(ApplyBonusCount.addOreBonusCount(this.registries.lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE))).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ItemTags.CLUSTER_MAX_HARVESTABLES))).otherwise(applyExplosionDecay(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
+            return createSilkTouchDispatchTable(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(4.0F))).apply(ApplyBonusCount.addOreBonusCount(this.registries.lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE))).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(this.registries.lookupOrThrow(net.minecraft.core.registries.Registries.ITEM), ItemTags.CLUSTER_MAX_HARVESTABLES))).otherwise(applyExplosionDecay(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
         });
         dropWhenSilkTouch(ModBlocks.LARGE_JADE_BUD.get());
         dropWhenSilkTouch(ModBlocks.MEDIUM_JADE_BUD.get());
@@ -107,7 +107,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 
         dropSelf(ModBlocks.EUCLASE_BLOCK.get());
         add(ModBlocks.EUCLASE_CLUSTER.get(), (p_252201_) -> {
-            return createSilkTouchDispatchTable(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(4.0F))).apply(ApplyBonusCount.addOreBonusCount(this.registries.lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE))).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ItemTags.CLUSTER_MAX_HARVESTABLES))).otherwise(applyExplosionDecay(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
+            return createSilkTouchDispatchTable(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(4.0F))).apply(ApplyBonusCount.addOreBonusCount(this.registries.lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE))).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(this.registries.lookupOrThrow(net.minecraft.core.registries.Registries.ITEM), ItemTags.CLUSTER_MAX_HARVESTABLES))).otherwise(applyExplosionDecay(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
         });
         dropWhenSilkTouch(ModBlocks.LARGE_EUCLASE_BUD.get());
         dropWhenSilkTouch(ModBlocks.MEDIUM_EUCLASE_BUD.get());
@@ -116,7 +116,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 
         dropSelf(ModBlocks.ALEXANDRITE_BLOCK.get());
         add(ModBlocks.ALEXANDRITE_CLUSTER.get(), (p_252201_) -> {
-            return createSilkTouchDispatchTable(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(4.0F))).apply(ApplyBonusCount.addOreBonusCount(this.registries.lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE))).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ItemTags.CLUSTER_MAX_HARVESTABLES))).otherwise(applyExplosionDecay(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
+            return createSilkTouchDispatchTable(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(4.0F))).apply(ApplyBonusCount.addOreBonusCount(this.registries.lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE))).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(this.registries.lookupOrThrow(net.minecraft.core.registries.Registries.ITEM), ItemTags.CLUSTER_MAX_HARVESTABLES))).otherwise(applyExplosionDecay(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
         });
         dropWhenSilkTouch(ModBlocks.LARGE_ALEXANDRITE_BUD.get());
         dropWhenSilkTouch(ModBlocks.MEDIUM_ALEXANDRITE_BUD.get());
@@ -125,7 +125,7 @@ public class ModBlockLootTables extends BlockLootSubProvider {
 
         dropSelf(ModBlocks.PHOSPHOPHYLITE_BLOCK.get());
         add(ModBlocks.PHOSPHOPHYLITE_CLUSTER.get(), (p_252201_) -> {
-            return createSilkTouchDispatchTable(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(4.0F))).apply(ApplyBonusCount.addOreBonusCount(this.registries.lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE))).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(ItemTags.CLUSTER_MAX_HARVESTABLES))).otherwise(applyExplosionDecay(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
+            return createSilkTouchDispatchTable(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(4.0F))).apply(ApplyBonusCount.addOreBonusCount(this.registries.lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE))).when(MatchTool.toolMatches(ItemPredicate.Builder.item().of(this.registries.lookupOrThrow(net.minecraft.core.registries.Registries.ITEM), ItemTags.CLUSTER_MAX_HARVESTABLES))).otherwise(applyExplosionDecay(p_252201_, LootItem.lootTableItem(Items.AMETHYST_SHARD).apply(SetItemCountFunction.setCount(ConstantValue.exactly(2.0F))))));
         });
         dropWhenSilkTouch(ModBlocks.LARGE_PHOSPHOPHYLITE_BUD.get());
         dropWhenSilkTouch(ModBlocks.MEDIUM_PHOSPHOPHYLITE_BUD.get());

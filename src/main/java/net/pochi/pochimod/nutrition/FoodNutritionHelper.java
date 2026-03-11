@@ -45,9 +45,9 @@ public class FoodNutritionHelper {
 
         FoodNutritionData.Builder builder = FoodNutritionData.builder();
         for (NutritionType type : NutritionType.values()) {
-            builder.nutrition(type, tag.getInt(NBT_PREFIX + type.getName()));
+            builder.nutrition(type, tag.getIntOr(NBT_PREFIX + type.getName(), 0));
         }
-        builder.hydration(tag.getInt(NBT_HYDRATION));
+        builder.hydration(tag.getIntOr(NBT_HYDRATION, 0));
         return Optional.of(builder.build());
     }
 

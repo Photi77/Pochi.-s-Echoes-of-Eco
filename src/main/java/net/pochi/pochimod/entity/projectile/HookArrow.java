@@ -7,7 +7,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -58,7 +58,7 @@ public class HookArrow extends AbstractArrow {
         this.discard();
 
         if (parentItem != null) {
-            ((Player) this.getOwner()).getCooldowns().removeCooldown(parentItem);
+            ((Player) this.getOwner()).getCooldowns().removeCooldown(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(parentItem));
         }
     }
 
@@ -82,8 +82,8 @@ public class HookArrow extends AbstractArrow {
         if (owner instanceof ServerPlayer player) {
             Vec3 vec3 = owner.getLookAngle();
             player.addEffect(new MobEffectInstance(MobEffects.LEVITATION,3,50,true,false));
-            player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,100,5,true,false));
-            owner.hurtMarked = true;
+            player.addEffect(new MobEffectInstance(MobEffects.RESISTANCE,100,5,true,false));
+            // owner.hurtMarked = true; // removed in 1.21.11
             player.setDeltaMovement(vec3.x * 10,vec3.y * 10,vec3.z * 10);
         }
     }

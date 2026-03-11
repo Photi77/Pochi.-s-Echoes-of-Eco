@@ -3,7 +3,7 @@ package net.pochi.pochimod.entity.custom;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.world.entity.vehicle.boat.Boat;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.pochi.pochimod.entity.ModEntityTypes;
@@ -11,13 +11,13 @@ import net.pochi.pochimod.item.ModItems;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animatable.manager.AnimatableManager;
 
 public class FlyingBoatEntity extends Boat implements GeoEntity {
 
     private AnimatableInstanceCache factory = new SingletonAnimatableInstanceCache(this);
     public FlyingBoatEntity(EntityType<? extends Boat> p_38290_, Level p_38291_) {
-        super(p_38290_, p_38291_);
+        super(p_38290_, p_38291_, () -> ModItems.FLY_BOAT.get());
     }
 
     public FlyingBoatEntity(Level level, double pX, double pY, double pZ) {
@@ -29,25 +29,18 @@ public class FlyingBoatEntity extends Boat implements GeoEntity {
     }
 
     @Override
-    public double getTick(Object entity) {
-        return GeoEntity.super.getTick(entity);
-    }
-
-    @Override
     public void tick() {
         super.tick();
-        if(this.level().isClientSide) {
-            if (this.isControlledByLocalInstance()) {
-                if (this.getControllingPassenger() instanceof Player player) {
-                    if (Minecraft.getInstance().options.keyJump.isDown()) {
-                        this.setDeltaMovement(getDeltaMovement().x, player.getLookAngle().y * 0.3, getDeltaMovement().z);
-                        //this.move(MoverType.SELF, this.getDeltaMovement());
-                    } else {
-                        this.setDeltaMovement(getDeltaMovement().x,0.02,getDeltaMovement().z);
-                    }
+        if(this.level().isClientSide()) {
+            if (this.getControllingPassenger() instanceof Player player) {
+                if (Minecraft.getInstance().options.keyJump.isDown()) {
+                    this.setDeltaMovement(getDeltaMovement().x, player.getLookAngle().y * 0.3, getDeltaMovement().z);
+                    //this.move(MoverType.SELF, this.getDeltaMovement());
                 } else {
-                    this.setDeltaMovement(0,0.02,0);
+                    this.setDeltaMovement(getDeltaMovement().x,0.02,getDeltaMovement().z);
                 }
+            } else {
+                this.setDeltaMovement(0,0.02,0);
             }
         }
     }
@@ -62,9 +55,6 @@ public class FlyingBoatEntity extends Boat implements GeoEntity {
         return factory;
     }
 
-    @Override
-    public Item getDropItem() {
-        return ModItems.FLY_BOAT.get();
-    }
+    // getDropItem() replaced by Supplier<Item> in constructor in 1.21.11
 
 }

@@ -71,7 +71,7 @@ public class MiniHipo extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-        return ModEntityTypes.MINI_HIPO.get().create(p_146743_);
+        return ModEntityTypes.MINI_HIPO.get().create(p_146743_, net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
     }
 
     private void setupAnimationStates() {
@@ -91,7 +91,7 @@ public class MiniHipo extends Animal {
             f = 0.0F;
         }
 
-        this.walkAnimation.update(f, 0.2F);
+        this.walkAnimation.update(f, 0.2F, this.tickCount);
     }
 
     @Override
@@ -149,7 +149,7 @@ public class MiniHipo extends Animal {
         }
 
         protected void onReachedTarget() {
-            if (net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(new net.neoforged.neoforge.event.entity.EntityMobGriefingEvent(MiniHipo.this.level(), MiniHipo.this)).canGrief()) {
+            if (net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(new net.neoforged.neoforge.event.entity.EntityMobGriefingEvent((net.minecraft.server.level.ServerLevel)MiniHipo.this.level(), MiniHipo.this)).canGrief()) {
                 BlockState blockstate = MiniHipo.this.level().getBlockState(this.blockPos);
                 if (blockstate.is(Blocks.MELON)) {
                     this.stripped(blockstate, blockPos);

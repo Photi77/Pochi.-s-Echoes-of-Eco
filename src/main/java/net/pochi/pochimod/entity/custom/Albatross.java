@@ -1,8 +1,6 @@
 package net.pochi.pochimod.entity.custom;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -20,7 +18,7 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.FlyingAnimal;
-import net.minecraft.world.entity.monster.AbstractIllager;
+import net.minecraft.world.entity.monster.illager.AbstractIllager;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -98,22 +96,16 @@ public class Albatross extends Animal implements FlyingAnimal {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag tag) {
+    public void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput tag) {
         super.addAdditionalSaveData(tag);
 
         // インベントリの保存
-        ListTag itemsList = new ListTag();
         for (int i = 0; i < this.inventory.getContainerSize(); i++) {
             ItemStack stack = this.inventory.getItem(i);
             if (!stack.isEmpty()) {
-                net.minecraft.nbt.Tag savedTag = stack.save(this.registryAccess());
-                if (savedTag instanceof CompoundTag savedCompound) {
-                    savedCompound.putByte("Slot", (byte) i);
-                    itemsList.add(savedCompound);
-                }
+                tag.store("InvSlot" + i, ItemStack.CODEC, stack);
             }
         }
-        tag.put("Inventory", itemsList);
 
         // 配達ミッション状態の保存
         tag.putBoolean("OnDeliveryMission", this.isOnDeliveryMission);
@@ -127,37 +119,34 @@ public class Albatross extends Animal implements FlyingAnimal {
             tag.putLong("PlayerLastPos", this.playerLastPos.asLong());
         }
         if (this.ownerUUID != null) {
-            tag.putUUID("OwnerUUID", this.ownerUUID);
+            tag.putString("OwnerUUID", this.ownerUUID.toString());
         }
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag tag) {
+    public void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput tag) {
         super.readAdditionalSaveData(tag);
 
         // インベントリの読み込み
-        ListTag itemsList = tag.getList("Inventory", 10);
-        for (int i = 0; i < itemsList.size(); i++) {
-            CompoundTag itemTag = itemsList.getCompound(i);
-            int slot = itemTag.getByte("Slot") & 255;
-            if (slot < this.inventory.getContainerSize()) {
-                this.inventory.setItem(slot, ItemStack.parseOptional(this.registryAccess(), itemTag));
-            }
+        for (int i = 0; i < INVENTORY_SIZE; i++) {
+            final int slot = i;
+            tag.read("InvSlot" + i, ItemStack.CODEC).ifPresent(stack ->
+                    this.inventory.setItem(slot, stack));
         }
 
         // 配達ミッション状態の復元
-        this.isOnDeliveryMission = tag.getBoolean("OnDeliveryMission");
-        //this.deliveryState = DeliveryState.valueOf(tag.getString("DeliveryState"));
-        this.deliveryTimer = tag.getInt("DeliveryTimer");
+        this.isOnDeliveryMission = tag.getBooleanOr("OnDeliveryMission", false);
+        //this.deliveryState = DeliveryState.valueOf(tag.getString("DeliveryState").orElse(""));
+        this.deliveryTimer = tag.getIntOr("DeliveryTimer", 0);
 
-        if (tag.contains("TargetRespawnPoint")) {
-            this.targetRespawnPoint = BlockPos.of(tag.getLong("TargetRespawnPoint"));
+        if (tag.getInt("TargetRespawnPoint").isPresent()) {
+            this.targetRespawnPoint = BlockPos.of(tag.getLongOr("TargetRespawnPoint", 0L));
         }
-        if (tag.contains("PlayerLastPos")) {
-            this.playerLastPos = BlockPos.of(tag.getLong("PlayerLastPos"));
+        if (tag.getInt("PlayerLastPos").isPresent()) {
+            this.playerLastPos = BlockPos.of(tag.getLongOr("PlayerLastPos", 0L));
         }
-        if (tag.contains("OwnerUUID")) {
-            this.ownerUUID = tag.getUUID("OwnerUUID");
+        if (tag.getInt("OwnerUUID").isPresent()) {
+            this.ownerUUID = java.util.UUID.fromString(tag.getString("OwnerUUID").orElse("00000000-0000-0000-0000-000000000000"));
         }
     }
 
@@ -180,7 +169,7 @@ public class Albatross extends Animal implements FlyingAnimal {
         //if (this.isTame() && this.isOwnedBy(player)) {
             if (player.isShiftKeyDown()) {
                 // Shift+右クリックで配達ミッション開始
-                if (!this.level().isClientSide && this.deliveryState == DeliveryState.IDLE) {
+                if (!this.level().isClientSide() && this.deliveryState == DeliveryState.IDLE) {
                     if (hasItemsInInventory()) {
                         startDeliveryMission(player);
                         player.displayClientMessage(
@@ -198,10 +187,10 @@ public class Albatross extends Animal implements FlyingAnimal {
                 }
             } else {
                 // 通常の右クリックでインベントリを開く
-                if (!this.level().isClientSide) {
+                if (!this.level().isClientSide()) {
                     openInventory(player);
                 }
-                return InteractionResult.sidedSuccess(this.level().isClientSide);
+                return InteractionResult.SUCCESS;
             }
         //} else if (itemstack.is(Items.COD) && !this.isTame()) {
         //    // 餌付け処理
@@ -209,7 +198,7 @@ public class Albatross extends Animal implements FlyingAnimal {
         //        itemstack.shrink(1);
         //    }
 //
-        //    if (!this.level().isClientSide) {
+        //    if (!this.level().isClientSide()) {
         //        if (this.random.nextInt(3) == 0) {
         //            this.tame(player);
         //            this.navigation.stop();
@@ -220,7 +209,7 @@ public class Albatross extends Animal implements FlyingAnimal {
         //        }
         //    }
 //
-        //    return InteractionResult.sidedSuccess(this.level().isClientSide);
+        //    return InteractionResult.sidedSuccess(this.level().isClientSide());
         //}
 
         return super.mobInteract(player, hand);
@@ -254,11 +243,12 @@ public class Albatross extends Animal implements FlyingAnimal {
 
         // プレイヤーのリスポーン地点を取得
         ServerPlayer serverPlayer = (ServerPlayer) player;
-        this.targetRespawnPoint = serverPlayer.getRespawnPosition();
+        var respawnData = serverPlayer.getRespawnConfig().respawnData();
+        this.targetRespawnPoint = (respawnData != null) ? respawnData.pos() : null;
 
         if (this.targetRespawnPoint == null) {
-            // リスポーン地点が未設定の場合はワールドスポーン
-            this.targetRespawnPoint = serverPlayer.serverLevel().getSharedSpawnPos();
+            // リスポーン地点が未設定の場合はプレイヤー現在地を使用
+            this.targetRespawnPoint = serverPlayer.blockPosition();
         }
 
         this.deliveryState = DeliveryState.TO_RESPAWN;
@@ -276,7 +266,7 @@ public class Albatross extends Animal implements FlyingAnimal {
     public void tick() {
         super.tick();
 
-        if (!this.level().isClientSide && this.isOnDeliveryMission) {
+        if (!this.level().isClientSide() && this.isOnDeliveryMission) {
             handleDeliveryMission();
         }
     }
@@ -479,7 +469,7 @@ public class Albatross extends Animal implements FlyingAnimal {
         for (int i = 0; i < this.inventory.getContainerSize(); i++) {
             ItemStack stack = this.inventory.getItem(i);
             if (!stack.isEmpty()) {
-                this.spawnAtLocation(stack);
+                this.spawnAtLocation((net.minecraft.server.level.ServerLevel) this.level(), stack);
                 this.inventory.setItem(i, ItemStack.EMPTY);
             }
         }
@@ -542,7 +532,7 @@ public class Albatross extends Animal implements FlyingAnimal {
         for (int i = 0; i < this.inventory.getContainerSize(); i++) {
             ItemStack stack = this.inventory.getItem(i);
             if (!stack.isEmpty()) {
-                this.spawnAtLocation(stack);
+                this.spawnAtLocation((net.minecraft.server.level.ServerLevel) this.level(), stack);
             }
         }
     }
@@ -550,7 +540,7 @@ public class Albatross extends Animal implements FlyingAnimal {
     @Override
     public void remove(RemovalReason reason) {
         // エンティティ削除時にチャンク強制ロードを解除
-        if (!this.level().isClientSide && this.isOnDeliveryMission) {
+        if (!this.level().isClientSide() && this.isOnDeliveryMission) {
             cancelDeliveryMission();
         }
         super.remove(reason);

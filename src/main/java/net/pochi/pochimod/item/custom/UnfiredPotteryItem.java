@@ -9,7 +9,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.CustomData;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 public class UnfiredPotteryItem extends Item {
 
@@ -19,22 +19,22 @@ public class UnfiredPotteryItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context,
-                                List<Component> tooltip, TooltipFlag flag) {
+                                net.minecraft.world.item.component.TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
         CustomData customData = stack.get(DataComponents.CUSTOM_DATA);
         if (customData != null) {
             CompoundTag tag = customData.copyTag();
-            tooltip.add(Component.translatable("item.yourmod.pottery.shape",
-                    tag.getString("Shape")).withStyle(ChatFormatting.GRAY));
-            tooltip.add(Component.translatable("item.yourmod.pottery.height",
-                    tag.getInt("Height")).withStyle(ChatFormatting.GRAY));
-            tooltip.add(Component.translatable("item.yourmod.pottery.diameter",
-                    tag.getInt("Diameter")).withStyle(ChatFormatting.GRAY));
-            tooltip.add(Component.translatable("item.yourmod.pottery.thickness",
-                    tag.getInt("WallThickness")).withStyle(ChatFormatting.GRAY));
-            tooltip.add(Component.translatable("item.yourmod.pottery.mouth",
-                    tag.getInt("MouthWidth")).withStyle(ChatFormatting.GRAY));
+            tooltip.accept(Component.translatable("item.yourmod.pottery.shape",
+                    tag.getStringOr("Shape", "")).withStyle(ChatFormatting.GRAY));
+            tooltip.accept(Component.translatable("item.yourmod.pottery.height",
+                    tag.getIntOr("Height", 0)).withStyle(ChatFormatting.GRAY));
+            tooltip.accept(Component.translatable("item.yourmod.pottery.diameter",
+                    tag.getIntOr("Diameter", 0)).withStyle(ChatFormatting.GRAY));
+            tooltip.accept(Component.translatable("item.yourmod.pottery.thickness",
+                    tag.getIntOr("WallThickness", 0)).withStyle(ChatFormatting.GRAY));
+            tooltip.accept(Component.translatable("item.yourmod.pottery.mouth",
+                    tag.getIntOr("MouthWidth", 0)).withStyle(ChatFormatting.GRAY));
         }
-        super.appendHoverText(stack, context, tooltip, flag);
+        super.appendHoverText(stack, context, display, tooltip, flag);
     }
 
     @Override
@@ -42,8 +42,8 @@ public class UnfiredPotteryItem extends Item {
         CustomData customData = stack.get(DataComponents.CUSTOM_DATA);
         if (customData != null) {
             CompoundTag tag = customData.copyTag();
-            if (tag.contains("Shape")) {
-                String shape = tag.getString("Shape").toLowerCase();
+            if (tag.getString("Shape").isPresent()) {
+                String shape = tag.getStringOr("Shape", "").toLowerCase();
                 return Component.translatable("item.yourmod.unfired_pottery." + shape);
             }
         }

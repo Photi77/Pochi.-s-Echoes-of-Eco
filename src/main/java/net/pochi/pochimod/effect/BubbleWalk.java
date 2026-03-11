@@ -1,6 +1,7 @@
 package net.pochi.pochimod.effect;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -16,8 +17,8 @@ public class BubbleWalk extends MobEffect {
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
-        Level level = pLivingEntity.level();
+    public boolean applyEffectTick(ServerLevel pLevel, LivingEntity pLivingEntity, int pAmplifier) {
+        ServerLevel level = pLevel;
         Player player = (Player) pLivingEntity;
 
         if(!level.isClientSide()) {
@@ -28,7 +29,7 @@ public class BubbleWalk extends MobEffect {
             }
         }
 
-        if (player.getPersistentData().getBoolean("jump")) {
+        if (player.getPersistentData().getBooleanOr("jump", false)) {
             for(int i = 1; i<=4 ; i++) {
                 BlockPos pos = BlockPos.containing(player.getOnPos().getX() + player.getLookAngle().x * i,
                          player.getOnPos().getY() + player.getLookAngle().y * i * 2.5, player.getOnPos().getZ() + player.getLookAngle().z * i);
@@ -38,7 +39,7 @@ public class BubbleWalk extends MobEffect {
             }
         }
 
-        return super.applyEffectTick(pLivingEntity, pAmplifier);
+        return super.applyEffectTick(pLevel, pLivingEntity, pAmplifier);
     }
 
 

@@ -6,10 +6,11 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.pochi.pochimod.mineral.MineralData;
 import net.pochi.pochimod.mineral.MineralImpurity;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * 鉱物リング（アクセサリー）
@@ -118,26 +119,26 @@ public class MineralRingItem extends AbstractMineralItem {
 
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context,
-                                List<Component> tooltip, TooltipFlag flag) {
+                                TooltipDisplay display, Consumer<Component> tooltip, TooltipFlag flag) {
         MineralData data = getMineralData(stack);
         if (data == null) {
-            tooltip.add(Component.literal("§7[未加工]"));
+            tooltip.accept(Component.literal("§7[未加工]"));
             return;
         }
 
         MineralImpurity primary = data.getPrimaryImpurity();
         if (primary != null) {
             int effectLevel = Math.min((int)(primary.getRatio() * 3), 3);
-            tooltip.add(Component.literal(
+            tooltip.accept(Component.literal(
                     "§b常時効果: §f" + primary.getType().id + " Lv" + effectLevel
             ));
-            tooltip.add(Component.literal(
+            tooltip.accept(Component.literal(
                     "§7  (" + getTriggerDescription(primary) + ")"
             ));
         }
 
-        tooltip.add(Component.literal("§6素材: §f" + data.getBaseGem().displayName));
-        tooltip.add(Component.literal("§7カラー: " + data.getColorHex()));
+        tooltip.accept(Component.literal("§6素材: §f" + data.getBaseGem().displayName));
+        tooltip.accept(Component.literal("§7カラー: " + data.getColorHex()));
     }
 
     private String getTriggerDescription(MineralImpurity imp) {

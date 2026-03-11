@@ -7,7 +7,8 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
+
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -37,12 +38,12 @@ public class FlowerMantisStaffItem extends Item {
     public FlowerMantisStaffItem(Properties properties) {
         super(properties
                 .durability(600)
-                .setNoRepair()
+                .setNoCombineRepair()
         );
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
 
         // Shift+右クリック：花びらバースト
@@ -58,19 +59,19 @@ public class FlowerMantisStaffItem extends Item {
     /**
      * ブーメラン鎌発射（基本攻撃）
      */
-    private InteractionResultHolder<ItemStack> shootScythe(Level level, Player player, InteractionHand hand, ItemStack itemStack) {
-        if (player.getCooldowns().isOnCooldown(this)) {
-            return InteractionResultHolder.pass(itemStack);
+    private InteractionResult shootScythe(Level level, Player player, InteractionHand hand, ItemStack itemStack) {
+        if (player.getCooldowns().isOnCooldown(itemStack)) {
+            return InteractionResult.PASS;
         }
 
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             // 鎌モード（false = 花びらモードではない）
             ScytheProjectileEntity scythe = new ScytheProjectileEntity(level, player);
             scythe.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.2F, 1.0F);
             level.addFreshEntity(scythe);
 
             itemStack.hurtAndBreak(1, player, hand == InteractionHand.MAIN_HAND ? net.minecraft.world.entity.EquipmentSlot.MAINHAND : net.minecraft.world.entity.EquipmentSlot.OFFHAND);
-            player.getCooldowns().addCooldown(this, SCYTHE_ATTACK_COOLDOWN_TICKS);
+            player.getCooldowns().addCooldown(itemStack, SCYTHE_ATTACK_COOLDOWN_TICKS);
             player.awardStat(Stats.ITEM_USED.get(this));
         }
 
@@ -78,33 +79,33 @@ public class FlowerMantisStaffItem extends Item {
                 SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.PLAYERS,
                 0.8F, 1.2F + level.random.nextFloat() * 0.4F);
 
-        return InteractionResultHolder.sidedSuccess(itemStack, level.isClientSide());
+        return InteractionResult.SUCCESS;
     }
 
     /**
      * 花びらバースト（特殊能力）
      */
-    private InteractionResultHolder<ItemStack> triggerFlowerBurst(Level level, Player player, InteractionHand hand, ItemStack itemStack) {
+    private InteractionResult triggerFlowerBurst(Level level, Player player, InteractionHand hand, ItemStack itemStack) {
         // クールダウン中
         if (this.isFlowerBurstOnCooldown(player)) {
-            if (level.isClientSide) {
+            if (level.isClientSide()) {
                 level.playSound(player, player.getX(), player.getY(), player.getZ(),
                         SoundEvents.DISPENSER_FAIL, SoundSource.PLAYERS, 0.5F, 1.0F);
             }
-            return InteractionResultHolder.pass(itemStack);
+            return InteractionResult.PASS;
         }
 
         // 耐久値チェック
         if (itemStack.getDamageValue() + FLOWER_BURST_DURABILITY_COST > itemStack.getMaxDamage()) {
-            if (level.isClientSide) {
+            if (level.isClientSide()) {
                 level.playSound(player, player.getX(), player.getY(), player.getZ(),
                         SoundEvents.ITEM_BREAK, SoundSource.PLAYERS, 0.5F, 1.0F);
             }
-            return InteractionResultHolder.fail(itemStack);
+            return InteractionResult.FAIL;
         }
 
         // サーバー側でのみ処理
-        if (!level.isClientSide && level instanceof ServerLevel serverLevel) {
+        if (!level.isClientSide() && level instanceof ServerLevel serverLevel) {
             // 近くの花を検出
             List<BlockPos> flowers = this.detectNearbyFlowers(level, player.blockPosition());
 
@@ -118,7 +119,7 @@ public class FlowerMantisStaffItem extends Item {
                 level.playSound(null, player.getX(), player.getY(), player.getZ(),
                         SoundEvents.DISPENSER_FAIL, SoundSource.PLAYERS, 0.5F, 0.8F);
 
-                return InteractionResultHolder.fail(itemStack);
+                return InteractionResult.FAIL;
             }
 
             // 発動音
@@ -139,12 +140,12 @@ public class FlowerMantisStaffItem extends Item {
 
             // 統計
             player.awardStat(Stats.ITEM_USED.get(this));
-        } else if (level.isClientSide) {
+        } else if (level.isClientSide()) {
             level.playSound(player, player.getX(), player.getY(), player.getZ(),
                     SoundEvents.EVOKER_CAST_SPELL, SoundSource.PLAYERS, 1.0F, 1.3F);
         }
 
-        return InteractionResultHolder.sidedSuccess(itemStack, level.isClientSide());
+        return InteractionResult.SUCCESS;
     }
 
     /**
@@ -222,12 +223,9 @@ public class FlowerMantisStaffItem extends Item {
                 // 少しずつ時間差で発射（視覚的効果）
                 int delay = petalIndex; // 1tickずつ遅延
 
-                level.getServer().tell(new net.minecraft.server.TickTask(
-                        level.getServer().getTickCount() + delay,
-                        () -> {
-                            this.shootPetalFromFlower(level, player, flowerPos);
-                        }
-                ));
+                level.getServer().execute(() -> {
+                    this.shootPetalFromFlower(level, player, flowerPos);
+                });
             }
         }
     }
@@ -314,7 +312,7 @@ public class FlowerMantisStaffItem extends Item {
      */
     private boolean isFlowerBurstOnCooldown(Player player) {
         return player.getPersistentData().contains(FLOWER_BURST_COOLDOWN_TAG) &&
-                player.getPersistentData().getLong(FLOWER_BURST_COOLDOWN_TAG) > player.level().getGameTime();
+                player.getPersistentData().getLongOr(FLOWER_BURST_COOLDOWN_TAG, 0L) > player.level().getGameTime();
     }
 
     /**

@@ -1,23 +1,24 @@
 package net.pochi.pochimod.entity.client;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.pochi.pochimod.PochiMod;
 import net.pochi.pochimod.entity.custom.Dragonfly;
 import software.bernie.geckolib.model.GeoModel;
+import software.bernie.geckolib.renderer.base.GeoRenderState;
 
 public class DragonflyModel extends GeoModel<Dragonfly> {
     @Override
-    public ResourceLocation getModelResource(Dragonfly object) {
-        return ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "geo/dragonfly.geo.json");
+    public Identifier getModelResource(GeoRenderState state) {
+        return Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "geo/dragonfly.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(Dragonfly object) {
-        return ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "textures/entity/dragonfly_texture.png");
+    public Identifier getTextureResource(GeoRenderState state) {
+        return Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "textures/entity/dragonfly_texture.png");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(Dragonfly animatable) {
-        return ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "animations/dragonfly.animation.json");
+    public Identifier getAnimationResource(Dragonfly animatable) {
+        return Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "animations/dragonfly.animation.json");
     }
 }

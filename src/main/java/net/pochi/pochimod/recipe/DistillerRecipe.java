@@ -34,30 +34,39 @@ public class DistillerRecipe implements Recipe<SimpleContainerRecipeInput> {
         return output.copy();
     }
 
-    @Override
     public boolean canCraftInDimensions(int pWidth, int pHeight) {
         return true;
     }
 
-    @Override
     public ItemStack getResultItem(HolderLookup.Provider registries) {
         return output.copy();
     }
 
-    @Override
     public NonNullList<Ingredient> getIngredients() {
         return recipeItems;
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<DistillerRecipe> getSerializer() {
         return Serializer.INSTANCE;
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public RecipeType<DistillerRecipe> getType() {
         return Type.INSTANCE;
     }
+
+    @Override
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.NOT_PLACEABLE;
+    }
+
+    @Override
+    public RecipeBookCategory recipeBookCategory() {
+        return CATEGORY;
+    }
+
+    private static final RecipeBookCategory CATEGORY = new RecipeBookCategory();
 
     public static class Type implements RecipeType<DistillerRecipe> {
         private Type() { }
@@ -70,10 +79,10 @@ public class DistillerRecipe implements Recipe<SimpleContainerRecipeInput> {
 
         public static final MapCodec<DistillerRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
                 ItemStack.STRICT_CODEC.fieldOf("output").forGetter(r -> r.output),
-                Ingredient.CODEC_NONEMPTY.listOf().xmap(
+                Ingredient.CODEC.listOf().xmap(
                         list -> {
-                            NonNullList<Ingredient> nl = NonNullList.withSize(list.size(), Ingredient.EMPTY);
-                            for (int i = 0; i < list.size(); i++) nl.set(i, list.get(i));
+                            NonNullList<Ingredient> nl = NonNullList.create();
+                            nl.addAll(list);
                             return nl;
                         },
                         nl -> nl
@@ -91,9 +100,9 @@ public class DistillerRecipe implements Recipe<SimpleContainerRecipeInput> {
                         },
                         buf -> {
                             int size = buf.readVarInt();
-                            NonNullList<Ingredient> inputs = NonNullList.withSize(size, Ingredient.EMPTY);
+                            NonNullList<Ingredient> inputs = NonNullList.create();
                             for (int i = 0; i < size; i++) {
-                                inputs.set(i, Ingredient.CONTENTS_STREAM_CODEC.decode(buf));
+                                inputs.add(Ingredient.CONTENTS_STREAM_CODEC.decode(buf));
                             }
                             ItemStack output = ItemStack.STREAM_CODEC.decode(buf);
                             return new DistillerRecipe(output, inputs);

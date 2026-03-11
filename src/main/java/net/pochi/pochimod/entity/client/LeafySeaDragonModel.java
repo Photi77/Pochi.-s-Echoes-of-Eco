@@ -2,7 +2,9 @@ package net.pochi.pochimod.entity.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.animation.KeyframeAnimation;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -10,15 +12,16 @@ import net.minecraft.util.Mth;
 import net.pochi.pochimod.entity.animations.ModAnimationDefinitions;
 import net.pochi.pochimod.entity.custom.LeafySeaDragon;
 
-public class LeafySeaDragonModel<T extends LeafySeaDragon> extends HierarchicalModel<T> {
+public class LeafySeaDragonModel extends EntityModel<LivingEntityRenderState> {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-    //public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath("modid", "ant"), "main");
+    //public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(Identifier.fromNamespaceAndPath("modid", "ant"), "main");
     private final ModelPart leeafyseadragon;
     private final ModelPart body;
     private final ModelPart head;
     private final ModelPart leaf;
 
     public LeafySeaDragonModel(ModelPart root) {
+        super(root.getChild("leeafyseadragon"));
         this.leeafyseadragon = root.getChild("leeafyseadragon");
         this.body = this.leeafyseadragon.getChild("body");
         this.head = this.leeafyseadragon.getChild("head");
@@ -88,28 +91,16 @@ public class LeafySeaDragonModel<T extends LeafySeaDragon> extends HierarchicalM
     }
 
     @Override
-    public void setupAnim(T p_102618_, float p_102619_, float p_102620_, float p_102621_, float p_102622_, float p_102623_) {
+    public void setupAnim(LivingEntityRenderState state) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.applyHeadRotation(p_102622_, p_102623_, p_102621_);
-        this.animateWalk(ModAnimationDefinitions.LEAFY_SWIM, p_102619_, p_102620_, 2f, 2.5f);
+        this.applyHeadRotation((state.yRot - state.bodyRot), state.xRot, state.ageInTicks);
+        ModAnimationDefinitions.LEAFY_SWIM.bake(this.root()).applyWalk(state.walkAnimationPos, state.walkAnimationSpeed, 2f, 2.5f);
     }
-
-    @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-        leeafyseadragon.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-    }
-
-    private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float pAgeInTicks) {
+private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float pAgeInTicks) {
         pNetHeadYaw = Mth.clamp(pNetHeadYaw, -30.0F, 30.0F);
         pHeadPitch = Mth.clamp(pHeadPitch, -25.0F, 45.0F);
 
         this.head.yRot = pNetHeadYaw * ((float)Math.PI / 180F);
         this.head.xRot = pHeadPitch * ((float)Math.PI / 180F);
     }
-
-    @Override
-    public ModelPart root() {
-        return leeafyseadragon;
-    }
-
 }

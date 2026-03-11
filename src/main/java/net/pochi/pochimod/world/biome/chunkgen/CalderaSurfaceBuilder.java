@@ -118,21 +118,21 @@ public class CalderaSurfaceBuilder {
         BlockState subSurfaceBlock = getSubSurfaceBlock(distanceFromCenter, random);
 
         // 基盤岩から地表まで生成
-        for (int y = chunk.getMinBuildHeight(); y <= Math.min(surfaceHeight, chunk.getMaxBuildHeight()); y++) {
+        for (int y = chunk.getMinY(); y <= Math.min(surfaceHeight, chunk.getMaxY()); y++) {
             BlockPos pos = new BlockPos(x, y, z);
 
             if (y < 5) {
                 // 基盤岩
-                chunk.setBlockState(pos, Blocks.BEDROCK.defaultBlockState(), false);
+                chunk.setBlockState(pos, Blocks.BEDROCK.defaultBlockState(), 0);
             } else if (y < surfaceHeight - 8) {
                 // 深層部
-                chunk.setBlockState(pos, getDeepBlock(distanceFromCenter, y), false);
+                chunk.setBlockState(pos, getDeepBlock(distanceFromCenter, y), 0);
             } else if (y < surfaceHeight - 3) {
                 // 中間層
-                chunk.setBlockState(pos, subSurfaceBlock, false);
+                chunk.setBlockState(pos, subSurfaceBlock, 0);
             } else if (y <= surfaceHeight) {
                 // 表層
-                chunk.setBlockState(pos, surfaceBlock, false);
+                chunk.setBlockState(pos, surfaceBlock, 0);
             }
         }
 
@@ -192,13 +192,13 @@ public class CalderaSurfaceBuilder {
         BlockPos pos = new BlockPos(x, surfaceHeight - 2, z);
 
         // 湖底
-        chunk.setBlockState(pos.below(2), Blocks.MAGMA_BLOCK.defaultBlockState(), false);
-        chunk.setBlockState(pos.below(), Blocks.MAGMA_BLOCK.defaultBlockState(), false);
+        chunk.setBlockState(pos.below(2), Blocks.MAGMA_BLOCK.defaultBlockState(), 0);
+        chunk.setBlockState(pos.below(), Blocks.MAGMA_BLOCK.defaultBlockState(), 0);
 
         // 溶岩
-        chunk.setBlockState(pos, Blocks.LAVA.defaultBlockState(), false);
+        chunk.setBlockState(pos, Blocks.LAVA.defaultBlockState(), 0);
         if (random.nextFloat() < 0.3f) {
-            chunk.setBlockState(pos.above(), Blocks.LAVA.defaultBlockState(), false);
+            chunk.setBlockState(pos.above(), Blocks.LAVA.defaultBlockState(), 0);
         }
     }
 
@@ -207,13 +207,13 @@ public class CalderaSurfaceBuilder {
 
         if (random.nextFloat() < 0.3f) {
             // 蒸気孔
-            chunk.setBlockState(pos, Blocks.MAGMA_BLOCK.defaultBlockState(), false);
+            chunk.setBlockState(pos, Blocks.MAGMA_BLOCK.defaultBlockState(), 0);
         } else if (random.nextFloat() < 0.2f) {
             // 硫黄鉱床
-            chunk.setBlockState(pos, Blocks.YELLOW_TERRACOTTA.defaultBlockState(), false);
+            chunk.setBlockState(pos, Blocks.YELLOW_TERRACOTTA.defaultBlockState(), 0);
         } else if (random.nextFloat() < 0.1f) {
             // 鉄鉱床（火山性）
-            chunk.setBlockState(pos, Blocks.IRON_ORE.defaultBlockState(), false);
+            chunk.setBlockState(pos, Blocks.IRON_ORE.defaultBlockState(), 0);
         }
     }
 
@@ -277,20 +277,20 @@ public class CalderaSurfaceBuilder {
             for (int y = currentHeight + 1; y <= targetHeight; y++) {
                 BlockPos pos = new BlockPos(x, y, z);
                 BlockState block = getSurfaceBlock(distanceFromCenter, y, random);
-                chunk.setBlockState(pos, block, false);
+                chunk.setBlockState(pos, block, 0);
             }
         } else {
             // 土地を削る（クレーター）
             for (int y = targetHeight + 1; y <= currentHeight; y++) {
                 BlockPos pos = new BlockPos(x, y, z);
-                chunk.setBlockState(pos, Blocks.AIR.defaultBlockState(), false);
+                chunk.setBlockState(pos, Blocks.AIR.defaultBlockState(), 0);
             }
 
             // クレーター底面の設定
-            if (targetHeight > chunk.getMinBuildHeight()) {
+            if (targetHeight > chunk.getMinY()) {
                 BlockPos pos = new BlockPos(x, targetHeight, z);
                 BlockState block = getSurfaceBlock(distanceFromCenter, targetHeight, random);
-                chunk.setBlockState(pos, block, false);
+                chunk.setBlockState(pos, block, 0);
             }
         }
 
@@ -304,10 +304,10 @@ public class CalderaSurfaceBuilder {
         // 溶岩湖の生成
         if (height <= BASE_HEIGHT - CRATER_DEPTH + 5) {
             BlockPos lavaPos = new BlockPos(x, height - 1, z);
-            chunk.setBlockState(lavaPos, Blocks.LAVA.defaultBlockState(), false);
+            chunk.setBlockState(lavaPos, Blocks.LAVA.defaultBlockState(), 0);
 
             // 湖底
-            chunk.setBlockState(lavaPos.below(), Blocks.MAGMA_BLOCK.defaultBlockState(), false);
+            chunk.setBlockState(lavaPos.below(), Blocks.MAGMA_BLOCK.defaultBlockState(), 0);
         }
     }
 

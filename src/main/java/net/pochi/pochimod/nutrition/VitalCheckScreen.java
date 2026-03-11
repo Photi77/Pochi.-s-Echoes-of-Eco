@@ -181,7 +181,7 @@ public class VitalCheckScreen extends Screen {
         // 水分ゲージのツールチップ
         int hydrationBarY = topPos + BAR_START_Y;
         if (isMouseOver(mouseX, mouseY, barX, hydrationBarY, BAR_WIDTH, BAR_HEIGHT)) {
-            guiGraphics.renderTooltip(this.font,
+            guiGraphics.setTooltipForNextFrame(this.font,
                     Component.translatable("gui.yourmod.vital_check.hydration.tooltip"),
                     mouseX, mouseY);
         }
@@ -195,7 +195,7 @@ public class VitalCheckScreen extends Screen {
 
             if (isMouseOver(mouseX, mouseY, barX, barY, BAR_WIDTH, BAR_HEIGHT)) {
                 String tooltipKey = "gui.yourmod.vital_check.nutrition." + type.getName() + ".tooltip";
-                guiGraphics.renderTooltip(this.font,
+                guiGraphics.setTooltipForNextFrame(this.font,
                         Component.translatable(tooltipKey),
                         mouseX, mouseY);
             }

@@ -2,7 +2,7 @@ package net.pochi.pochimod.mineral;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.biome.Biome;
 
@@ -23,16 +23,16 @@ public class BiomeScanResult {
 
     /** 距離付きバイオームエントリー */
     public record WeightedBiome(
-            ResourceLocation id,
+            Identifier id,
             Holder<Biome> biome,
             float minDistance,
             float weight) {}
 
     private final Holder<Biome>              mainBiome;
-    private final ResourceLocation           mainBiomeId;
+    private final Identifier           mainBiomeId;
     private final List<WeightedBiome>        sortedBiomes; // 重み降順（mainBiome含む）
 
-    private BiomeScanResult(Holder<Biome> mainBiome, ResourceLocation mainBiomeId,
+    private BiomeScanResult(Holder<Biome> mainBiome, Identifier mainBiomeId,
                              List<WeightedBiome> sortedBiomes) {
         this.mainBiome    = mainBiome;
         this.mainBiomeId  = mainBiomeId;
@@ -54,13 +54,13 @@ public class BiomeScanResult {
     public static BiomeScanResult scan(ServerLevel level, BlockPos center, int maxRadius, int step) {
         // 採掘地点のメインバイオーム
         Holder<Biome> mainHolder = level.getBiome(center);
-        ResourceLocation mainId = mainHolder.unwrapKey()
-                .map(k -> k.location())
-                .orElse(ResourceLocation.parse("minecraft:plains"));
+        Identifier mainId = mainHolder.unwrapKey()
+                .map(k -> k.identifier())
+                .orElse(Identifier.parse("minecraft:plains"));
 
         // バイオームID → 最小距離マップ
-        Map<ResourceLocation, Float>       minDistMap  = new HashMap<>();
-        Map<ResourceLocation, Holder<Biome>> holderMap = new HashMap<>();
+        Map<Identifier, Float>       minDistMap  = new HashMap<>();
+        Map<Identifier, Holder<Biome>> holderMap = new HashMap<>();
 
         // 中心点（距離0）を登録
         minDistMap.put(mainId, 0f);
@@ -74,8 +74,8 @@ public class BiomeScanResult {
 
                 BlockPos scanPos = center.offset(x, 0, z);
                 Holder<Biome> holder = level.getBiome(scanPos);
-                ResourceLocation biomeId = holder.unwrapKey()
-                        .map(k -> k.location())
+                Identifier biomeId = holder.unwrapKey()
+                        .map(k -> k.identifier())
                         .orElse(null);
                 if (biomeId == null) continue;
 
@@ -86,7 +86,7 @@ public class BiomeScanResult {
 
         // WeightedBiomeリストを構築（重み降順ソート）
         List<WeightedBiome> sorted = new ArrayList<>();
-        for (Map.Entry<ResourceLocation, Float> e : minDistMap.entrySet()) {
+        for (Map.Entry<Identifier, Float> e : minDistMap.entrySet()) {
             float minDist = e.getValue();
             float weight  = 1.0f / (minDist + 1.0f);
             sorted.add(new WeightedBiome(e.getKey(), holderMap.get(e.getKey()), minDist, weight));
@@ -101,7 +101,7 @@ public class BiomeScanResult {
     // ==============================
 
     public Holder<Biome>   getMainBiome()   { return mainBiome; }
-    public ResourceLocation getMainBiomeId() { return mainBiomeId; }
+    public Identifier getMainBiomeId() { return mainBiomeId; }
     public List<WeightedBiome> getAllBiomes() { return sortedBiomes; }
 
     /**

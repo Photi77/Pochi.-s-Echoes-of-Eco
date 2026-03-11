@@ -1,5 +1,6 @@
 package net.pochi.pochimod.effect;
 
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -15,18 +16,18 @@ public class Crime extends MobEffect {
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
-        Level level = pLivingEntity.level();
+    public boolean applyEffectTick(ServerLevel pLevel, LivingEntity pLivingEntity, int pAmplifier) {
+        ServerLevel level = pLevel;
         Player player = (Player) pLivingEntity;
         player.getPersistentData().putBoolean("crime", player.horizontalCollision);
         if (level.isClientSide()) {
-            if(player.getPersistentData().getBoolean("crime")) {
+            if(player.getPersistentData().getBooleanOr("crime", false)) {
                 player.hurtMarked = true;
                 player.setDeltaMovement(player.getDeltaMovement().x, 0.5, player.getDeltaMovement().z);
             }
         }
 
-        return super.applyEffectTick(pLivingEntity, pAmplifier);
+        return super.applyEffectTick(pLevel, pLivingEntity, pAmplifier);
     }
 
     @Override

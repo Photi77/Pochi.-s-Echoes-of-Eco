@@ -4,14 +4,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.pochi.pochimod.PochiMod;
 
 public record EnergySyncS2CPacket(int energy, BlockPos pos) implements CustomPacketPayload {
 
     public static final CustomPacketPayload.Type<EnergySyncS2CPacket> TYPE =
-            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "energy_sync"));
+            new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "energy_sync"));
 
     public static final StreamCodec<FriendlyByteBuf, EnergySyncS2CPacket> STREAM_CODEC =
             StreamCodec.composite(

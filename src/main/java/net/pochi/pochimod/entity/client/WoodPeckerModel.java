@@ -2,7 +2,9 @@ package net.pochi.pochimod.entity.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.animation.KeyframeAnimation;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -10,9 +12,9 @@ import net.minecraft.util.Mth;
 import net.pochi.pochimod.entity.animations.ModAnimationDefinitions;
 import net.pochi.pochimod.entity.custom.WoodPecker;
 
-public class WoodPeckerModel<T extends WoodPecker> extends HierarchicalModel<T> {
+public class WoodPeckerModel extends EntityModel<LivingEntityRenderState> {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-    //public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath("modid", "ant"), "main");
+    //public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(Identifier.fromNamespaceAndPath("modid", "ant"), "main");
     private final ModelPart all;
     private final ModelPart body;
     private final ModelPart face;
@@ -23,6 +25,7 @@ public class WoodPeckerModel<T extends WoodPecker> extends HierarchicalModel<T> 
     private final ModelPart leftwing;
 
     public WoodPeckerModel(ModelPart root) {
+        super(root.getChild("all"));
         this.all = root.getChild("all");
         this.body = this.all.getChild("body");
         this.face = this.all.getChild("face");
@@ -85,15 +88,15 @@ public class WoodPeckerModel<T extends WoodPecker> extends HierarchicalModel<T> 
     }
 
     @Override
-    public void setupAnim(T p_102618_, float p_102619_, float p_102620_, float p_102621_, float p_102622_, float p_102623_) {
+    public void setupAnim(LivingEntityRenderState state) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.applyHeadRotation(p_102622_, p_102623_, p_102621_);
-        if(p_102618_.onGround()) {
-            if(p_102618_.walkAnimation.isMoving()) {
-                this.animateWalk(ModAnimationDefinitions.WOODPECKER_WALK, p_102619_, p_102620_, 2f, 2.5f);
+        this.applyHeadRotation((state.yRot - state.bodyRot), state.xRot, state.ageInTicks);
+        if(state.walkAnimationSpeed <= 0.01F) {
+            if((state.walkAnimationSpeed > 0.01F)) {
+                ModAnimationDefinitions.WOODPECKER_WALK.bake(this.root()).applyWalk(state.walkAnimationPos, state.walkAnimationSpeed, 2f, 2.5f);
             }
         } else {
-            this.animateWalk(ModAnimationDefinitions.WOODPECKER_FLY, p_102619_, p_102620_, 2f, 2.5f);
+            ModAnimationDefinitions.WOODPECKER_FLY.bake(this.root()).applyWalk(state.walkAnimationPos, state.walkAnimationSpeed, 2f, 2.5f);
         }
     }
 
@@ -104,15 +107,4 @@ public class WoodPeckerModel<T extends WoodPecker> extends HierarchicalModel<T> 
         this.face.yRot = pNetHeadYaw * ((float)Math.PI / 180F);
         this.face.xRot = pHeadPitch * ((float)Math.PI / 180F);
     }
-
-    @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-        all.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-    }
-
-    @Override
-    public ModelPart root() {
-        return all;
-    }
-
 }

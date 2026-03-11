@@ -73,7 +73,7 @@ public class Quokka extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-        return ModEntityTypes.QUOKKA.get().create(p_146743_);
+        return ModEntityTypes.QUOKKA.get().create(p_146743_, net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
     }
 
     private void setupAnimationStates() {
@@ -93,7 +93,7 @@ public class Quokka extends Animal {
             f = 0.0F;
         }
 
-        this.walkAnimation.update(f, 0.2F);
+        this.walkAnimation.update(f, 0.2F, this.tickCount);
     }
 
     @Override
@@ -109,9 +109,9 @@ public class Quokka extends Animal {
         if(p_27584_.getMainHandItem().is(Items.APPLE)) {
             AreaEffectCloud areaeffectcloud = new AreaEffectCloud(p_27584_.level(), this.getX(), this.getY(), this.getZ());
             areaeffectcloud.setOwner(this);
-            areaeffectcloud.setParticle(ParticleTypes.HEART);
+            //areaeffectcloud.setParticle(ParticleTypes.HEART); // setParticle(SimpleParticleType) removed in 1.21.11
             areaeffectcloud.setRadius(3.0F);
-            areaeffectcloud.addEffect(new MobEffectInstance(MobEffects.HEAL, 40, 2));
+            areaeffectcloud.addEffect(new MobEffectInstance(MobEffects.INSTANT_HEALTH, 40, 2));
             //areaeffectcloud.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 300, 6));
             areaeffectcloud.setDuration(200);
             areaeffectcloud.setRadiusPerTick((7.0F - areaeffectcloud.getRadius()) / (float) 200);

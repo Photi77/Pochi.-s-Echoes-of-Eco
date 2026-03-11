@@ -56,7 +56,7 @@ public class HermitCrab extends Animal {
         if (itemstack.getItem() instanceof BlockItem blockItem) {
             p_28298_.playSound(SoundEvents.CHEST_OPEN, 1.0F, 1.0F);
             setCarriedBlock(blockItem.getBlock().defaultBlockState());
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
+            return InteractionResult.SUCCESS;
         } else {
             return super.mobInteract(p_28298_, p_28299_);
         }
@@ -67,18 +67,18 @@ public class HermitCrab extends Animal {
         builder.define(DATA_CARRY_STATE, Optional.empty());
     }
 
-    public void addAdditionalSaveData(CompoundTag p_32520_) {
+    public void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput p_32520_) {
         super.addAdditionalSaveData(p_32520_);
         BlockState blockstate = this.getCarriedBlock();
         if (blockstate != null) {
-            p_32520_.put("carried", NbtUtils.writeBlockState(blockstate));
+            p_32520_.store("carried", net.minecraft.world.level.block.state.BlockState.CODEC, blockstate);
         }
     }
 
-    public void readAdditionalSaveData(CompoundTag p_32511_) {
+    public void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput p_32511_) {
         super.readAdditionalSaveData(p_32511_);
         BlockState blockstate = null;
-        blockstate = NbtUtils.readBlockState(this.level().holderLookup(Registries.BLOCK), p_32511_.getCompound("carried"));
+        blockstate = p_32511_.read("carried", net.minecraft.world.level.block.state.BlockState.CODEC).orElse(net.minecraft.world.level.block.Blocks.AIR.defaultBlockState());
         if (blockstate != null) {
             setCarriedBlock(blockstate);
         }
@@ -87,17 +87,17 @@ public class HermitCrab extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-        return ModEntityTypes.HERMIT_CRAB.get().create(p_146743_);
+        return ModEntityTypes.HERMIT_CRAB.get().create(p_146743_, net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
     }
 
     public void aiStep() {
         super.aiStep();
-        if (!this.level().isClientSide && this.isAlive() && !this.isBaby() && --this.eggTime <= 0) {
+        if (!this.level().isClientSide() && this.isAlive() && !this.isBaby() && --this.eggTime <= 0) {
             if(!(getCarriedBlock() == null)) {
                 BlockState state = getCarriedBlock();
                 ItemStack stack = state.getBlock().asItem().getDefaultInstance();
                 this.playSound(SoundEvents.CHICKEN_EGG, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-                this.spawnAtLocation(stack);
+                this.spawnAtLocation((ServerLevel) this.level(), stack);
                 this.gameEvent(GameEvent.ENTITY_PLACE);
                 this.eggTime = this.random.nextInt(600) + 600;
             }
@@ -134,7 +134,7 @@ public class HermitCrab extends Animal {
             f = 0.0F;
         }
 
-        this.walkAnimation.update(f, 0.2F);
+        this.walkAnimation.update(f, 0.2F, this.tickCount);
     }
 
     @Override

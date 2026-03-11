@@ -1,15 +1,12 @@
 package net.pochi.pochimod.world.biome;
 
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.CavePlacements;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.Musics;
-import net.minecraft.sounds.SoundEvents;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
@@ -96,12 +93,8 @@ public class ModBiomes {
                 .temperature(0.7f)
                 .generationSettings(biomegenerationsettings$builder.build())
                 .mobSpawnSettings(mobspawnsettings$builder.build())
-                .specialEffects((new BiomeSpecialEffects.Builder())
+                .specialEffects(new BiomeSpecialEffects.Builder()
                         .waterColor(0x3F76E4)
-                        .waterFogColor(0x50533)
-                        .skyColor(0x6EB1FF)
-                        .fogColor(0xC0D8FF)
-                        .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
                         .build())
                 .build();
     }
@@ -109,7 +102,7 @@ public class ModBiomes {
     public static Biome saltFieldBiome(BootstrapContext<Biome> context) {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
 
-        spawnBuilder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 5, 4, 4));
+        spawnBuilder.addSpawn(MobCategory.CREATURE, 5, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 4, 4));
 
         BiomeDefaultFeatures.farmAnimals(spawnBuilder);
         BiomeDefaultFeatures.commonSpawns(spawnBuilder);
@@ -125,7 +118,7 @@ public class ModBiomes {
         biomeBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.TREES_PLAINS);
 
         BiomeDefaultFeatures.addDefaultMushrooms(biomeBuilder);
-        BiomeDefaultFeatures.addDefaultExtraVegetation(biomeBuilder);
+        BiomeDefaultFeatures.addDefaultExtraVegetation(biomeBuilder, false);
 
         return new Biome.BiomeBuilder()
                 .hasPrecipitation(true)
@@ -133,12 +126,8 @@ public class ModBiomes {
                 .temperature(0.7f)
                 .generationSettings(biomeBuilder.build())
                 .mobSpawnSettings(spawnBuilder.build())
-                .specialEffects((new BiomeSpecialEffects.Builder())
+                .specialEffects(new BiomeSpecialEffects.Builder()
                         .waterColor(0x3F76E4)
-                        .waterFogColor(0x50533)
-                        .fogColor(0xC0D8FF)
-                        .skyColor(0x6EB1FF)
-                        .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
                         .build())
                 .build();
     }
@@ -146,7 +135,7 @@ public class ModBiomes {
     public static Biome cappadociaBiome(BootstrapContext<Biome> context) {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
 
-        spawnBuilder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 5, 4, 4));
+        spawnBuilder.addSpawn(MobCategory.CREATURE, 5, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 4, 4));
 
         BiomeDefaultFeatures.farmAnimals(spawnBuilder);
         BiomeDefaultFeatures.commonSpawns(spawnBuilder);
@@ -162,7 +151,7 @@ public class ModBiomes {
         BiomeDefaultFeatures.addExtraGold(biomeBuilder);
         biomeBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.TREES_PLAINS);
         BiomeDefaultFeatures.addDefaultMushrooms(biomeBuilder);
-        BiomeDefaultFeatures.addDefaultExtraVegetation(biomeBuilder);
+        BiomeDefaultFeatures.addDefaultExtraVegetation(biomeBuilder, false);
 
         return new Biome.BiomeBuilder()
                 .hasPrecipitation(true)
@@ -170,12 +159,8 @@ public class ModBiomes {
                 .temperature(0.7f)
                 .generationSettings(biomeBuilder.build())
                 .mobSpawnSettings(spawnBuilder.build())
-                .specialEffects((new BiomeSpecialEffects.Builder())
+                .specialEffects(new BiomeSpecialEffects.Builder()
                         .waterColor(0xFFFFFF)
-                        .waterFogColor(0xFFFFFF)
-                        .fogColor(0xC0D8FF)
-                        .skyColor(0x6EB1FF)
-                        .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
                         .build())
                 .build();
     }
@@ -183,7 +168,7 @@ public class ModBiomes {
     public static Biome zhangjiaBiome(BootstrapContext<Biome> context) {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
 
-        spawnBuilder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 5, 4, 4));
+        spawnBuilder.addSpawn(MobCategory.CREATURE, 5, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 4, 4));
 
         BiomeDefaultFeatures.farmAnimals(spawnBuilder);
         BiomeDefaultFeatures.commonSpawns(spawnBuilder);
@@ -205,12 +190,8 @@ public class ModBiomes {
                 .temperature(0.7f)
                 .generationSettings(biomeBuilder.build())
                 .mobSpawnSettings(spawnBuilder.build())
-                .specialEffects((new BiomeSpecialEffects.Builder())
+                .specialEffects(new BiomeSpecialEffects.Builder()
                         .waterColor(0x3F76E4)
-                        .waterFogColor(0x50533)
-                        .fogColor(0xC0D8FF)
-                        .skyColor(0x6EB1FF)
-                        .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
                         .build())
                 .build();
     }
@@ -236,12 +217,8 @@ public class ModBiomes {
                 .temperature(0.7f)
                 .generationSettings(biomeBuilder.build())
                 .mobSpawnSettings(spawnBuilder.build())
-                .specialEffects((new BiomeSpecialEffects.Builder())
+                .specialEffects(new BiomeSpecialEffects.Builder()
                         .waterColor(0x3F76E4)
-                        .waterFogColor(0x50533)
-                        .fogColor(0xC0D8FF)
-                        .skyColor(0x6EB1FF)
-                        .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
                         .build())
                 .build();
     }
@@ -267,12 +244,8 @@ public class ModBiomes {
                 .temperature(0.7f)
                 .generationSettings(biomeBuilder.build())
                 .mobSpawnSettings(spawnBuilder.build())
-                .specialEffects((new BiomeSpecialEffects.Builder())
+                .specialEffects(new BiomeSpecialEffects.Builder()
                         .waterColor(0x3F76E4)
-                        .waterFogColor(0x50533)
-                        .fogColor(0xC0D8FF)
-                        .skyColor(0x6EB1FF)
-                        .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
                         .build())
                 .build();
     }
@@ -280,7 +253,7 @@ public class ModBiomes {
     public static Biome pamukaleBiome(BootstrapContext<Biome> context) {
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
 
-        spawnBuilder.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 5, 4, 4));
+        spawnBuilder.addSpawn(MobCategory.CREATURE, 5, new MobSpawnSettings.SpawnerData(EntityType.WOLF, 4, 4));
 
         BiomeDefaultFeatures.farmAnimals(spawnBuilder);
         BiomeDefaultFeatures.commonSpawns(spawnBuilder);
@@ -297,7 +270,7 @@ public class ModBiomes {
         biomeBuilder.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.TREES_PLAINS);
 
         BiomeDefaultFeatures.addDefaultMushrooms(biomeBuilder);
-        BiomeDefaultFeatures.addDefaultExtraVegetation(biomeBuilder);
+        BiomeDefaultFeatures.addDefaultExtraVegetation(biomeBuilder, false);
 
         return new Biome.BiomeBuilder()
                 .hasPrecipitation(true)
@@ -305,12 +278,8 @@ public class ModBiomes {
                 .temperature(0.7f)
                 .generationSettings(biomeBuilder.build())
                 .mobSpawnSettings(spawnBuilder.build())
-                .specialEffects((new BiomeSpecialEffects.Builder())
+                .specialEffects(new BiomeSpecialEffects.Builder()
                         .waterColor(0x3F76E4)
-                        .waterFogColor(0x50533)
-                        .fogColor(0xC0D8FF)
-                        .skyColor(0x6EB1FF)
-                        .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
                         .build())
                 .build();
     }
@@ -335,15 +304,10 @@ public class ModBiomes {
                 .hasPrecipitation(true)
                 .downfall(0.8f)
                 .temperature(0.7f)
-
                 .generationSettings(biomegenerationsettings$builder.build())
                 .mobSpawnSettings(mobspawnsettings$builder.build())
-                .specialEffects((new BiomeSpecialEffects.Builder())
+                .specialEffects(new BiomeSpecialEffects.Builder()
                         .waterColor(0x3F76E4)
-                        .waterFogColor(0x50533)
-                        .skyColor(0x6EB1FF)
-                        .fogColor(0xC0D8FF)
-                        .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
                         .build())
                 .build();
     }
@@ -359,12 +323,8 @@ public class ModBiomes {
                 .temperature(0.7f)
                 .generationSettings(biomegenerationsettings$builder.build())
                 .mobSpawnSettings(spawnBuilder.build())
-                .specialEffects((new BiomeSpecialEffects.Builder())
+                .specialEffects(new BiomeSpecialEffects.Builder()
                         .waterColor(0x3F76E4)
-                        .waterFogColor(0x50533)
-                        .fogColor(0xC0D8FF)
-                        .skyColor(0x6EB1FF)
-                        .ambientMoodSound(AmbientMoodSettings.LEGACY_CAVE_SETTINGS)
                         .build())
                 .build();
     }
@@ -385,8 +345,8 @@ public class ModBiomes {
 
         // スポーン設定
         MobSpawnSettings.Builder spawnBuilder = new MobSpawnSettings.Builder();
-        spawnBuilder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.MAGMA_CUBE, 100, 2, 5));
-        spawnBuilder.addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.BLAZE, 10, 1, 2));
+        spawnBuilder.addSpawn(MobCategory.MONSTER, 100, new MobSpawnSettings.SpawnerData(EntityType.MAGMA_CUBE, 2, 5));
+        spawnBuilder.addSpawn(MobCategory.MONSTER, 10, new MobSpawnSettings.SpawnerData(EntityType.BLAZE, 1, 2));
 
         return new Biome.BiomeBuilder()
                 .hasPrecipitation(false)
@@ -394,15 +354,8 @@ public class ModBiomes {
                 .downfall(0.0F)
                 .specialEffects(new BiomeSpecialEffects.Builder()
                         .waterColor(0x3F76E4)
-                        .waterFogColor(0x050533)
-                        .skyColor(0x7BA4FF)
                         .grassColorOverride(0x8B6914)
                         .foliageColorOverride(0x8B6914)
-                        .fogColor(0xC0D8FF)
-                        .ambientParticle(new AmbientParticleSettings(ParticleTypes.ASH, 0.01F))
-                        .ambientLoopSound(SoundEvents.AMBIENT_BASALT_DELTAS_LOOP)
-                        .ambientMoodSound(new AmbientMoodSettings(SoundEvents.AMBIENT_BASALT_DELTAS_MOOD, 6000, 8, 2.0D))
-                        .backgroundMusic(Musics.createGameMusic(SoundEvents.MUSIC_BIOME_BASALT_DELTAS))
                         .build())
                 .mobSpawnSettings(spawnBuilder.build())
                 .generationSettings(biomeBuilder.build())
@@ -410,6 +363,6 @@ public class ModBiomes {
     }
 
     public static ResourceKey<Biome> register(String name) {
-        return ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, name));
+        return ResourceKey.create(Registries.BIOME, Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, name));
     }
 }

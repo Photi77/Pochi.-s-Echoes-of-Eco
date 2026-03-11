@@ -13,20 +13,14 @@ import net.minecraft.world.level.material.MapColor;
 
 public class SolidifiedLavaBlock extends Block {
 
-    public SolidifiedLavaBlock() {
-        super(BlockBehaviour.Properties.of()
-                .mapColor(MapColor.FIRE)
-                .strength(0.5F)
-                .sound(SoundType.STONE)
-                .lightLevel((state) -> 15)
-                .noOcclusion()
-        );
+    public SolidifiedLavaBlock(BlockBehaviour.Properties properties) {
+        super(properties);
     }
 
     @Override
     public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
         super.onPlace(state, level, pos, oldState, isMoving);
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             // 5秒後に溶岩に戻すスケジュール
             level.scheduleTick(pos, this, 100);
         }
@@ -39,8 +33,8 @@ public class SolidifiedLavaBlock extends Block {
     }
 
     @Override
-    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, BlockPos fromPos, boolean isMoving) {
-        if (!level.isClientSide) {
+    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block block, net.minecraft.world.level.redstone.Orientation fromPos, boolean isMoving) {
+        if (!level.isClientSide()) {
             // 周囲のブロック更新時にもスケジュール確認
             if (!level.getBlockTicks().hasScheduledTick(pos, this)) {
                 level.scheduleTick(pos, this, 100);

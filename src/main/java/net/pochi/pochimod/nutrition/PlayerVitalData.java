@@ -1,9 +1,9 @@
 package net.pochi.pochimod.nutrition;
 
-import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.neoforged.neoforge.common.util.INBTSerializable;
-
+import net.minecraft.world.level.storage.ValueInput;
+import net.minecraft.world.level.storage.ValueOutput;
+import net.neoforged.neoforge.common.util.ValueIOSerializable;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -11,7 +11,7 @@ import java.util.Map;
  * プレイヤーのバイタルデータ（水分・栄養）を統合管理
  * 既存の水分ゲージシステムと新規栄養システムを一元管理
  */
-public class PlayerVitalData implements INBTSerializable<CompoundTag> {
+public class PlayerVitalData implements ValueIOSerializable {
 
     // 水分値（既存システム）
     private int hydration;
@@ -194,14 +194,14 @@ public class PlayerVitalData implements INBTSerializable<CompoundTag> {
     public void loadFromNBT(CompoundTag tag) {
         // 水分を読み込み
         if (tag.contains(NBT_HYDRATION)) {
-            this.hydration = tag.getInt(NBT_HYDRATION);
+            this.hydration = tag.getIntOr(NBT_HYDRATION, MAX_HYDRATION);
         }
 
         // 各栄養素を読み込み
         for (NutritionType type : NutritionType.getAllTypes()) {
             String key = NBT_NUTRITION_PREFIX + type.getName();
             if (tag.contains(key)) {
-                nutritionValues.put(type, tag.getInt(key));
+                nutritionValues.put(type, tag.getIntOr(key, NutritionType.DEFAULT_VALUE));
             } else {
                 // データが存在しない場合はデフォルト値を設定
                 nutritionValues.put(type, NutritionType.DEFAULT_VALUE);
@@ -229,16 +229,24 @@ public class PlayerVitalData implements INBTSerializable<CompoundTag> {
         this.nutritionValues.putAll(other.nutritionValues);
     }
 
-    // ========== INBTSerializable (Attachment API) ==========
+    // ========== ValueIOSerializable (Attachment API) ==========
 
     @Override
-    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
-        return saveToNBT();
+    public void serialize(ValueOutput output) {
+        output.putInt(NBT_HYDRATION, hydration);
+        for (Map.Entry<NutritionType, Integer> entry : nutritionValues.entrySet()) {
+            String key = NBT_NUTRITION_PREFIX + entry.getKey().getName();
+            output.putInt(key, entry.getValue());
+        }
     }
 
     @Override
-    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
-        loadFromNBT(nbt);
+    public void deserialize(ValueInput input) {
+        this.hydration = input.getIntOr(NBT_HYDRATION, MAX_HYDRATION);
+        for (NutritionType type : NutritionType.getAllTypes()) {
+            String key = NBT_NUTRITION_PREFIX + type.getName();
+            nutritionValues.put(type, input.getIntOr(key, NutritionType.DEFAULT_VALUE));
+        }
     }
 
     // ========== ユーティリティメソッド ==========

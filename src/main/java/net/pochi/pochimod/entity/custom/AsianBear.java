@@ -5,7 +5,7 @@ import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Pose;
-import net.minecraft.world.entity.animal.PolarBear;
+import net.minecraft.world.entity.animal.polarbear.PolarBear;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -33,7 +33,7 @@ public class AsianBear extends PolarBear {
 
     @Nullable
     public AgeableMob getBreedOffspring(ServerLevel p_149005_, AgeableMob p_149006_) {
-        return ModEntityTypes.ASIAN_BEAR.get().create(p_149005_);
+        return ModEntityTypes.ASIAN_BEAR.get().create(p_149005_, net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
     }
 
     protected void updateWalkAnimation(float v) {
@@ -44,7 +44,7 @@ public class AsianBear extends PolarBear {
             f = 0.0F;
         }
 
-        this.walkAnimation.update(f, 0.2F);
+        this.walkAnimation.update(f, 0.2F, this.tickCount);
     }
 
     @Override

@@ -7,9 +7,11 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
+import net.minecraft.util.ProblemReporter;
+import net.minecraft.world.level.storage.TagValueInput;
+import net.minecraft.world.level.storage.TagValueOutput;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -63,13 +65,15 @@ public class CaptureNet extends Item {
     }
 
     public static boolean capture(ItemStack stack, LivingEntity target, @Nullable Player player) {
-        if (target.level().isClientSide || getEntityType(stack) != null)
+        if (target.level().isClientSide() || getEntityType(stack) != null)
             return false;
         if (target instanceof Player || !target.isAlive())
             return false;
         final var nbt = new CompoundTag();
         nbt.putString(ENTITY_TYPE_TAG, EntityType.getKey(target.getType()).toString());
-        target.saveWithoutId(nbt);
+        TagValueOutput saveOutput = TagValueOutput.createWithoutContext(ProblemReporter.DISCARDING);
+        target.saveWithoutId(saveOutput);
+        nbt.merge(saveOutput.buildResult());
         TAGS_TO_REMOVE.forEach(nbt::remove);
 
         CompoundTag customTag = stack.has(DataComponents.CUSTOM_DATA)
@@ -83,19 +87,19 @@ public class CaptureNet extends Item {
     }
 
     public static boolean release(BlockPos pos, Direction facing, Level level, ItemStack stack) {
-        if (level.isClientSide)
+        if (level.isClientSide())
             return false;
         final var entityType = getEntityType(stack);
         if (entityType == null)
             return false;
-        final var entity = entityType.create(level);
+        final var entity = entityType.create(level, net.minecraft.world.entity.EntitySpawnReason.LOAD);
         if (entity != null) {
             CompoundTag customTag = stack.has(DataComponents.CUSTOM_DATA)
                     ? stack.get(DataComponents.CUSTOM_DATA).copyTag()
                     : new CompoundTag();
-            entity.load(customTag.getCompound(CAPTURED_ENTITY_TAG));
+            entity.load(TagValueInput.create(ProblemReporter.DISCARDING, level.registryAccess(), customTag.getCompoundOrEmpty(CAPTURED_ENTITY_TAG)));
             BlockPos blockPos = pos.relative(facing);
-            entity.absMoveTo(blockPos.getX() + 0.5, blockPos.getY(), blockPos.getZ() + 0.5, 0, 0);
+            entity.absSnapTo(blockPos.getX() + 0.5, blockPos.getY(), blockPos.getZ() + 0.5, 0, 0);
             customTag.remove(CAPTURED_ENTITY_TAG);
             stack.set(DataComponents.CUSTOM_DATA, CustomData.of(customTag));
             level.addFreshEntity(entity);
@@ -109,7 +113,7 @@ public class CaptureNet extends Item {
         final var entity = getEntityType(stack);
         if (entity != null) {
             final var eName = Component.translatable(entity.getDescriptionId());
-            return Component.translatable(super.getDescriptionId(stack))
+            return Component.translatable(stack.getItem().getDescriptionId())
                     .append(" (")
                     .append(eName)
                     .append(")");
@@ -121,19 +125,19 @@ public class CaptureNet extends Item {
     public static EntityType<?> getEntityType(ItemStack stack) {
         if (!stack.has(DataComponents.CUSTOM_DATA)) return null;
         CompoundTag customTag = stack.get(DataComponents.CUSTOM_DATA).copyTag();
-        if (customTag.contains(CAPTURED_ENTITY_TAG, Tag.TAG_COMPOUND)) {
-            final var typeStr = customTag.getCompound(CAPTURED_ENTITY_TAG).getString(ENTITY_TYPE_TAG);
-            final var rl = ResourceLocation.parse(typeStr);
+        if (customTag.contains(CAPTURED_ENTITY_TAG)) {
+            final var typeStr = customTag.getCompoundOrEmpty(CAPTURED_ENTITY_TAG).getStringOr(ENTITY_TYPE_TAG, "");
+            final var rl = Identifier.parse(typeStr);
             return BuiltInRegistries.ENTITY_TYPE.getOptional(rl).orElse(null);
         }
         return null;
     }
 
     @Override
-    public void appendHoverText(ItemStack p_41421_, Item.TooltipContext p_41422_, List<Component> p_41423_, TooltipFlag p_41424_) {
+    public void appendHoverText(ItemStack p_41421_, Item.TooltipContext p_41422_, net.minecraft.world.item.component.TooltipDisplay display, java.util.function.Consumer<Component> p_41423_, TooltipFlag p_41424_) {
         final var entity = getEntityType(p_41421_);
         if (entity != null) {
-            p_41423_.add(Component.translatable("explanation_" + entity.getDescriptionId()));
+            p_41423_.accept(Component.translatable("explanation_" + entity.getDescriptionId()));
         }
     }
 }

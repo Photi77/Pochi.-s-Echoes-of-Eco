@@ -40,8 +40,8 @@ public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(Registries.BLOCK, PochiMod.MOD_ID);
 
-    public static final DeferredHolder<Block, Block> SOLIDIFIED_LAVA =
-            BLOCKS.register("solidified_lava", SolidifiedLavaBlock::new);
+    //public static final DeferredHolder<Block, Block> SOLIDIFIED_LAVA =
+    //        BLOCKS.register("solidified_lava", SolidifiedLavaBlock::new);
 
     //宝石の国
     public static final DeferredHolder<Block, Block> CINNABAR_BLOCK = registryBlock("cinnabar_block",
@@ -401,97 +401,97 @@ public class ModBlocks {
     //農作物
     public static final DeferredHolder<Block, Block> ASPARAGUS = BLOCKS.register("asparagus",
             () -> new AsparagusBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BEETROOTS)
-                    .strength(0.2f).noCollission().noOcclusion()));
+                    .strength(0.2f).noCollision().noOcclusion()));
 
     public static final DeferredHolder<Block, Block> CABBAGE = BLOCKS.register("cabbage",
             () -> new CabbageBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BEETROOTS)
-                    .strength(0.2f).noCollission().noOcclusion()));
+                    .strength(0.2f).noCollision().noOcclusion()));
 
     public static final DeferredHolder<Block, Block> RICE_BLOCK = BLOCKS.register("rice",
             () -> new RiceBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BEETROOTS)
-                    .strength(0.2f).noCollission().noOcclusion()));
+                    .strength(0.2f).noCollision().noOcclusion()));
 
     public static final DeferredHolder<Block, Block> MINT_BLOCK = BLOCKS.register("mint",
             () -> new MintBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BEETROOTS)
-                    .strength(0.2f).noCollission().noOcclusion()));
+                    .strength(0.2f).noCollision().noOcclusion()));
 
     public static final DeferredHolder<Block, Block> TOMATO_BLOCK = BLOCKS.register("tomato",
             () -> new TomatoBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BEETROOTS)
-                    .strength(0.2f).noCollission().noOcclusion()));
+                    .strength(0.2f).noCollision().noOcclusion()));
 
     public static final DeferredHolder<Block, Block> CORN_BLOCK = BLOCKS.register("corn",
             () -> new CornBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BEETROOTS)
-                    .strength(0.2f).noCollission().noOcclusion()));
+                    .strength(0.2f).noCollision().noOcclusion()));
 
     public static final DeferredHolder<Block, Block> ONION_BLOCK = BLOCKS.register("onion",
             () -> new OnionBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BEETROOTS)
-                    .strength(0.2f).noCollission().noOcclusion()));
+                    .strength(0.2f).noCollision().noOcclusion()));
 
     public static final DeferredHolder<Block, Block> GINGER_BLOCK = BLOCKS.register("ginger",
             () -> new GingerBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BEETROOTS)
-                    .strength(0.2f).noCollission().noOcclusion()));
+                    .strength(0.2f).noCollision().noOcclusion()));
 
     public static final DeferredHolder<Block, Block> GREEN_PEPPER_BLOCK = BLOCKS.register("green_pepper",
             () -> new GreenPepperBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BEETROOTS)
-                    .strength(0.2f).noCollission().noOcclusion()));
+                    .strength(0.2f).noCollision().noOcclusion()));
 
     public static final DeferredHolder<Block, Block> PAPRIKA_BLOCK = BLOCKS.register("paprika",
             () -> new PaprikaBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BEETROOTS)
-                    .strength(0.2f).noCollission().noOcclusion()));
+                    .strength(0.2f).noCollision().noOcclusion()));
 
     public static final DeferredHolder<Block, Block> EGGPLANT_BLOCK = BLOCKS.register("eggplant",
             () -> new EggplantBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BEETROOTS)
-                    .strength(0.2f).noCollission().noOcclusion()));
+                    .strength(0.2f).noCollision().noOcclusion()));
 
     public static final DeferredHolder<Block, Block> WHITE_RADISH_BLOCK = BLOCKS.register("white_radish",
             () -> new WhiteRadishBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BEETROOTS)
-                    .strength(0.2f).noCollission().noOcclusion()));
+                    .strength(0.2f).noCollision().noOcclusion()));
 
     public static final DeferredHolder<Block, Block> CHILI_PEPPER_BLOCK = BLOCKS.register("chili_pepper",
             () -> new ChiliPepperBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BEETROOTS)
-                    .strength(0.2f).noCollission().noOcclusion()));
+                    .strength(0.2f).noCollision().noOcclusion()));
 
     public static final DeferredHolder<Block, Block> BASIL_BLOCK = BLOCKS.register("basil",
             () -> new BasilBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BEETROOTS)
-                    .strength(0.2f).noCollission().noOcclusion()));
+                    .strength(0.2f).noCollision().noOcclusion()));
 
     public static final DeferredHolder<Block, Block> LOTUS_ROOT_BLOCK = BLOCKS.register("lotus_root",
             () -> new LotusRootBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BEETROOTS)
-                    .strength(0.2f).noCollission().noOcclusion()));
+                    .strength(0.2f).noCollision().noOcclusion()));
 
 
     //鉱石の作物
     public static final DeferredHolder<Block, Block> CROP_DIAMOND = BLOCKS.register("crop_diamond",
             () -> new CropDiamond(BlockBehaviour.Properties.ofFullCopy(Blocks.BEETROOTS)
-                    .strength(0.2f).noCollission().noOcclusion()));
+                    .strength(0.2f).noCollision().noOcclusion()));
 
     public static final DeferredHolder<Block, Block> CROP_COAL = BLOCKS.register("crop_coal",
             () -> new CropCoal(BlockBehaviour.Properties.ofFullCopy(Blocks.BEETROOTS)
-                    .strength(0.2f).noCollission().noOcclusion()));
+                    .strength(0.2f).noCollision().noOcclusion()));
 
     public static final DeferredHolder<Block, Block> CROP_COPPER = BLOCKS.register("crop_copper",
             () -> new CropCopper(BlockBehaviour.Properties.ofFullCopy(Blocks.BEETROOTS)
-                    .strength(0.2f).noCollission().noOcclusion()));
+                    .strength(0.2f).noCollision().noOcclusion()));
 
     public static final DeferredHolder<Block, Block> CROP_REDSTONE = BLOCKS.register("crop_redstone",
             () -> new CropRedStone(BlockBehaviour.Properties.ofFullCopy(Blocks.BEETROOTS)
-                    .strength(0.2f).noCollission().noOcclusion()));
+                    .strength(0.2f).noCollision().noOcclusion()));
 
     public static final DeferredHolder<Block, Block> CROP_LAPIS = BLOCKS.register("crop_lapis",
             () -> new CropLapis(BlockBehaviour.Properties.ofFullCopy(Blocks.BEETROOTS)
-                    .strength(0.2f).noCollission().noOcclusion()));
+                    .strength(0.2f).noCollision().noOcclusion()));
 
     public static final DeferredHolder<Block, Block> CROP_IRON = BLOCKS.register("crop_iron",
             () -> new CropIron(BlockBehaviour.Properties.ofFullCopy(Blocks.BEETROOTS)
-                    .strength(0.2f).noCollission().noOcclusion()));
+                    .strength(0.2f).noCollision().noOcclusion()));
 
     public static final DeferredHolder<Block, Block> CROP_GOLD = BLOCKS.register("crop_gold",
             () -> new CropGold(BlockBehaviour.Properties.ofFullCopy(Blocks.BEETROOTS)
-                    .strength(0.2f).noCollission().noOcclusion()));
+                    .strength(0.2f).noCollision().noOcclusion()));
 
     public static final DeferredHolder<Block, Block> CROP_EMERALD = BLOCKS.register("crop_emerald",
             () -> new CropEmerald(BlockBehaviour.Properties.ofFullCopy(Blocks.BEETROOTS)
-                    .strength(0.2f).noCollission().noOcclusion()));
+                    .strength(0.2f).noCollision().noOcclusion()));
 
 
     //作業台
@@ -579,7 +579,7 @@ public class ModBlocks {
     //ブドウブロック
     //葉っぱにぶらさがるやつ
     public static final DeferredHolder<Block, Block> GRAPE_BLOCK = BLOCKS.register("grape_block",
-            () -> new GrapeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_PROPAGULE).noCollission().randomTicks().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)));
+            () -> new GrapeBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_PROPAGULE).noCollision().randomTicks().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)));
 
 
     //ここまでで一種類の木
@@ -620,8 +620,10 @@ public class ModBlocks {
             });
 
     public static final DeferredHolder<Block, Block> MAPLE_LEAVES = registryBlock("maple_leaves",
-            () -> new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)
+            () -> new LeavesBlock(0.1f, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)
                     ){
+                @Override public com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.block.LeavesBlock> codec() { throw new UnsupportedOperationException(); }
+                @Override protected void spawnFallingLeavesParticle(net.minecraft.world.level.Level lvl, net.minecraft.core.BlockPos bpos, net.minecraft.util.RandomSource rnd) {}
 
                 @Override
                 public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
@@ -680,8 +682,10 @@ public class ModBlocks {
             });
 
     public static final DeferredHolder<Block, Block> CINNAMON_LEAVES = registryBlock("cinnamon_leaves",
-            () -> new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)
+            () -> new LeavesBlock(0.1f, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)
                     ){
+                @Override public com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.block.LeavesBlock> codec() { throw new UnsupportedOperationException(); }
+                @Override protected void spawnFallingLeavesParticle(net.minecraft.world.level.Level lvl, net.minecraft.core.BlockPos bpos, net.minecraft.util.RandomSource rnd) {}
 
                 @Override
                 public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
@@ -740,8 +744,10 @@ public class ModBlocks {
             });
 
     public static final DeferredHolder<Block, Block> COLA_LEAVES = registryBlock("cola_leaves",
-            () -> new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)
+            () -> new LeavesBlock(0.1f, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)
                     ){
+                @Override public com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.block.LeavesBlock> codec() { throw new UnsupportedOperationException(); }
+                @Override protected void spawnFallingLeavesParticle(net.minecraft.world.level.Level lvl, net.minecraft.core.BlockPos bpos, net.minecraft.util.RandomSource rnd) {}
 
                 @Override
                 public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
@@ -829,7 +835,7 @@ public class ModBlocks {
     //ブドウブロック
     //葉っぱにぶらさがるやつ
     public static final DeferredHolder<Block, Block> LEMON_BLOCK = BLOCKS.register("lemon_block",
-            () -> new LemonBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_PROPAGULE).noCollission().randomTicks().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)));
+            () -> new LemonBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_PROPAGULE).noCollision().randomTicks().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)));
 
 
     public static final DeferredHolder<Block, Block> PLUM_LOG = registryBlock("plum_log",
@@ -893,7 +899,7 @@ public class ModBlocks {
     //ブドウブロック
     //葉っぱにぶらさがるやつ
     public static final DeferredHolder<Block, Block> PLUM_BLOCK = BLOCKS.register("plum_block",
-            () -> new PlumBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_PROPAGULE).noCollission().randomTicks().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)));
+            () -> new PlumBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_PROPAGULE).noCollision().randomTicks().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)));
 
 
     public static final DeferredHolder<Block, Block> CHERRY_LOG = registryBlock("cherry_log",
@@ -931,7 +937,7 @@ public class ModBlocks {
             });
 
     public static final DeferredHolder<Block, Block> CHERRY_LEAVES = registryBlock("cherry_leaves",
-            () -> new CherryLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion()
+            () -> new CheryLeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion()
             ){
 
                 @Override
@@ -957,7 +963,7 @@ public class ModBlocks {
     //ブドウブロック
     //葉っぱにぶらさがるやつ
     public static final DeferredHolder<Block, Block> CHERRY_BLOCK = BLOCKS.register("cherry_block",
-            () -> new CherryBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_PROPAGULE).noCollission().randomTicks().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)));
+            () -> new CherryBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_PROPAGULE).noCollision().randomTicks().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)));
 
 
     public static final DeferredHolder<Block, Block> BANANA_LOG = registryBlock("banana_log",
@@ -1021,7 +1027,7 @@ public class ModBlocks {
     //ブドウブロック
     //葉っぱにぶらさがるやつ
     public static final DeferredHolder<Block, Block> BANANA_BLOCK = BLOCKS.register("banana_block",
-            () -> new BananaBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_PROPAGULE).noCollission().randomTicks().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)));
+            () -> new BananaBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_PROPAGULE).noCollision().randomTicks().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)));
 
 
     public static final DeferredHolder<Block, Block> PEACH_LOG = registryBlock("peach_log",
@@ -1085,7 +1091,7 @@ public class ModBlocks {
     //ブドウブロック
     //葉っぱにぶらさがるやつ
     public static final DeferredHolder<Block, Block> PEACH_BLOCK = BLOCKS.register("peach_block",
-            () -> new PeachBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_PROPAGULE).noCollission().randomTicks().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)));
+            () -> new PeachBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_PROPAGULE).noCollision().randomTicks().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)));
 
 
     public static final DeferredHolder<Block, Block> COCONUT_LOG = registryBlock("coconut_log",
@@ -1149,7 +1155,7 @@ public class ModBlocks {
     //ブドウブロック
     //葉っぱにぶらさがるやつ
     public static final DeferredHolder<Block, Block> COCONUT_BLOCK = BLOCKS.register("coconut_block",
-            () -> new CoconutBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_PROPAGULE).noCollission().randomTicks().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)));
+            () -> new CoconutBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_PROPAGULE).noCollision().randomTicks().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)));
 
 
     public static final DeferredHolder<Block, Block> ALMOND_LOG = registryBlock("almond_log",
@@ -1187,8 +1193,10 @@ public class ModBlocks {
             });
 
     public static final DeferredHolder<Block, Block> ALMOND_LEAVES = registryBlock("almond_leaves",
-            () -> new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)
+            () -> new LeavesBlock(0.1f, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)
             ){
+                @Override public com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.block.LeavesBlock> codec() { throw new UnsupportedOperationException(); }
+                @Override protected void spawnFallingLeavesParticle(net.minecraft.world.level.Level lvl, net.minecraft.core.BlockPos bpos, net.minecraft.util.RandomSource rnd) {}
 
                 @Override
                 public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
@@ -1250,8 +1258,10 @@ public class ModBlocks {
             });
 
     public static final DeferredHolder<Block, Block> DURIAN_LEAVES = registryBlock("durian_leaves",
-            () -> new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)
+            () -> new LeavesBlock(0.1f, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)
             ){
+                @Override public com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.block.LeavesBlock> codec() { throw new UnsupportedOperationException(); }
+                @Override protected void spawnFallingLeavesParticle(net.minecraft.world.level.Level lvl, net.minecraft.core.BlockPos bpos, net.minecraft.util.RandomSource rnd) {}
 
                 @Override
                 public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
@@ -1313,8 +1323,10 @@ public class ModBlocks {
             });
 
     public static final DeferredHolder<Block, Block> COFFEE_LEAVES = registryBlock("coffee_leaves",
-            () -> new LeavesBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)
+            () -> new LeavesBlock(0.1f, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_LEAVES)
             ){
+                @Override public com.mojang.serialization.MapCodec<? extends net.minecraft.world.level.block.LeavesBlock> codec() { throw new UnsupportedOperationException(); }
+                @Override protected void spawnFallingLeavesParticle(net.minecraft.world.level.Level lvl, net.minecraft.core.BlockPos bpos, net.minecraft.util.RandomSource rnd) {}
 
                 @Override
                 public boolean isFlammable(BlockState state, BlockGetter level, BlockPos pos, Direction direction) {
@@ -1403,7 +1415,7 @@ public class ModBlocks {
     //ブドウブロック
     //葉っぱにぶらさがるやつ
     public static final DeferredHolder<Block, Block> KIWI_BLOCK = BLOCKS.register("kiwi_block",
-            () -> new KiwiBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_PROPAGULE).noCollission().randomTicks().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)));
+            () -> new KiwiBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_PROPAGULE).noCollision().randomTicks().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ).pushReaction(PushReaction.DESTROY)));
 
 
     public static final DeferredHolder<Block, Block> TEA_BUSH = registryBlock("tea_bush",
@@ -1440,11 +1452,11 @@ public class ModBlocks {
     public static final DeferredHolder<Block, Block> CABERNET_SAUVIGNON_FENCE_GATE = registryBlock("cabernet_sauvignon_fence_gate",
             () -> new FenceGateBlock(WoodType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE_GATE).strength(2.0F,3.0F)));
     //public static final DeferredHolder<Block, Block> CABERNET_SAUVIGNON_BUTTON = registryBlock("cabernet_sauvignon_button",
-    //        () -> new ButtonBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DECORATION).noCollission()
+    //        () -> new ButtonBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DECORATION).noCollision()
     //                .strength(0.5F).sound(SoundType.WOOD).requiredFeatures(FeatureFlags.UPDATE_1_20)
     //                ,  BlockSetType.OAK,30, true));
     public static final DeferredHolder<Block, Block> CABERNET_SAUVIGNON_PRESSURE_PLATE = registryBlock("cabernet_sauvignon_pressure_plate",
-            () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE).noCollission().strength(0.5F)));
+            () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE).noCollision().strength(0.5F)));
     public static final DeferredHolder<Block, Block> CABERNET_SAUVIGNON_DOOR = registryBlock("cabernet_sauvignon_door",
             () -> new DoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(3.0F).noOcclusion().isValidSpawn(ModBlocks::never)));
     public static final DeferredHolder<Block, Block> CABERNET_SAUVIGNON_TRAPDOOR = registryBlock("cabernet_sauvignon_trapdoor",
@@ -1463,12 +1475,12 @@ public class ModBlocks {
     public static final DeferredHolder<Block, Block> MAPLE_FENCE_GATE = registryBlock("maple_fence_gate",
             () -> new FenceGateBlock(WoodType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F,3.0F)));
     //public static final DeferredHolder<Block, Block> MAPLE_BUTTON = registryBlock("maple_button",
-    //        () -> new ButtonBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DECORATION).noCollission()
+    //        () -> new ButtonBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DECORATION).noCollision()
     //                .strength(0.5F).sound(SoundType.OAK_PLANKS).requiredFeatures(FeatureFlags.UPDATE_1_20)
     //                ,  BlockSetType.OAK,30, true));
 
     public static final DeferredHolder<Block, Block> MAPLE_PRESSURE_PLATE = registryBlock("maple_pressure_plate",
-            () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).noCollission().strength(0.5F)));
+            () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).noCollision().strength(0.5F)));
     public static final DeferredHolder<Block, Block> MAPLE_DOOR = registryBlock("maple_door",
             () -> new DoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(3.0F).noOcclusion().isValidSpawn(ModBlocks::never)));
     public static final DeferredHolder<Block, Block> MAPLE_TRAPDOOR = registryBlock("maple_trapdoor",
@@ -1487,11 +1499,11 @@ public class ModBlocks {
     public static final DeferredHolder<Block, Block> CINNAMON_FENCE_GATE = registryBlock("cinnamon_fence_gate",
             () -> new FenceGateBlock(WoodType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F,3.0F)));
     //public static final DeferredHolder<Block, Block> CINNAMON_BUTTON = registryBlock("cinnamon_button",
-    //        () -> new ButtonBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DECORATION).noCollission()
+    //        () -> new ButtonBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DECORATION).noCollision()
     //                .strength(0.5F).sound(SoundType.WOOD).requiredFeatures(FeatureFlags.UPDATE_1_20)
     //                ,  BlockSetType.OAK,30, true));
     public static final DeferredHolder<Block, Block> CINNAMON_PRESSURE_PLATE = registryBlock("cinnamon_pressure_plate",
-            () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).noCollission().strength(0.5F)));
+            () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).noCollision().strength(0.5F)));
     public static final DeferredHolder<Block, Block> CINNAMON_DOOR = registryBlock("cinnamon_door",
             () -> new DoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(3.0F).noOcclusion().isValidSpawn(ModBlocks::never)));
     public static final DeferredHolder<Block, Block> CINNAMON_TRAPDOOR = registryBlock("cinnamon_trapdoor",
@@ -1510,11 +1522,11 @@ public class ModBlocks {
     public static final DeferredHolder<Block, Block> COLA_FENCE_GATE = registryBlock("cola_fence_gate",
             () -> new FenceGateBlock(WoodType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F,3.0F)));
     //public static final DeferredHolder<Block, Block> COLA_BUTTON = registryBlock("cola_button",
-    //        () -> new ButtonBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DECORATION).noCollission()
+    //        () -> new ButtonBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DECORATION).noCollision()
     //                .strength(0.5F).sound(SoundType.WOOD).requiredFeatures(FeatureFlags.UPDATE_1_20)
     //                ,  BlockSetType.OAK,30, true));
     public static final DeferredHolder<Block, Block> COLA_PRESSURE_PLATE = registryBlock("cola_pressure_plate",
-            () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).noCollission().strength(0.5F).sound(SoundType.WOOD)));
+            () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).noCollision().strength(0.5F).sound(SoundType.WOOD)));
     public static final DeferredHolder<Block, Block> COLA_DOOR = registryBlock("cola_door",
             () -> new DoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(3.0F).noOcclusion().isValidSpawn(ModBlocks::never)));
     public static final DeferredHolder<Block, Block> COLA_TRAPDOOR = registryBlock("cola_trapdoor",
@@ -1533,11 +1545,11 @@ public class ModBlocks {
     public static final DeferredHolder<Block, Block> LEMON_FENCE_GATE = registryBlock("lemon_fence_gate",
             () -> new FenceGateBlock(WoodType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F,3.0F)));
     //public static final DeferredHolder<Block, Block> LEMON_BUTTON = registryBlock("lemon_button",
-    //        () -> new ButtonBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DECORATION).noCollission()
+    //        () -> new ButtonBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DECORATION).noCollision()
     //                .strength(0.5F).sound(SoundType.WOOD).requiredFeatures(FeatureFlags.UPDATE_1_20)
     //                , BlockSetType.OAK,30, true));
     public static final DeferredHolder<Block, Block> LEMON_PRESSURE_PLATE = registryBlock("lemon_pressure_plate",
-            () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).noCollission().strength(0.5F).sound(SoundType.WOOD)));
+            () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).noCollision().strength(0.5F).sound(SoundType.WOOD)));
     public static final DeferredHolder<Block, Block> LEMON_DOOR = registryBlock("lemon_door",
             () -> new DoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(3.0F).noOcclusion().isValidSpawn(ModBlocks::never)));
     public static final DeferredHolder<Block, Block> LEMON_TRAPDOOR = registryBlock("lemon_trapdoor",
@@ -1557,11 +1569,11 @@ public class ModBlocks {
     public static final DeferredHolder<Block, Block> PLUM_FENCE_GATE = registryBlock("plum_fence_gate",
             () -> new FenceGateBlock(WoodType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F,3.0F)));
     //public static final DeferredHolder<Block, Block> PLUM_BUTTON = registryBlock("plum_button",
-    //        () -> new ButtonBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DECORATION).noCollission()
+    //        () -> new ButtonBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DECORATION).noCollision()
     //                .strength(0.5F).sound(SoundType.WOOD).requiredFeatures(FeatureFlags.UPDATE_1_20)
     //                , BlockSetType.OAK,30, true));
     public static final DeferredHolder<Block, Block> PLUM_PRESSURE_PLATE = registryBlock("plum_pressure_plate",
-            () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).noCollission().strength(0.5F).sound(SoundType.WOOD)));
+            () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).noCollision().strength(0.5F).sound(SoundType.WOOD)));
     public static final DeferredHolder<Block, Block> PLUM_DOOR = registryBlock("plum_door",
             () -> new DoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(3.0F).noOcclusion().isValidSpawn(ModBlocks::never)));
     public static final DeferredHolder<Block, Block> PLUM_TRAPDOOR = registryBlock("plum_trapdoor",
@@ -1581,11 +1593,11 @@ public class ModBlocks {
     public static final DeferredHolder<Block, Block> CHERRY_FENCE_GATE = registryBlock("cherry_fence_gate",
             () -> new FenceGateBlock(WoodType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F,3.0F)));
     //public static final DeferredHolder<Block, Block> CHERRY_BUTTON = registryBlock("cherry_button",
-    //        () -> new ButtonBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DECORATION).noCollission()
+    //        () -> new ButtonBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DECORATION).noCollision()
     //                .strength(0.5F).sound(SoundType.WOOD).requiredFeatures(FeatureFlags.UPDATE_1_20)
     //                , BlockSetType.OAK,30, true));
     public static final DeferredHolder<Block, Block> CHERRY_PRESSURE_PLATE = registryBlock("cherry_pressure_plate",
-            () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).noCollission().strength(0.5F).sound(SoundType.WOOD)));
+            () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).noCollision().strength(0.5F).sound(SoundType.WOOD)));
     public static final DeferredHolder<Block, Block> CHERRY_DOOR = registryBlock("cherry_door",
             () -> new DoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(3.0F).noOcclusion().isValidSpawn(ModBlocks::never)));
     public static final DeferredHolder<Block, Block> CHERRY_TRAPDOOR = registryBlock("cherry_trapdoor",
@@ -1605,11 +1617,11 @@ public class ModBlocks {
     public static final DeferredHolder<Block, Block> BANANA_FENCE_GATE = registryBlock("banana_fence_gate",
             () -> new FenceGateBlock(WoodType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F,3.0F)));
     //public static final DeferredHolder<Block, Block> BANANA_BUTTON = registryBlock("banana_button",
-    //        () -> new ButtonBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DECORATION).noCollission()
+    //        () -> new ButtonBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DECORATION).noCollision()
     //                .strength(0.5F).sound(SoundType.WOOD).requiredFeatures(FeatureFlags.UPDATE_1_20)
     //                , BlockSetType.OAK,30, true));
     public static final DeferredHolder<Block, Block> BANANA_PRESSURE_PLATE = registryBlock("banana_pressure_plate",
-            () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).noCollission().strength(0.5F).sound(SoundType.WOOD)));
+            () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).noCollision().strength(0.5F).sound(SoundType.WOOD)));
     public static final DeferredHolder<Block, Block> BANANA_DOOR = registryBlock("banana_door",
             () -> new DoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(3.0F).noOcclusion().isValidSpawn(ModBlocks::never)));
     public static final DeferredHolder<Block, Block> BANANA_TRAPDOOR = registryBlock("banana_trapdoor",
@@ -1629,11 +1641,11 @@ public class ModBlocks {
     public static final DeferredHolder<Block, Block> COCONUT_FENCE_GATE = registryBlock("coconut_fence_gate",
             () -> new FenceGateBlock(WoodType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F,3.0F)));
     //public static final DeferredHolder<Block, Block> COCONUT_BUTTON = registryBlock("coconut_button",
-    //        () -> new ButtonBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DECORATION).noCollission()
+    //        () -> new ButtonBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DECORATION).noCollision()
     //                .strength(0.5F).sound(SoundType.WOOD).requiredFeatures(FeatureFlags.UPDATE_1_20)
     //                , BlockSetType.OAK,30, true));
     public static final DeferredHolder<Block, Block> COCONUT_PRESSURE_PLATE = registryBlock("coconut_pressure_plate",
-            () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).noCollission().strength(0.5F).sound(SoundType.WOOD)));
+            () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).noCollision().strength(0.5F).sound(SoundType.WOOD)));
     public static final DeferredHolder<Block, Block> COCONUT_DOOR = registryBlock("coconut_door",
             () -> new DoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(3.0F).noOcclusion().isValidSpawn(ModBlocks::never)));
     public static final DeferredHolder<Block, Block> COCONUT_TRAPDOOR = registryBlock("coconut_trapdoor",
@@ -1653,11 +1665,11 @@ public class ModBlocks {
     public static final DeferredHolder<Block, Block> PEACH_FENCE_GATE = registryBlock("peach_fence_gate",
             () -> new FenceGateBlock(WoodType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F,3.0F)));
     //public static final DeferredHolder<Block, Block> PEACH_BUTTON = registryBlock("peach_button",
-    //        () -> new ButtonBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DECORATION).noCollission()
+    //        () -> new ButtonBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DECORATION).noCollision()
     //                .strength(0.5F).sound(SoundType.WOOD).requiredFeatures(FeatureFlags.UPDATE_1_20)
     //                , BlockSetType.OAK,30, true));
     public static final DeferredHolder<Block, Block> PEACH_PRESSURE_PLATE = registryBlock("peach_pressure_plate",
-            () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).noCollission().strength(0.5F).sound(SoundType.WOOD)));
+            () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).noCollision().strength(0.5F).sound(SoundType.WOOD)));
     public static final DeferredHolder<Block, Block> PEACH_DOOR = registryBlock("peach_door",
             () -> new DoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(3.0F).noOcclusion().isValidSpawn(ModBlocks::never)));
     public static final DeferredHolder<Block, Block> PEACH_TRAPDOOR = registryBlock("peach_trapdoor",
@@ -1678,11 +1690,11 @@ public class ModBlocks {
     public static final DeferredHolder<Block, Block> ALMOND_FENCE_GATE = registryBlock("almond_fence_gate",
             () -> new FenceGateBlock(WoodType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F,3.0F)));
     //public static final DeferredHolder<Block, Block> ALMOND_BUTTON = registryBlock("almond_button",
-    //        () -> new ButtonBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DECORATION).noCollission()
+    //        () -> new ButtonBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DECORATION).noCollision()
     //                .strength(0.5F).sound(SoundType.WOOD).requiredFeatures(FeatureFlags.UPDATE_1_20)
     //                , BlockSetType.OAK,30, true));
     public static final DeferredHolder<Block, Block> ALMOND_PRESSURE_PLATE = registryBlock("almond_pressure_plate",
-            () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).noCollission().strength(0.5F).sound(SoundType.WOOD)));
+            () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).noCollision().strength(0.5F).sound(SoundType.WOOD)));
     public static final DeferredHolder<Block, Block> ALMOND_DOOR = registryBlock("almond_door",
             () -> new DoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(3.0F).noOcclusion().isValidSpawn(ModBlocks::never)));
     public static final DeferredHolder<Block, Block> ALMOND_TRAPDOOR = registryBlock("almond_trapdoor",
@@ -1702,11 +1714,11 @@ public class ModBlocks {
     public static final DeferredHolder<Block, Block> DURIAN_FENCE_GATE = registryBlock("durian_fence_gate",
             () -> new FenceGateBlock(WoodType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F,3.0F)));
     //public static final DeferredHolder<Block, Block> DURIAN_BUTTON = registryBlock("durian_button",
-    //        () -> new ButtonBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DECORATION).noCollission()
+    //        () -> new ButtonBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DECORATION).noCollision()
     //                .strength(0.5F).sound(SoundType.WOOD).requiredFeatures(FeatureFlags.UPDATE_1_20)
     //                , BlockSetType.OAK,30, true));
     public static final DeferredHolder<Block, Block> DURIAN_PRESSURE_PLATE = registryBlock("durian_pressure_plate",
-            () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).noCollission().strength(0.5F).sound(SoundType.WOOD)));
+            () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).noCollision().strength(0.5F).sound(SoundType.WOOD)));
     public static final DeferredHolder<Block, Block> DURIAN_DOOR = registryBlock("durian_door",
             () -> new DoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(3.0F).noOcclusion().isValidSpawn(ModBlocks::never)));
     public static final DeferredHolder<Block, Block> DURIAN_TRAPDOOR = registryBlock("durian_trapdoor",
@@ -1725,11 +1737,11 @@ public class ModBlocks {
     public static final DeferredHolder<Block, Block> COFFEE_FENCE_GATE = registryBlock("coffee_fence_gate",
             () -> new FenceGateBlock(WoodType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(2.0F,3.0F)));
     //public static final DeferredHolder<Block, Block> DURIAN_BUTTON = registryBlock("durian_button",
-    //        () -> new ButtonBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DECORATION).noCollission()
+    //        () -> new ButtonBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DECORATION).noCollision()
     //                .strength(0.5F).sound(SoundType.WOOD).requiredFeatures(FeatureFlags.UPDATE_1_20)
     //                , BlockSetType.OAK,30, true));
     public static final DeferredHolder<Block, Block> COFFEE_PRESSURE_PLATE = registryBlock("coffee_pressure_plate",
-            () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).noCollission().strength(0.5F).sound(SoundType.WOOD)));
+            () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).noCollision().strength(0.5F).sound(SoundType.WOOD)));
     public static final DeferredHolder<Block, Block> COFFEE_DOOR = registryBlock("coffee_door",
             () -> new DoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(3.0F).noOcclusion().isValidSpawn(ModBlocks::never)));
     public static final DeferredHolder<Block, Block> COFFEE_TRAPDOOR = registryBlock("coffee_trapdoor",
@@ -1761,11 +1773,11 @@ public class ModBlocks {
     public static final DeferredHolder<Block, Block> KIWI_FENCE_GATE = registryBlock("kiwi_fence_gate",
             () -> new FenceGateBlock(WoodType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_FENCE_GATE).strength(2.0F,3.0F)));
     //public static final DeferredHolder<Block, Block> CABERNET_SAUVIGNON_BUTTON = registryBlock("cabernet_sauvignon_button",
-    //        () -> new ButtonBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DECORATION).noCollission()
+    //        () -> new ButtonBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.DECORATION).noCollision()
     //                .strength(0.5F).sound(SoundType.WOOD).requiredFeatures(FeatureFlags.UPDATE_1_20)
     //                ,  BlockSetType.OAK,30, true));
     public static final DeferredHolder<Block, Block> KIWI_PRESSURE_PLATE = registryBlock("kiwi_pressure_plate",
-            () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE).noCollission().strength(0.5F)));
+            () -> new PressurePlateBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PRESSURE_PLATE).noCollision().strength(0.5F)));
     public static final DeferredHolder<Block, Block> KIWI_DOOR = registryBlock("kiwi_door",
             () -> new DoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(Blocks.OAK_PLANKS).strength(3.0F).noOcclusion().isValidSpawn(ModBlocks::never)));
     public static final DeferredHolder<Block, Block> KIWI_TRAPDOOR = registryBlock("kiwi_trapdoor",
@@ -2000,8 +2012,8 @@ public class ModBlocks {
         return toReturn;
     }
 
-    private static <T extends Block>DeferredHolder<Item, Item> registryBlockItem(String name, DeferredHolder<Block, T> block){
-        return ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+    private static void registryBlockItem(String name, DeferredHolder<Block, ?> block){
+        ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
     }
 
     public static void register (IEventBus eventBus) {

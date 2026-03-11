@@ -4,7 +4,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.pochi.pochimod.PochiMod;
@@ -13,7 +13,7 @@ import net.pochi.pochimod.entity.custom.Rhino;
 public record RhinoChargePacket() implements CustomPacketPayload {
 
     public static final CustomPacketPayload.Type<RhinoChargePacket> TYPE =
-            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "rhino_charge"));
+            new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "rhino_charge"));
 
     public static final StreamCodec<FriendlyByteBuf, RhinoChargePacket> STREAM_CODEC =
             StreamCodec.unit(new RhinoChargePacket());

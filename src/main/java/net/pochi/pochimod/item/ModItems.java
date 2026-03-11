@@ -2,14 +2,12 @@ package net.pochi.pochimod.item;
 
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.*;
-import net.neoforged.neoforge.common.DeferredSpawnEggItem;
+import net.minecraft.world.item.equipment.ArmorType;
 import net.neoforged.bus.api.IEventBus;
-import net.minecraft.core.registries.Registries;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.pochi.pochimod.PochiMod;
 import net.pochi.pochimod.block.ModBlocks;
-import net.pochi.pochimod.entity.ModEntityTypes;
 import net.pochi.pochimod.fluid.ModFluids;
 import net.pochi.pochimod.item.custom.*;
 import net.pochi.pochimod.item.custom.armor.*;
@@ -23,8 +21,8 @@ import net.pochi.pochimod.mineral.tools.*;
 import net.pochi.pochimod.pottery.PotteryPattern;
 
 public class ModItems {
-    public static final DeferredRegister<Item> ITEMS =
-            DeferredRegister.create(Registries.ITEM, PochiMod.MOD_ID);
+    public static final DeferredRegister.Items ITEMS =
+            DeferredRegister.createItems(PochiMod.MOD_ID);
 
 
     public static final DeferredHolder<Item, Item> MINERAL_SWORD = ITEMS.register("mineral_sword",
@@ -41,13 +39,13 @@ public class ModItems {
                     new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> MINERAL_HELMET = ITEMS.register("mineral_helmet",
-            () -> new MineralArmorItem( ArmorItem.Type.HELMET, new Item.Properties()));
+            () -> new MineralArmorItem( ArmorType.HELMET, new Item.Properties()));
     public static final DeferredHolder<Item, Item> MINERAL_CHESTPLATE = ITEMS.register("mineral_chestplate",
-            () -> new MineralArmorItem( ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+            () -> new MineralArmorItem( ArmorType.CHESTPLATE, new Item.Properties()));
     public static final DeferredHolder<Item, Item> MINERAL_LEGGINGS = ITEMS.register("mineral_leggings",
-            () -> new MineralArmorItem(ArmorItem.Type.LEGGINGS, new Item.Properties()));
+            () -> new MineralArmorItem(ArmorType.LEGGINGS, new Item.Properties()));
     public static final DeferredHolder<Item, Item> MINERAL_BOOTS = ITEMS.register("mineral_boots",
-            () -> new MineralArmorItem( ArmorItem.Type.BOOTS, new Item.Properties()));
+            () -> new MineralArmorItem( ArmorType.BOOTS, new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> MINERAL_RING = ITEMS.register("mineral_ring",
             () -> new Item(new Item.Properties()));
@@ -137,223 +135,159 @@ public class ModItems {
 
     //ツール
     public static final DeferredHolder<Item, Item> HAMMER_HEAD_PICKAXE = ITEMS.register("hammer_head_pickaxe",
-            () -> new HammerHeadPickaxe(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new HammerHeadPickaxe(new Item.Properties()));
 
     //public static final DeferredHolder<Item, Item> MANTIS_SHRIMP_GRAB = ITEMS.register("mantis_shrimp_grab",
-    //        () -> new HammerHeadPickaxe(Tiers.IRON, 3, -2.4F,
+    //        () -> new HammerHeadPickaxe(3, -2.4F,
     //                new Item.Properties()));
 //
     //public static final DeferredHolder<Item, Item> PORCUPINE_SWORD = ITEMS.register("porcupine_sword",
-    //        () -> new HammerHeadPickaxe(Tiers.IRON, 3, -2.4F,
+    //        () -> new HammerHeadPickaxe(3, -2.4F,
     //                new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> CHROMITE_SWORD = ITEMS.register("chromite_sword",
-            () -> new SwordItem(Tiers.IRON, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> CHROMITE_PICKAXE = ITEMS.register("chromite_pickaxe",
-            () -> new PickaxeItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> CHROMITE_SHOVEL = ITEMS.register("chromite_shovel",
-            () -> new ShovelItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> CHROMITE_AXE = ITEMS.register("chromite_axe",
-            () -> new AxeItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> CHROMITE_HOE = ITEMS.register("chromite_hoe",
-            () -> new HoeItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> FLUORITE_SWORD = ITEMS.register("fluorite_sword",
-            () -> new SwordItem(ModTiers.FLUORITE,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> FLUORITE_PICKAXE = ITEMS.register("fluorite_pickaxe",
-            () -> new PickaxeItem(ModTiers.FLUORITE,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> FLUORITE_SHOVEL = ITEMS.register("fluorite_shovel",
-            () -> new ShovelItem(ModTiers.FLUORITE,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> FLUORITE_AXE = ITEMS.register("fluorite_axe",
-            () -> new AxeItem(ModTiers.FLUORITE,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> FLUORITE_HOE = ITEMS.register("fluorite_hoe",
-            () -> new HoeItem(ModTiers.FLUORITE,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> ALUNITE_SWORD = ITEMS.register("alunite_sword",
-            () -> new SwordItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> ALUNITE_PICKAXE = ITEMS.register("alunite_pickaxe",
-            () -> new PickaxeItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> ALUNITE_SHOVEL = ITEMS.register("alunite_shovel",
-            () -> new ShovelItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> ALUNITE_AXE = ITEMS.register("alunite_axe",
-            () -> new AxeItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> ALUNITE_HOE = ITEMS.register("alunite_hoe",
-            () -> new HoeItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> STAINLESS_SWORD = ITEMS.register("stainless_sword",
-            () -> new SwordItem(ModTiers.STAINLESS,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> STAINLESS_PICKAXE = ITEMS.register("stainless_pickaxe",
-            () -> new PickaxeItem(ModTiers.STAINLESS,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> STAINLESS_SHOVEL = ITEMS.register("stainless_shovel",
-            () -> new ShovelItem(ModTiers.STAINLESS,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> STAINLESS_AXE = ITEMS.register("stainless_axe",
-            () -> new AxeItem(ModTiers.STAINLESS,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> STAINLESS_HOE = ITEMS.register("stainless_hoe",
-            () -> new HoeItem(ModTiers.STAINLESS,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> ALUMINIUM_SWORD = ITEMS.register("aluminium_sword",
-            () -> new SwordItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> ALUMINIUM_PICKAXE = ITEMS.register("aluminium_pickaxe",
-            () -> new PickaxeItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> ALUMINIUM_SHOVEL = ITEMS.register("aluminium_shovel",
-            () -> new ShovelItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> ALUMINIUM_AXE = ITEMS.register("aluminium_axe",
-            () -> new AxeItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> ALUMINIUM_HOE = ITEMS.register("aluminium_hoe",
-            () -> new HoeItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> TITANIUM_SWORD = ITEMS.register("titanium_sword",
-            () -> new SwordItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> TITANIUM_PICKAXE = ITEMS.register("titanium_pickaxe",
-            () -> new PickaxeItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> TITANIUM_SHOVEL = ITEMS.register("titanium_shovel",
-            () -> new ShovelItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> TITANIUM_AXE = ITEMS.register("titanium_axe",
-            () -> new AxeItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> TITANIUM_HOE = ITEMS.register("titanium_hoe",
-            () -> new HoeItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> MAGUNESIUM_SWORD = ITEMS.register("magunesium_sword",
-            () -> new SwordItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> MAGUNESIUM_PICKAXE = ITEMS.register("magunesium_pickaxe",
-            () -> new PickaxeItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> MAGUNESIUM_SHOVEL = ITEMS.register("magunesium_shovel",
-            () -> new ShovelItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> MAGUNESIUM_AXE = ITEMS.register("magunesium_axe",
-            () -> new AxeItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> MAGUNESIUM_HOE = ITEMS.register("magunesium_hoe",
-            () -> new HoeItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> VANADIUM_SWORD = ITEMS.register("vanadium_sword",
-            () -> new SwordItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> VANADIUM_PICKAXE = ITEMS.register("vanadium_pickaxe",
-            () -> new PickaxeItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> VANADIUM_SHOVEL = ITEMS.register("vanadium_shovel",
-            () -> new ShovelItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> VANADIUM_AXE = ITEMS.register("vanadium_axe",
-            () -> new AxeItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> VANADIUM_HOE = ITEMS.register("vanadium_hoe",
-            () -> new HoeItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> DURALUMIN_SWORD = ITEMS.register("duralumin_sword",
-            () -> new SwordItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> DURALUMIN_PICKAXE = ITEMS.register("duralumin_pickaxe",
-            () -> new PickaxeItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> DURALUMIN_SHOVEL = ITEMS.register("duralumin_shovel",
-            () -> new ShovelItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> DURALUMIN_AXE = ITEMS.register("duralumin_axe",
-            () -> new AxeItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> DURALUMIN_HOE = ITEMS.register("duralumin_hoe",
-            () -> new HoeItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> TITAN_ALLOY_SWORD = ITEMS.register("titan_alloy_sword",
-            () -> new SwordItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> TITAN_ALLOY_PICKAXE = ITEMS.register("titan_alloy_pickaxe",
-            () -> new PickaxeItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> TITAN_ALLOY_SHOVEL = ITEMS.register("titan_alloy_shovel",
-            () -> new ShovelItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> TITAN_ALLOY_AXE = ITEMS.register("titan_alloy_axe",
-            () -> new AxeItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> TITAN_ALLOY_HOE = ITEMS.register("titan_alloy_hoe",
-            () -> new HoeItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> ELECTRON_SWORD = ITEMS.register("electron_sword",
-            () -> new SwordItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> ELECTRON_PICKAXE = ITEMS.register("electron_pickaxe",
-            () -> new PickaxeItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> ELECTRON_SHOVEL = ITEMS.register("electron_shovel",
-            () -> new ShovelItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> ELECTRON_AXE = ITEMS.register("electron_axe",
-            () -> new AxeItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> ELECTRON_HOE = ITEMS.register("electron_hoe",
-            () -> new HoeItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> VANADIUM_ALLOY_SWORD = ITEMS.register("vanadium_alloy_sword",
-            () -> new SwordItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> VANADIUM_ALLOY_PICKAXE = ITEMS.register("vanadium_alloy_pickaxe",
-            () -> new PickaxeItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> VANADIUM_ALLOY_SHOVEL = ITEMS.register("vanadium_alloy_shovel",
-            () -> new ShovelItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> VANADIUM_ALLOY_AXE = ITEMS.register("vanadium_alloy_axe",
-            () -> new AxeItem(Tiers.IRON,
-                    new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> VANADIUM_ALLOY_HOE = ITEMS.register("vanadium_alloy_hoe",
-            () -> new HoeItem(Tiers.IRON,
-                    new Item.Properties().stacksTo(1)
+            () -> new Item(new Item.Properties().stacksTo(1)
                             .rarity(Rarity.RARE)));
 
     //呪文系
    public static final DeferredHolder<Item, Item> CROCODILE_JAW_CHAIN = ITEMS.register("crocodile_jaw_chain",
-            () -> new CrocodileJawChainItem(
-                    Tiers.DIAMOND,
-                    new Item.Properties()
+            () -> new CrocodileJawChainItem(new Item.Properties()
                             .stacksTo(1)
                             .rarity(Rarity.RARE)
             )
     );
 
     public static final DeferredHolder<Item, Item> LUNAR_CLAW_BLADE = ITEMS.register("lunar_claw_blade",
-            () -> new LunarClawBladeItem(
-                    Tiers.DIAMOND,
-                    new Item.Properties()
+            () -> new LunarClawBladeItem(new Item.Properties()
                             .stacksTo(1)
                             .rarity(Rarity.RARE)
             )
@@ -409,127 +343,127 @@ public class ModItems {
 
     //防具
     public static final DeferredHolder<Item, Item> CHROMITE_HELMET = ITEMS.register("chromite_helmet",
-            () -> new ArmorItem(ModArmorMaterials.CHROMITE, ArmorItem.Type.HELMET, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> CHROMITE_CHESTPLATE = ITEMS.register("chromite_chestplate",
-            () -> new ArmorItem(ModArmorMaterials.CHROMITE, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> CHROMITE_LEGGINGS = ITEMS.register("chromite_leggings",
-            () -> new ArmorItem(ModArmorMaterials.CHROMITE, ArmorItem.Type.LEGGINGS, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> CHROMITE_BOOTS = ITEMS.register("chromite_boots",
-            () -> new ArmorItem(ModArmorMaterials.CHROMITE, ArmorItem.Type.BOOTS, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> FLUORITE_HELMET = ITEMS.register("fluorite_helmet",
-            () -> new ArmorItem(ModArmorMaterials.FLUORITE, ArmorItem.Type.HELMET, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> FLUORITE_CHESTPLATE = ITEMS.register("fluorite_chestplate",
-            () -> new ArmorItem(ModArmorMaterials.FLUORITE, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> FLUORITE_LEGGINGS = ITEMS.register("fluorite_leggings",
-            () -> new ArmorItem(ModArmorMaterials.FLUORITE, ArmorItem.Type.LEGGINGS, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> FLUORITE_BOOTS = ITEMS.register("fluorite_boots",
-            () -> new ArmorItem(ModArmorMaterials.FLUORITE, ArmorItem.Type.BOOTS, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> STAINLESS_HELMET = ITEMS.register("stainless_helmet",
-            () -> new ArmorItem(ModArmorMaterials.STAINLESS, ArmorItem.Type.HELMET, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> STAINLESS_CHESTPLATE = ITEMS.register("stainless_chestplate",
-            () -> new ArmorItem(ModArmorMaterials.STAINLESS, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> STAINLESS_LEGGINGS = ITEMS.register("stainless_leggings",
-            () -> new ArmorItem(ModArmorMaterials.STAINLESS, ArmorItem.Type.LEGGINGS, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> STAINLESS_BOOTS = ITEMS.register("stainless_boots",
-            () -> new ArmorItem(ModArmorMaterials.STAINLESS, ArmorItem.Type.BOOTS, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> ALUMINIUM_HELMET = ITEMS.register("aluminium_helmet",
-            () -> new ArmorItem(ModArmorMaterials.ALUMINIUM, ArmorItem.Type.HELMET, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> ALUMINIUM_CHESTPLATE = ITEMS.register("aluminium_chestplate",
-            () -> new ArmorItem(ModArmorMaterials.ALUMINIUM, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> ALUMINIUM_LEGGINGS = ITEMS.register("aluminium_leggings",
-            () -> new ArmorItem(ModArmorMaterials.ALUMINIUM, ArmorItem.Type.LEGGINGS, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> ALUMINIUM_BOOTS = ITEMS.register("aluminium_boots",
-            () -> new ArmorItem(ModArmorMaterials.ALUMINIUM, ArmorItem.Type.BOOTS, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> TITANIUM_HELMET = ITEMS.register("titanium_helmet",
-            () -> new ArmorItem(ModArmorMaterials.TITANIUM, ArmorItem.Type.HELMET, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> TITANIUM_CHESTPLATE = ITEMS.register("titanium_chestplate",
-            () -> new ArmorItem(ModArmorMaterials.TITANIUM, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> TITANIUM_LEGGINGS = ITEMS.register("titanium_leggings",
-            () -> new ArmorItem(ModArmorMaterials.TITANIUM, ArmorItem.Type.LEGGINGS, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> TITANIUM_BOOTS = ITEMS.register("titanium_boots",
-            () -> new ArmorItem(ModArmorMaterials.TITANIUM, ArmorItem.Type.BOOTS, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> MAGUNESIUM_HELMET = ITEMS.register("magunesium_helmet",
-            () -> new ArmorItem(ModArmorMaterials.MAGUNESIUM, ArmorItem.Type.HELMET, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> MAGUNESIUM_CHESTPLATE = ITEMS.register("magunesium_chestplate",
-            () -> new ArmorItem(ModArmorMaterials.MAGUNESIUM, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> MAGUNESIUM_LEGGINGS = ITEMS.register("magunesium_leggings",
-            () -> new ArmorItem(ModArmorMaterials.MAGUNESIUM, ArmorItem.Type.LEGGINGS, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> MAGUNESIUM_BOOTS = ITEMS.register("magunesium_boots",
-            () -> new ArmorItem(ModArmorMaterials.MAGUNESIUM, ArmorItem.Type.BOOTS, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> VANADIUM_HELMET = ITEMS.register("vanadium_helmet",
-            () -> new ArmorItem(ModArmorMaterials.VANADIUM, ArmorItem.Type.HELMET, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> VANADIUM_CHESTPLATE = ITEMS.register("vanadium_chestplate",
-            () -> new ArmorItem(ModArmorMaterials.VANADIUM, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> VANADIUM_LEGGINGS = ITEMS.register("vanadium_leggings",
-            () -> new ArmorItem(ModArmorMaterials.VANADIUM, ArmorItem.Type.LEGGINGS, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> VANADIUM_BOOTS = ITEMS.register("vanadium_boots",
-            () -> new ArmorItem(ModArmorMaterials.VANADIUM, ArmorItem.Type.BOOTS, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> DURALUMIN_HELMET = ITEMS.register("duralumin_helmet",
-            () -> new DuraluminArmorItem(ModArmorMaterials.DURALUMIN, ArmorItem.Type.HELMET, new Item.Properties()));
+            () -> new DuraluminArmorItem(ModArmorMaterials.DURALUMIN, ArmorType.HELMET, new Item.Properties()));
     public static final DeferredHolder<Item, Item> DURALUMIN_CHESTPLATE = ITEMS.register("duralumin_chestplate",
-            () -> new DuraluminArmorItem(ModArmorMaterials.DURALUMIN, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+            () -> new DuraluminArmorItem(ModArmorMaterials.DURALUMIN, ArmorType.CHESTPLATE, new Item.Properties()));
     public static final DeferredHolder<Item, Item> DURALUMIN_LEGGINGS = ITEMS.register("duralumin_leggings",
-            () -> new DuraluminArmorItem(ModArmorMaterials.DURALUMIN, ArmorItem.Type.LEGGINGS, new Item.Properties()));
+            () -> new DuraluminArmorItem(ModArmorMaterials.DURALUMIN, ArmorType.LEGGINGS, new Item.Properties()));
     public static final DeferredHolder<Item, Item> DURALUMIN_BOOTS = ITEMS.register("duralumin_boots",
-            () -> new DuraluminArmorItem(ModArmorMaterials.DURALUMIN, ArmorItem.Type.BOOTS, new Item.Properties()));
+            () -> new DuraluminArmorItem(ModArmorMaterials.DURALUMIN, ArmorType.BOOTS, new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> TITAN_ALLOY_HELMET = ITEMS.register("titan_alloy_helmet",
-            () -> new ArmorItem(ModArmorMaterials.TITAN_ALLOY, ArmorItem.Type.HELMET, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> TITAN_ALLOY_CHESTPLATE = ITEMS.register("titan_alloy_chestplate",
-            () -> new ArmorItem(ModArmorMaterials.TITAN_ALLOY, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> TITAN_ALLOY_LEGGINGS = ITEMS.register("titan_alloy_leggings",
-            () -> new ArmorItem(ModArmorMaterials.TITAN_ALLOY, ArmorItem.Type.LEGGINGS, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> TITAN_ALLOY_BOOTS = ITEMS.register("titan_alloy_boots",
-            () -> new ArmorItem(ModArmorMaterials.TITAN_ALLOY, ArmorItem.Type.BOOTS, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> ELECTRON_HELMET = ITEMS.register("electron_helmet",
-            () -> new ElectronArmorItem(ModArmorMaterials.ELECTRON, ArmorItem.Type.HELMET, new Item.Properties()));
+            () -> new ElectronArmorItem(ModArmorMaterials.ELECTRON, ArmorType.HELMET, new Item.Properties()));
     public static final DeferredHolder<Item, Item> ELECTRON_CHESTPLATE = ITEMS.register("electron_chestplate",
-            () -> new ElectronArmorItem(ModArmorMaterials.ELECTRON, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+            () -> new ElectronArmorItem(ModArmorMaterials.ELECTRON, ArmorType.CHESTPLATE, new Item.Properties()));
     public static final DeferredHolder<Item, Item> ELECTRON_LEGGINGS = ITEMS.register("electron_leggings",
-            () -> new ElectronArmorItem(ModArmorMaterials.ELECTRON, ArmorItem.Type.LEGGINGS, new Item.Properties()));
+            () -> new ElectronArmorItem(ModArmorMaterials.ELECTRON, ArmorType.LEGGINGS, new Item.Properties()));
     public static final DeferredHolder<Item, Item> ELECTRON_BOOTS = ITEMS.register("electron_boots",
-            () -> new ElectronArmorItem(ModArmorMaterials.ELECTRON, ArmorItem.Type.BOOTS, new Item.Properties()));
+            () -> new ElectronArmorItem(ModArmorMaterials.ELECTRON, ArmorType.BOOTS, new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> VANADIUM_ALLOY_HELMET = ITEMS.register("vanadium_alloy_helmet",
-            () -> new ArmorItem(ModArmorMaterials.VANADIUM_ALLOY, ArmorItem.Type.HELMET, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> VANADIUM_ALLOY_CHESTPLATE = ITEMS.register("vanadium_alloy_chestplate",
-            () -> new ArmorItem(ModArmorMaterials.VANADIUM_ALLOY, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> VANADIUM_ALLOY_LEGGINGS = ITEMS.register("vanadium_alloy_leggings",
-            () -> new ArmorItem(ModArmorMaterials.VANADIUM_ALLOY, ArmorItem.Type.LEGGINGS, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> VANADIUM_ALLOY_BOOTS = ITEMS.register("vanadium_alloy_boots",
-            () -> new ArmorItem(ModArmorMaterials.VANADIUM_ALLOY, ArmorItem.Type.BOOTS, new Item.Properties()));
+            () -> new Item(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> PERISO_HELMET = ITEMS.register("periso_helmet",
-            () -> new PerissoArmor(ModArmorMaterials.PERISO, ArmorItem.Type.HELMET, new Item.Properties()));
+            () -> new PerissoArmor(ModArmorMaterials.PERISO, ArmorType.HELMET, new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> ROCK_PENGUIN_BOOTS = ITEMS.register("rock_penguin_boots",
-            () -> new RockPenguinArmor(ModArmorMaterials.ROCK_PENGUIN, ArmorItem.Type.BOOTS, new Item.Properties()));
+            () -> new RockPenguinArmor(ModArmorMaterials.ROCK_PENGUIN, ArmorType.BOOTS, new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> EMU_BOOTS = ITEMS.register("emu_boots",
-            () -> new EmuArmorItem(ModArmorMaterials.EMU, ArmorItem.Type.BOOTS, new Item.Properties()));
+            () -> new EmuArmorItem(ModArmorMaterials.EMU, ArmorType.BOOTS, new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> CASSOWARY_BOOTS = ITEMS.register("cassowary_boots",
-            () -> new CassowaryArmorItem(ModArmorMaterials.CASSOWARY, ArmorItem.Type.BOOTS, new Item.Properties()));
+            () -> new CassowaryArmorItem(ModArmorMaterials.CASSOWARY, ArmorType.BOOTS, new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> ANCIENT_LIZARD_HELMET = ITEMS.register("ancient_lizard_boots",
-            () -> new AncientLizardArmor(ModArmorMaterials.ANCIENT, ArmorItem.Type.HELMET, new Item.Properties()));
+            () -> new AncientLizardArmor(ModArmorMaterials.ANCIENT, ArmorType.HELMET, new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> LEOPARD_GECKO_TAIL_BELT = ITEMS.register("leopard_gecko_tail_belt",
             () -> new LeopardGeckoArmor(
                     ModArmorMaterials.LEOPA,
-                    ArmorItem.Type.LEGGINGS,
+                    ArmorType.LEGGINGS,
                     new Item.Properties()));
 
     //public static final DeferredHolder<Item, Item> PANGOLIN_CHESTPLATE = ITEMS.register("pangolin_chestplate",
-    //        () -> new PangolinArmor(ModArmorMaterials.ROCK_PENGUIN, ArmorItem.Type.BOOTS, new Item.Properties()));
+    //        () -> new PangolinArmor(ModArmorMaterials.ROCK_PENGUIN, ArmorType.BOOTS, new Item.Properties()));
 
 
     //食べ物
@@ -562,7 +496,7 @@ public class ModItems {
             CustomFoodItems.RiceItem::new);
 
     public static final DeferredHolder<Item, Item> COLA = ITEMS.register("cola",
-            () -> new ItemNameBlockItem(ModBlocks.COLA_FRUIT.get(),new Item.Properties().food(ModFoods.VEGETABLE1)));
+            () -> new BlockItem(ModBlocks.COLA_FRUIT.get(),new Item.Properties().food(ModFoods.VEGETABLE1)));
 
     public static final DeferredHolder<Item, Item> TOMATO = ITEMS.register("tomato",
             CustomFoodItems.TomatoItem::new);
@@ -607,10 +541,10 @@ public class ModItems {
             CustomFoodItems.KiwiItem::new);
 
     public static final DeferredHolder<Item, Item> ALMOND = ITEMS.register("almond",
-            () -> new ItemNameBlockItem(ModBlocks.ALMOND_FRUIT.get(),new Item.Properties().food(ModFoods.VEGETABLE1)));
+            () -> new BlockItem(ModBlocks.ALMOND_FRUIT.get(),new Item.Properties().food(ModFoods.VEGETABLE1)));
 
     public static final DeferredHolder<Item, Item> DURIAN = ITEMS.register("durian",
-            () -> new ItemNameBlockItem(ModBlocks.DURIAN_FRUIT.get(),new Item.Properties().food(ModFoods.VEGETABLE1)));
+            () -> new BlockItem(ModBlocks.DURIAN_FRUIT.get(),new Item.Properties().food(ModFoods.VEGETABLE1)));
 
     public static final DeferredHolder<Item, Item> OLIVE = ITEMS.register("olive",
             CustomFoodItems.OliveItem::new);
@@ -723,7 +657,7 @@ public class ModItems {
             () -> new Item(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> ROW_COFFEE_BEANS = ITEMS.register("row_coffee_beans",
-            () -> new ItemNameBlockItem(ModBlocks.COFFEE_FRUIT.get(),new Item.Properties()));
+            () -> new BlockItem(ModBlocks.COFFEE_FRUIT.get(),new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> COFFEE_BEANS = ITEMS.register("coffee_beans",
             () -> new Item(new Item.Properties()));
@@ -846,55 +780,55 @@ public class ModItems {
 
     //種
     public static final DeferredHolder<Item, Item> ASPARAGUS_SEEDS = ITEMS.register("asparagus_seeds",
-            () -> new ItemNameBlockItem(ModBlocks.ASPARAGUS.get(),
+            () -> new BlockItem(ModBlocks.ASPARAGUS.get(),
                     new Item.Properties()));
     public static final DeferredHolder<Item, Item> CABBAGE_SEEDS = ITEMS.register("cabbage_seeds",
-            () -> new ItemNameBlockItem(ModBlocks.CABBAGE.get(),
+            () -> new BlockItem(ModBlocks.CABBAGE.get(),
                     new Item.Properties()));
     public static final DeferredHolder<Item, Item> RICE_SEEDS = ITEMS.register("rice_seeds",
-            () -> new ItemNameBlockItem(ModBlocks.RICE_BLOCK.get(),
+            () -> new BlockItem(ModBlocks.RICE_BLOCK.get(),
                     new Item.Properties()));
     public static final DeferredHolder<Item, Item> MINT_SEEDS = ITEMS.register("mint_seeds",
-            () -> new ItemNameBlockItem(ModBlocks.MINT_BLOCK.get(),
+            () -> new BlockItem(ModBlocks.MINT_BLOCK.get(),
                     new Item.Properties()));
     public static final DeferredHolder<Item, Item> COLA_SEEDS = ITEMS.register("cola_seeds",
-            () -> new ItemNameBlockItem(ModBlocks.COLA_FRUIT.get(),
+            () -> new BlockItem(ModBlocks.COLA_FRUIT.get(),
                     new Item.Properties()));
     public static final DeferredHolder<Item, Item> TOMATO_SEEDS = ITEMS.register("tomato_seeds",
-            () -> new ItemNameBlockItem(ModBlocks.TOMATO_BLOCK.get(),
+            () -> new BlockItem(ModBlocks.TOMATO_BLOCK.get(),
                     new Item.Properties()));
     public static final DeferredHolder<Item, Item> CORN_SEEDS = ITEMS.register("corn_seeds",
-            () -> new ItemNameBlockItem(ModBlocks.CORN_BLOCK.get(),
+            () -> new BlockItem(ModBlocks.CORN_BLOCK.get(),
                     new Item.Properties()));
     public static final DeferredHolder<Item, Item> ONION_SEEDS = ITEMS.register("onion_seeds",
-            () -> new ItemNameBlockItem(ModBlocks.ONION_BLOCK.get(),
+            () -> new BlockItem(ModBlocks.ONION_BLOCK.get(),
                     new Item.Properties()));
     public static final DeferredHolder<Item, Item> GINGER_SEEDS = ITEMS.register("ginger_seeds",
-            () -> new ItemNameBlockItem(ModBlocks.GINGER_BLOCK.get(),
+            () -> new BlockItem(ModBlocks.GINGER_BLOCK.get(),
                     new Item.Properties()));
     public static final DeferredHolder<Item, Item> GREEN_PEPPER_SEEDS = ITEMS.register("green_pepper_seeds",
-            () -> new ItemNameBlockItem(ModBlocks.GREEN_PEPPER_BLOCK.get(),
+            () -> new BlockItem(ModBlocks.GREEN_PEPPER_BLOCK.get(),
                     new Item.Properties()));
     public static final DeferredHolder<Item, Item> PAPRIKA_SEEDS = ITEMS.register("paprika_seeds",
-            () -> new ItemNameBlockItem(ModBlocks.PAPRIKA_BLOCK.get(),
+            () -> new BlockItem(ModBlocks.PAPRIKA_BLOCK.get(),
                     new Item.Properties()));
     public static final DeferredHolder<Item, Item> EGGPLANT_SEEDS = ITEMS.register("eggplant_seeds",
-            () -> new ItemNameBlockItem(ModBlocks.EGGPLANT_BLOCK.get(),
+            () -> new BlockItem(ModBlocks.EGGPLANT_BLOCK.get(),
                     new Item.Properties()));
     public static final DeferredHolder<Item, Item> WHITE_RADISH_SEEDS = ITEMS.register("white_radish_seeds",
-            () -> new ItemNameBlockItem(ModBlocks.WHITE_RADISH_BLOCK.get(),
+            () -> new BlockItem(ModBlocks.WHITE_RADISH_BLOCK.get(),
                     new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> CHILI_PEPPER_SEEDS = ITEMS.register("chili_pepper_seeds",
-            () -> new ItemNameBlockItem(ModBlocks.CHILI_PEPPER_BLOCK.get(),
+            () -> new BlockItem(ModBlocks.CHILI_PEPPER_BLOCK.get(),
                     new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> BASIL_SEEDS = ITEMS.register("basil_seeds",
-            () -> new ItemNameBlockItem(ModBlocks.BASIL_BLOCK.get(),
+            () -> new BlockItem(ModBlocks.BASIL_BLOCK.get(),
                     new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> LOTUS_ROOT_SEEDS = ITEMS.register("lotus_root_seeds",
-            () -> new ItemNameBlockItem(ModBlocks.LOTUS_ROOT_BLOCK.get(),
+            () -> new BlockItem(ModBlocks.LOTUS_ROOT_BLOCK.get(),
                     new Item.Properties()));
 
     //飲み物バケツ
@@ -944,176 +878,133 @@ public class ModItems {
 
     //卵
     public static final DeferredHolder<Item, Item> SPARROW_SPAWN_EGG = ITEMS.register("sparrow_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.SPARROW, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> DEER_SPAWN_EGG = ITEMS.register("deer_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.DEER, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> DOE_SPAWN_EGG = ITEMS.register("doe_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.DOE, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> SAKABAN_SPAWN_EGG = ITEMS.register("sakaban_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.SAKABAN, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> CICADA_SPAWN_EGG = ITEMS.register("cicada_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.CICADA, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> DRAGONFLY_SPAWN_EGG = ITEMS.register("dragonfly_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.DRAGONFLY, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> BUTTERFLY_SPAWN_EGG = ITEMS.register("butterfly_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.BUTTERFLY, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> LONG_TIT_SPAWN_EGG = ITEMS.register("long_tit_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.LONG_TIT, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> SEAL_SPAWN_EGG = ITEMS.register("seal_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.SEAL, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> HERMIT_CRAB_SPAWN_EGG = ITEMS.register("hermit_crab_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.HERMIT_CRAB, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> MINI_HIPO_SPAWN_EGG = ITEMS.register("mini_hipo_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.MINI_HIPO, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> MONGOOSE_SPAWN_EGG = ITEMS.register("mongoose_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.MONGOOSE, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> ANT_SPAWN_EGG = ITEMS.register("ant_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.ANT, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> ETUPIRKA_SPAWN_EGG = ITEMS.register("etupirka_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.ETUPIRKA, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> SNAKE_SPAWN_EGG = ITEMS.register("snake_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.SNAKE, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> PEACOCK_SPAWN_EGG = ITEMS.register("peacock_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.PEACOCK, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> BURROWING_OWL_SPAWN_EGG = ITEMS.register("burrowing_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.BURROWING_OWL, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> FOLIVORE_SPAWN_EGG = ITEMS.register("folivore_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.FOLIVORE, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> GIANT_OTTER_SPAWN_EGG = ITEMS.register("giant_otter_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.GIANT_OTTER, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> GUYANA_RUPICOLA_SPAWN_EGG = ITEMS.register("guyana_rupicola_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.GUYANA_RUPICOLA, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> HARPY_EAGLE_SPAWN_EGG = ITEMS.register("harpy_eagle_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.HARPY_EAGLE, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> MUSK_CAT_SPAWN_EGG = ITEMS.register("musk_cat_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.MUSK_CAT, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> PERISSO_SPAWN_EGG = ITEMS.register("perisso_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.PERISSO, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> RATEL_SPAWN_EGG = ITEMS.register("ratel_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.RATEL, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> WOMBAT_SPAWN_EGG = ITEMS.register("wombat_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.WOMBAT, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> BEAVER_SPAWN_EGG = ITEMS.register("beaver_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.BEAVER, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> HAMMER_HEAD_SPAWN_EGG = ITEMS.register("hammer_head_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.HAMMER_HEAD, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> LEAFY_SEA_SPAWN_EGG = ITEMS.register("leafy_sea_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.LEAFY_SEA, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> KIWI_SPAWN_EGG = ITEMS.register("kiwi_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.KIWI, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> ROCK_PENGUIN_SPAWN_EGG = ITEMS.register("rock_penguin_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.ROCK_PENGUIN, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> SKUNK_SPAWN_EGG = ITEMS.register("skunk_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.SKUNK, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> STURGEON_SPAWN_EGG = ITEMS.register("sturgeon_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.STURGEON, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> QUOKKA_SPAWN_EGG = ITEMS.register("quokka_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.QUOKKA, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> WOOD_PECKER_SPAWN_EGG = ITEMS.register("wood_pecker_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.WOOD_PECKER, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> FELIS_SPAWN_EGG = ITEMS.register("felis_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.FELIS, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> FRUIT_FLY_SPAWN_EGG = ITEMS.register("fruit_fly_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.FRUIT_FLY, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> INDICATOR_IDAE_SPAWN_EGG = ITEMS.register("indicate_idae_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.INDICATOR_IDAE, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> MANTIS_SHRIMP_SPAWN_EGG = ITEMS.register("mantis_shrimp_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.MANTIS_SHRIMP, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> MEERKAT_SPAWN_EGG = ITEMS.register("meerkat_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.MEERKAT, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> PALLAS_CAT_SPAWN_EGG = ITEMS.register("pallas_cat_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.PALLAS_CAT, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> PANGOLIN_SPAWN_EGG = ITEMS.register("pangolin_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.PANGOLIN, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> PORCUPINE_SPAWN_EGG = ITEMS.register("porcupine_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.PORCUPINE, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> TAPIR_SPAWN_EGG = ITEMS.register("tapir_spawn_egg",
-            () -> new DeferredSpawnEggItem(ModEntityTypes.TAPIR, 0x985316, 0xd87822,
-                    new Item.Properties()));
+            () -> new SpawnEggItem(new Item.Properties()));
 
     public static final DeferredHolder<Item, Item> EVERY_EGG = ITEMS.register("every_egg",
             () -> new EveryEgg(new Item.Properties()));

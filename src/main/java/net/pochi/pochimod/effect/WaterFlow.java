@@ -1,6 +1,7 @@
 package net.pochi.pochimod.effect;
 
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -21,8 +22,8 @@ public class WaterFlow extends MobEffect {
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
-        Level level = pLivingEntity.level();
+    public boolean applyEffectTick(ServerLevel pLevel, LivingEntity pLivingEntity, int pAmplifier) {
+        ServerLevel level = pLevel;
         if (!level.isClientSide()) {
             if (pLivingEntity instanceof Player player) {
                 PlayerVitalData vitalData = player.getData(ModAttachments.PLAYER_VITAL);
@@ -37,7 +38,7 @@ public class WaterFlow extends MobEffect {
                 }
             }
         }
-        return super.applyEffectTick(pLivingEntity, pAmplifier);
+        return super.applyEffectTick(pLevel, pLivingEntity, pAmplifier);
     }
 
     @Override

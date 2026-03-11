@@ -5,10 +5,15 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.animal.*;
 import net.minecraft.world.entity.animal.axolotl.Axolotl;
+import net.minecraft.world.entity.animal.bee.Bee;
+import net.minecraft.world.entity.animal.chicken.Chicken;
+import net.minecraft.world.entity.animal.dolphin.Dolphin;
+import net.minecraft.world.entity.animal.golem.IronGolem;
+import net.minecraft.world.entity.animal.wolf.Wolf;
 import net.minecraft.world.entity.monster.Silverfish;
-import net.minecraft.world.entity.monster.Zombie;
-import net.minecraft.world.entity.npc.VillagerProfession;
-import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.entity.monster.zombie.Zombie;
+import net.minecraft.world.entity.npc.villager.VillagerProfession;
+import net.minecraft.world.entity.npc.villager.VillagerTrades;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -67,7 +72,7 @@ public class ModEvents {
                     surfaceBuilder.buildSurfaceForChunk(chunk, chunkPos.x, chunkPos.z);
 
                     // 蜃ｦ逅・ｸ医∩繝槭・繧ｯ
-                    event.getData().putBoolean("caldera_generated", true);
+                    //event.getData().putBoolean("caldera_generated", true); // removed in 1.21.11
 
                     System.out.println("Generated Caldera terrain for chunk: " + chunkPos);
                 }
@@ -78,8 +83,9 @@ public class ModEvents {
         @SubscribeEvent
         public static void tonbo(LivingDeathEvent event){
             Random random = new Random();
-            if(event.getEntity() instanceof Dragonfly dragonfly){
-                dragonfly.spawnAtLocation(ModItems.DRAGONFLY_WINGS.get(),random.nextInt(3));
+            if(event.getEntity() instanceof Dragonfly dragonfly && dragonfly.level() instanceof ServerLevel serverLevelDragonfly){
+                int count = random.nextInt(3);
+                if(count > 0) dragonfly.spawnAtLocation(serverLevelDragonfly, new ItemStack(ModItems.DRAGONFLY_WINGS.get(), count));
             }
         }
 
@@ -90,7 +96,7 @@ public class ModEvents {
                 ItemStack stack = new ItemStack(ModItems.STAINLESS.get(),4);
                 int villagerLevel = 1;
 
-                trades.get(villagerLevel).add((trader,rand) -> new MerchantOffer(
+                trades.get(villagerLevel).add((sl, trader, rand) -> new MerchantOffer(
                         new net.minecraft.world.item.trading.ItemCost(Items.EMERALD,2),
                         stack,10,8,0.02F));
             }
@@ -105,10 +111,11 @@ public class ModEvents {
                         event.setNewDamage(0);
                         if (Dreamer.getPos() != null) {
                             if(player.level() instanceof ServerLevel serverLevel0) {
-                                ServerLevel destLevel = player.getServer().getLevel(Dreamer.getDimensionKey());
+                                ServerLevel destLevel = serverLevel0.getServer().getLevel(Dreamer.getDimensionKey());
                                 if(destLevel != null && !(player.level().dimension() == Dreamer.getDimensionKey())) {
-                                    if(player.canChangeDimensions(serverLevel0, destLevel)) {
-                                        player.changeDimension(new net.minecraft.world.level.portal.DimensionTransition(destLevel, player, net.minecraft.world.level.portal.DimensionTransition.DO_NOTHING));
+                                    if(player.canUsePortal(false)) {
+                                        net.minecraft.core.BlockPos dp = Dreamer.getPos();
+                                        player.teleport(new net.minecraft.world.level.portal.TeleportTransition(destLevel, new net.minecraft.world.phys.Vec3(dp.getX() + 0.5, dp.getY(), dp.getZ() + 0.5), net.minecraft.world.phys.Vec3.ZERO, player.getYRot(), player.getXRot(), net.minecraft.world.level.portal.TeleportTransition.DO_NOTHING));
                                     }
                                 }
                             }
@@ -116,14 +123,15 @@ public class ModEvents {
                             player.removeEffect(ModEffects.DREAMER);
                         } else {
                             if(player.level() instanceof ServerLevel serverLevel0) {
-                                ServerLevel overworld = player.getServer().getLevel(Level.OVERWORLD);
+                                ServerLevel overworld = serverLevel0.getServer().getLevel(Level.OVERWORLD);
                                 if(overworld != null && !(player.level().dimension() == Level.OVERWORLD)) {
-                                    if(player.canChangeDimensions(serverLevel0, overworld)) {
-                                        player.changeDimension(new net.minecraft.world.level.portal.DimensionTransition(overworld, player, net.minecraft.world.level.portal.DimensionTransition.DO_NOTHING));
+                                    if(player.canUsePortal(false)) {
+                                        net.minecraft.core.BlockPos sp = new net.minecraft.core.BlockPos(0, 64, 0);
+                                        player.teleport(new net.minecraft.world.level.portal.TeleportTransition(overworld, new net.minecraft.world.phys.Vec3(sp.getX() + 0.5, sp.getY(), sp.getZ() + 0.5), net.minecraft.world.phys.Vec3.ZERO, player.getYRot(), player.getXRot(), net.minecraft.world.level.portal.TeleportTransition.DO_NOTHING));
                                     }
                                 }
                             }
-                            player.teleportTo(player.level().getSharedSpawnPos().getX(),player.level().getSharedSpawnPos().getY(),player.level().getSharedSpawnPos().getZ());
+                            player.teleportTo(0.5, 64, 0.5);
                             player.removeEffect(ModEffects.DREAMER);
                         }
                     }
@@ -145,7 +153,7 @@ public class ModEvents {
         //    blockMap.put(Items.COAL, ModBlocks.CROP_COAL.get());
         //    blockMap.put(Items.EMERALD, ModBlocks.CROP_EMERALD.get());
 //
-        //    if (!level.isClientSide) {
+        //    if (!level.isClientSide()) {
         //        if (level.getBlockState(event.getPos()).is(Blocks.FARMLAND)) {
         //            if (blockMap.containsKey(player.getMainHandItem().getItem())) {
         //                BlockPos pos = BlockPos.containing(event.getPos().getX(), event.getPos().getY() + 1,
@@ -172,7 +180,7 @@ public class ModEvents {
 
         //@SubscribeEvent
         //public static void fall(LivingDamageEvent event) {
-        //    if(!event.getEntity().level().isClientSide) {
+        //    if(!event.getEntity().level().isClientSide()) {
         //        if (event.getEntity() instanceof Player player1) {
         //            if(event.getSource().is(DamageTypes.FALL)){
         //                if (player1.getInventory().getArmor(0).is(ModItems.PERISO_HELMET.get())) {
@@ -205,7 +213,7 @@ public class ModEvents {
 
     }
 
-    @EventBusSubscriber(modid = PochiMod.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+    @EventBusSubscriber(modid = PochiMod.MOD_ID)
     public static class ModEventBusEvents {
         @SubscribeEvent
         public static void entityAttributeEvent(EntityAttributeCreationEvent event) {

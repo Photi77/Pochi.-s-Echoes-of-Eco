@@ -2,7 +2,6 @@ package net.pochi.pochimod.entity.projectile;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -73,7 +72,7 @@ public class FlowerBombEntity extends Entity {
             this.entityData.set(WARN_TICKS, warnTicks);
 
             // 警告パーティクル
-            if (this.level().isClientSide) {
+            if (this.level().isClientSide()) {
                 this.spawnWarningParticles();
             }
 
@@ -90,7 +89,7 @@ public class FlowerBombEntity extends Entity {
             }
         } else {
             // 爆発実行
-            if (!this.level().isClientSide) {
+            if (!this.level().isClientSide()) {
                 this.explode();
             }
             this.discard();
@@ -175,7 +174,7 @@ public class FlowerBombEntity extends Entity {
 
                 // ダメージ適用
                 DamageSource damageSource = this.damageSources().explosion(this, owner);
-                entity.hurt(damageSource, actualDamage);
+                entity.hurtOrSimulate(damageSource, actualDamage);
 
                 // ノックバック
                 Vec3 knockback = entity.position().subtract(this.position()).normalize().scale(KNOCKBACK_STRENGTH);
@@ -239,29 +238,34 @@ public class FlowerBombEntity extends Entity {
     }
 
     @Override
-    protected void readAdditionalSaveData(CompoundTag compound) {
-        if (compound.hasUUID("OwnerUUID")) {
-            this.ownerUUID = compound.getUUID("OwnerUUID");
+    public boolean hurtServer(net.minecraft.server.level.ServerLevel pLevel, net.minecraft.world.damagesource.DamageSource pSource, float pAmount) {
+        return false;
+    }
+
+    @Override
+    protected void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput compound) {
+        if (compound.getString("OwnerUUID").isPresent()) {
+            this.ownerUUID = java.util.UUID.fromString(compound.getString("OwnerUUID").orElse("00000000-0000-0000-0000-000000000000"));
         }
-        if (compound.contains("OwnerId")) {
-            this.entityData.set(OWNER_ID, compound.getInt("OwnerId"));
+        if (compound.getInt("OwnerId").isPresent()) {
+            this.entityData.set(OWNER_ID, compound.getIntOr("OwnerId", 0));
         }
-        if (compound.contains("WarnTicks")) {
-            this.entityData.set(WARN_TICKS, compound.getInt("WarnTicks"));
+        if (compound.getInt("WarnTicks").isPresent()) {
+            this.entityData.set(WARN_TICKS, compound.getIntOr("WarnTicks", 0));
         }
-        if (compound.contains("FlowerX")) {
+        if (compound.getInt("FlowerX").isPresent()) {
             this.flowerPos = new BlockPos(
-                    compound.getInt("FlowerX"),
-                    compound.getInt("FlowerY"),
-                    compound.getInt("FlowerZ")
+                    compound.getIntOr("FlowerX", 0),
+                    compound.getIntOr("FlowerY", 0),
+                    compound.getIntOr("FlowerZ", 0)
             );
         }
     }
 
     @Override
-    protected void addAdditionalSaveData(CompoundTag compound) {
+    protected void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput compound) {
         if (this.ownerUUID != null) {
-            compound.putUUID("OwnerUUID", this.ownerUUID);
+            compound.putString("OwnerUUID", this.ownerUUID.toString());
         }
         compound.putInt("OwnerId", this.entityData.get(OWNER_ID));
         compound.putInt("WarnTicks", this.entityData.get(WARN_TICKS));

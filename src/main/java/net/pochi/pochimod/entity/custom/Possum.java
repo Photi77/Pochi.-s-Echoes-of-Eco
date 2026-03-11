@@ -58,18 +58,18 @@ public class Possum extends Animal {
     }
 
 
-    public boolean hurt(DamageSource p_32820_, float p_32821_) {
-        AreaEffectCloud areaeffectcloud = new AreaEffectCloud(this.level(), this.getX(), this.getY(), this.getZ());
+    @Override
+    public boolean hurtServer(net.minecraft.server.level.ServerLevel pLevel, DamageSource p_32820_, float p_32821_) {
+        AreaEffectCloud areaeffectcloud = new AreaEffectCloud(pLevel, this.getX(), this.getY(), this.getZ());
         areaeffectcloud.setOwner(this);
-        areaeffectcloud.setParticle(ParticleTypes.WITCH);
+        //areaeffectcloud.setParticle(ParticleTypes.WITCH); // setParticle(SimpleParticleType) removed in 1.21.11
         areaeffectcloud.setRadius(3.0F);
         areaeffectcloud.addEffect(new MobEffectInstance(MobEffects.WITHER, 40, 2));
-        //areaeffectcloud.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 300, 6));
         areaeffectcloud.setDuration(200);
         areaeffectcloud.setRadiusPerTick((7.0F - areaeffectcloud.getRadius()) / (float) 200);
         areaeffectcloud.setPos(this.getX(), this.getY(), this.getZ());
-        this.level().addFreshEntity(areaeffectcloud);
-        return super.hurt(p_32820_, p_32821_);
+        pLevel.addFreshEntity(areaeffectcloud);
+        return false;
     }
 
 
@@ -92,7 +92,7 @@ public class Possum extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-        return ModEntityTypes.RATEL.get().create(p_146743_);
+        return ModEntityTypes.RATEL.get().create(p_146743_, net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
     }
 
     private void setupAnimationStates() {
@@ -112,7 +112,7 @@ public class Possum extends Animal {
             f = 0.0F;
         }
 
-        this.walkAnimation.update(f, 0.2F);
+        this.walkAnimation.update(f, 0.2F, this.tickCount);
     }
 
     @Override
@@ -177,7 +177,7 @@ public class Possum extends Animal {
         }
 
         protected void onReachedTarget() {
-            if (net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(new net.neoforged.neoforge.event.entity.EntityMobGriefingEvent(Possum.this.level(), Possum.this)).canGrief()) {
+            if (net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(new net.neoforged.neoforge.event.entity.EntityMobGriefingEvent((net.minecraft.server.level.ServerLevel)Possum.this.level(), Possum.this)).canGrief()) {
                 BlockState blockstate = Possum.this.level().getBlockState(this.blockPos);
                 if (blockstate.is(Blocks.BEEHIVE) || blockstate.is(Blocks.BEE_NEST)) {
                     this.stripped(blockstate, blockPos);

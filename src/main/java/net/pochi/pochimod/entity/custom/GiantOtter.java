@@ -22,8 +22,8 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Turtle;
-import net.minecraft.world.entity.monster.Drowned;
+import net.minecraft.world.entity.animal.turtle.Turtle;
+import net.minecraft.world.entity.monster.zombie.Drowned;
 import net.minecraft.world.entity.monster.Guardian;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -68,18 +68,18 @@ public class GiantOtter extends Turtle{
         builder.define(TRAVELLING, false);
     }
 
-    public void addAdditionalSaveData(CompoundTag p_30176_) {
+    public void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput p_30176_) {
         super.addAdditionalSaveData(p_30176_);
         p_30176_.putInt("TravelPosX", this.getTravelPos().getX());
         p_30176_.putInt("TravelPosY", this.getTravelPos().getY());
         p_30176_.putInt("TravelPosZ", this.getTravelPos().getZ());
     }
 
-    public void readAdditionalSaveData(CompoundTag p_30162_) {
+    public void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput p_30162_) {
         super.readAdditionalSaveData(p_30162_);
-        int l = p_30162_.getInt("TravelPosX");
-        int i1 = p_30162_.getInt("TravelPosY");
-        int j1 = p_30162_.getInt("TravelPosZ");
+        int l = p_30162_.getIntOr("TravelPosX", 0);
+        int i1 = p_30162_.getIntOr("TravelPosY", 0);
+        int j1 = p_30162_.getIntOr("TravelPosZ", 0);
         this.setTravelPos(new BlockPos(l, i1, j1));
     }
 
@@ -104,7 +104,7 @@ public class GiantOtter extends Turtle{
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-        return ModEntityTypes.GIANT_OTTER.get().create(p_146743_);
+        return ModEntityTypes.GIANT_OTTER.get().create(p_146743_, net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
     }
 
     private void setupAnimationStates() {
@@ -124,7 +124,7 @@ public class GiantOtter extends Turtle{
             f = 0.0F;
         }
 
-        this.walkAnimation.update(f, 0.2F);
+        this.walkAnimation.update(f, 0.2F, this.tickCount);
     }
 
     @Override

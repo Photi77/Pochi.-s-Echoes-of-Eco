@@ -2,16 +2,18 @@ package net.pochi.pochimod.entity.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.animation.KeyframeAnimation;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.pochi.pochimod.entity.animations.ModAnimationDefinitions;
 import net.pochi.pochimod.entity.custom.HermitCrab;
 
-public class HermitCrabModel<T extends HermitCrab> extends HierarchicalModel<T> {
+public class HermitCrabModel extends EntityModel<LivingEntityRenderState> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	//public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath("modid", "yadokari_java_- converted - converted"), "main");
+	//public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(Identifier.fromNamespaceAndPath("modid", "yadokari_java_- converted - converted"), "main");
 	private final ModelPart hermitcrab;
 	private final ModelPart body;
 	private final ModelPart tail;
@@ -27,6 +29,7 @@ public class HermitCrabModel<T extends HermitCrab> extends HierarchicalModel<T> 
 	public boolean carrying;
 
 	public HermitCrabModel(ModelPart root) {
+		super(root.getChild("hermitcrab"));
 		this.hermitcrab = root.getChild("hermitcrab");
 		this.body = hermitcrab.getChild("body");
 		this.tail = hermitcrab.getChild("tail");
@@ -134,26 +137,14 @@ public class HermitCrabModel<T extends HermitCrab> extends HierarchicalModel<T> 
 		return LayerDefinition.create(meshdefinition, 64, 64);
 
 	}
-
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-		hermitcrab.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-	}
-
-
-	@Override
-	public ModelPart root() {
-		return hermitcrab;
-	}
-
-	@Override
-	public void setupAnim(HermitCrab p_102618_, float p_102619_, float p_102620_, float p_102621_, float p_102622_, float p_102623_) {
+@Override
+	public void setupAnim(LivingEntityRenderState state) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		if(p_102618_.walkAnimation.isMoving()) {
-			this.animateWalk(ModAnimationDefinitions.HERMIT_WALK, p_102619_, p_102620_, 2f, 2.5f);
+		if((state.walkAnimationSpeed > 0.01F)) {
+			ModAnimationDefinitions.HERMIT_WALK.bake(this.root()).applyWalk(state.walkAnimationPos, state.walkAnimationSpeed, 2f, 2.5f);
 		} else {
-			this.animate(p_102618_.idleAnimationState, ModAnimationDefinitions.HERMIT_IDLE, p_102621_, 1f);
+			// TODO: idle animation state not available in render state
 		}
 	}
 }

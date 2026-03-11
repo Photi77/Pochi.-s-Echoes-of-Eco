@@ -1,7 +1,6 @@
 package net.pochi.pochimod.entity.custom;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -22,7 +21,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
-import net.pochi.pochimod.block.ModBlocks;
 
 import javax.annotation.Nullable;
 
@@ -57,7 +55,7 @@ public class Cassowary extends Animal{
     @Nullable
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
         // 適切なエンティティタイプに置き換えてください
-        return null; // return ModEntities.EMU.get().create(level);
+        return null; // return ModEntities.EMU.get().create(level, net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
     }
 
     @Override
@@ -67,12 +65,12 @@ public class Cassowary extends Animal{
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag tag) {
+    public void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput tag) {
         super.addAdditionalSaveData(tag);
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag tag) {
+    public void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput tag) {
         super.readAdditionalSaveData(tag);
     }
 
@@ -86,7 +84,7 @@ public class Cassowary extends Animal{
     public void tick() {
         super.tick();
 
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             this.solidifyLavaAround();
         }
 
@@ -105,11 +103,11 @@ public class Cassowary extends Animal{
                     // 溶岩ブロックの場合のみ固める
                     if (state.is(Blocks.LAVA)) {
                         double distance = Math.sqrt(x * x + z * z);
-                        if (distance <= 1.5) {
-                            this.level().setBlock(checkPos,
-                                    ModBlocks.SOLIDIFIED_LAVA.get().defaultBlockState(),
-                                    3);
-                        }
+                        //if (distance <= 1.5) {
+                        //    this.level().setBlock(checkPos,
+                        //            ModBlocks.SOLIDIFIED_LAVA.get().defaultBlockState(),
+                        //            3);
+                        //}
                     }
                 }
             }

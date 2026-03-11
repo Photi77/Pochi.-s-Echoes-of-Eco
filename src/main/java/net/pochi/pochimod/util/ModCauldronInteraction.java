@@ -7,7 +7,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -182,28 +182,28 @@ public interface ModCauldronInteraction extends CauldronInteraction {
 
 
     @Override
-    ItemInteractionResult interact(BlockState p_175711_, Level p_175712_, BlockPos p_175713_, Player p_175714_, InteractionHand p_175715_, ItemStack p_175716_);
+    InteractionResult interact(BlockState p_175711_, Level p_175712_, BlockPos p_175713_, Player p_175714_, InteractionHand p_175715_, ItemStack p_175716_);
 
     static void bootstrap() {
         addDefaultInteractions(EMPTY.map());
         //水を濾過する
         WATER.map().put(ModItems.BAKED_ALUM.get(), (p_175704_, p_175705_, p_175706_, p_175707_, p_175708_, p_175709_) -> {
             if (p_175704_.getValue(LayeredCauldronBlock.LEVEL) == 3) {
-                if (!p_175705_.isClientSide) {
+                if (!p_175705_.isClientSide()) {
                     p_175709_.shrink(1);
                     p_175705_.setBlock(p_175706_,ModBlocks.CLEAN_WATER_CAULDRON.get().defaultBlockState().setValue(ModCauldronBlock.LEVEL_CAULDRON, Integer.valueOf(12)),11);
                     p_175705_.playSound((Player)null, p_175706_, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                     p_175705_.gameEvent((Entity)null, GameEvent.FLUID_PLACE, p_175706_);
                 }
-                return ItemInteractionResult.sidedSuccess(p_175705_.isClientSide);
+                return InteractionResult.SUCCESS;
             } else {
-                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+                return InteractionResult.TRY_WITH_EMPTY_HAND;
             }
         });
 
         //濾過水
         CLEAN_WATER.map().put(Items.BUCKET, (p_175718_, p_175719_, p_175720_, p_175721_, p_175722_, p_175723_) -> {
-            if (!p_175719_.isClientSide) {
+            if (!p_175719_.isClientSide()) {
                 Item item = p_175723_.getItem();
                 p_175721_.setItemInHand(p_175722_, ItemUtils.createFilledResult(p_175723_, p_175721_, new ItemStack(ModItems.FILTERED_WATER_BUCKET.get())));
                 p_175721_.awardStat(Stats.USE_CAULDRON);
@@ -213,10 +213,10 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                 p_175719_.gameEvent((Entity)null, GameEvent.FLUID_PICKUP, p_175720_);
             }
 
-            return ItemInteractionResult.sidedSuccess(p_175719_.isClientSide);
+            return InteractionResult.SUCCESS;
         });
         CLEAN_WATER.map().put(Items.GLASS_BOTTLE, (p_175718_, p_175719_, p_175720_, p_175721_, p_175722_, p_175723_) -> {
-            if (!p_175719_.isClientSide) {
+            if (!p_175719_.isClientSide()) {
                 Item item = p_175723_.getItem();
                 p_175721_.setItemInHand(p_175722_, ItemUtils.createFilledResult(p_175723_, p_175721_, new ItemStack(ModItems.FILTERED_WATER.get())));
                 p_175721_.awardStat(Stats.USE_CAULDRON);
@@ -226,11 +226,11 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                 p_175719_.gameEvent((Entity)null, GameEvent.FLUID_PICKUP, p_175720_);
             }
 
-            return ItemInteractionResult.sidedSuccess(p_175719_.isClientSide);
+            return InteractionResult.SUCCESS;
         });
         CLEAN_WATER.map().put(ModItems.FILTERED_WATER_BUCKET.get(), (p_175704_, p_175705_, p_175706_, p_175707_, p_175708_, p_175709_) -> {
             if (p_175704_.getValue(ModCauldronBlock.LEVEL_CAULDRON) != 12) {
-                if (!p_175705_.isClientSide) {
+                if (!p_175705_.isClientSide()) {
                     p_175707_.setItemInHand(p_175708_, ItemUtils.createFilledResult(p_175709_, p_175707_, new ItemStack(Items.BUCKET)));
                     p_175707_.awardStat(Stats.USE_CAULDRON);
                     p_175707_.awardStat(Stats.ITEM_USED.get(p_175709_.getItem()));
@@ -238,15 +238,15 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                     p_175705_.playSound((Player)null, p_175706_, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                     p_175705_.gameEvent((Entity)null, GameEvent.FLUID_PLACE, p_175706_);
                 }
-                return ItemInteractionResult.sidedSuccess(p_175705_.isClientSide);
+                return InteractionResult.SUCCESS;
             } else {
-                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+                return InteractionResult.TRY_WITH_EMPTY_HAND;
             }
         });
 
         //ウィスキー
         WHISKEY.map().put(Items.BUCKET, (p_175718_, p_175719_, p_175720_, p_175721_, p_175722_, p_175723_) -> {
-            if (!p_175719_.isClientSide) {
+            if (!p_175719_.isClientSide()) {
                 Item item = p_175723_.getItem();
                 p_175721_.setItemInHand(p_175722_, ItemUtils.createFilledResult(p_175723_, p_175721_, new ItemStack(ModItems.WHISKEY_BUCKET.get())));
                 p_175721_.awardStat(Stats.USE_CAULDRON);
@@ -256,10 +256,10 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                 p_175719_.gameEvent((Entity)null, GameEvent.FLUID_PICKUP, p_175720_);
             }
 
-            return ItemInteractionResult.sidedSuccess(p_175719_.isClientSide);
+            return InteractionResult.SUCCESS;
         });
         WHISKEY.map().put(Items.GLASS_BOTTLE, (p_175718_, p_175719_, p_175720_, p_175721_, p_175722_, p_175723_) -> {
-            if (!p_175719_.isClientSide) {
+            if (!p_175719_.isClientSide()) {
                 Item item = p_175723_.getItem();
                 p_175721_.setItemInHand(p_175722_, ItemUtils.createFilledResult(p_175723_, p_175721_, new ItemStack(ModItems.BOTTLE_OF_WHISKEY.get())));
                 p_175721_.awardStat(Stats.USE_CAULDRON);
@@ -269,11 +269,11 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                 p_175719_.gameEvent((Entity)null, GameEvent.FLUID_PICKUP, p_175720_);
             }
 
-            return ItemInteractionResult.sidedSuccess(p_175719_.isClientSide);
+            return InteractionResult.SUCCESS;
         });
         WHISKEY.map().put(ModItems.WHISKEY_BUCKET.get(), (p_175704_, p_175705_, p_175706_, p_175707_, p_175708_, p_175709_) -> {
             if (p_175704_.getValue(ModCauldronBlock.LEVEL_CAULDRON) != 12) {
-                if (!p_175705_.isClientSide) {
+                if (!p_175705_.isClientSide()) {
                     p_175707_.setItemInHand(p_175708_, ItemUtils.createFilledResult(p_175709_, p_175707_, new ItemStack(Items.BUCKET)));
                     p_175707_.awardStat(Stats.USE_CAULDRON);
                     p_175707_.awardStat(Stats.ITEM_USED.get(p_175709_.getItem()));
@@ -281,15 +281,15 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                     p_175705_.playSound((Player)null, p_175706_, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                     p_175705_.gameEvent((Entity)null, GameEvent.FLUID_PLACE, p_175706_);
                 }
-                return ItemInteractionResult.sidedSuccess(p_175705_.isClientSide);
+                return InteractionResult.SUCCESS;
             } else {
-                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+                return InteractionResult.TRY_WITH_EMPTY_HAND;
             }
         });
 
         //メープル
         MAPLE.map().put(Items.BUCKET, (p_175718_, p_175719_, p_175720_, p_175721_, p_175722_, p_175723_) -> {
-            if (!p_175719_.isClientSide) {
+            if (!p_175719_.isClientSide()) {
                 Item item = p_175723_.getItem();
                 p_175721_.setItemInHand(p_175722_, ItemUtils.createFilledResult(p_175723_, p_175721_, new ItemStack(ModItems.MAPLE_BUCKET.get())));
                 p_175721_.awardStat(Stats.USE_CAULDRON);
@@ -299,10 +299,10 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                 p_175719_.gameEvent((Entity)null, GameEvent.FLUID_PICKUP, p_175720_);
             }
 
-            return ItemInteractionResult.sidedSuccess(p_175719_.isClientSide);
+            return InteractionResult.SUCCESS;
         });
         MAPLE.map().put(Items.GLASS_BOTTLE, (p_175718_, p_175719_, p_175720_, p_175721_, p_175722_, p_175723_) -> {
-            if (!p_175719_.isClientSide) {
+            if (!p_175719_.isClientSide()) {
                 Item item = p_175723_.getItem();
                 p_175721_.setItemInHand(p_175722_, ItemUtils.createFilledResult(p_175723_, p_175721_, new ItemStack(ModItems.MAPLE_SYRUP.get())));
                 p_175721_.awardStat(Stats.USE_CAULDRON);
@@ -312,11 +312,11 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                 p_175719_.gameEvent((Entity)null, GameEvent.FLUID_PICKUP, p_175720_);
             }
 
-            return ItemInteractionResult.sidedSuccess(p_175719_.isClientSide);
+            return InteractionResult.SUCCESS;
         });
         MAPLE.map().put(ModItems.MAPLE_BUCKET.get(), (p_175704_, p_175705_, p_175706_, p_175707_, p_175708_, p_175709_) -> {
             if (p_175704_.getValue(ModCauldronBlock.LEVEL_CAULDRON) != 12) {
-                if (!p_175705_.isClientSide) {
+                if (!p_175705_.isClientSide()) {
                     p_175707_.setItemInHand(p_175708_, ItemUtils.createFilledResult(p_175709_, p_175707_, new ItemStack(Items.BUCKET)));
                     p_175707_.awardStat(Stats.USE_CAULDRON);
                     p_175707_.awardStat(Stats.ITEM_USED.get(p_175709_.getItem()));
@@ -324,9 +324,9 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                     p_175705_.playSound((Player)null, p_175706_, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                     p_175705_.gameEvent((Entity)null, GameEvent.FLUID_PLACE, p_175706_);
                 }
-                return ItemInteractionResult.sidedSuccess(p_175705_.isClientSide);
+                return InteractionResult.SUCCESS;
             } else {
-                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+                return InteractionResult.TRY_WITH_EMPTY_HAND;
             }
         });
 
@@ -334,32 +334,32 @@ public interface ModCauldronInteraction extends CauldronInteraction {
         //濾過水に米を入れます、濾過水12に対して米1で大釜を米蒸す前の1に変換
         CLEAN_WATER.map().put(ModItems.RICE.get(), (p_175704_, p_175705_, p_175706_, p_175707_, p_175708_, p_175709_) -> {
             if (p_175704_.getValue(ModCauldronBlock.LEVEL_CAULDRON) == 12) {
-                if (!p_175705_.isClientSide) {
+                if (!p_175705_.isClientSide()) {
                     p_175705_.setBlock(p_175706_,ModBlocks.RICE_CAULDRON_ROW.get().defaultBlockState().setValue(ModCauldronBlock.LEVEL_CAULDRON, Integer.valueOf(1)),11);
                     p_175705_.playSound((Player)null, p_175706_, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                     p_175705_.gameEvent((Entity)null, GameEvent.FLUID_PLACE, p_175706_);
                 }
-                return ItemInteractionResult.sidedSuccess(p_175705_.isClientSide);
+                return InteractionResult.SUCCESS;
             } else {
-                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+                return InteractionResult.TRY_WITH_EMPTY_HAND;
             }
         });
         //米1の大釜に米でプラスして12まで
         R_RICE.map().put(ModItems.RICE.get(), (p_175704_, p_175705_, p_175706_, p_175707_, p_175708_, p_175709_) -> {
             if (p_175704_.getValue(ModCauldronBlock.LEVEL_CAULDRON) != 12) {
-                if (!p_175705_.isClientSide) {
+                if (!p_175705_.isClientSide()) {
                     ModCauldronBlock.addFillLevelBottle(p_175704_, p_175705_, p_175706_);
                     p_175705_.playSound((Player)null, p_175706_, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                     p_175705_.gameEvent((Entity)null, GameEvent.FLUID_PLACE, p_175706_);
                 }
-                return ItemInteractionResult.sidedSuccess(p_175705_.isClientSide);
+                return InteractionResult.SUCCESS;
             } else {
-                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+                return InteractionResult.TRY_WITH_EMPTY_HAND;
             }
         });
         //蒸した後の窯にバケツで蒸米バケツ
         P_RICE.map().put(Items.BUCKET, (p_175718_, p_175719_, p_175720_, p_175721_, p_175722_, p_175723_) -> {
-            if (!p_175719_.isClientSide) {
+            if (!p_175719_.isClientSide()) {
                 Item item = p_175723_.getItem();
                 p_175721_.setItemInHand(p_175722_, ItemUtils.createFilledResult(p_175723_, p_175721_, new ItemStack(ModItems.RICE_BUCKET.get())));
                 p_175721_.awardStat(Stats.USE_CAULDRON);
@@ -368,38 +368,38 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                 p_175719_.playSound((Player)null, p_175720_, SoundEvents.BOTTLE_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
                 p_175719_.gameEvent((Entity)null, GameEvent.FLUID_PICKUP, p_175720_);
             }
-            return ItemInteractionResult.sidedSuccess(p_175719_.isClientSide);
+            return InteractionResult.SUCCESS;
         });
 
         P_RICE.map().put(ModItems.RICE_BUCKET.get(), (p_175704_, p_175705_, p_175706_, p_175707_, p_175708_, p_175709_) -> {
             if (p_175704_.getValue(ModCauldronBlock.LEVEL_CAULDRON) != 12) {
-                if (!p_175705_.isClientSide) {
+                if (!p_175705_.isClientSide()) {
                     ModCauldronBlock.addFillLevel(p_175704_, p_175705_, p_175706_);
                     p_175705_.playSound((Player)null, p_175706_, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                     p_175705_.gameEvent((Entity)null, GameEvent.FLUID_PLACE, p_175706_);
                 }
-                return ItemInteractionResult.sidedSuccess(p_175705_.isClientSide);
+                return InteractionResult.SUCCESS;
             } else {
-                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+                return InteractionResult.TRY_WITH_EMPTY_HAND;
             }
         });
 
         J_MALT.map().put(ModItems.J_MALT_BUCKET.get(), (p_175704_, p_175705_, p_175706_, p_175707_, p_175708_, p_175709_) -> {
             if (p_175704_.getValue(ModCauldronBlock.LEVEL_CAULDRON) != 12) {
-                if (!p_175705_.isClientSide) {
+                if (!p_175705_.isClientSide()) {
                     ModCauldronBlock.addFillLevel(p_175704_, p_175705_, p_175706_);
                     p_175705_.playSound((Player)null, p_175706_, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                     p_175705_.gameEvent((Entity)null, GameEvent.FLUID_PLACE, p_175706_);
                 }
-                return ItemInteractionResult.sidedSuccess(p_175705_.isClientSide);
+                return InteractionResult.SUCCESS;
             } else {
-                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+                return InteractionResult.TRY_WITH_EMPTY_HAND;
             }
         });
 
         //おにぎり用
         P_RICE.map().put(Items.BOWL, (p_175718_, p_175719_, p_175720_, p_175721_, p_175722_, p_175723_) -> {
-            if (!p_175719_.isClientSide) {
+            if (!p_175719_.isClientSide()) {
                 Item item = p_175723_.getItem();
                 p_175721_.setItemInHand(p_175722_, ItemUtils.createFilledResult(p_175723_, p_175721_, new ItemStack(ModItems.RICE.get())));
                 p_175721_.awardStat(Stats.USE_CAULDRON);
@@ -408,53 +408,53 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                 p_175719_.playSound((Player)null, p_175720_, SoundEvents.BOTTLE_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
                 p_175719_.gameEvent((Entity)null, GameEvent.FLUID_PICKUP, p_175720_);
             }
-            return ItemInteractionResult.sidedSuccess(p_175719_.isClientSide);
+            return InteractionResult.SUCCESS;
         });
         //麹か蒸米の大釜にもう一つを追加すると麹と蒸米大釜に変化、その後、水を追加
         J_MALT.map().put(ModItems.RICE_BUCKET.get(), (p_175704_, p_175705_, p_175706_, p_175707_, p_175708_, p_175709_) -> {
             if (p_175704_.getValue(ModCauldronBlock.LEVEL_CAULDRON) == 4) {
-                if (!p_175705_.isClientSide) {
+                if (!p_175705_.isClientSide()) {
                     p_175707_.setItemInHand(p_175708_, ItemUtils.createFilledResult(p_175709_, p_175707_, new ItemStack(Items.BUCKET)));
                     p_175705_.setBlock(p_175706_,ModBlocks.MASH_RICE_CAULDRON_PROCESSED.get().defaultBlockState().setValue(ModCauldronBlock.LEVEL_CAULDRON, Integer.valueOf(8)),11);
                     p_175705_.playSound((Player)null, p_175706_, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                     p_175705_.gameEvent((Entity)null, GameEvent.FLUID_PLACE, p_175706_);
                 }
-                return ItemInteractionResult.sidedSuccess(p_175705_.isClientSide);
+                return InteractionResult.SUCCESS;
             } else {
-                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+                return InteractionResult.TRY_WITH_EMPTY_HAND;
             }
         });
 
         P_RICE.map().put(ModItems.J_MALT_BUCKET.get(), (p_175704_, p_175705_, p_175706_, p_175707_, p_175708_, p_175709_) -> {
             if (p_175704_.getValue(ModCauldronBlock.LEVEL_CAULDRON) == 4) {
-                if (!p_175705_.isClientSide) {
+                if (!p_175705_.isClientSide()) {
                     p_175707_.setItemInHand(p_175708_, ItemUtils.createFilledResult(p_175709_, p_175707_, new ItemStack(Items.BUCKET)));
                     p_175705_.setBlock(p_175706_,ModBlocks.MASH_RICE_CAULDRON_PROCESSED.get().defaultBlockState().setValue(ModCauldronBlock.LEVEL_CAULDRON, Integer.valueOf(8)),11);
                     p_175705_.playSound((Player)null, p_175706_, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                     p_175705_.gameEvent((Entity)null, GameEvent.FLUID_PLACE, p_175706_);
                 }
-                return ItemInteractionResult.sidedSuccess(p_175705_.isClientSide);
+                return InteractionResult.SUCCESS;
             } else {
-                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+                return InteractionResult.TRY_WITH_EMPTY_HAND;
             }
         });
 
         P_MASH_RICE.map().put(ModItems.FILTERED_WATER_BUCKET.get(), (p_175704_, p_175705_, p_175706_, p_175707_, p_175708_, p_175709_) -> {
             if (p_175704_.getValue(ModCauldronBlock.LEVEL_CAULDRON) == 8) {
-                if (!p_175705_.isClientSide) {
+                if (!p_175705_.isClientSide()) {
                     p_175707_.setItemInHand(p_175708_, ItemUtils.createFilledResult(p_175709_, p_175707_, new ItemStack(Items.BUCKET)));
                     p_175705_.setBlock(p_175706_,ModBlocks.MASH_RICE_CAULDRON_PROCESSED.get().defaultBlockState().setValue(ModCauldronBlock.LEVEL_CAULDRON, Integer.valueOf(12)),11);
                     p_175705_.playSound((Player)null, p_175706_, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                     p_175705_.gameEvent((Entity)null, GameEvent.FLUID_PLACE, p_175706_);
                 }
-                return ItemInteractionResult.sidedSuccess(p_175705_.isClientSide);
+                return InteractionResult.SUCCESS;
             } else {
-                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+                return InteractionResult.TRY_WITH_EMPTY_HAND;
             }
         });
 
         P_YEAST.map().put(Items.BUCKET, (p_175718_, p_175719_, p_175720_, p_175721_, p_175722_, p_175723_) -> {
-            if (!p_175719_.isClientSide) {
+            if (!p_175719_.isClientSide()) {
                 Item item = p_175723_.getItem();
                 p_175721_.setItemInHand(p_175722_, ItemUtils.createFilledResult(p_175723_, p_175721_, new ItemStack(ModItems.YEAST_BUCKET.get())));
                 p_175721_.awardStat(Stats.USE_CAULDRON);
@@ -464,11 +464,11 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                 p_175719_.gameEvent((Entity)null, GameEvent.FLUID_PICKUP, p_175720_);
             }
 
-            return ItemInteractionResult.sidedSuccess(p_175719_.isClientSide);
+            return InteractionResult.SUCCESS;
         });
 
         P_MASH.map().put(Items.BUCKET, (p_175718_, p_175719_, p_175720_, p_175721_, p_175722_, p_175723_) -> {
-            if (!p_175719_.isClientSide) {
+            if (!p_175719_.isClientSide()) {
                 Item item = p_175723_.getItem();
                 p_175721_.setItemInHand(p_175722_, ItemUtils.createFilledResult(p_175723_, p_175721_, new ItemStack(ModItems.MASH_BUCKET.get())));
                 p_175721_.awardStat(Stats.USE_CAULDRON);
@@ -478,54 +478,54 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                 p_175719_.gameEvent((Entity)null, GameEvent.FLUID_PICKUP, p_175720_);
             }
 
-            return ItemInteractionResult.sidedSuccess(p_175719_.isClientSide);
+            return InteractionResult.SUCCESS;
         });
 
         P_MASH.map().put(ModItems.MASH_BUCKET.get(), (p_175704_, p_175705_, p_175706_, p_175707_, p_175708_, p_175709_) -> {
             if (p_175704_.getValue(ModCauldronBlock.LEVEL_CAULDRON) != 12) {
-                if (!p_175705_.isClientSide) {
+                if (!p_175705_.isClientSide()) {
                     ModCauldronBlock.addFillLevel(p_175704_, p_175705_, p_175706_);
                     p_175705_.playSound((Player)null, p_175706_, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                     p_175705_.gameEvent((Entity)null, GameEvent.FLUID_PLACE, p_175706_);
                 }
-                return ItemInteractionResult.sidedSuccess(p_175705_.isClientSide);
+                return InteractionResult.SUCCESS;
             } else {
-                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+                return InteractionResult.TRY_WITH_EMPTY_HAND;
             }
         });
 
         //酵母を入れて酒母
         P_MASH_RICE.map().put(ModItems.JAPANESE_YEAST.get(), (p_175704_, p_175705_, p_175706_, p_175707_, p_175708_, p_175709_) -> {
             if (p_175704_.getValue(ModCauldronBlock.LEVEL_CAULDRON) >= 8) {
-                if (!p_175705_.isClientSide) {
+                if (!p_175705_.isClientSide()) {
                     p_175707_.setItemInHand(p_175708_, ItemUtils.createFilledResult(p_175709_, p_175707_, new ItemStack(Items.BUCKET)));
                     p_175705_.setBlock(p_175706_,ModBlocks.YEAST_STARTER_CAULDRON_ROW.get().defaultBlockState().setValue(ModCauldronBlock.LEVEL_CAULDRON, Integer.valueOf(12)),11);
                     p_175705_.playSound((Player)null, p_175706_, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                     p_175705_.gameEvent((Entity)null, GameEvent.FLUID_PLACE, p_175706_);
                 }
-                return ItemInteractionResult.sidedSuccess(p_175705_.isClientSide);
+                return InteractionResult.SUCCESS;
             } else {
-                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+                return InteractionResult.TRY_WITH_EMPTY_HAND;
             }
         });
         //酒母を入れてもろみ
         P_MASH_RICE.map().put(ModItems.YEAST_BUCKET.get(), (p_175704_, p_175705_, p_175706_, p_175707_, p_175708_, p_175709_) -> {
             if (p_175704_.getValue(ModCauldronBlock.LEVEL_CAULDRON) >= 8) {
-                if (!p_175705_.isClientSide) {
+                if (!p_175705_.isClientSide()) {
                     p_175707_.setItemInHand(p_175708_, ItemUtils.createFilledResult(p_175709_, p_175707_, new ItemStack(Items.BUCKET)));
                     p_175705_.setBlock(p_175706_,ModBlocks.MASH_CAULDRON_ROW.get().defaultBlockState().setValue(ModCauldronBlock.LEVEL_CAULDRON, Integer.valueOf(12)),11);
                     p_175705_.playSound((Player)null, p_175706_, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                     p_175705_.gameEvent((Entity)null, GameEvent.FLUID_PLACE, p_175706_);
                 }
-                return ItemInteractionResult.sidedSuccess(p_175705_.isClientSide);
+                return InteractionResult.SUCCESS;
             } else {
-                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+                return InteractionResult.TRY_WITH_EMPTY_HAND;
             }
         });
 
         //酒
         SAKE.map().put(Items.BUCKET, (p_175718_, p_175719_, p_175720_, p_175721_, p_175722_, p_175723_) -> {
-            if (!p_175719_.isClientSide) {
+            if (!p_175719_.isClientSide()) {
                 Item item = p_175723_.getItem();
                 p_175721_.setItemInHand(p_175722_, ItemUtils.createFilledResult(p_175723_, p_175721_, new ItemStack(ModItems.SAKE_BUCKET.get())));
                 p_175721_.awardStat(Stats.USE_CAULDRON);
@@ -535,10 +535,10 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                 p_175719_.gameEvent((Entity)null, GameEvent.FLUID_PICKUP, p_175720_);
             }
 
-            return ItemInteractionResult.sidedSuccess(p_175719_.isClientSide);
+            return InteractionResult.SUCCESS;
         });
         SAKE.map().put(Items.GLASS_BOTTLE, (p_175718_, p_175719_, p_175720_, p_175721_, p_175722_, p_175723_) -> {
-            if (!p_175719_.isClientSide) {
+            if (!p_175719_.isClientSide()) {
                 Item item = p_175723_.getItem();
                 p_175721_.setItemInHand(p_175722_, ItemUtils.createFilledResult(p_175723_, p_175721_, new ItemStack(ModItems.BOTTLE_OF_SAKE.get())));
                 p_175721_.awardStat(Stats.USE_CAULDRON);
@@ -548,11 +548,11 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                 p_175719_.gameEvent((Entity)null, GameEvent.FLUID_PICKUP, p_175720_);
             }
 
-            return ItemInteractionResult.sidedSuccess(p_175719_.isClientSide);
+            return InteractionResult.SUCCESS;
         });
         SAKE.map().put(ModItems.SAKE_BUCKET.get(), (p_175704_, p_175705_, p_175706_, p_175707_, p_175708_, p_175709_) -> {
             if (p_175704_.getValue(ModCauldronBlock.LEVEL_CAULDRON) != 12) {
-                if (!p_175705_.isClientSide) {
+                if (!p_175705_.isClientSide()) {
                     p_175707_.setItemInHand(p_175708_, ItemUtils.createFilledResult(p_175709_, p_175707_, new ItemStack(Items.BUCKET)));
                     p_175707_.awardStat(Stats.USE_CAULDRON);
                     p_175707_.awardStat(Stats.ITEM_USED.get(p_175709_.getItem()));
@@ -560,15 +560,15 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                     p_175705_.playSound((Player)null, p_175706_, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                     p_175705_.gameEvent((Entity)null, GameEvent.FLUID_PLACE, p_175706_);
                 }
-                return ItemInteractionResult.sidedSuccess(p_175705_.isClientSide);
+                return InteractionResult.SUCCESS;
             } else {
-                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+                return InteractionResult.TRY_WITH_EMPTY_HAND;
             }
         });
 
         //ワイン
         WINE.map().put(Items.BUCKET, (p_175718_, p_175719_, p_175720_, p_175721_, p_175722_, p_175723_) -> {
-            if (!p_175719_.isClientSide) {
+            if (!p_175719_.isClientSide()) {
                 Item item = p_175723_.getItem();
                 p_175721_.setItemInHand(p_175722_, ItemUtils.createFilledResult(p_175723_, p_175721_, new ItemStack(ModItems.WINE_BUCKET.get())));
                 p_175721_.awardStat(Stats.USE_CAULDRON);
@@ -578,10 +578,10 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                 p_175719_.gameEvent((Entity)null, GameEvent.FLUID_PICKUP, p_175720_);
             }
 
-            return ItemInteractionResult.sidedSuccess(p_175719_.isClientSide);
+            return InteractionResult.SUCCESS;
         });
         WINE.map().put(Items.GLASS_BOTTLE, (p_175718_, p_175719_, p_175720_, p_175721_, p_175722_, p_175723_) -> {
-            if (!p_175719_.isClientSide) {
+            if (!p_175719_.isClientSide()) {
                 Item item = p_175723_.getItem();
                 p_175721_.setItemInHand(p_175722_, ItemUtils.createFilledResult(p_175723_, p_175721_, new ItemStack(ModItems.BOTTLE_OF_RED_WINE.get())));
                 p_175721_.awardStat(Stats.USE_CAULDRON);
@@ -591,11 +591,11 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                 p_175719_.gameEvent((Entity)null, GameEvent.FLUID_PICKUP, p_175720_);
             }
 
-            return ItemInteractionResult.sidedSuccess(p_175719_.isClientSide);
+            return InteractionResult.SUCCESS;
         });
         WINE.map().put(ModItems.WINE_BUCKET.get(), (p_175704_, p_175705_, p_175706_, p_175707_, p_175708_, p_175709_) -> {
             if (p_175704_.getValue(ModCauldronBlock.LEVEL_CAULDRON) != 12) {
-                if (!p_175705_.isClientSide) {
+                if (!p_175705_.isClientSide()) {
                     p_175707_.setItemInHand(p_175708_, ItemUtils.createFilledResult(p_175709_, p_175707_, new ItemStack(Items.BUCKET)));
                     p_175707_.awardStat(Stats.USE_CAULDRON);
                     p_175707_.awardStat(Stats.ITEM_USED.get(p_175709_.getItem()));
@@ -603,15 +603,15 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                     p_175705_.playSound((Player)null, p_175706_, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                     p_175705_.gameEvent((Entity)null, GameEvent.FLUID_PLACE, p_175706_);
                 }
-                return ItemInteractionResult.sidedSuccess(p_175705_.isClientSide);
+                return InteractionResult.SUCCESS;
             } else {
-                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+                return InteractionResult.TRY_WITH_EMPTY_HAND;
             }
         });
 
         //白ワイン
         WHITE_WINE.map().put(Items.BUCKET, (p_175718_, p_175719_, p_175720_, p_175721_, p_175722_, p_175723_) -> {
-            if (!p_175719_.isClientSide) {
+            if (!p_175719_.isClientSide()) {
                 Item item = p_175723_.getItem();
                 p_175721_.setItemInHand(p_175722_, ItemUtils.createFilledResult(p_175723_, p_175721_, new ItemStack(ModItems.WHITE_WINE_BUCKET.get())));
                 p_175721_.awardStat(Stats.USE_CAULDRON);
@@ -621,10 +621,10 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                 p_175719_.gameEvent((Entity)null, GameEvent.FLUID_PICKUP, p_175720_);
             }
 
-            return ItemInteractionResult.sidedSuccess(p_175719_.isClientSide);
+            return InteractionResult.SUCCESS;
         });
         WHITE_WINE.map().put(Items.GLASS_BOTTLE, (p_175718_, p_175719_, p_175720_, p_175721_, p_175722_, p_175723_) -> {
-            if (!p_175719_.isClientSide) {
+            if (!p_175719_.isClientSide()) {
                 Item item = p_175723_.getItem();
                 p_175721_.setItemInHand(p_175722_, ItemUtils.createFilledResult(p_175723_, p_175721_, new ItemStack(ModItems.BOTTLE_OF_WHITE_WINE.get())));
                 p_175721_.awardStat(Stats.USE_CAULDRON);
@@ -634,11 +634,11 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                 p_175719_.gameEvent((Entity)null, GameEvent.FLUID_PICKUP, p_175720_);
             }
 
-            return ItemInteractionResult.sidedSuccess(p_175719_.isClientSide);
+            return InteractionResult.SUCCESS;
         });
         WHITE_WINE.map().put(ModItems.WHITE_WINE_BUCKET.get(), (p_175704_, p_175705_, p_175706_, p_175707_, p_175708_, p_175709_) -> {
             if (p_175704_.getValue(ModCauldronBlock.LEVEL_CAULDRON) != 12) {
-                if (!p_175705_.isClientSide) {
+                if (!p_175705_.isClientSide()) {
                     p_175707_.setItemInHand(p_175708_, ItemUtils.createFilledResult(p_175709_, p_175707_, new ItemStack(Items.BUCKET)));
                     p_175707_.awardStat(Stats.USE_CAULDRON);
                     p_175707_.awardStat(Stats.ITEM_USED.get(p_175709_.getItem()));
@@ -646,15 +646,15 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                     p_175705_.playSound((Player)null, p_175706_, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                     p_175705_.gameEvent((Entity)null, GameEvent.FLUID_PLACE, p_175706_);
                 }
-                return ItemInteractionResult.sidedSuccess(p_175705_.isClientSide);
+                return InteractionResult.SUCCESS;
             } else {
-                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+                return InteractionResult.TRY_WITH_EMPTY_HAND;
             }
         });
 
         GRAPE.map().put(ModItems.GRAPE.get(), (p_175704_, p_175705_, p_175706_, p_175707_, p_175708_, p_175709_) -> {
             if (p_175704_.getValue(ModCauldronBlock.LEVEL_CAULDRON) != 12) {
-                if (!p_175705_.isClientSide) {
+                if (!p_175705_.isClientSide()) {
                     p_175707_.awardStat(Stats.USE_CAULDRON);
                     p_175707_.awardStat(Stats.ITEM_USED.get(p_175709_.getItem()));
                     p_175709_.shrink(1);
@@ -662,14 +662,14 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                     p_175705_.playSound((Player)null, p_175706_, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                     p_175705_.gameEvent((Entity)null, GameEvent.FLUID_PLACE, p_175706_);
                 }
-                return ItemInteractionResult.sidedSuccess(p_175705_.isClientSide);
+                return InteractionResult.SUCCESS;
             } else {
-                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+                return InteractionResult.TRY_WITH_EMPTY_HAND;
             }
         });
 
         GRAPE_JUICE.map().put(Items.GLASS_BOTTLE, (p_175718_, p_175719_, p_175720_, p_175721_, p_175722_, p_175723_) -> {
-            if (!p_175719_.isClientSide) {
+            if (!p_175719_.isClientSide()) {
                 Item item = p_175723_.getItem();
                 p_175721_.setItemInHand(p_175722_, ItemUtils.createFilledResult(p_175723_, p_175721_, new ItemStack(ModItems.GRAPE_JUICE.get())));
                 p_175721_.awardStat(Stats.USE_CAULDRON);
@@ -679,11 +679,11 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                 p_175719_.gameEvent((Entity)null, GameEvent.FLUID_PICKUP, p_175720_);
             }
 
-            return ItemInteractionResult.sidedSuccess(p_175719_.isClientSide);
+            return InteractionResult.SUCCESS;
         });
 
         WHITE_GRAPE_JUICE.map().put(ModItems.GRAPE_JUICE.get(), (p_175718_, p_175719_, p_175720_, p_175721_, p_175722_, p_175723_) -> {
-            if (!p_175719_.isClientSide) {
+            if (!p_175719_.isClientSide()) {
                 Item item = p_175723_.getItem();
                 p_175721_.setItemInHand(p_175722_, ItemUtils.createFilledResult(p_175723_, p_175721_, new ItemStack(ModItems.GRAPE_JUICE.get())));
                 p_175721_.awardStat(Stats.USE_CAULDRON);
@@ -693,12 +693,12 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                 p_175719_.gameEvent((Entity)null, GameEvent.FLUID_PICKUP, p_175720_);
             }
 
-            return ItemInteractionResult.sidedSuccess(p_175719_.isClientSide);
+            return InteractionResult.SUCCESS;
         });
 
 
         WHITE_GRAPE_JUICE.map().put(Items.GLASS_BOTTLE, (p_175718_, p_175719_, p_175720_, p_175721_, p_175722_, p_175723_) -> {
-            if (!p_175719_.isClientSide) {
+            if (!p_175719_.isClientSide()) {
                 Item item = p_175723_.getItem();
                 p_175721_.setItemInHand(p_175722_, ItemUtils.createFilledResult(p_175723_, p_175721_, new ItemStack(ModItems.GRAPE_JUICE.get())));
                 p_175721_.awardStat(Stats.USE_CAULDRON);
@@ -708,12 +708,12 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                 p_175719_.gameEvent((Entity)null, GameEvent.FLUID_PICKUP, p_175720_);
             }
 
-            return ItemInteractionResult.sidedSuccess(p_175719_.isClientSide);
+            return InteractionResult.SUCCESS;
         });
 
         APPLE.map().put(Items.APPLE, (p_175704_, p_175705_, p_175706_, p_175707_, p_175708_, p_175709_) -> {
             if (p_175704_.getValue(ModCauldronBlock.LEVEL_CAULDRON) != 12) {
-                if (!p_175705_.isClientSide) {
+                if (!p_175705_.isClientSide()) {
                     p_175707_.awardStat(Stats.USE_CAULDRON);
                     p_175707_.awardStat(Stats.ITEM_USED.get(p_175709_.getItem()));
                     p_175709_.shrink(1);
@@ -721,14 +721,14 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                     p_175705_.playSound((Player)null, p_175706_, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                     p_175705_.gameEvent((Entity)null, GameEvent.FLUID_PLACE, p_175706_);
                 }
-                return ItemInteractionResult.sidedSuccess(p_175705_.isClientSide);
+                return InteractionResult.SUCCESS;
             } else {
-                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+                return InteractionResult.TRY_WITH_EMPTY_HAND;
             }
         });
 
         APPLE_JUICE.map().put(Items.GLASS_BOTTLE, (p_175718_, p_175719_, p_175720_, p_175721_, p_175722_, p_175723_) -> {
-            if (!p_175719_.isClientSide) {
+            if (!p_175719_.isClientSide()) {
                 Item item = p_175723_.getItem();
                 p_175721_.setItemInHand(p_175722_, ItemUtils.createFilledResult(p_175723_, p_175721_, new ItemStack(ModItems.APPLE_JUICE.get())));
                 p_175721_.awardStat(Stats.USE_CAULDRON);
@@ -738,12 +738,12 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                 p_175719_.gameEvent((Entity)null, GameEvent.FLUID_PICKUP, p_175720_);
             }
 
-            return ItemInteractionResult.sidedSuccess(p_175719_.isClientSide);
+            return InteractionResult.SUCCESS;
         });
 
         LEMON.map().put(ModItems.LEMON.get(), (p_175704_, p_175705_, p_175706_, p_175707_, p_175708_, p_175709_) -> {
             if (p_175704_.getValue(ModCauldronBlock.LEVEL_CAULDRON) != 12) {
-                if (!p_175705_.isClientSide) {
+                if (!p_175705_.isClientSide()) {
                     p_175707_.awardStat(Stats.USE_CAULDRON);
                     p_175707_.awardStat(Stats.ITEM_USED.get(p_175709_.getItem()));
                     p_175709_.shrink(1);
@@ -751,14 +751,14 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                     p_175705_.playSound((Player)null, p_175706_, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                     p_175705_.gameEvent((Entity)null, GameEvent.FLUID_PLACE, p_175706_);
                 }
-                return ItemInteractionResult.sidedSuccess(p_175705_.isClientSide);
+                return InteractionResult.SUCCESS;
             } else {
-                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+                return InteractionResult.TRY_WITH_EMPTY_HAND;
             }
         });
 
         LEMON_JUICE.map().put(Items.GLASS_BOTTLE, (p_175718_, p_175719_, p_175720_, p_175721_, p_175722_, p_175723_) -> {
-            if (!p_175719_.isClientSide) {
+            if (!p_175719_.isClientSide()) {
                 Item item = p_175723_.getItem();
                 p_175721_.setItemInHand(p_175722_, ItemUtils.createFilledResult(p_175723_, p_175721_, new ItemStack(ModItems.LEMON_JUICE.get())));
                 p_175721_.awardStat(Stats.USE_CAULDRON);
@@ -768,12 +768,12 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                 p_175719_.gameEvent((Entity)null, GameEvent.FLUID_PICKUP, p_175720_);
             }
 
-            return ItemInteractionResult.sidedSuccess(p_175719_.isClientSide);
+            return InteractionResult.SUCCESS;
         });
 
         PEACH.map().put(ModItems.PEACH.get(), (p_175704_, p_175705_, p_175706_, p_175707_, p_175708_, p_175709_) -> {
             if (p_175704_.getValue(ModCauldronBlock.LEVEL_CAULDRON) != 12) {
-                if (!p_175705_.isClientSide) {
+                if (!p_175705_.isClientSide()) {
                     p_175707_.awardStat(Stats.USE_CAULDRON);
                     p_175707_.awardStat(Stats.ITEM_USED.get(p_175709_.getItem()));
                     p_175709_.shrink(1);
@@ -781,14 +781,14 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                     p_175705_.playSound((Player)null, p_175706_, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                     p_175705_.gameEvent((Entity)null, GameEvent.FLUID_PLACE, p_175706_);
                 }
-                return ItemInteractionResult.sidedSuccess(p_175705_.isClientSide);
+                return InteractionResult.SUCCESS;
             } else {
-                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+                return InteractionResult.TRY_WITH_EMPTY_HAND;
             }
         });
 
         PEACH_JUICE.map().put(Items.GLASS_BOTTLE, (p_175718_, p_175719_, p_175720_, p_175721_, p_175722_, p_175723_) -> {
-            if (!p_175719_.isClientSide) {
+            if (!p_175719_.isClientSide()) {
                 Item item = p_175723_.getItem();
                 p_175721_.setItemInHand(p_175722_, ItemUtils.createFilledResult(p_175723_, p_175721_, new ItemStack(ModItems.PEACH_JUICE.get())));
                 p_175721_.awardStat(Stats.USE_CAULDRON);
@@ -798,12 +798,12 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                 p_175719_.gameEvent((Entity)null, GameEvent.FLUID_PICKUP, p_175720_);
             }
 
-            return ItemInteractionResult.sidedSuccess(p_175719_.isClientSide);
+            return InteractionResult.SUCCESS;
         });
 
         PLUM.map().put(ModItems.PLUM.get(), (p_175704_, p_175705_, p_175706_, p_175707_, p_175708_, p_175709_) -> {
             if (p_175704_.getValue(ModCauldronBlock.LEVEL_CAULDRON) != 12) {
-                if (!p_175705_.isClientSide) {
+                if (!p_175705_.isClientSide()) {
                     p_175707_.awardStat(Stats.USE_CAULDRON);
                     p_175707_.awardStat(Stats.ITEM_USED.get(p_175709_.getItem()));
                     p_175709_.shrink(1);
@@ -811,14 +811,14 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                     p_175705_.playSound((Player)null, p_175706_, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                     p_175705_.gameEvent((Entity)null, GameEvent.FLUID_PLACE, p_175706_);
                 }
-                return ItemInteractionResult.sidedSuccess(p_175705_.isClientSide);
+                return InteractionResult.SUCCESS;
             } else {
-                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+                return InteractionResult.TRY_WITH_EMPTY_HAND;
             }
         });
 
         PLUM_JUICE.map().put(Items.GLASS_BOTTLE, (p_175718_, p_175719_, p_175720_, p_175721_, p_175722_, p_175723_) -> {
-            if (!p_175719_.isClientSide) {
+            if (!p_175719_.isClientSide()) {
                 Item item = p_175723_.getItem();
                 p_175721_.setItemInHand(p_175722_, ItemUtils.createFilledResult(p_175723_, p_175721_, new ItemStack(ModItems.PLUM_JUICE.get())));
                 p_175721_.awardStat(Stats.USE_CAULDRON);
@@ -828,12 +828,12 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                 p_175719_.gameEvent((Entity)null, GameEvent.FLUID_PICKUP, p_175720_);
             }
 
-            return ItemInteractionResult.sidedSuccess(p_175719_.isClientSide);
+            return InteractionResult.SUCCESS;
         });
 
         BANANA.map().put(ModItems.BANANA.get(), (p_175704_, p_175705_, p_175706_, p_175707_, p_175708_, p_175709_) -> {
             if (p_175704_.getValue(ModCauldronBlock.LEVEL_CAULDRON) != 12) {
-                if (!p_175705_.isClientSide) {
+                if (!p_175705_.isClientSide()) {
                     p_175707_.awardStat(Stats.USE_CAULDRON);
                     p_175707_.awardStat(Stats.ITEM_USED.get(p_175709_.getItem()));
                     p_175709_.shrink(1);
@@ -841,14 +841,14 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                     p_175705_.playSound((Player)null, p_175706_, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                     p_175705_.gameEvent((Entity)null, GameEvent.FLUID_PLACE, p_175706_);
                 }
-                return ItemInteractionResult.sidedSuccess(p_175705_.isClientSide);
+                return InteractionResult.SUCCESS;
             } else {
-                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+                return InteractionResult.TRY_WITH_EMPTY_HAND;
             }
         });
 
         BANANA_JUICE.map().put(Items.GLASS_BOTTLE, (p_175718_, p_175719_, p_175720_, p_175721_, p_175722_, p_175723_) -> {
-            if (!p_175719_.isClientSide) {
+            if (!p_175719_.isClientSide()) {
                 Item item = p_175723_.getItem();
                 p_175721_.setItemInHand(p_175722_, ItemUtils.createFilledResult(p_175723_, p_175721_, new ItemStack(ModItems.BANANA_JUICE.get())));
                 p_175721_.awardStat(Stats.USE_CAULDRON);
@@ -858,12 +858,12 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                 p_175719_.gameEvent((Entity)null, GameEvent.FLUID_PICKUP, p_175720_);
             }
 
-            return ItemInteractionResult.sidedSuccess(p_175719_.isClientSide);
+            return InteractionResult.SUCCESS;
         });
 
         ALMOND.map().put(ModItems.ALMOND.get(), (p_175704_, p_175705_, p_175706_, p_175707_, p_175708_, p_175709_) -> {
             if (p_175704_.getValue(ModCauldronBlock.LEVEL_CAULDRON) != 12) {
-                if (!p_175705_.isClientSide) {
+                if (!p_175705_.isClientSide()) {
                     p_175707_.awardStat(Stats.USE_CAULDRON);
                     p_175707_.awardStat(Stats.ITEM_USED.get(p_175709_.getItem()));
                     p_175709_.shrink(1);
@@ -871,14 +871,14 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                     p_175705_.playSound((Player)null, p_175706_, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                     p_175705_.gameEvent((Entity)null, GameEvent.FLUID_PLACE, p_175706_);
                 }
-                return ItemInteractionResult.sidedSuccess(p_175705_.isClientSide);
+                return InteractionResult.SUCCESS;
             } else {
-                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+                return InteractionResult.TRY_WITH_EMPTY_HAND;
             }
         });
 
         ALMOND_JUICE.map().put(Items.GLASS_BOTTLE, (p_175718_, p_175719_, p_175720_, p_175721_, p_175722_, p_175723_) -> {
-            if (!p_175719_.isClientSide) {
+            if (!p_175719_.isClientSide()) {
                 Item item = p_175723_.getItem();
                 p_175721_.setItemInHand(p_175722_, ItemUtils.createFilledResult(p_175723_, p_175721_, new ItemStack(ModItems.APPLE_JUICE.get())));
                 p_175721_.awardStat(Stats.USE_CAULDRON);
@@ -888,12 +888,12 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                 p_175719_.gameEvent((Entity)null, GameEvent.FLUID_PICKUP, p_175720_);
             }
 
-            return ItemInteractionResult.sidedSuccess(p_175719_.isClientSide);
+            return InteractionResult.SUCCESS;
         });
 
         COCONUT.map().put(ModItems.COCONUT.get(), (p_175704_, p_175705_, p_175706_, p_175707_, p_175708_, p_175709_) -> {
             if (p_175704_.getValue(ModCauldronBlock.LEVEL_CAULDRON) != 12) {
-                if (!p_175705_.isClientSide) {
+                if (!p_175705_.isClientSide()) {
                     p_175707_.awardStat(Stats.USE_CAULDRON);
                     p_175707_.awardStat(Stats.ITEM_USED.get(p_175709_.getItem()));
                     p_175709_.shrink(1);
@@ -901,14 +901,14 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                     p_175705_.playSound((Player)null, p_175706_, SoundEvents.BOTTLE_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
                     p_175705_.gameEvent((Entity)null, GameEvent.FLUID_PLACE, p_175706_);
                 }
-                return ItemInteractionResult.sidedSuccess(p_175705_.isClientSide);
+                return InteractionResult.SUCCESS;
             } else {
-                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+                return InteractionResult.TRY_WITH_EMPTY_HAND;
             }
         });
 
         COCONUT_JUICE.map().put(Items.GLASS_BOTTLE, (p_175718_, p_175719_, p_175720_, p_175721_, p_175722_, p_175723_) -> {
-            if (!p_175719_.isClientSide) {
+            if (!p_175719_.isClientSide()) {
                 Item item = p_175723_.getItem();
                 p_175721_.setItemInHand(p_175722_, ItemUtils.createFilledResult(p_175723_, p_175721_, new ItemStack(ModItems.COCONUT_MILK.get())));
                 p_175721_.awardStat(Stats.USE_CAULDRON);
@@ -918,11 +918,11 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                 p_175719_.gameEvent((Entity)null, GameEvent.FLUID_PICKUP, p_175720_);
             }
 
-            return ItemInteractionResult.sidedSuccess(p_175719_.isClientSide);
+            return InteractionResult.SUCCESS;
         });
 
         WHITE_LIQUEUR.map().put(Items.GLASS_BOTTLE, (p_175718_, p_175719_, p_175720_, p_175721_, p_175722_, p_175723_) -> {
-            if (!p_175719_.isClientSide) {
+            if (!p_175719_.isClientSide()) {
                 Item item = p_175723_.getItem();
                 p_175721_.setItemInHand(p_175722_, ItemUtils.createFilledResult(p_175723_, p_175721_, new ItemStack(ModItems.BOTTLE_OF_WHITE_LIQUOR.get())));
                 p_175721_.awardStat(Stats.USE_CAULDRON);
@@ -932,11 +932,11 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                 p_175719_.gameEvent((Entity)null, GameEvent.FLUID_PICKUP, p_175720_);
             }
 
-            return ItemInteractionResult.sidedSuccess(p_175719_.isClientSide);
+            return InteractionResult.SUCCESS;
         });
 
         HABU_LIQUEUR.map().put(Items.GLASS_BOTTLE, (p_175718_, p_175719_, p_175720_, p_175721_, p_175722_, p_175723_) -> {
-            if (!p_175719_.isClientSide) {
+            if (!p_175719_.isClientSide()) {
                 Item item = p_175723_.getItem();
                 p_175721_.setItemInHand(p_175722_, ItemUtils.createFilledResult(p_175723_, p_175721_, new ItemStack(ModItems.HABU_LIQUEUR.get())));
                 p_175721_.awardStat(Stats.USE_CAULDRON);
@@ -946,11 +946,11 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                 p_175719_.gameEvent((Entity)null, GameEvent.FLUID_PICKUP, p_175720_);
             }
 
-            return ItemInteractionResult.sidedSuccess(p_175719_.isClientSide);
+            return InteractionResult.SUCCESS;
         });
 
         COFFEE.map().put(Items.GLASS_BOTTLE, (p_175718_, p_175719_, p_175720_, p_175721_, p_175722_, p_175723_) -> {
-            if (!p_175719_.isClientSide) {
+            if (!p_175719_.isClientSide()) {
                 Item item = p_175723_.getItem();
                 p_175721_.setItemInHand(p_175722_, ItemUtils.createFilledResult(p_175723_, p_175721_, new ItemStack(ModItems.COFFEE.get())));
                 p_175721_.awardStat(Stats.USE_CAULDRON);
@@ -960,11 +960,11 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                 p_175719_.gameEvent((Entity)null, GameEvent.FLUID_PICKUP, p_175720_);
             }
 
-            return ItemInteractionResult.sidedSuccess(p_175719_.isClientSide);
+            return InteractionResult.SUCCESS;
         });
 
         MUSK_COFFEE.map().put(Items.GLASS_BOTTLE, (p_175718_, p_175719_, p_175720_, p_175721_, p_175722_, p_175723_) -> {
-            if (!p_175719_.isClientSide) {
+            if (!p_175719_.isClientSide()) {
                 Item item = p_175723_.getItem();
                 p_175721_.setItemInHand(p_175722_, ItemUtils.createFilledResult(p_175723_, p_175721_, new ItemStack(ModItems.MUSK_COFFEE.get())));
                 p_175721_.awardStat(Stats.USE_CAULDRON);
@@ -974,11 +974,11 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                 p_175719_.gameEvent((Entity)null, GameEvent.FLUID_PICKUP, p_175720_);
             }
 
-            return ItemInteractionResult.sidedSuccess(p_175719_.isClientSide);
+            return InteractionResult.SUCCESS;
         });
 
         APPLE_LIQUEUR.map().put(Items.GLASS_BOTTLE, (p_175718_, p_175719_, p_175720_, p_175721_, p_175722_, p_175723_) -> {
-            if (!p_175719_.isClientSide) {
+            if (!p_175719_.isClientSide()) {
                 Item item = p_175723_.getItem();
                 p_175721_.setItemInHand(p_175722_, ItemUtils.createFilledResult(p_175723_, p_175721_, new ItemStack(ModItems.APPLE_LIQUEUR.get())));
                 p_175721_.awardStat(Stats.USE_CAULDRON);
@@ -988,11 +988,11 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                 p_175719_.gameEvent((Entity)null, GameEvent.FLUID_PICKUP, p_175720_);
             }
 
-            return ItemInteractionResult.sidedSuccess(p_175719_.isClientSide);
+            return InteractionResult.SUCCESS;
         });
 
         PEACH_LIQUEUR.map().put(Items.GLASS_BOTTLE, (p_175718_, p_175719_, p_175720_, p_175721_, p_175722_, p_175723_) -> {
-            if (!p_175719_.isClientSide) {
+            if (!p_175719_.isClientSide()) {
                 Item item = p_175723_.getItem();
                 p_175721_.setItemInHand(p_175722_, ItemUtils.createFilledResult(p_175723_, p_175721_, new ItemStack(ModItems.PEACH_LIQUEUR.get())));
                 p_175721_.awardStat(Stats.USE_CAULDRON);
@@ -1002,11 +1002,11 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                 p_175719_.gameEvent((Entity)null, GameEvent.FLUID_PICKUP, p_175720_);
             }
 
-            return ItemInteractionResult.sidedSuccess(p_175719_.isClientSide);
+            return InteractionResult.SUCCESS;
         });
 
         PLUM_LIQUEUR.map().put(Items.GLASS_BOTTLE, (p_175718_, p_175719_, p_175720_, p_175721_, p_175722_, p_175723_) -> {
-            if (!p_175719_.isClientSide) {
+            if (!p_175719_.isClientSide()) {
                 Item item = p_175723_.getItem();
                 p_175721_.setItemInHand(p_175722_, ItemUtils.createFilledResult(p_175723_, p_175721_, new ItemStack(ModItems.PLUM_LIQUEUR.get())));
                 p_175721_.awardStat(Stats.USE_CAULDRON);
@@ -1016,11 +1016,11 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                 p_175719_.gameEvent((Entity)null, GameEvent.FLUID_PICKUP, p_175720_);
             }
 
-            return ItemInteractionResult.sidedSuccess(p_175719_.isClientSide);
+            return InteractionResult.SUCCESS;
         });
 
         LEMON_LIQUEUR.map().put(Items.GLASS_BOTTLE, (p_175718_, p_175719_, p_175720_, p_175721_, p_175722_, p_175723_) -> {
-            if (!p_175719_.isClientSide) {
+            if (!p_175719_.isClientSide()) {
                 Item item = p_175723_.getItem();
                 p_175721_.setItemInHand(p_175722_, ItemUtils.createFilledResult(p_175723_, p_175721_, new ItemStack(ModItems.LEMON_LIQUEUR.get())));
                 p_175721_.awardStat(Stats.USE_CAULDRON);
@@ -1030,7 +1030,7 @@ public interface ModCauldronInteraction extends CauldronInteraction {
                 p_175719_.gameEvent((Entity)null, GameEvent.FLUID_PICKUP, p_175720_);
             }
 
-            return ItemInteractionResult.sidedSuccess(p_175719_.isClientSide);
+            return InteractionResult.SUCCESS;
         });
     }
 
@@ -1054,8 +1054,8 @@ public interface ModCauldronInteraction extends CauldronInteraction {
         p_175648_.put(ModItems.COCONUT.get(), FILL_COCONUT);
     }
 
-    static ItemInteractionResult addFruits(Level p_175619_, BlockPos p_175620_, Player p_175621_, InteractionHand p_175622_, ItemStack p_175623_, BlockState p_175624_, SoundEvent p_175625_) {
-        if (!p_175619_.isClientSide) {
+    static InteractionResult addFruits(Level p_175619_, BlockPos p_175620_, Player p_175621_, InteractionHand p_175622_, ItemStack p_175623_, BlockState p_175624_, SoundEvent p_175625_) {
+        if (!p_175619_.isClientSide()) {
             Item item = p_175623_.getItem();
             p_175621_.awardStat(Stats.FILL_CAULDRON);
             p_175621_.awardStat(Stats.ITEM_USED.get(item));
@@ -1064,7 +1064,7 @@ public interface ModCauldronInteraction extends CauldronInteraction {
             p_175619_.gameEvent((Entity)null, GameEvent.FLUID_PLACE, p_175620_);
         }
 
-        return ItemInteractionResult.sidedSuccess(p_175619_.isClientSide);
+        return InteractionResult.SUCCESS;
     }
 
 }

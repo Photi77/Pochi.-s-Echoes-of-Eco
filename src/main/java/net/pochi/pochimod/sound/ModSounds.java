@@ -1,6 +1,6 @@
 package net.pochi.pochimod.sound;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -17,7 +17,7 @@ public class ModSounds {
     public static final DeferredHolder<SoundEvent, SoundEvent> CICADA_DEATH = registerSoundEvent("cicada_death");
 
     private static DeferredHolder<SoundEvent, SoundEvent> registerSoundEvent(String name) {
-        ResourceLocation id = ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, name);
+        Identifier id = Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, name);
         return SOUND_EVENTS.register(name,() -> SoundEvent.createVariableRangeEvent(id));
     }
 

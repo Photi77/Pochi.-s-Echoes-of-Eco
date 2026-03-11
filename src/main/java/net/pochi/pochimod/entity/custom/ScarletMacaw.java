@@ -64,7 +64,7 @@ public class ScarletMacaw extends Animal implements FlyingAnimal {
         FlyingPathNavigation flyingpathnavigation = new FlyingPathNavigation(this, pLevel);
         flyingpathnavigation.setCanOpenDoors(false);
         flyingpathnavigation.setCanFloat(true);
-        flyingpathnavigation.setCanPassDoors(true);
+        //flyingpathnavigation.setCanPassDoors(true); // removed in 1.21.11
         return flyingpathnavigation;
     }
 
@@ -132,7 +132,7 @@ public class ScarletMacaw extends Animal implements FlyingAnimal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-        return ModEntityTypes.PERISSO.get().create(p_146743_);
+        return ModEntityTypes.PERISSO.get().create(p_146743_, net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
     }
 
 

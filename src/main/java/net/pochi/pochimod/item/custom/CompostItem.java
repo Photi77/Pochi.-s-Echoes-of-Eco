@@ -4,7 +4,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
+
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -50,7 +51,7 @@ public class CompostItem extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 
         // プレイヤーの照準先ブロックを取得
@@ -60,7 +61,7 @@ public class CompostItem extends Item {
 
         // Farmlandブロックのみ対象
         if (!(targetState.getBlock() instanceof FarmBlock)) {
-            return InteractionResultHolder.pass(stack);
+            return InteractionResult.PASS;
         }
 
         if (!level.isClientSide()) {
@@ -78,7 +79,7 @@ public class CompostItem extends Item {
                 stack.shrink(1);
             }
         }
-        return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
+        return InteractionResult.SUCCESS;
     }
 
     private static void applyCompost(Level level, BlockPos pos, float[] values) {

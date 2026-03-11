@@ -3,7 +3,7 @@ package net.pochi.pochimod.datagen;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -41,7 +41,7 @@ public class ModEntityLootTables implements net.minecraft.data.loot.LootTableSub
 
     private static ResourceKey<LootTable> entityKey(String name) {
         return ResourceKey.create(Registries.LOOT_TABLE,
-                ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "entities/" + name));
+                Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "entities/" + name));
     }
 
     private static LootTable.Builder dropItem(net.minecraft.world.item.Item item) {

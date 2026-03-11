@@ -1,6 +1,7 @@
 package net.pochi.pochimod.effect;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -14,8 +15,8 @@ public class MoonWalk extends MobEffect {
     }
 
     @Override
-    public boolean applyEffectTick(LivingEntity pLivingEntity, int pAmplifier) {
-        Level level = pLivingEntity.level();
+    public boolean applyEffectTick(ServerLevel pLevel, LivingEntity pLivingEntity, int pAmplifier) {
+        ServerLevel level = pLevel;
         Player player = (Player) pLivingEntity;
 
         if(!level.isClientSide()) {
@@ -26,7 +27,7 @@ public class MoonWalk extends MobEffect {
             }
         }
 
-        if (player.getPersistentData().getBoolean("jump")) {
+        if (player.getPersistentData().getBooleanOr("jump", false)) {
             if(!level.isClientSide()) {
                 player.hurtMarked = true;
                 player.setDeltaMovement( player.getDeltaMovement().x + (player.getDeltaMovement().x + player.getLookAngle().x * 0.5) * 2, 0.8 ,
@@ -34,7 +35,7 @@ public class MoonWalk extends MobEffect {
             }
         }
 
-        return super.applyEffectTick(pLivingEntity, pAmplifier);
+        return super.applyEffectTick(pLevel, pLivingEntity, pAmplifier);
     }
 
     @Override

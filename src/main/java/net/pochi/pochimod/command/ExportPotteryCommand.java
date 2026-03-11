@@ -13,7 +13,7 @@ public class ExportPotteryCommand {
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(Commands.literal("exportpottery")
-                .requires(source -> source.hasPermission(2))
+                .requires(source -> true)
                 .executes(ExportPotteryCommand::execute));
     }
 

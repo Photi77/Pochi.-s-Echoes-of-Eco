@@ -76,7 +76,7 @@ public class LeopardGecko extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-        return ModEntityTypes.LEOPARD_GECKO.get().create(p_146743_);
+        return ModEntityTypes.LEOPARD_GECKO.get().create(p_146743_, net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
     }
 
     private void setupAnimationStates() {
@@ -96,7 +96,7 @@ public class LeopardGecko extends Animal {
             f = 0.0F;
         }
 
-        this.walkAnimation.update(f, 0.2F);
+        this.walkAnimation.update(f, 0.2F, this.tickCount);
     }
 
     @Override
@@ -106,7 +106,7 @@ public class LeopardGecko extends Animal {
             this.setupAnimationStates();
         }
 
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             updateAttachedSurface();
             applyCustomGravity();
         }
@@ -119,7 +119,7 @@ public class LeopardGecko extends Animal {
 
         // 6方向全てをレイキャスト
         for (Direction dir : Direction.values()) {
-            Vec3 offset = Vec3.atLowerCornerOf(dir.getNormal()).scale(RAYCAST_DISTANCE);
+            Vec3 offset = new Vec3(dir.getStepX(), dir.getStepY(), dir.getStepZ()).scale(RAYCAST_DISTANCE);
             BlockHitResult hit = this.level().clip(new ClipContext(
                     pos,
                     pos.add(offset),
@@ -148,7 +148,7 @@ public class LeopardGecko extends Animal {
     }
 
     private void updateGravityDirection(Direction face) {
-        Vec3 targetGravity = Vec3.atLowerCornerOf(face.getNormal()).scale(-1);
+        Vec3 targetGravity = new Vec3(face.getStepX(), face.getStepY(), face.getStepZ()).scale(-1);
 
         // スムーズな補間(急激な方向転換を防ぐ)
         currentGravityDirection = currentGravityDirection.lerp(targetGravity, 0.2);
@@ -193,7 +193,7 @@ public class LeopardGecko extends Animal {
     }
 
     private void travelOnSurface(Vec3 travelVector) {
-        if (this.isEffectiveAi() || this.isControlledByLocalInstance()) {
+        if (this.isEffectiveAi()) {
             double gravity = 0.08;
 
             FluidState fluidstate = this.level().getFluidState(this.blockPosition());
@@ -224,7 +224,7 @@ public class LeopardGecko extends Animal {
 
     private Vec3 adjustTravelVectorToSurface(Vec3 travel) {
         // 接地面の法線ベクトルに基づいて移動方向を調整
-        Vec3 normal = Vec3.atLowerCornerOf(attachedFace.getNormal());
+        Vec3 normal = new Vec3(attachedFace.getStepX(), attachedFace.getStepY(), attachedFace.getStepZ());
 
         // 接地面に平行な移動ベクトルを計算
         Vec3 right = normal.cross(new Vec3(0, 1, 0));

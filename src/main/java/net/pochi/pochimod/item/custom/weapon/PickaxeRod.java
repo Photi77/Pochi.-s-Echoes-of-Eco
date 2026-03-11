@@ -4,7 +4,8 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
+
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -23,11 +24,11 @@ public class PickaxeRod extends Item {
         super(p_41285_);
     }
 
-    public InteractionResultHolder<ItemStack> use(Level p_41290_, Player p_41291_, InteractionHand p_41292_) {
+    public InteractionResult use(Level p_41290_, Player p_41291_, InteractionHand p_41292_) {
         ItemStack itemstack = p_41291_.getItemInHand(p_41292_);
         EquipmentSlot slot = p_41292_ == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
         if (p_41291_.fishing != null) {
-            if (!p_41290_.isClientSide) {
+            if (!p_41290_.isClientSide()) {
                 int i = p_41291_.fishing.retrieve(itemstack);
                 itemstack.hurtAndBreak(i, p_41291_, slot);
                 setCast(false);
@@ -37,7 +38,7 @@ public class PickaxeRod extends Item {
             p_41291_.gameEvent(GameEvent.ITEM_INTERACT_FINISH);
         } else {
             p_41290_.playSound((Player)null, p_41291_.getX(), p_41291_.getY(), p_41291_.getZ(), SoundEvents.FISHING_BOBBER_THROW, SoundSource.NEUTRAL, 0.5F, 0.4F / (p_41290_.getRandom().nextFloat() * 0.4F + 0.8F));
-            if (!p_41290_.isClientSide) {
+            if (!p_41290_.isClientSide()) {
                 p_41290_.addFreshEntity(new PickaxeHook(p_41291_, p_41290_, 0, 0));
             }
 
@@ -47,7 +48,7 @@ public class PickaxeRod extends Item {
             p_41291_.gameEvent(GameEvent.ITEM_INTERACT_START);
         }
 
-        return InteractionResultHolder.sidedSuccess(itemstack, p_41290_.isClientSide());
+        return InteractionResult.SUCCESS;
     }
 
     public int getEnchantmentValue() {

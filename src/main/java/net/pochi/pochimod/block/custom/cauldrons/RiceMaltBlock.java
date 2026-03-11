@@ -6,7 +6,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -32,12 +32,12 @@ public class RiceMaltBlock extends Block implements BucketPickup {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack p_itemstack_, BlockState p_60503_, Level p_60504_, BlockPos p_60505_, Player p_60506_, InteractionHand p_60507_, BlockHitResult p_60508_) {
+    protected InteractionResult useItemOn(ItemStack p_itemstack_, BlockState p_60503_, Level p_60504_, BlockPos p_60505_, Player p_60506_, InteractionHand p_60507_, BlockHitResult p_60508_) {
         if(p_60503_.is(ModBlocks.BOILED_RICE_BLOCK.get()) && p_itemstack_.is(Items.CHARCOAL)){
             p_60504_.setBlock(p_60505_,ModBlocks.JAPANESE_MALT_R.get().defaultBlockState(),11);
             p_itemstack_.shrink(1);
         }
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        return InteractionResult.PASS;
     }
 
     public void fallOn(Level p_196695_, BlockState p_196696_, BlockPos p_196697_, Entity p_196698_, float p_196699_) {
@@ -50,7 +50,7 @@ public class RiceMaltBlock extends Block implements BucketPickup {
 
 
     @Override
-    public ItemStack pickupBlock(@javax.annotation.Nullable Player p_player_, LevelAccessor p_154281_, BlockPos p_154282_, BlockState p_154283_) {
+    public ItemStack pickupBlock(@javax.annotation.Nullable LivingEntity p_player_, LevelAccessor p_154281_, BlockPos p_154282_, BlockState p_154283_) {
         p_154281_.setBlock(p_154282_, Blocks.AIR.defaultBlockState(), 11);
         if(p_154283_ == ModBlocks.JAPANESE_MALT_R.get().defaultBlockState()) {
             p_154281_.setBlock(p_154282_, Blocks.AIR.defaultBlockState(), 11);

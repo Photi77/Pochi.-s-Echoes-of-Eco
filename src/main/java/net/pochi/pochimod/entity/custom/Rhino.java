@@ -37,7 +37,7 @@ import net.pochi.pochimod.entity.ModEntityTypes;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class Rhino extends Animal implements PlayerRideable, Saddleable {
+public class Rhino extends Animal implements PlayerRideable {
     private static final EntityDataAccessor<Boolean> DATA_SADDLED =
             SynchedEntityData.defineId(Rhino.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> DATA_CHARGING =
@@ -82,15 +82,15 @@ public class Rhino extends Animal implements PlayerRideable, Saddleable {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-        return ModEntityTypes.RHINO.get().create(p_146743_);
+        return ModEntityTypes.RHINO.get().create(p_146743_, net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
     }
 
     @Override
-    protected void dropEquipment() {
-        super.dropEquipment();
+    protected void dropEquipment(ServerLevel level) {
+        super.dropEquipment(level);
 
         if (this.isSaddled()) {
-            this.spawnAtLocation(Items.SADDLE);
+            this.spawnAtLocation(level, new net.minecraft.world.item.ItemStack(Items.SADDLE));
         }
     }
 
@@ -117,7 +117,7 @@ public class Rhino extends Animal implements PlayerRideable, Saddleable {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag tag) {
+    public void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput tag) {
         super.addAdditionalSaveData(tag);
         tag.putBoolean("Saddled", this.isSaddled());
         tag.putBoolean("Charging", this.isCharging());
@@ -126,12 +126,12 @@ public class Rhino extends Animal implements PlayerRideable, Saddleable {
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag tag) {
+    public void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput tag) {
         super.readAdditionalSaveData(tag);
-        this.setSaddled(tag.getBoolean("Saddled"));
-        this.setCharging(tag.getBoolean("Charging"));
-        this.chargeTimer = tag.getInt("ChargeTimer");
-        this.chargeCooldownTimer = tag.getInt("ChargeCooldown");
+        this.setSaddled(tag.getBooleanOr("Saddled", false));
+        this.setCharging(tag.getBooleanOr("Charging", false));
+        this.chargeTimer = tag.getIntOr("ChargeTimer", 0);
+        this.chargeCooldownTimer = tag.getIntOr("ChargeCooldown", 0);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -151,16 +151,14 @@ public class Rhino extends Animal implements PlayerRideable, Saddleable {
         this.entityData.set(DATA_CHARGING, charging);
     }
 
-    @Override
     public boolean isSaddleable() {
         return this.isAlive() && !this.isBaby();
     }
 
-    @Override
     public void equipSaddle(net.minecraft.world.item.ItemStack itemStack, @Nullable SoundSource soundSource) {
         this.setSaddled(true);
         if (soundSource != null) {
-            this.level().playSound(null, this, SoundEvents.HORSE_SADDLE, soundSource, 0.5F, 1.0F);
+            this.level().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.HORSE_SADDLE, soundSource, 0.5F, 1.0F);
         }
     }
 
@@ -177,7 +175,7 @@ public class Rhino extends Animal implements PlayerRideable, Saddleable {
     public void tick() {
         super.tick();
 
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             // クールダウンタイマー
             if (this.chargeCooldownTimer > 0) {
                 this.chargeCooldownTimer--;
@@ -190,7 +188,7 @@ public class Rhino extends Animal implements PlayerRideable, Saddleable {
         }
 
         // クライアント側のエフェクト
-        if (this.level().isClientSide && this.isCharging()) {
+        if (this.level().isClientSide() && this.isCharging()) {
             spawnChargeParticles();
         }
     }
@@ -385,15 +383,15 @@ public class Rhino extends Animal implements PlayerRideable, Saddleable {
                 itemstack.shrink(1);
             }
             this.equipSaddle(new ItemStack(Items.SADDLE), SoundSource.NEUTRAL);
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
+            return InteractionResult.SUCCESS;
         }
 
         // 騎乗（突進中は乗れない）
         if (this.isSaddled() && !this.isBaby() && !this.isCharging()) {
-            if (!this.level().isClientSide) {
+            if (!this.level().isClientSide()) {
                 player.startRiding(this);
             }
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
+            return InteractionResult.SUCCESS;
         }
 
         return super.mobInteract(player, hand);
@@ -435,7 +433,7 @@ public class Rhino extends Animal implements PlayerRideable, Saddleable {
                 float f1 = livingentity.zza;
 
                 // Inside this if statement, we are on the client!
-                if (this.isControlledByLocalInstance()) {
+                if (this.level().isClientSide()) {
                     float newSpeed = (float) this.getAttributeValue(Attributes.MOVEMENT_SPEED);
                     // increasing speed by 100% if the spring key is held down (number for testing purposes)
                     if (Minecraft.getInstance().options.keySprint.isDown()) {
@@ -451,7 +449,7 @@ public class Rhino extends Animal implements PlayerRideable, Saddleable {
             }
 
             this.calculateEntityAnimation(false);
-            this.tryCheckInsideBlocks();
+            //this.tryCheckInsideBlocks(); // removed in 1.21.11
         } else {
             super.travel(travelVector);
         }

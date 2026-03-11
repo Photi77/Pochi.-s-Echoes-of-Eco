@@ -6,7 +6,8 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
+
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -27,12 +28,12 @@ public class ClioneStaffItem extends Item {
     public ClioneStaffItem(Properties properties) {
         super(properties
                 .durability(500)
-                .setNoRepair()
+                .setNoCombineRepair()
         );
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
 
         // Shift+右クリック：召喚
@@ -48,14 +49,14 @@ public class ClioneStaffItem extends Item {
     /**
      * 氷弾発射（基本攻撃）
      */
-    private InteractionResultHolder<ItemStack> shootIceProjectile(Level level, Player player, InteractionHand hand, ItemStack itemStack) {
+    private InteractionResult shootIceProjectile(Level level, Player player, InteractionHand hand, ItemStack itemStack) {
         // クールダウン中は発射しない
-        if (player.getCooldowns().isOnCooldown(this)) {
-            return InteractionResultHolder.pass(itemStack);
+        if (player.getCooldowns().isOnCooldown(itemStack)) {
+            return InteractionResult.PASS;
         }
 
         // サーバー側でのみ処理
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             // 氷弾を発射
             IceProjectileEntity projectile = new IceProjectileEntity(level, player);
             projectile.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
@@ -65,7 +66,7 @@ public class ClioneStaffItem extends Item {
             itemStack.hurtAndBreak(1, player, hand == InteractionHand.MAIN_HAND ? net.minecraft.world.entity.EquipmentSlot.MAINHAND : net.minecraft.world.entity.EquipmentSlot.OFFHAND);
 
             // クールダウン設定
-            player.getCooldowns().addCooldown(this, BASIC_ATTACK_COOLDOWN_TICKS);
+            player.getCooldowns().addCooldown(itemStack, BASIC_ATTACK_COOLDOWN_TICKS);
 
             // 統計
             player.awardStat(Stats.ITEM_USED.get(this));
@@ -76,35 +77,35 @@ public class ClioneStaffItem extends Item {
                 SoundEvents.SNOW_GOLEM_SHOOT, SoundSource.PLAYERS,
                 0.8F, 0.8F + level.random.nextFloat() * 0.4F);
 
-        return InteractionResultHolder.sidedSuccess(itemStack, level.isClientSide());
+        return InteractionResult.SUCCESS;
     }
 
     /**
      * クリオネ召喚（特殊能力）
      */
-    private InteractionResultHolder<ItemStack> summonCliones(Level level, Player player, InteractionHand hand, ItemStack itemStack) {
+    private InteractionResult summonCliones(Level level, Player player, InteractionHand hand, ItemStack itemStack) {
         // 召喚クールダウン中
         if (this.isSummonOnCooldown(player)) {
-            if (level.isClientSide) {
+            if (level.isClientSide()) {
                 // クールダウン中の音（クライアントのみ）
                 level.playSound(player, player.getX(), player.getY(), player.getZ(),
                         SoundEvents.DISPENSER_FAIL, SoundSource.PLAYERS, 0.5F, 1.0F);
             }
-            return InteractionResultHolder.pass(itemStack);
+            return InteractionResult.PASS;
         }
 
         // 耐久値チェック
         if (itemStack.getDamageValue() + SUMMON_DURABILITY_COST > itemStack.getMaxDamage()) {
-            if (level.isClientSide) {
+            if (level.isClientSide()) {
                 // 耐久値不足の音
                 level.playSound(player, player.getX(), player.getY(), player.getZ(),
                         SoundEvents.ITEM_BREAK, SoundSource.PLAYERS, 0.5F, 1.0F);
             }
-            return InteractionResultHolder.fail(itemStack);
+            return InteractionResult.FAIL;
         }
 
         // サーバー側でのみ処理
-        if (!level.isClientSide && level instanceof ServerLevel serverLevel) {
+        if (!level.isClientSide() && level instanceof ServerLevel serverLevel) {
             // 召喚魔法陣エフェクト
             this.spawnSummonEffect(serverLevel, player);
 
@@ -113,7 +114,7 @@ public class ClioneStaffItem extends Item {
                 SummonedClioneEntity clione = new SummonedClioneEntity(level, player, i);
 
                 // 初期位置をプレイヤーの位置に設定
-                clione.moveTo(
+                clione.absSnapTo(
                         player.getX(),
                         player.getY() + 1.5,
                         player.getZ(),
@@ -138,7 +139,7 @@ public class ClioneStaffItem extends Item {
                 SoundEvents.EVOKER_CAST_SPELL, SoundSource.PLAYERS,
                 1.0F, 1.0F);
 
-        return InteractionResultHolder.sidedSuccess(itemStack, level.isClientSide());
+        return InteractionResult.SUCCESS;
     }
 
     /**
@@ -189,7 +190,7 @@ public class ClioneStaffItem extends Item {
      */
     private boolean isSummonOnCooldown(Player player) {
         return player.getPersistentData().contains(SUMMON_COOLDOWN_TAG) &&
-                player.getPersistentData().getLong(SUMMON_COOLDOWN_TAG) > player.level().getGameTime();
+                player.getPersistentData().getLongOr(SUMMON_COOLDOWN_TAG, 0L) > player.level().getGameTime();
     }
 
     /**

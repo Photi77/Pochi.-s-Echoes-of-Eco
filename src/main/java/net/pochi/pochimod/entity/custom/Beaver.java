@@ -22,7 +22,7 @@ import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.util.DefaultRandomPos;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.Turtle;
+import net.minecraft.world.entity.animal.turtle.Turtle;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -68,25 +68,25 @@ public class Beaver extends Turtle{
         builder.define(TRAVELLING, false);
     }
 
-    public void addAdditionalSaveData(CompoundTag p_30176_) {
+    public void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput p_30176_) {
         super.addAdditionalSaveData(p_30176_);
         p_30176_.putInt("TravelPosX", this.getTravelPos().getX());
         p_30176_.putInt("TravelPosY", this.getTravelPos().getY());
         p_30176_.putInt("TravelPosZ", this.getTravelPos().getZ());
     }
 
-    public void readAdditionalSaveData(CompoundTag p_30162_) {
+    public void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput p_30162_) {
         super.readAdditionalSaveData(p_30162_);
-        int l = p_30162_.getInt("TravelPosX");
-        int i1 = p_30162_.getInt("TravelPosY");
-        int j1 = p_30162_.getInt("TravelPosZ");
+        int l = p_30162_.getIntOr("TravelPosX", 0);
+        int i1 = p_30162_.getIntOr("TravelPosY", 0);
+        int j1 = p_30162_.getIntOr("TravelPosZ", 0);
         this.setTravelPos(new BlockPos(l, i1, j1));
     }
 
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel p_149068_, AgeableMob p_149069_) {
-        return ModEntityTypes.BEAVER.get().create(p_149068_);
+        return ModEntityTypes.BEAVER.get().create(p_149068_, net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
     }
 
     @Override
@@ -122,7 +122,7 @@ public class Beaver extends Turtle{
             f = 0.0F;
         }
 
-        this.walkAnimation.update(f, 0.2F);
+        this.walkAnimation.update(f, 0.2F, this.tickCount);
     }
 
     @Override
@@ -287,7 +287,7 @@ public class Beaver extends Turtle{
         }
 
         protected void onReachedTarget() {
-            if (net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(new net.neoforged.neoforge.event.entity.EntityMobGriefingEvent(Beaver.this.level(), Beaver.this)).canGrief()) {
+            if (net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(new net.neoforged.neoforge.event.entity.EntityMobGriefingEvent((net.minecraft.server.level.ServerLevel)Beaver.this.level(), Beaver.this)).canGrief()) {
                 BlockState blockstate = Beaver.this.level().getBlockState(this.blockPos);
                 if (blockstate.is(Blocks.OAK_LOG)) {
                     this.stripped(blockstate, blockPos);

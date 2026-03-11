@@ -73,13 +73,13 @@ public class Capybara extends Animal {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag tag) {
+    public void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput tag) {
         super.addAdditionalSaveData(tag);
         // 必要に応じてentitiesInHotSpringも保存可能
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag tag) {
+    public void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput tag) {
         super.readAdditionalSaveData(tag);
     }
 
@@ -102,7 +102,7 @@ public class Capybara extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-        return ModEntityTypes.CAPYBARA.get().create(p_146743_);
+        return ModEntityTypes.CAPYBARA.get().create(p_146743_, net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
     }
 
     private void setupAnimationStates() {
@@ -121,7 +121,7 @@ public class Capybara extends Animal {
         } else {
             f = 0.0F;
         }
-        this.walkAnimation.update(f, 0.2F);
+        this.walkAnimation.update(f, 0.2F, this.tickCount);
     }
 
     @Override
@@ -488,7 +488,7 @@ public class Capybara extends Animal {
     @Override
     public void remove(RemovalReason reason) {
         // エンティティ削除時に全ての効果を除去
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             for (UUID uuid : entitiesInHotSpring.keySet()) {
                 LivingEntity entity = findEntityByUUID(uuid);
                 if (entity != null) {
@@ -506,7 +506,7 @@ public class Capybara extends Animal {
         super.tickDeath();
 
         // 死亡時も効果を除去
-        if (!this.level().isClientSide && this.deathTime == 1) {
+        if (!this.level().isClientSide() && this.deathTime == 1) {
             for (UUID uuid : entitiesInHotSpring.keySet()) {
                 LivingEntity entity = findEntityByUUID(uuid);
                 if (entity != null) {

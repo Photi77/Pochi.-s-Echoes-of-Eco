@@ -15,23 +15,22 @@ public class MantisGrab extends Item {
         super(p_41383_);
     }
 
-    public boolean hurtEnemy(ItemStack p_43278_, LivingEntity p_43279_, LivingEntity p_43280_) {
+    public void hurtEnemy(ItemStack p_43278_, LivingEntity p_43279_, LivingEntity p_43280_) {
         p_43278_.hurtAndBreak(1, p_43280_, EquipmentSlot.MAINHAND);
         if(p_43280_.isInWater()) {
             p_43279_.setDeltaMovement((p_43279_.getX() - p_43280_.getX()) * 3, (p_43279_.getY() - p_43280_.getY()) * 3, (p_43279_.getZ() - p_43280_.getZ()) * 3);
         }
-        return true;
     }
 
     @Override
-    public void inventoryTick(ItemStack p_41404_, Level p_41405_, Entity p_41406_, int p_41407_, boolean p_41408_) {
+    public void inventoryTick(ItemStack p_41404_, net.minecraft.server.level.ServerLevel p_41405_, Entity p_41406_, net.minecraft.world.entity.EquipmentSlot p_41407_) {
         if(p_41406_ instanceof Player player && p_41406_.isInWater()){
             if(player.getMainHandItem().is(this)){
-                player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST,200,3));
+                player.addEffect(new MobEffectInstance(MobEffects.STRENGTH,200,3));
             }
 
         }
-        super.inventoryTick(p_41404_, p_41405_, p_41406_, p_41407_, p_41408_);
+        super.inventoryTick(p_41404_, p_41405_, p_41406_, p_41407_);
     }
 }
 

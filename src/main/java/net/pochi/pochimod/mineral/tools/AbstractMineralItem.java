@@ -1,6 +1,5 @@
 package net.pochi.pochimod.mineral.tools;
 
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -8,18 +7,14 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.CustomData;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
-import net.pochi.pochimod.client.renderer.MineralItemRenderer;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.pochi.pochimod.mineral.MineralColorCalculator;
 import net.pochi.pochimod.mineral.MineralData;
 import net.pochi.pochimod.mineral.MineralImpurity;
 import net.pochi.pochimod.mineral.MineralNBTHelper;
 
-import java.util.function.Consumer;
-
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * 鉱物系アイテム共通基底クラス
@@ -75,20 +70,6 @@ public abstract class AbstractMineralItem extends Item {
         target.set(DataComponents.CUSTOM_DATA, CustomData.of(targetTag));
     }
 
-    // ==============================
-    //  BEWLR（IClientItemExtensions）
-    // ==============================
-
-    @Override
-    @OnlyIn(Dist.CLIENT)
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-        consumer.accept(new IClientItemExtensions() {
-            @Override
-            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                return MineralItemRenderer.getInstance();
-            }
-        });
-    }
 
     // ==============================
     //  アイテムカラー（IItemColor連携）
@@ -120,9 +101,7 @@ public abstract class AbstractMineralItem extends Item {
      */
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context,
-                                List<Component> tooltipComponents, TooltipFlag flag) {
-        // ツールは tool_data、mineral_chunk は mineral_data を持つ
-        // 両方を試みて、あった方を使う
+                                TooltipDisplay display, Consumer<Component> tooltipComponents, TooltipFlag flag) {
         ToolNBTHelper.ToolData toolData = getToolData(stack);
         if (toolData != null) {
             appendToolDataTooltip(toolData, tooltipComponents);
@@ -135,49 +114,49 @@ public abstract class AbstractMineralItem extends Item {
             return;
         }
 
-        tooltipComponents.add(Component.literal("§7[未加工 - mineral_chunkで素材なし]"));
+        tooltipComponents.accept(Component.literal("§7[未加工 - mineral_chunkで素材なし]"));
     }
 
     private static void appendToolDataTooltip(ToolNBTHelper.ToolData data,
-                                              List<Component> tooltip) {
-        tooltip.add(Component.literal("§6素材: §f" + data.baseGem().displayName));
+                                              Consumer<Component> tooltip) {
+        tooltip.accept(Component.literal("§6素材: §f" + data.baseGem().displayName));
 
         MineralImpurity primary = data.primary();
         if (primary != null) {
-            tooltip.add(Component.literal(
+            tooltip.accept(Component.literal(
                     "§c主成分: §f" + primary.getType().id +
                             String.format(" §8(%.0f%%)", primary.getRatio() * 100)));
         }
 
         MineralImpurity secondary = data.secondary();
         if (secondary != null && secondary.canApplyEffect()) {
-            tooltip.add(Component.literal(
+            tooltip.accept(Component.literal(
                     "§d副成分: §f" + secondary.getType().id +
                             String.format(" §8(Lv%d効果)", secondary.getEffectLevel())));
         }
 
-        tooltip.add(Component.literal("§7カラー: " + data.colorHex()));
+        tooltip.accept(Component.literal("§7カラー: " + data.colorHex()));
     }
 
     private static void appendMineralDataTooltip(MineralData data,
-                                                 List<Component> tooltip) {
-        tooltip.add(Component.literal("§6素材: §f" + data.getBaseGem().displayName));
+                                                 Consumer<Component> tooltip) {
+        tooltip.accept(Component.literal("§6素材: §f" + data.getBaseGem().displayName));
 
         MineralImpurity primary = data.getPrimaryImpurity();
         if (primary != null) {
-            tooltip.add(Component.literal(
+            tooltip.accept(Component.literal(
                     "§c主成分: §f" + primary.getType().id +
                             String.format(" §8(%.0f%%)", primary.getRatio() * 100)));
         }
 
         MineralImpurity secondary = data.getSecondaryImpurity();
         if (secondary != null && secondary.canApplyEffect()) {
-            tooltip.add(Component.literal(
+            tooltip.accept(Component.literal(
                     "§d副成分: §f" + secondary.getType().id +
                             String.format(" §8(Lv%d効果)", secondary.getEffectLevel())));
         }
 
-        tooltip.add(Component.literal("§7カラー: " + data.getColorHex()));
+        tooltip.accept(Component.literal("§7カラー: " + data.getColorHex()));
     }
 
     // ==============================

@@ -2,7 +2,9 @@ package net.pochi.pochimod.entity.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.animation.KeyframeAnimation;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -10,9 +12,9 @@ import net.minecraft.util.Mth;
 import net.pochi.pochimod.entity.animations.ModAnimationDefinitions;
 import net.pochi.pochimod.entity.custom.Pangolin;
 
-public class PangolinModel<T extends Pangolin> extends HierarchicalModel<T> {
+public class PangolinModel extends EntityModel<LivingEntityRenderState> {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-    //public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath("modid", "ant"), "main");
+    //public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(Identifier.fromNamespaceAndPath("modid", "ant"), "main");
     private final ModelPart pangolin;
     private final ModelPart body;
     private final ModelPart tail;
@@ -31,6 +33,7 @@ public class PangolinModel<T extends Pangolin> extends HierarchicalModel<T> {
     private final ModelPart back;
 
     public PangolinModel(ModelPart root) {
+        super(root.getChild("pangolin"));
         this.pangolin = root.getChild("pangolin");
         this.body = this.pangolin.getChild("body");
         this.tail = this.body.getChild("tail");
@@ -591,13 +594,13 @@ public class PangolinModel<T extends Pangolin> extends HierarchicalModel<T> {
     }
 
     @Override
-    public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(LivingEntityRenderState state) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
-        if(entity.walkAnimation.isMoving()) {
-            this.animateWalk(ModAnimationDefinitions.PANGOLIN_WALK, limbSwing, limbSwingAmount, 2f, 2.5f);
+        this.applyHeadRotation((state.yRot - state.bodyRot), state.xRot, state.ageInTicks);
+        if((state.walkAnimationSpeed > 0.01F)) {
+            ModAnimationDefinitions.PANGOLIN_WALK.bake(this.root()).applyWalk(state.walkAnimationPos, state.walkAnimationSpeed, 2f, 2.5f);
         } else {
-            this.animate(entity.idleAnimationState, ModAnimationDefinitions.PANGOLIN_IDLE, ageInTicks, 1f);
+            // TODO: idle animation state not available in render state
         }
     }
 
@@ -607,15 +610,5 @@ public class PangolinModel<T extends Pangolin> extends HierarchicalModel<T> {
 
         this.head.yRot = pNetHeadYaw * ((float)Math.PI / 180F);
         this.head.xRot = pHeadPitch * ((float)Math.PI / 180F);
-    }
-
-    @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-        pangolin.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-    }
-
-    @Override
-    public ModelPart root() {
-        return pangolin;
     }
 }

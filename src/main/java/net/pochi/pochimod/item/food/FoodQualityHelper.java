@@ -2,7 +2,6 @@ package net.pochi.pochimod.item.food;
 
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
@@ -17,8 +16,8 @@ public class FoodQualityHelper {
         CustomData cd = stack.get(DataComponents.CUSTOM_DATA);
         if (cd == null) return DEFAULT_QUALITY;
         CompoundTag tag = cd.copyTag();
-        if (!tag.contains(NBT_KEY, Tag.TAG_FLOAT)) return DEFAULT_QUALITY;
-        return Mth.clamp(tag.getFloat(NBT_KEY), MIN_QUALITY, MAX_QUALITY);
+        if (!tag.contains(NBT_KEY)) return DEFAULT_QUALITY;
+        return Mth.clamp(tag.getFloatOr(NBT_KEY, DEFAULT_QUALITY), MIN_QUALITY, MAX_QUALITY);
     }
 
     public static void setQuality(ItemStack stack, float quality) {

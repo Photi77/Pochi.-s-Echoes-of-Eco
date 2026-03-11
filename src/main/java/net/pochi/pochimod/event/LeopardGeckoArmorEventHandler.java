@@ -30,7 +30,7 @@ import java.util.UUID;
 @EventBusSubscriber(modid = PochiMod.MOD_ID)
 public class LeopardGeckoArmorEventHandler {
 
-    private static final net.minecraft.resources.ResourceLocation SPEED_MODIFIER_ID = net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("pochimod", "leopard_gecko_speed");
+    private static final net.minecraft.resources.Identifier SPEED_MODIFIER_ID = net.minecraft.resources.Identifier.fromNamespaceAndPath("pochimod", "leopard_gecko_speed");
 
     // 謇句虚逋ｺ蜍慕畑・售hift髟ｷ謚ｼ縺玲凾髢薙ｒ險倬鹸
     private static final Map<UUID, Integer> SHIFT_HOLD_TICKS = new HashMap<>();
@@ -45,7 +45,7 @@ public class LeopardGeckoArmorEventHandler {
             return;
         }
 
-        if (player.level().isClientSide) {
+        if (player.level().isClientSide()) {
             return;
         }
 
@@ -65,7 +65,7 @@ public class LeopardGeckoArmorEventHandler {
 
         FoodData foodData = player.getFoodData();
         if (foodData.getFoodLevel() >= 20) {
-            net.minecraft.world.food.FoodProperties foodProps = foodItem.getFoodProperties(player);
+            net.minecraft.world.food.FoodProperties foodProps = foodItem.get(net.minecraft.core.component.DataComponents.FOOD);
             float foodValue = foodProps != null ? (float) foodProps.nutrition() : 0;
             LeopardGeckoArmor.addNutrition(leggings, foodValue);
 
@@ -90,7 +90,7 @@ public class LeopardGeckoArmorEventHandler {
             return;
         }
 
-        if (player.level().isClientSide) {
+        if (player.level().isClientSide()) {
             return;
         }
 
@@ -119,7 +119,7 @@ public class LeopardGeckoArmorEventHandler {
     public static void onPlayerTick(PlayerTickEvent.Post event) {
         Player player = event.getEntity();
 
-        if (player.level().isClientSide) {
+        if (player.level().isClientSide()) {
             return;
         }
 
@@ -230,7 +230,7 @@ public class LeopardGeckoArmorEventHandler {
 
         // 2. 辟｡謨ｵ蜉ｹ譫懶ｼ・遘抵ｼ・
         player.addEffect(new MobEffectInstance(
-                MobEffects.DAMAGE_RESISTANCE,
+                MobEffects.RESISTANCE,
                 60, // 3遘・
                 255, // 繝ｬ繝吶Ν255縺ｧ螳溯ｳｪ辟｡謨ｵ
                 false,
@@ -240,7 +240,7 @@ public class LeopardGeckoArmorEventHandler {
 
         // 3. 遘ｻ蜍暮溷ｺｦ繝悶・繧ｹ繝茨ｼ・遘偵・50%・・
         player.addEffect(new MobEffectInstance(
-                MobEffects.MOVEMENT_SPEED,
+                MobEffects.SPEED,
                 100, // 5遘・
                 2, // 繝ｬ繝吶Ν3 = +60%・郁ｿ台ｼｼ・・
                 false,

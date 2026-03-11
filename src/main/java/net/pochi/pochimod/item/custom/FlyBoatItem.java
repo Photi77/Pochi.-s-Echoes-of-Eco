@@ -2,11 +2,12 @@ package net.pochi.pochimod.item.custom;
 
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
+
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.vehicle.Boat;
+import net.minecraft.world.entity.vehicle.boat.Boat;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
@@ -29,11 +30,11 @@ public class FlyBoatItem extends Item {
 
     }
 
-    public InteractionResultHolder<ItemStack> use(Level pLevel, Player pPlayer, InteractionHand pHand) {
+    public InteractionResult use(Level pLevel, Player pPlayer, InteractionHand pHand) {
         ItemStack itemstack = pPlayer.getItemInHand(pHand);
         HitResult hitresult = getPlayerPOVHitResult(pLevel, pPlayer, ClipContext.Fluid.ANY);
         if (hitresult.getType() == HitResult.Type.MISS) {
-            return InteractionResultHolder.pass(itemstack);
+            return InteractionResult.PASS;
         } else {
             Vec3 vec3 = pPlayer.getViewVector(1.0F);
             List<Entity> list = pLevel.getEntities(pPlayer, pPlayer.getBoundingBox().expandTowards(vec3.scale(5.0D)).inflate(1.0D), ENTITY_PREDICATE);
@@ -43,7 +44,7 @@ public class FlyBoatItem extends Item {
                 for(Entity entity : list) {
                     AABB aabb = entity.getBoundingBox().inflate((double)entity.getPickRadius());
                     if (aabb.contains(vec31)) {
-                        return InteractionResultHolder.pass(itemstack);
+                        return InteractionResult.PASS;
                     }
                 }
             }
@@ -52,9 +53,9 @@ public class FlyBoatItem extends Item {
                 Boat boat = this.getBoat(pLevel, hitresult);
                 boat.setYRot(pPlayer.getYRot());
                 if (!pLevel.noCollision(boat, boat.getBoundingBox())) {
-                    return InteractionResultHolder.fail(itemstack);
+                    return InteractionResult.FAIL;
                 } else {
-                    if (!pLevel.isClientSide) {
+                    if (!pLevel.isClientSide()) {
                         pLevel.addFreshEntity(boat);
                         pLevel.gameEvent(pPlayer, GameEvent.ENTITY_PLACE, hitresult.getLocation());
                         if (!pPlayer.getAbilities().instabuild) {
@@ -63,10 +64,10 @@ public class FlyBoatItem extends Item {
                     }
 
                     pPlayer.awardStat(Stats.ITEM_USED.get(this));
-                    return InteractionResultHolder.sidedSuccess(itemstack, pLevel.isClientSide());
+                    return InteractionResult.SUCCESS;
                 }
             } else {
-                return InteractionResultHolder.pass(itemstack);
+                return InteractionResult.PASS;
             }
         }
     }

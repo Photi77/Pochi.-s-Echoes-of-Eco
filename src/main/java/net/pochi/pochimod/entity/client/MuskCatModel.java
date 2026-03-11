@@ -5,7 +5,9 @@ package net.pochi.pochimod.entity.client;// Made with Blockbench 4.11.2
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.animation.KeyframeAnimation;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -13,9 +15,9 @@ import net.minecraft.util.Mth;
 import net.pochi.pochimod.entity.animations.ModAnimationDefinitions;
 import net.pochi.pochimod.entity.custom.MuskCat;
 
-public class MuskCatModel<T extends MuskCat> extends HierarchicalModel<T> {
+public class MuskCatModel extends EntityModel<LivingEntityRenderState> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	//public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath("modid", "MuskCatModel"), "main");
+	//public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(Identifier.fromNamespaceAndPath("modid", "MuskCatModel"), "main");
 	private final ModelPart ginatotter;
 	private final ModelPart neck;
 	private final ModelPart head;
@@ -27,6 +29,7 @@ public class MuskCatModel<T extends MuskCat> extends HierarchicalModel<T> {
 	private final ModelPart tail;
 
 	public MuskCatModel(ModelPart root) {
+		super(root.getChild("ginatotter"));
 		this.ginatotter = root.getChild("ginatotter");
 		this.neck = this.ginatotter.getChild("neck");
 		this.head = this.neck.getChild("head");
@@ -123,13 +126,13 @@ public class MuskCatModel<T extends MuskCat> extends HierarchicalModel<T> {
 	}
 
 	@Override
-	public void setupAnim(T p_102618_, float p_102619_, float p_102620_, float p_102621_, float p_102622_, float p_102623_) {
+	public void setupAnim(LivingEntityRenderState state) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.applyHeadRotation(p_102622_, p_102623_, p_102621_);
-		if(p_102618_.walkAnimation.isMoving()) {
-			this.animateWalk(ModAnimationDefinitions.MUSK_WALK, p_102619_, p_102620_, 2f, 2.5f);
+		this.applyHeadRotation((state.yRot - state.bodyRot), state.xRot, state.ageInTicks);
+		if((state.walkAnimationSpeed > 0.01F)) {
+			ModAnimationDefinitions.MUSK_WALK.bake(this.root()).applyWalk(state.walkAnimationPos, state.walkAnimationSpeed, 2f, 2.5f);
 		} else {
-			this.animate(p_102618_.idleAnimationState, ModAnimationDefinitions.MUSK_IDLE, p_102621_, 1f);
+			// TODO: idle animation state not available in render state
 		}
 	}
 
@@ -139,15 +142,5 @@ public class MuskCatModel<T extends MuskCat> extends HierarchicalModel<T> {
 
 		this.head.yRot = pNetHeadYaw * ((float)Math.PI / 180F);
 		this.head.xRot = pHeadPitch * ((float)Math.PI / 180F);
-	}
-
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-		ginatotter.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-	}
-
-	@Override
-	public ModelPart root() {
-		return ginatotter;
 	}
 }

@@ -6,7 +6,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
+
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -20,24 +20,24 @@ public class EnderManItem extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level p_41432_, Player p_41433_, InteractionHand p_41434_) {
+    public InteractionResult use(Level p_41432_, Player p_41433_, InteractionHand p_41434_) {
         ItemStack itemStack = p_41433_.getItemInHand(p_41434_);
         if(!p_41433_.isShiftKeyDown()) {
-            if (!p_41432_.isClientSide) {
+            if (!p_41432_.isClientSide()) {
                 HitResult lookingAt = p_41433_.pick(100, 0.0F, true);
                 p_41433_.teleportTo(lookingAt.getLocation().x, lookingAt.getLocation().y, lookingAt.getLocation().z);
-                p_41433_.playNotifySound(SoundEvents.ENDERMAN_TELEPORT, SoundSource.PLAYERS, 1.0F, 1.0F);
+                p_41433_.playSound(SoundEvents.ENDERMAN_TELEPORT, 1.0F, 1.0F);
             }
         }
-        p_41433_.getCooldowns().addCooldown(this,200);
-        return InteractionResultHolder.fail(itemStack);
+        p_41433_.getCooldowns().addCooldown(itemStack,200);
+        return InteractionResult.FAIL;
     }
 
     @Override
     public InteractionResult interactLivingEntity(ItemStack p_41398_, Player p_41399_, LivingEntity p_41400_, InteractionHand p_41401_) {
         ItemStack itemStack = p_41399_.getItemInHand(p_41401_);
         if(p_41399_.isShiftKeyDown()) {
-            if (!p_41399_.level().isClientSide) {
+            if (!p_41399_.level().isClientSide()) {
                 p_41400_.discard();
                 p_41400_.checkDespawn();
                 if(p_41399_.level() instanceof ServerLevel level){
@@ -49,7 +49,7 @@ public class EnderManItem extends Item {
                 }
             }
         }
-        p_41399_.getCooldowns().addCooldown(this,2000);
-        return InteractionResultHolder.fail(itemStack).getResult();
+        p_41399_.getCooldowns().addCooldown(p_41399_.getItemInHand(p_41401_),2000);
+        return InteractionResult.FAIL;
     }
 }

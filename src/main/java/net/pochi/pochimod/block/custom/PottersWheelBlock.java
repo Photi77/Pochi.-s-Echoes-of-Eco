@@ -21,8 +21,8 @@ public class PottersWheelBlock extends Block{
     }
 
     @Override
-    protected net.minecraft.world.ItemInteractionResult useItemOn(net.minecraft.world.item.ItemStack heldItem, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        if (level.isClientSide) return net.minecraft.world.ItemInteractionResult.sidedSuccess(level.isClientSide);
+    protected InteractionResult useItemOn(net.minecraft.world.item.ItemStack heldItem, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (level.isClientSide()) return InteractionResult.SUCCESS;
 
         BlockPos above = pos.above();
         BlockState aboveState = level.getBlockState(above);
@@ -36,9 +36,9 @@ public class PottersWheelBlock extends Block{
                 heldItem.shrink(1);
             }
 
-            return net.minecraft.world.ItemInteractionResult.sidedSuccess(level.isClientSide);
+            return InteractionResult.SUCCESS_SERVER;
         }
 
-        return net.minecraft.world.ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        return InteractionResult.TRY_WITH_EMPTY_HAND;
     }
 }

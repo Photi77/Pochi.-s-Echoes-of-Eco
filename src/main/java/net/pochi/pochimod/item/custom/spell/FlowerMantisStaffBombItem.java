@@ -7,7 +7,8 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
+
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -36,12 +37,12 @@ public class FlowerMantisStaffBombItem extends Item {
     public FlowerMantisStaffBombItem(Properties properties) {
         super(properties
                 .durability(600)
-                .setNoRepair()
+                .setNoCombineRepair()
         );
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
 
         // Shift+右クリック：花爆発
@@ -57,14 +58,14 @@ public class FlowerMantisStaffBombItem extends Item {
     /**
      * ブーメラン鎌発射（基本攻撃）
      */
-    private InteractionResultHolder<ItemStack> shootScythe(Level level, Player player, InteractionHand hand, ItemStack itemStack) {
+    private InteractionResult shootScythe(Level level, Player player, InteractionHand hand, ItemStack itemStack) {
         // クールダウン中は発射しない
-        if (player.getCooldowns().isOnCooldown(this)) {
-            return InteractionResultHolder.pass(itemStack);
+        if (player.getCooldowns().isOnCooldown(itemStack)) {
+            return InteractionResult.PASS;
         }
 
         // サーバー側でのみ処理
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             // ブーメラン鎌を発射
             ScytheProjectileEntity scythe = new ScytheProjectileEntity(level, player);
             scythe.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.2F, 1.0F);
@@ -74,7 +75,7 @@ public class FlowerMantisStaffBombItem extends Item {
             itemStack.hurtAndBreak(1, player, hand == InteractionHand.MAIN_HAND ? net.minecraft.world.entity.EquipmentSlot.MAINHAND : net.minecraft.world.entity.EquipmentSlot.OFFHAND);
 
             // クールダウン設定
-            player.getCooldowns().addCooldown(this, SCYTHE_ATTACK_COOLDOWN_TICKS);
+            player.getCooldowns().addCooldown(itemStack, SCYTHE_ATTACK_COOLDOWN_TICKS);
 
             // 統計
             player.awardStat(Stats.ITEM_USED.get(this));
@@ -85,33 +86,33 @@ public class FlowerMantisStaffBombItem extends Item {
                 SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.PLAYERS,
                 0.8F, 1.2F + level.random.nextFloat() * 0.4F);
 
-        return InteractionResultHolder.sidedSuccess(itemStack, level.isClientSide());
+        return InteractionResult.SUCCESS;
     }
 
     /**
      * 花爆発（特殊能力）
      */
-    private InteractionResultHolder<ItemStack> triggerFlowerBomb(Level level, Player player, InteractionHand hand, ItemStack itemStack) {
+    private InteractionResult triggerFlowerBomb(Level level, Player player, InteractionHand hand, ItemStack itemStack) {
         // 花爆発クールダウン中
         if (this.isFlowerBombOnCooldown(player)) {
-            if (level.isClientSide) {
+            if (level.isClientSide()) {
                 level.playSound(player, player.getX(), player.getY(), player.getZ(),
                         SoundEvents.DISPENSER_FAIL, SoundSource.PLAYERS, 0.5F, 1.0F);
             }
-            return InteractionResultHolder.pass(itemStack);
+            return InteractionResult.PASS;
         }
 
         // 耐久値チェック
         if (itemStack.getDamageValue() + FLOWER_BOMB_DURABILITY_COST > itemStack.getMaxDamage()) {
-            if (level.isClientSide) {
+            if (level.isClientSide()) {
                 level.playSound(player, player.getX(), player.getY(), player.getZ(),
                         SoundEvents.ITEM_BREAK, SoundSource.PLAYERS, 0.5F, 1.0F);
             }
-            return InteractionResultHolder.fail(itemStack);
+            return InteractionResult.FAIL;
         }
 
         // サーバー側でのみ処理
-        if (!level.isClientSide && level instanceof ServerLevel serverLevel) {
+        if (!level.isClientSide() && level instanceof ServerLevel serverLevel) {
             // 近くの花を検出
             List<BlockPos> flowers = this.detectNearbyFlowers(level, player.blockPosition());
 
@@ -125,7 +126,7 @@ public class FlowerMantisStaffBombItem extends Item {
                 level.playSound(null, player.getX(), player.getY(), player.getZ(),
                         SoundEvents.DISPENSER_FAIL, SoundSource.PLAYERS, 0.5F, 0.8F);
 
-                return InteractionResultHolder.fail(itemStack);
+                return InteractionResult.FAIL;
             }
 
             // 発動音
@@ -143,13 +144,13 @@ public class FlowerMantisStaffBombItem extends Item {
 
             // 統計
             player.awardStat(Stats.ITEM_USED.get(this));
-        } else if (level.isClientSide) {
+        } else if (level.isClientSide()) {
             // クライアント側の発動音
             level.playSound(player, player.getX(), player.getY(), player.getZ(),
                     SoundEvents.EVOKER_CAST_SPELL, SoundSource.PLAYERS, 1.0F, 1.3F);
         }
 
-        return InteractionResultHolder.sidedSuccess(itemStack, level.isClientSide());
+        return InteractionResult.SUCCESS;
     }
 
     /**
@@ -224,31 +225,17 @@ public class FlowerMantisStaffBombItem extends Item {
      * 連鎖爆発開始
      */
     private void startChainExplosion(ServerLevel level, Player player, List<BlockPos> flowers, ItemStack itemStack, InteractionHand hand) {
-        // 各花に時間差で爆発エンティティを生成
+        // 各花に爆発エンティティを生成
         for (int i = 0; i < flowers.size(); i++) {
             BlockPos flowerPos = flowers.get(i);
-            int delay = i * EXPLOSION_DELAY_TICKS;
-
-            // 遅延実行
-            level.getServer().tell(new net.minecraft.server.TickTask(
-                    level.getServer().getTickCount() + delay,
-                    () -> {
-                        // 花爆発エンティティを生成
-                        FlowerBombEntity bomb = new FlowerBombEntity(level, flowerPos, player);
-                        level.addFreshEntity(bomb);
-                    }
-            ));
+            // 花爆発エンティティを生成
+            FlowerBombEntity bomb = new FlowerBombEntity(level, flowerPos, player);
+            level.addFreshEntity(bomb);
         }
 
-        // 最後の爆発後に耐久値消費
-        int totalDelay = flowers.size() * EXPLOSION_DELAY_TICKS + 20; // 爆発完了後
+        // 耐久値消費
         net.minecraft.world.entity.EquipmentSlot slot = hand == InteractionHand.MAIN_HAND ? net.minecraft.world.entity.EquipmentSlot.MAINHAND : net.minecraft.world.entity.EquipmentSlot.OFFHAND;
-        level.getServer().tell(new net.minecraft.server.TickTask(
-                level.getServer().getTickCount() + totalDelay,
-                () -> {
-                    itemStack.hurtAndBreak(FLOWER_BOMB_DURABILITY_COST, player, slot);
-                }
-        ));
+        itemStack.hurtAndBreak(FLOWER_BOMB_DURABILITY_COST, player, slot);
     }
 
     /**
@@ -286,7 +273,7 @@ public class FlowerMantisStaffBombItem extends Item {
      */
     private boolean isFlowerBombOnCooldown(Player player) {
         return player.getPersistentData().contains(FLOWER_BOMB_COOLDOWN_TAG) &&
-                player.getPersistentData().getLong(FLOWER_BOMB_COOLDOWN_TAG) > player.level().getGameTime();
+                player.getPersistentData().getLongOr(FLOWER_BOMB_COOLDOWN_TAG, 0L) > player.level().getGameTime();
     }
 
     /**

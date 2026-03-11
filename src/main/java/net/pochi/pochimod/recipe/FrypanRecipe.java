@@ -2,12 +2,10 @@ package net.pochi.pochimod.recipe;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
@@ -15,21 +13,19 @@ import net.minecraft.world.level.Level;
 public class FrypanRecipe implements Recipe<SimpleContainerRecipeInput> {
     final ItemStack result;
     final NonNullList<Ingredient> ingredients;
-    private final boolean isSimple;
 
     public FrypanRecipe(ItemStack pResult, NonNullList<Ingredient> pIngredients) {
         this.result = pResult;
         this.ingredients = pIngredients;
-        this.isSimple = pIngredients.stream().allMatch(Ingredient::isSimple);
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<FrypanRecipe> getSerializer() {
         return FrypanRecipe.Serializer.INSTANCE;
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public RecipeType<FrypanRecipe> getType() {
         return FrypanRecipe.Type.INSTANCE;
     }
 
@@ -39,29 +35,21 @@ public class FrypanRecipe implements Recipe<SimpleContainerRecipeInput> {
         public static final String ID = "frypan";
     }
 
-    @Override
     public NonNullList<Ingredient> getIngredients() {
         return this.ingredients;
     }
 
     @Override
     public boolean matches(SimpleContainerRecipeInput input, Level pLevel) {
-        StackedContents stackedcontents = new StackedContents();
         java.util.List<ItemStack> inputs = new java.util.ArrayList<>();
-        int i = 0;
-
         for (int j = 0; j < input.size(); ++j) {
             ItemStack itemstack = input.getItem(j);
             if (!itemstack.isEmpty()) {
-                ++i;
-                if (isSimple)
-                    stackedcontents.accountStack(itemstack, 1);
-                else inputs.add(itemstack);
+                inputs.add(itemstack);
             }
         }
-
-        return i == this.ingredients.size() && (isSimple ? stackedcontents.canCraft(this, (IntList) null)
-                : net.neoforged.neoforge.common.util.RecipeMatcher.findMatches(inputs, this.ingredients) != null);
+        return inputs.size() == this.ingredients.size() &&
+               net.neoforged.neoforge.common.util.RecipeMatcher.findMatches(inputs, this.ingredients) != null;
     }
 
     @Override
@@ -69,25 +57,35 @@ public class FrypanRecipe implements Recipe<SimpleContainerRecipeInput> {
         return this.result.copy();
     }
 
-    @Override
     public boolean canCraftInDimensions(int pWidth, int pHeight) {
         return pWidth * pHeight >= this.ingredients.size();
     }
 
-    @Override
     public ItemStack getResultItem(HolderLookup.Provider registries) {
         return this.result;
     }
+
+    @Override
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.NOT_PLACEABLE;
+    }
+
+    @Override
+    public RecipeBookCategory recipeBookCategory() {
+        return FrypanRecipe.CATEGORY;
+    }
+
+    private static final RecipeBookCategory CATEGORY = new RecipeBookCategory();
 
     public static class Serializer implements RecipeSerializer<FrypanRecipe> {
         public static final FrypanRecipe.Serializer INSTANCE = new FrypanRecipe.Serializer();
 
         public static final MapCodec<FrypanRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
                 ItemStack.STRICT_CODEC.fieldOf("output").forGetter(r -> r.result),
-                Ingredient.CODEC_NONEMPTY.listOf().xmap(
+                Ingredient.CODEC.listOf().xmap(
                         list -> {
-                            NonNullList<Ingredient> nl = NonNullList.withSize(list.size(), Ingredient.EMPTY);
-                            for (int i = 0; i < list.size(); i++) nl.set(i, list.get(i));
+                            NonNullList<Ingredient> nl = NonNullList.create();
+                            nl.addAll(list);
                             return nl;
                         },
                         nl -> nl
@@ -105,9 +103,9 @@ public class FrypanRecipe implements Recipe<SimpleContainerRecipeInput> {
                         },
                         buf -> {
                             int size = buf.readVarInt();
-                            NonNullList<Ingredient> inputs = NonNullList.withSize(size, Ingredient.EMPTY);
+                            NonNullList<Ingredient> inputs = NonNullList.create();
                             for (int i = 0; i < size; i++) {
-                                inputs.set(i, Ingredient.CONTENTS_STREAM_CODEC.decode(buf));
+                                inputs.add(Ingredient.CONTENTS_STREAM_CODEC.decode(buf));
                             }
                             ItemStack result = ItemStack.STREAM_CODEC.decode(buf);
                             return new FrypanRecipe(result, inputs);

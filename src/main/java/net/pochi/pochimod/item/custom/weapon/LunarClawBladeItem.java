@@ -8,7 +8,8 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
+
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -18,8 +19,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.SwordItem;
-import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
@@ -28,7 +27,7 @@ import net.pochi.pochimod.util.MoonPhaseUtil;
 
 import java.util.List;
 
-public class LunarClawBladeItem extends SwordItem {
+public class LunarClawBladeItem extends Item {
     private static final String BEAR_CRUSH_COOLDOWN_TAG = "lunar_claw_bear_crush_cd";
     private static final String SHADOW_CLAW_COOLDOWN_TAG = "lunar_claw_shadow_claw_cd";
 
@@ -53,19 +52,19 @@ public class LunarClawBladeItem extends SwordItem {
     private static final double SHADOW_CLAW_RANGE = 4.0;
     private static int times = 0;
 
-    public LunarClawBladeItem(Tier tier, Properties properties) {
-        super(tier, properties);
+    public LunarClawBladeItem(Properties properties) {
+        super(properties);
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
 
         int moonPhase = MoonPhaseUtil.getMoonPhase(level);
         int mode = MoonPhaseUtil.getMode(moonPhase);
 
         if (mode == 2) {
-            if (level.isClientSide) {
+            if (level.isClientSide()) {
                 player.displayClientMessage(
                         Component.literal("移行期は特殊攻撃を使用できません")
                                 .withStyle(ChatFormatting.RED),
@@ -74,40 +73,40 @@ public class LunarClawBladeItem extends SwordItem {
                 level.playSound(player, player.getX(), player.getY(), player.getZ(),
                         SoundEvents.DISPENSER_FAIL, SoundSource.PLAYERS, 0.5F, 1.0F);
             }
-            return InteractionResultHolder.pass(itemStack);
+            return InteractionResult.PASS;
         }
 
         if (mode == 0) {
             return this.useBearCrush(level, player, hand, itemStack);
         } else if (mode == 1) {
             times = 15;
-            return InteractionResultHolder.sidedSuccess(itemStack, level.isClientSide());
+            return InteractionResult.SUCCESS;
         }
 
-        return InteractionResultHolder.pass(itemStack);
+        return InteractionResult.PASS;
     }
 
     /**
      * ベアークラッシュ（満月期の特殊攻撃）
      */
-    private InteractionResultHolder<ItemStack> useBearCrush(Level level, Player player, InteractionHand hand, ItemStack itemStack) {
+    private InteractionResult useBearCrush(Level level, Player player, InteractionHand hand, ItemStack itemStack) {
         if (this.isOnCooldown(player, BEAR_CRUSH_COOLDOWN_TAG)) {
-            if (level.isClientSide) {
+            if (level.isClientSide()) {
                 level.playSound(player, player.getX(), player.getY(), player.getZ(),
                         SoundEvents.DISPENSER_FAIL, SoundSource.PLAYERS, 0.5F, 1.0F);
             }
-            return InteractionResultHolder.pass(itemStack);
+            return InteractionResult.PASS;
         }
 
         if (itemStack.getDamageValue() + BEAR_CRUSH_DURABILITY > itemStack.getMaxDamage()) {
-            if (level.isClientSide) {
+            if (level.isClientSide()) {
                 level.playSound(player, player.getX(), player.getY(), player.getZ(),
                         SoundEvents.ITEM_BREAK, SoundSource.PLAYERS, 0.5F, 1.0F);
             }
-            return InteractionResultHolder.fail(itemStack);
+            return InteractionResult.FAIL;
         }
 
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             boolean success = this.performBearCrush(level, player);
 
             if (success) {
@@ -118,30 +117,30 @@ public class LunarClawBladeItem extends SwordItem {
             }
         }
 
-        return InteractionResultHolder.sidedSuccess(itemStack, level.isClientSide());
+        return InteractionResult.SUCCESS;
     }
 
     /**
      * シャドウクロウ（新月期の特殊攻撃）
      */
-    private InteractionResultHolder<ItemStack> useShadowClaw(Level level, Player player, InteractionHand hand, ItemStack itemStack) {
+    private InteractionResult useShadowClaw(Level level, Player player, InteractionHand hand, ItemStack itemStack) {
         if (this.isOnCooldown(player, SHADOW_CLAW_COOLDOWN_TAG)) {
-            if (level.isClientSide) {
+            if (level.isClientSide()) {
                 level.playSound(player, player.getX(), player.getY(), player.getZ(),
                         SoundEvents.DISPENSER_FAIL, SoundSource.PLAYERS, 0.5F, 1.0F);
             }
-            return InteractionResultHolder.pass(itemStack);
+            return InteractionResult.PASS;
         }
 
         if (itemStack.getDamageValue() + SHADOW_CLAW_DURABILITY > itemStack.getMaxDamage()) {
-            if (level.isClientSide) {
+            if (level.isClientSide()) {
                 level.playSound(player, player.getX(), player.getY(), player.getZ(),
                         SoundEvents.ITEM_BREAK, SoundSource.PLAYERS, 0.5F, 1.0F);
             }
-            return InteractionResultHolder.fail(itemStack);
+            return InteractionResult.FAIL;
         }
 
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             boolean success = this.performShadowClaw(level, player);
 
             if (success) {
@@ -152,7 +151,7 @@ public class LunarClawBladeItem extends SwordItem {
             }
         }
 
-        return InteractionResultHolder.sidedSuccess(itemStack, level.isClientSide());
+        return InteractionResult.SUCCESS;
     }
 
     /**
@@ -193,8 +192,8 @@ public class LunarClawBladeItem extends SwordItem {
     }
 
     @Override
-    public void inventoryTick(ItemStack p_41404_, Level p_41405_, Entity p_41406_, int p_41407_, boolean p_41408_) {
-        super.inventoryTick(p_41404_, p_41405_, p_41406_, p_41407_, p_41408_);
+    public void inventoryTick(ItemStack p_41404_, net.minecraft.server.level.ServerLevel p_41405_, Entity p_41406_, net.minecraft.world.entity.EquipmentSlot p_41407_) {
+        super.inventoryTick(p_41404_, p_41405_, p_41406_, p_41407_);
         if(!p_41405_.isClientSide()) {
             if (times == 10) {
                 this.performShadowClaw(p_41405_, (Player) p_41406_);
@@ -235,24 +234,18 @@ public class LunarClawBladeItem extends SwordItem {
 
         }
 
-        // 攻撃後に透明化（3回目の攻撃の0.25秒後 = 45tick後）
-        serverLevel.getServer().tell(new net.minecraft.server.TickTask(
-                serverLevel.getServer().getTickCount() + 45,
-                () -> {
-                    if (player.isAlive()) {
-                        player.addEffect(new MobEffectInstance(
-                                MobEffects.INVISIBILITY,
-                                INVISIBILITY_DURATION,
-                                0,
-                                false,
-                                false,
-                                true
-                        ));
-
-                        this.spawnInvisibilityEffect(serverLevel, player);
-                    }
-                }
-        ));
+        // 攻撃後に透明化
+        if (player.isAlive()) {
+            player.addEffect(new MobEffectInstance(
+                    MobEffects.INVISIBILITY,
+                    INVISIBILITY_DURATION,
+                    0,
+                    false,
+                    false,
+                    true
+            ));
+            this.spawnInvisibilityEffect(serverLevel, player);
+        }
 
         return true;
     }
@@ -420,7 +413,7 @@ public class LunarClawBladeItem extends SwordItem {
 
     private boolean isOnCooldown(Player player, String tag) {
         return player.getPersistentData().contains(tag) &&
-                player.getPersistentData().getLong(tag) > player.level().getGameTime();
+                player.getPersistentData().getLongOr(tag, 0L) > player.level().getGameTime();
     }
 
     private void setCooldown(Player player, String tag, int ticks) {
@@ -433,13 +426,13 @@ public class LunarClawBladeItem extends SwordItem {
             return 0;
         }
 
-        long remaining = player.getPersistentData().getLong(tag) - player.level().getGameTime();
+        long remaining = player.getPersistentData().getLongOr(tag, 0L) - player.level().getGameTime();
         return (int)(remaining / 20);
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        super.appendHoverText(stack, context, tooltip, flag);
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, net.minecraft.world.item.component.TooltipDisplay display, java.util.function.Consumer<Component> tooltip, TooltipFlag flag) {
+        super.appendHoverText(stack, context, display, tooltip, flag);
 
         Level level = context.level();
         if (level == null) {
@@ -452,47 +445,47 @@ public class LunarClawBladeItem extends SwordItem {
         String modeName = MoonPhaseUtil.getModeName(mode);
         boolean isNight = MoonPhaseUtil.isNightTime(level);
 
-        tooltip.add(Component.literal(""));
-        tooltip.add(Component.literal("現在の月齢: " + phaseName)
+        tooltip.accept(Component.literal(""));
+        tooltip.accept(Component.literal("現在の月齢: " + phaseName)
                 .withStyle(ChatFormatting.AQUA));
-        tooltip.add(Component.literal("モード: " + modeName)
+        tooltip.accept(Component.literal("モード: " + modeName)
                 .withStyle(mode == 0 ? ChatFormatting.RED :
                         mode == 1 ? ChatFormatting.DARK_PURPLE : ChatFormatting.GRAY));
 
         if (mode == 0) {
-            tooltip.add(Component.literal(""));
-            tooltip.add(Component.literal("【パワーモード】").withStyle(ChatFormatting.RED, ChatFormatting.BOLD));
-            tooltip.add(Component.literal("攻撃力: 9.0").withStyle(ChatFormatting.YELLOW));
+            tooltip.accept(Component.literal(""));
+            tooltip.accept(Component.literal("【パワーモード】").withStyle(ChatFormatting.RED, ChatFormatting.BOLD));
+            tooltip.accept(Component.literal("攻撃力: 9.0").withStyle(ChatFormatting.YELLOW));
             if (isNight) {
                 float nightBonus = moonPhase == 0 ? 3.0F : 2.0F;
-                tooltip.add(Component.literal("夜間攻撃力: " + (9.0F + nightBonus))
+                tooltip.accept(Component.literal("夜間攻撃力: " + (9.0F + nightBonus))
                         .withStyle(ChatFormatting.GOLD));
             }
-            tooltip.add(Component.literal("パッシブ: ノックバック耐性+30%").withStyle(ChatFormatting.GREEN));
-            tooltip.add(Component.literal(""));
-            tooltip.add(Component.literal("特殊攻撃: ベアークラッシュ").withStyle(ChatFormatting.GREEN));
-            tooltip.add(Component.literal("  範囲攻撃 12.0ダメージ").withStyle(ChatFormatting.GRAY));
-            tooltip.add(Component.literal("  クールダウン: 15秒").withStyle(ChatFormatting.GRAY));
+            tooltip.accept(Component.literal("パッシブ: ノックバック耐性+30%").withStyle(ChatFormatting.GREEN));
+            tooltip.accept(Component.literal(""));
+            tooltip.accept(Component.literal("特殊攻撃: ベアークラッシュ").withStyle(ChatFormatting.GREEN));
+            tooltip.accept(Component.literal("  範囲攻撃 12.0ダメージ").withStyle(ChatFormatting.GRAY));
+            tooltip.accept(Component.literal("  クールダウン: 15秒").withStyle(ChatFormatting.GRAY));
         } else if (mode == 1) {
-            tooltip.add(Component.literal(""));
-            tooltip.add(Component.literal("【スピードモード】").withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.BOLD));
-            tooltip.add(Component.literal("攻撃力: 6.0 (攻撃速度+25%)").withStyle(ChatFormatting.YELLOW));
+            tooltip.accept(Component.literal(""));
+            tooltip.accept(Component.literal("【スピードモード】").withStyle(ChatFormatting.DARK_PURPLE, ChatFormatting.BOLD));
+            tooltip.accept(Component.literal("攻撃力: 6.0 (攻撃速度+25%)").withStyle(ChatFormatting.YELLOW));
             if (isNight) {
-                tooltip.add(Component.literal("夜間: 移動速度+20%").withStyle(ChatFormatting.GOLD));
+                tooltip.accept(Component.literal("夜間: 移動速度+20%").withStyle(ChatFormatting.GOLD));
                 if (moonPhase == 4) {
-                    tooltip.add(Component.literal("新月の夜: 完全透明化").withStyle(ChatFormatting.GOLD));
+                    tooltip.accept(Component.literal("新月の夜: 完全透明化").withStyle(ChatFormatting.GOLD));
                 }
             }
-            tooltip.add(Component.literal("パッシブ: 敵検知範囲-30%").withStyle(ChatFormatting.GREEN));
-            tooltip.add(Component.literal(""));
-            tooltip.add(Component.literal("特殊攻撃: シャドウクロウ").withStyle(ChatFormatting.GREEN));
-            tooltip.add(Component.literal("  3連撃 3.0×3 + 透明化2秒").withStyle(ChatFormatting.GRAY));
-            tooltip.add(Component.literal("  クールダウン: 12秒").withStyle(ChatFormatting.GRAY));
+            tooltip.accept(Component.literal("パッシブ: 敵検知範囲-30%").withStyle(ChatFormatting.GREEN));
+            tooltip.accept(Component.literal(""));
+            tooltip.accept(Component.literal("特殊攻撃: シャドウクロウ").withStyle(ChatFormatting.GREEN));
+            tooltip.accept(Component.literal("  3連撃 3.0×3 + 透明化2秒").withStyle(ChatFormatting.GRAY));
+            tooltip.accept(Component.literal("  クールダウン: 12秒").withStyle(ChatFormatting.GRAY));
         } else {
-            tooltip.add(Component.literal(""));
-            tooltip.add(Component.literal("【移行期】").withStyle(ChatFormatting.GRAY));
-            tooltip.add(Component.literal("攻撃力: 7.5").withStyle(ChatFormatting.YELLOW));
-            tooltip.add(Component.literal("特殊攻撃: 使用不可").withStyle(ChatFormatting.RED));
+            tooltip.accept(Component.literal(""));
+            tooltip.accept(Component.literal("【移行期】").withStyle(ChatFormatting.GRAY));
+            tooltip.accept(Component.literal("攻撃力: 7.5").withStyle(ChatFormatting.YELLOW));
+            tooltip.accept(Component.literal("特殊攻撃: 使用不可").withStyle(ChatFormatting.RED));
         }
     }
 

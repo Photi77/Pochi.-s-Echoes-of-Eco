@@ -7,7 +7,7 @@ import net.minecraft.core.cauldron.CauldronInteraction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -76,7 +76,7 @@ public class ModCauldronBlock extends AbstractCauldronBlock {
     public void entityInside(BlockState p_153506_, Level p_153507_, BlockPos p_153508_, Entity p_153509_) {
 
 
-        if (this.isEntityInsideContent(p_153506_, p_153508_, p_153509_)) {
+        if (p_153509_.getY() < (double)p_153508_.getY() + this.getContentHeight(p_153506_) && p_153509_.getX() > (double)p_153508_.getX() && p_153509_.getX() < (double)p_153508_.getX() + 1.0D && p_153509_.getZ() > (double)p_153508_.getZ() && p_153509_.getZ() < (double)p_153508_.getZ() + 1.0D) {
             if(p_153506_.is(ModBlocks.GRAPE_CAULDRON.get())){
                 p_153507_.setBlockAndUpdate(p_153508_, ModBlocks.GRAPE_JUICE_CAULDRON.get()
                         .defaultBlockState().setValue(LEVEL_CAULDRON, Integer.valueOf(p_153506_.getValue(LEVEL_CAULDRON))));
@@ -191,7 +191,7 @@ public class ModCauldronBlock extends AbstractCauldronBlock {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack itemstack, BlockState p_151969_, Level p_151970_, BlockPos p_151971_, Player p_151972_, InteractionHand p_151973_, BlockHitResult p_151974_) {
+    protected InteractionResult useItemOn(ItemStack itemstack, BlockState p_151969_, Level p_151970_, BlockPos p_151971_, Player p_151972_, InteractionHand p_151973_, BlockHitResult p_151974_) {
         CauldronInteraction cauldroninteraction = this.interactions.map().get(itemstack.getItem());
         if(p_151969_.is(ModBlocks.CLEAN_WATER_CAULDRON.get())){
             if(itemstack.is(Items.WHEAT)){

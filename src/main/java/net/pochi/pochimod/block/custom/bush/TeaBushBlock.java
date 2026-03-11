@@ -32,10 +32,6 @@ import net.pochi.pochimod.item.ModItems;
 public class TeaBushBlock extends BushBlock implements BonemealableBlock {
     public static final MapCodec<TeaBushBlock> CODEC = simpleCodec(TeaBushBlock::new);
 
-    @Override
-    public MapCodec<TeaBushBlock> codec() { return CODEC; }
-
-
     public static final int MAX_AGE = 1;
     public static final IntegerProperty AGE = BlockStateProperties.AGE_1;
     private static final VoxelShape SHAPE = Shapes.or(Block.box(0.0D, 8.0D, 0.0D, 16.0D, 16.0D, 16.0D), Block.box(6.0D, 0.0D, 6.0D, 10.0D, 8.0D, 10.0D));
@@ -84,7 +80,7 @@ public class TeaBushBlock extends BushBlock implements BonemealableBlock {
             BlockState blockstate = pState.setValue(AGE, Integer.valueOf(0));
             pLevel.setBlock(pPos, blockstate, 2);
             pLevel.gameEvent(GameEvent.BLOCK_CHANGE, pPos, GameEvent.Context.of(pPlayer, blockstate));
-            return InteractionResult.sidedSuccess(pLevel.isClientSide);
+            return InteractionResult.SUCCESS;
         } else {
             return super.useWithoutItem(pState, pLevel, pPos, pPlayer, pHit);
         }

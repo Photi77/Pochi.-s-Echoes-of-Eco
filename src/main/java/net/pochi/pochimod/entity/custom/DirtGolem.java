@@ -18,7 +18,7 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.entity.animal.golem.IronGolem;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
@@ -30,7 +30,6 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
-import java.util.UUID;
 
 public class DirtGolem extends TamableAnimal implements NeutralMob {
     protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(IronGolem.class, EntityDataSerializers.BYTE);
@@ -38,9 +37,9 @@ public class DirtGolem extends TamableAnimal implements NeutralMob {
     private int attackAnimationTick;
     private int offerFlowerTick;
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
-    private int remainingPersistentAngerTime;
+    private long persistentAngerEndTime;
     @Nullable
-    private UUID persistentAngerTarget;
+    private net.minecraft.world.entity.EntityReference<LivingEntity> persistentAngerTarget;
 
     private int limitedLifeTicks = 1000;
 
@@ -58,8 +57,8 @@ public class DirtGolem extends TamableAnimal implements NeutralMob {
         this.goalSelector.addGoal(4, new LeapAtTargetGoal(this, 0.4F));
         this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F));
         this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Mob.class, 5, false, false, (p_28879_) -> {
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Player.class, true, this::isAngryAt));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Mob.class, false, (p_28879_, level) -> {
             return p_28879_ instanceof Enemy;
         }));
         this.targetSelector.addGoal(4, new ResetUniversalAngerTargetGoal<>(this, false));
@@ -110,7 +109,7 @@ public class DirtGolem extends TamableAnimal implements NeutralMob {
             --this.offerFlowerTick;
         }
 
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             this.updatePersistentAnger((ServerLevel)this.level(), true);
         }
 
@@ -121,23 +120,23 @@ public class DirtGolem extends TamableAnimal implements NeutralMob {
     }
 
     public void startPersistentAngerTimer() {
-        this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
+        this.setPersistentAngerEndTime(this.tickCount + PERSISTENT_ANGER_TIME.sample(this.random));
     }
 
-    public void setRemainingPersistentAngerTime(int p_28859_) {
-        this.remainingPersistentAngerTime = p_28859_;
+    public void setPersistentAngerEndTime(long p_28859_) {
+        this.persistentAngerEndTime = p_28859_;
     }
 
-    public int getRemainingPersistentAngerTime() {
-        return this.remainingPersistentAngerTime;
+    public long getPersistentAngerEndTime() {
+        return this.persistentAngerEndTime;
     }
 
-    public void setPersistentAngerTarget(@Nullable UUID p_28855_) {
+    public void setPersistentAngerTarget(@Nullable net.minecraft.world.entity.EntityReference<LivingEntity> p_28855_) {
         this.persistentAngerTarget = p_28855_;
     }
 
     @Nullable
-    public UUID getPersistentAngerTarget() {
+    public net.minecraft.world.entity.EntityReference<LivingEntity> getPersistentAngerTarget() {
         return this.persistentAngerTarget;
     }
 
@@ -145,12 +144,12 @@ public class DirtGolem extends TamableAnimal implements NeutralMob {
         return (float)this.getAttributeValue(Attributes.ATTACK_DAMAGE);
     }
 
-    public boolean doHurtTarget(Entity p_28837_) {
+    public boolean doHurtTarget(net.minecraft.server.level.ServerLevel pLevel, net.minecraft.world.entity.Entity p_28837_) {
         this.attackAnimationTick = 10;
         this.level().broadcastEntityEvent(this, (byte)4);
         float f = this.getAttackDamage();
         float f1 = (int)f > 0 ? f / 2.0F + (float)this.random.nextInt((int)f) : f;
-        boolean flag = p_28837_.hurt(this.damageSources().mobAttack(this), f1);
+        boolean flag = false; p_28837_.hurt(this.damageSources().mobAttack(this), f1);
         if (flag) {
             double d2;
             if (p_28837_ instanceof LivingEntity) {
@@ -169,8 +168,8 @@ public class DirtGolem extends TamableAnimal implements NeutralMob {
         return flag;
     }
 
-    public boolean hurt(DamageSource p_28848_, float p_28849_) {
-        boolean flag = super.hurt(p_28848_, p_28849_);
+    public boolean hurtServer(net.minecraft.server.level.ServerLevel pLevel, DamageSource p_28848_, float p_28849_) {
+        boolean flag = super.hurtServer(pLevel, p_28848_, p_28849_);
         if (flag) {
             this.playSound(SoundEvents.IRON_GOLEM_DAMAGE, 1.0F, 1.0F);
         }

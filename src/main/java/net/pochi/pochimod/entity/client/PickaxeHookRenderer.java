@@ -5,11 +5,13 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.state.EntityRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.player.Player;
@@ -18,13 +20,18 @@ import net.minecraft.world.phys.Vec3;
 import net.pochi.pochimod.entity.projectile.PickaxeHook;
 import org.joml.Matrix4f;
 
-public class PickaxeHookRenderer extends EntityRenderer<PickaxeHook> {
-    private static final ResourceLocation TEXTURE_LOCATION = ResourceLocation.withDefaultNamespace("textures/entity/fishing_hook.png");
-    private static final RenderType RENDER_TYPE = RenderType.entityCutout(TEXTURE_LOCATION);
+public class PickaxeHookRenderer extends EntityRenderer<PickaxeHook, EntityRenderState> {
+    private static final Identifier TEXTURE_LOCATION = Identifier.withDefaultNamespace("textures/entity/fishing_hook.png");
+    private static final RenderType RENDER_TYPE = RenderTypes.entityCutout(TEXTURE_LOCATION);
     private static final double VIEW_BOBBING_SCALE = 960.0D;
 
     public PickaxeHookRenderer(EntityRendererProvider.Context p_174117_) {
         super(p_174117_);
+    }
+
+    @Override
+    public EntityRenderState createRenderState() {
+        return new EntityRenderState();
     }
 
     public void render(PickaxeHook p_114705_, float p_114706_, float p_114707_, PoseStack p_114708_, MultiBufferSource p_114709_, int p_114710_) {
@@ -33,7 +40,7 @@ public class PickaxeHookRenderer extends EntityRenderer<PickaxeHook> {
             p_114708_.pushPose();
             p_114708_.pushPose();
             p_114708_.scale(0.5F, 0.5F, 0.5F);
-            p_114708_.mulPose(this.entityRenderDispatcher.cameraOrientation());
+            p_114708_.mulPose(this.entityRenderDispatcher.camera.rotation());
             p_114708_.mulPose(Axis.YP.rotationDegrees(180.0F));
             PoseStack.Pose posestack$pose = p_114708_.last();
             Matrix4f matrix4f = posestack$pose.pose();
@@ -83,7 +90,7 @@ public class PickaxeHookRenderer extends EntityRenderer<PickaxeHook> {
             float f4 = (float) (d4 - d9);
             float f5 = (float) (d5 - d10) + f3;
             float f6 = (float) (d6 - d8);
-            VertexConsumer vertexconsumer1 = p_114709_.getBuffer(RenderType.lineStrip());
+            VertexConsumer vertexconsumer1 = p_114709_.getBuffer(RenderTypes.lines());
             PoseStack.Pose posestack$pose1 = p_114708_.last();
             int j = 16;
 
@@ -92,7 +99,6 @@ public class PickaxeHookRenderer extends EntityRenderer<PickaxeHook> {
             }
 
             p_114708_.popPose();
-            super.render(p_114705_, p_114706_, p_114707_, p_114708_, p_114709_, p_114710_);
         }
     }
 
@@ -118,7 +124,7 @@ public class PickaxeHookRenderer extends EntityRenderer<PickaxeHook> {
         p_174122_.addVertex(p_174123_.pose(), f, f1, f2).setColor(0, 0, 0, 255).setNormal(p_174123_, f3, f4, f5);
     }
 
-    public ResourceLocation getTextureLocation(PickaxeHook p_114703_) {
+    public Identifier getTextureLocation(PickaxeHook p_114703_) {
         return TEXTURE_LOCATION;
     }
 }

@@ -6,8 +6,8 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.animal.AbstractSchoolingFish;
-import net.minecraft.world.entity.animal.WaterAnimal;
+import net.minecraft.world.entity.animal.fish.AbstractSchoolingFish;
+import net.minecraft.world.entity.animal.fish.WaterAnimal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -15,7 +15,10 @@ import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.object.LoopType;
+import software.bernie.geckolib.animation.object.PlayState;
+import software.bernie.geckolib.animation.state.AnimationTest;
+import software.bernie.geckolib.animatable.manager.AnimatableManager;
 
 public class Sakaban extends AbstractSchoolingFish implements GeoEntity {
 
@@ -55,16 +58,16 @@ public class Sakaban extends AbstractSchoolingFish implements GeoEntity {
         return SoundEvents.SALMON_FLOP;
     }
 
-    private PlayState predicate(AnimationState animationState) {
+    private PlayState predicate(AnimationTest animationState) {
         if (animationState.isMoving()) {
-            animationState.getController().setAnimation(RawAnimation.begin().then("animation.sakaban.idle", Animation.LoopType.LOOP));
+            animationState.controller().setAnimation(RawAnimation.begin().then("animation.sakaban.idle", LoopType.LOOP));
         }
         return PlayState.CONTINUE;
     }
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
-        controllerRegistrar.add(new AnimationController(this, "controller",
+        controllerRegistrar.add(new AnimationController("controller",
                 0, this::predicate));
     }
 

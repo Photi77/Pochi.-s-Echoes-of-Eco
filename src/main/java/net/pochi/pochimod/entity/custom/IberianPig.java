@@ -74,7 +74,7 @@ public class IberianPig extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-        return ModEntityTypes.IBERIAN_PIG.get().create(p_146743_);
+        return ModEntityTypes.IBERIAN_PIG.get().create(p_146743_, net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
     }
 
     private void setupAnimationStates() {
@@ -94,7 +94,7 @@ public class IberianPig extends Animal {
             f = 0.0F;
         }
 
-        this.walkAnimation.update(f, 0.2F);
+        this.walkAnimation.update(f, 0.2F, this.tickCount);
     }
 
     @Override
@@ -149,7 +149,7 @@ public class IberianPig extends Animal {
         }
 
         protected void onReachedTarget() {
-            if (net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(new net.neoforged.neoforge.event.entity.EntityMobGriefingEvent(IberianPig.this.level(), IberianPig.this)).canGrief()) {
+            if (net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(new net.neoforged.neoforge.event.entity.EntityMobGriefingEvent((net.minecraft.server.level.ServerLevel)IberianPig.this.level(), IberianPig.this)).canGrief()) {
                 BlockState blockstate = IberianPig.this.level().getBlockState(this.blockPos);
                 if (blockstate.is(Blocks.MYCELIUM)) {
                     this.stripped(blockstate, blockPos);

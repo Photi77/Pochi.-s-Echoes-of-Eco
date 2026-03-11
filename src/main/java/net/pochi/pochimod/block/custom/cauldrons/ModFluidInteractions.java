@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.redstone.Orientation;
 import net.neoforged.neoforge.fluids.FluidInteractionRegistry;
 
 public class ModFluidInteractions extends LiquidBlock {
@@ -16,7 +17,7 @@ public class ModFluidInteractions extends LiquidBlock {
     }
 
     @Override
-    public void neighborChanged(BlockState p_54709_, Level p_54710_, BlockPos p_54711_, Block p_54712_, BlockPos p_54713_, boolean p_54714_) {
+    public void neighborChanged(BlockState p_54709_, Level p_54710_, BlockPos p_54711_, Block p_54712_, Orientation p_54713_, boolean p_54714_) {
         FluidInteractionRegistry.addInteraction(Fluids.LAVA.getFluidType(),new FluidInteractionRegistry.InteractionInformation(
                 Fluids.WATER.getFluidType(),
                 fluidState -> fluidState.isSource() ? Blocks.PUMPKIN.defaultBlockState() : Blocks.PUMPKIN.defaultBlockState()

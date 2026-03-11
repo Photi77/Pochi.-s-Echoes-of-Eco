@@ -10,7 +10,7 @@ import net.minecraft.world.level.Level;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animatable.manager.AnimatableManager;
 
 public class OreSlime extends PathfinderMob implements GeoEntity {
     int kill = 0;
@@ -24,7 +24,7 @@ public class OreSlime extends PathfinderMob implements GeoEntity {
     }
 
     @Override
-    public boolean isInvulnerableTo(DamageSource source) {
+    public boolean isInvulnerableTo(net.minecraft.server.level.ServerLevel level, DamageSource source) {
         // すべての攻撃を無効化
         if(source.is(DamageTypes.GENERIC_KILL)){
             return false;
@@ -36,9 +36,9 @@ public class OreSlime extends PathfinderMob implements GeoEntity {
     public void tick() {
         kill++;
         if(kill >= 300){
-            this.kill();
+            this.kill((net.minecraft.server.level.ServerLevel) this.level());
         }
-        this.moveTo(this.getX(),this.getY(),this.getZ());
+        this.setPos(this.getX(),this.getY(),this.getZ());
         this.addEffect(new MobEffectInstance(MobEffects.GLOWING,600,2,true,false));
         this.addEffect(new MobEffectInstance(MobEffects.INVISIBILITY,600,2,true,false));
         super.tick();

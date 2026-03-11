@@ -9,7 +9,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
+
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -42,46 +43,46 @@ public class Tonbokiri extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level p_41432_, Player p_41433_, InteractionHand p_41434_) {
+    public InteractionResult use(Level p_41432_, Player p_41433_, InteractionHand p_41434_) {
         ItemStack itemStack = p_41433_.getItemInHand(p_41434_);
-        if(!p_41432_.isClientSide) {
+        if(!p_41432_.isClientSide()) {
             if (!p_41433_.isShiftKeyDown()) {
                 radius = 0;
                 time = 0;
                 fall = 80;
-                p_41433_.playNotifySound(SoundEvents.AMBIENT_UNDERWATER_ENTER, SoundSource.PLAYERS, 1, 1);
+                p_41433_.playSound(SoundEvents.AMBIENT_UNDERWATER_ENTER, 1, 1);
                 p_41433_.hurtMarked = true;
                 p_41433_.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 10, 0, true, false));
                 p_41433_.setDeltaMovement(p_41433_.getLookAngle().x * 5, p_41433_.getLookAngle().y * 5, p_41433_.getLookAngle().z * 5);
                 p_41432_.getServer().getCommands().performPrefixedCommand(new CommandSourceStack(CommandSource.NULL,
-                        p_41433_.getLookAngle(), Vec2.ZERO, (ServerLevel) p_41432_, 4, "", Component.literal(""), p_41432_.getServer(), null).withSuppressedOutput(), "/gamerule fallDamage false");
+                        p_41433_.getLookAngle(), Vec2.ZERO, (ServerLevel) p_41432_, net.minecraft.server.permissions.PermissionSet.ALL_PERMISSIONS, "", Component.literal(""), p_41432_.getServer(), null).withSuppressedOutput(), "/gamerule fallDamage false");
             } else {
                 tataki = true;
                 jump = 0;
                 fall = 80;
                 p_41433_.addEffect(new MobEffectInstance(MobEffects.LEVITATION, 10, 50, true, false));
                 p_41432_.getServer().getCommands().performPrefixedCommand(new CommandSourceStack(CommandSource.NULL,
-                        p_41433_.getLookAngle(), Vec2.ZERO, (ServerLevel) p_41432_, 4, "", Component.literal(""), p_41432_.getServer(), null).withSuppressedOutput(), "/gamerule fallDamage false");
+                        p_41433_.getLookAngle(), Vec2.ZERO, (ServerLevel) p_41432_, net.minecraft.server.permissions.PermissionSet.ALL_PERMISSIONS, "", Component.literal(""), p_41432_.getServer(), null).withSuppressedOutput(), "/gamerule fallDamage false");
             }
         }
-        return InteractionResultHolder.fail(itemStack);
+        return InteractionResult.FAIL;
     }
 
     @Override
-    public void inventoryTick(ItemStack p_41404_, Level p_41405_, Entity p_41406_, int p_41407_, boolean p_41408_) {
-        super.inventoryTick(p_41404_, p_41405_, p_41406_, p_41407_, p_41408_);
+    public void inventoryTick(ItemStack p_41404_, net.minecraft.server.level.ServerLevel p_41405_, Entity p_41406_, net.minecraft.world.entity.EquipmentSlot p_41407_) {
+        super.inventoryTick(p_41404_, p_41405_, p_41406_, p_41407_);
 
-        if(!p_41405_.isClientSide) {
+        {
             if (fall-- <= 0) {
                 p_41405_.getServer().getCommands().performPrefixedCommand(new CommandSourceStack(CommandSource.NULL,
-                        p_41406_.getLookAngle(), Vec2.ZERO, (ServerLevel) p_41405_, 4, "", Component.literal(""), p_41405_.getServer(), null).withSuppressedOutput(), "/gamerule fallDamage true");
+                        p_41406_.getLookAngle(), Vec2.ZERO, p_41405_, net.minecraft.server.permissions.PermissionSet.ALL_PERMISSIONS, "", Component.literal(""), p_41405_.getServer(), null).withSuppressedOutput(), "/gamerule fallDamage true");
             }
         }
 
         //if(jump == 1) {
         //    if (p_41406_ instanceof AbstractClientPlayer player) {
-        //        var animation = (ModifierLayer<IAnimation>) PlayerAnimationAccess.getPlayerAssociatedData(player).get(ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "animation"));
-        //        animation.setAnimation(new KeyframeAnimationPlayer(PlayerAnimationRegistry.getAnimation(ResourceLocation.fromNamespaceAndPath("pochimod", "tataki"))));
+        //        var animation = (ModifierLayer<IAnimation>) PlayerAnimationAccess.getPlayerAssociatedData(player).get(Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "animation"));
+        //        animation.setAnimation(new KeyframeAnimationPlayer(PlayerAnimationRegistry.getAnimation(Identifier.fromNamespaceAndPath("pochimod", "tataki"))));
         //    }
         //}
 
@@ -92,7 +93,7 @@ public class Tonbokiri extends Item {
                         player.hurtMarked = true;
                         player.setDeltaMovement(player.getLookAngle().x * 0.5, -3, player.getLookAngle().z * 0.5);
                     } else {
-                        player.playNotifySound(SoundEvents.AMBIENT_UNDERWATER_ENTER, SoundSource.PLAYERS, 1, 1);
+                        player.playSound(SoundEvents.AMBIENT_UNDERWATER_ENTER, 1, 1);
                         tataki = false;
                         crash = 0;
                     }
@@ -109,7 +110,7 @@ public class Tonbokiri extends Item {
                             serverLevel.sendParticles(ParticleTypes.SWEEP_ATTACK, vec3.x, vec3.y, vec3.z, 2, 0, 0, 0, 0.1);
                             serverLevel.sendParticles(ParticleTypes.DRIPPING_WATER, vec3.x, vec3.y, vec3.z, 2, 0, 0, 0, 0.1);
                             serverLevel.sendParticles(ParticleTypes.CLOUD, vec3.x, vec3.y, vec3.z, 2, 0, 0, 0, 0);
-                            serverLevel.sendParticles(new DustParticleOptions(Vec3.fromRGB24(4607).toVector3f(), 2), vec3.x, vec3.y, vec3.z, 1, 0, 0, 0, 0.2);
+                            serverLevel.sendParticles(new DustParticleOptions(4607, 2), vec3.x, vec3.y, vec3.z, 1, 0, 0, 0, 0.2);
                             List<LivingEntity> list = serverLevel.getEntitiesOfClass(LivingEntity.class, p_41406_.getBoundingBox().inflate(100, 100, 100));
                             if (!list.isEmpty()) {
                                 for (LivingEntity entity : list) {
@@ -130,8 +131,8 @@ public class Tonbokiri extends Item {
 
         //if(radius == 1) {
         //    if (p_41406_ instanceof AbstractClientPlayer player) {
-        //        var animation = (ModifierLayer<IAnimation>) PlayerAnimationAccess.getPlayerAssociatedData(player).get(ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "animation"));
-        //        animation.setAnimation(new KeyframeAnimationPlayer(PlayerAnimationRegistry.getAnimation(ResourceLocation.fromNamespaceAndPath("pochimod", "tuki"))));
+        //        var animation = (ModifierLayer<IAnimation>) PlayerAnimationAccess.getPlayerAssociatedData(player).get(Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "animation"));
+        //        animation.setAnimation(new KeyframeAnimationPlayer(PlayerAnimationRegistry.getAnimation(Identifier.fromNamespaceAndPath("pochimod", "tuki"))));
         //    }
         //}
         if(p_41405_ instanceof ServerLevel serverLevel) {
@@ -145,7 +146,7 @@ public class Tonbokiri extends Item {
                         serverLevel.sendParticles(ParticleTypes.SWEEP_ATTACK, vec3.x, vec3.y, vec3.z, 2, 0, 0, 0, 0.1);
                         serverLevel.sendParticles(ParticleTypes.DRIPPING_WATER, vec3.x, vec3.y, vec3.z, 2, 0, 0, 0, 0.1);
                         serverLevel.sendParticles(ParticleTypes.CLOUD, vec3.x, vec3.y, vec3.z, 2, 0, 0, 0, 0);
-                        serverLevel.sendParticles(new DustParticleOptions(Vec3.fromRGB24(4607).toVector3f(),2), vec3.x, vec3.y, vec3.z, 1, 0, 0, 0, 0.2);
+                        serverLevel.sendParticles(new DustParticleOptions(4607,2), vec3.x, vec3.y, vec3.z, 1, 0, 0, 0, 0.2);
                         List<LivingEntity> list = serverLevel.getEntitiesOfClass(LivingEntity.class, p_41406_.getBoundingBox().inflate(100, 100, 100));
                         if (!list.isEmpty()) {
                             for (LivingEntity entity : list) {

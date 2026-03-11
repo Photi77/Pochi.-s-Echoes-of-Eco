@@ -72,7 +72,7 @@ public class MuskCat extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-        return ModEntityTypes.MUSK_CAT.get().create(p_146743_);
+        return ModEntityTypes.MUSK_CAT.get().create(p_146743_, net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
     }
 
     private void setupAnimationStates() {
@@ -92,7 +92,7 @@ public class MuskCat extends Animal {
             f = 0.0F;
         }
 
-        this.walkAnimation.update(f, 0.2F);
+        this.walkAnimation.update(f, 0.2F, this.tickCount);
     }
 
     @Override
@@ -150,7 +150,7 @@ public class MuskCat extends Animal {
         }
 
         protected void onReachedTarget() {
-            if (net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(new net.neoforged.neoforge.event.entity.EntityMobGriefingEvent(MuskCat.this.level(), MuskCat.this)).canGrief()) {
+            if (net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(new net.neoforged.neoforge.event.entity.EntityMobGriefingEvent((net.minecraft.server.level.ServerLevel)MuskCat.this.level(), MuskCat.this)).canGrief()) {
                 BlockState blockstate = MuskCat.this.level().getBlockState(this.blockPos);
                 if (blockstate.is(ModBlocks.COFFEE_FRUIT.get())) {
                     this.stripped(blockstate, blockPos);

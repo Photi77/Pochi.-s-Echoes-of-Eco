@@ -16,7 +16,7 @@ public class PickaxeHook extends FishingHook {
 
     public PickaxeHook(EntityType<? extends PickaxeHook> p_150141_, Level p_150142_, int p_150143_, int p_150144_) {
         super(p_150141_, p_150142_);
-        this.noCulling = true;
+        // this.noCulling = true; // field removed in 1.21.11
     }
 
     public PickaxeHook(EntityType<? extends PickaxeHook> p_150138_, Level p_150139_) {
@@ -35,7 +35,9 @@ public class PickaxeHook extends FishingHook {
         double d0 = p_37106_.getX() - (double)f3 * 0.3D;
         double d1 = p_37106_.getEyeY();
         double d2 = p_37106_.getZ() - (double)f2 * 0.3D;
-        this.moveTo(d0, d1, d2, f1, f);
+        this.setPos(d0, d1, d2);
+        this.setYRot(f1);
+        this.setXRot(f);
         Vec3 vec3 = new Vec3((double)(-f3), (double)Mth.clamp(-(f5 / f4), -5.0F, 5.0F), (double)(-f2));
         double d3 = vec3.length();
         vec3 = vec3.multiply(0.6D / d3 + this.random.triangle(0.5D, 0.0103365D), 0.6D / d3 + this.random.triangle(0.5D, 0.0103365D), 0.6D / d3 + this.random.triangle(0.5D, 0.0103365D));
@@ -58,7 +60,7 @@ public class PickaxeHook extends FishingHook {
     @Override
     public int retrieve(ItemStack p_37157_) {
         Player player = this.getPlayerOwner();
-        if (!this.level().isClientSide && player != null && !this.shouldStopFishing(player)) {
+        if (!this.level().isClientSide() && player != null && !this.shouldStopFishing(player)) {
             for (int x = -3; x <= 6; x++) {
                 for (int y = -3; y <= 6; y++) {
                     for (int z = -3; z <= 6; z++) {

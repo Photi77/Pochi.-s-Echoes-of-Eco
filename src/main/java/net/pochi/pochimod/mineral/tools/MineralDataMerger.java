@@ -112,7 +112,7 @@ public final class MineralDataMerger {
                 .orElse(0);
 
         // ---- comboBiomes: 全チャンクのバイオームを重複なしで結合（最大3個） ----
-        List<net.minecraft.resources.ResourceLocation> comboBiomes = new ArrayList<>();
+        List<net.minecraft.resources.Identifier> comboBiomes = new ArrayList<>();
         for (MineralData data : dataList) {
             for (var biome : data.getComboBiomes()) {
                 if (!comboBiomes.contains(biome)) comboBiomes.add(biome);

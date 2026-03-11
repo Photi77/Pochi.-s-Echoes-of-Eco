@@ -11,7 +11,6 @@ import net.minecraft.core.Vec3i;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.protocol.game.DebugPackets;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -41,9 +40,9 @@ import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.ai.util.LandRandomPos;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.FlyingAnimal;
-import net.minecraft.world.entity.animal.ShoulderRidingEntity;
+import net.minecraft.world.entity.animal.parrot.ShoulderRidingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.monster.Spider;
+import net.minecraft.world.entity.monster.spider.Spider;
 import net.minecraft.world.entity.npc.InventoryCarrier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -143,7 +142,7 @@ public class LongTailTit extends ShoulderRidingEntity implements FlyingAnimal, I
         FlyingPathNavigation flyingpathnavigation = new FlyingPathNavigation(this, pLevel);
         flyingpathnavigation.setCanOpenDoors(false);
         flyingpathnavigation.setCanFloat(true);
-        flyingpathnavigation.setCanPassDoors(true);
+        //flyingpathnavigation.setCanPassDoors(true); // removed in 1.21.11
         return flyingpathnavigation;
     }
 
@@ -167,18 +166,14 @@ public class LongTailTit extends ShoulderRidingEntity implements FlyingAnimal, I
     }
 
 
-    protected void customServerAiStep() {
-        this.level().getProfiler().push("allayBrain");
-        this.getBrain().tick((ServerLevel)this.level(), this);
-        this.level().getProfiler().pop();
-        this.level().getProfiler().push("allayActivityUpdate");
+    protected void customServerAiStep(ServerLevel pLevel) {
+        this.getBrain().tick(pLevel, this);
         LongTailTitAi.updateActivity(this);
-        this.level().getProfiler().pop();
-        super.customServerAiStep();
+        super.customServerAiStep(pLevel);
     }
 
-    public boolean doHurtTarget(Entity p_32257_) {
-        if (super.doHurtTarget(p_32257_)) {
+    public boolean doHurtTarget(net.minecraft.server.level.ServerLevel pLevel, net.minecraft.world.entity.Entity p_32257_) {
+        if (super.doHurtTarget(pLevel, p_32257_)) {
             if (p_32257_ instanceof Spider spider) {
                 spider.hurt(this.damageSources().mobAttack(this), random.nextInt(6,10));
             }
@@ -211,22 +206,18 @@ public class LongTailTit extends ShoulderRidingEntity implements FlyingAnimal, I
 
     }
 
-    public void addAdditionalSaveData(CompoundTag p_218367_) {
+    public void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput p_218367_) {
         super.addAdditionalSaveData(p_218367_);
-        this.writeInventoryToTag(p_218367_, this.registryAccess());
-        VibrationSystem.Data.CODEC.encodeStart(NbtOps.INSTANCE, this.vibrationData).resultOrPartial(LOGGER::error).ifPresent((p_218353_) -> {
-            p_218367_.put("listener", p_218353_);
-        });
+        this.writeInventoryToTag(p_218367_);
+        p_218367_.store("listener", VibrationSystem.Data.CODEC, this.vibrationData);
     }
 
-    public void readAdditionalSaveData(CompoundTag p_218350_) {
+    public void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput p_218350_) {
         super.readAdditionalSaveData(p_218350_);
-        this.readInventoryFromTag(p_218350_, this.registryAccess());
-        if (p_218350_.contains("listener", 10)) {
-            VibrationSystem.Data.CODEC.parse(new Dynamic<>(NbtOps.INSTANCE, p_218350_.getCompound("listener"))).resultOrPartial(LOGGER::error).ifPresent((p_281082_) -> {
-                this.vibrationData = p_281082_;
-            });
-        }
+        this.readInventoryFromTag(p_218350_);
+        p_218350_.read("listener", VibrationSystem.Data.CODEC).ifPresent((p_281082_) -> {
+            this.vibrationData = p_281082_;
+        });
     }
 
     @Override
@@ -268,7 +259,7 @@ public class LongTailTit extends ShoulderRidingEntity implements FlyingAnimal, I
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-        return ModEntityTypes.LONG_TIT.get().create(p_146743_);
+        return ModEntityTypes.LONG_TIT.get().create(p_146743_, net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
     }
 
 
@@ -427,7 +418,7 @@ public class LongTailTit extends ShoulderRidingEntity implements FlyingAnimal, I
 
     public boolean wantsToPickUp(ItemStack p_218387_) {
         ItemStack itemstack = this.getItemInHand(InteractionHand.MAIN_HAND);
-        return !itemstack.isEmpty() && this.inventory.canAddItem(p_218387_) && this.allayConsidersItemEqual(itemstack, p_218387_) && net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(new net.neoforged.neoforge.event.entity.EntityMobGriefingEvent(this.level(), this)).canGrief();
+        return !itemstack.isEmpty() && this.inventory.canAddItem(p_218387_) && this.allayConsidersItemEqual(itemstack, p_218387_) && net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(new net.neoforged.neoforge.event.entity.EntityMobGriefingEvent((net.minecraft.server.level.ServerLevel)this.level(), this)).canGrief();
     }
 
     private boolean allayConsidersItemEqual(ItemStack p_252278_, ItemStack p_250405_) {
@@ -440,14 +431,11 @@ public class LongTailTit extends ShoulderRidingEntity implements FlyingAnimal, I
         return !java.util.Objects.equals(potioncontents, potioncontents1);
     }
 
-    protected void pickUpItem(ItemEntity p_218359_) {
-        InventoryCarrier.pickUpItem(this, this, p_218359_);
+    protected void pickUpItem(ServerLevel pLevel, ItemEntity p_218359_) {
+        InventoryCarrier.pickUpItem(pLevel, this, this, p_218359_);
     }
 
-    protected void sendDebugPackets() {
-        super.sendDebugPackets();
-        DebugPackets.sendEntityBrain(this);
-    }
+    // sendDebugPackets removed - DebugPackets.sendEntityBrain no longer exists in 1.21.11
 
     private void removeInteractionItem(Player p_239359_, ItemStack p_239360_) {
         if (!p_239359_.getAbilities().instabuild) {
@@ -460,12 +448,12 @@ public class LongTailTit extends ShoulderRidingEntity implements FlyingAnimal, I
         return !this.allayConsidersItemEqual(p_249825_, p_251595_);
     }
 
-    protected void dropEquipment() {
-        super.dropEquipment();
-        this.inventory.removeAllItems().forEach(this::spawnAtLocation);
+    protected void dropEquipment(ServerLevel level) {
+        super.dropEquipment(level);
+        this.inventory.removeAllItems().forEach(stack -> this.spawnAtLocation(level, stack));
         ItemStack itemstack = this.getItemBySlot(EquipmentSlot.MAINHAND);
         if (!itemstack.isEmpty()) {
-            this.spawnAtLocation(itemstack);
+            this.spawnAtLocation(level, itemstack);
             this.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY);
         }
 

@@ -1,6 +1,6 @@
 package net.pochi.pochimod.tags;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -25,11 +25,11 @@ public class ModItemTags {
     }
 
     private static TagKey<Item> tag(String name) {
-        return ItemTags.create(ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, name));
+        return ItemTags.create(Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, name));
     }
 
     public static TagKey<Item> forgeTag(String name) {
-        return ItemTags.create(ResourceLocation.fromNamespaceAndPath("forge", name));
+        return ItemTags.create(Identifier.fromNamespaceAndPath("forge", name));
     }
 
 }

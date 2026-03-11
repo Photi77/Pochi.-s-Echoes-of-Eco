@@ -15,15 +15,15 @@ import net.pochi.pochimod.PochiMod;
 import net.pochi.pochimod.item.custom.weapon.LunarClawBladeItem;
 import net.pochi.pochimod.util.MoonPhaseUtil;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 @EventBusSubscriber(modid = PochiMod.MOD_ID)
 public class LunarClawEventHandler {
 
-    private static final ResourceLocation ATTACK_DAMAGE_ID = ResourceLocation.fromNamespaceAndPath("pochimod", "lunar_claw_attack_damage");
-    private static final ResourceLocation ATTACK_SPEED_ID = ResourceLocation.fromNamespaceAndPath("pochimod", "lunar_claw_attack_speed");
-    private static final ResourceLocation MOVEMENT_SPEED_ID = ResourceLocation.fromNamespaceAndPath("pochimod", "lunar_claw_movement_speed");
-    private static final ResourceLocation KNOCKBACK_RESISTANCE_ID = ResourceLocation.fromNamespaceAndPath("pochimod", "lunar_claw_knockback_resistance");
+    private static final Identifier ATTACK_DAMAGE_ID = Identifier.fromNamespaceAndPath("pochimod", "lunar_claw_attack_damage");
+    private static final Identifier ATTACK_SPEED_ID = Identifier.fromNamespaceAndPath("pochimod", "lunar_claw_attack_speed");
+    private static final Identifier MOVEMENT_SPEED_ID = Identifier.fromNamespaceAndPath("pochimod", "lunar_claw_movement_speed");
+    private static final Identifier KNOCKBACK_RESISTANCE_ID = Identifier.fromNamespaceAndPath("pochimod", "lunar_claw_knockback_resistance");
 
     /**
      * 繝励Ξ繧､繝､繝ｼ繝・ぅ繝・け譎ゅ・蜃ｦ逅・
@@ -32,7 +32,7 @@ public class LunarClawEventHandler {
     public static void onPlayerTick(PlayerTickEvent.Post event) {
         Player player = event.getEntity();
 
-        if (player.level().isClientSide) {
+        if (player.level().isClientSide()) {
             return;
         }
 

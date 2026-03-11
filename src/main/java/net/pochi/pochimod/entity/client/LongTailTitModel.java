@@ -2,15 +2,17 @@ package net.pochi.pochimod.entity.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.animation.KeyframeAnimation;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.pochi.pochimod.entity.animations.ModAnimationDefinitions;
 import net.pochi.pochimod.entity.custom.LongTailTit;
 
-public class LongTailTitModel<T extends LongTailTit> extends HierarchicalModel<T> {
-    //public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath("modid", "shimaenaga_- converted"), "main");
+public class LongTailTitModel extends EntityModel<LivingEntityRenderState> {
+    //public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(Identifier.fromNamespaceAndPath("modid", "shimaenaga_- converted"), "main");
     //private final ModelPart longtail;
     private final ModelPart bone;
     private final ModelPart body;
@@ -18,6 +20,7 @@ public class LongTailTitModel<T extends LongTailTit> extends HierarchicalModel<T
     private final ModelPart right;
 
     public LongTailTitModel(ModelPart root) {
+        super(root.getChild("bone"));
         this.bone = root.getChild("bone");
         this.body = this.bone.getChild("body");
         this.left = this.bone.getChild("left");
@@ -59,23 +62,13 @@ public class LongTailTitModel<T extends LongTailTit> extends HierarchicalModel<T
     }
 
     @Override
-    public void setupAnim(LongTailTit entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(LivingEntityRenderState state) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        //this.animateWalk(ModAnimationDefinitions.LONG_TAIL_FLY, limbSwing, limbSwingAmount, 2f, 2.5f);
-        if(!entity.onGround()){
-            this.animateWalk(ModAnimationDefinitions.LONG_TAIL_FLY, limbSwing, limbSwingAmount, 2f, 2.5f);
+        //this.animateWalk(ModAnimationDefinitions.LONG_TAIL_FLY, state.walkAnimationPos, state.walkAnimationSpeed, 2f, 2.5f);
+        if(state.walkAnimationSpeed <= 0.01F){
+            ModAnimationDefinitions.LONG_TAIL_FLY.bake(this.root()).applyWalk(state.walkAnimationPos, state.walkAnimationSpeed, 2f, 2.5f);
         }else {
-            this.animate(entity.idleAnimationState, ModAnimationDefinitions.LONG_TAIL_IDLE, ageInTicks, 1f);
+            // TODO: idle animation state not available in render state
         }
-    }
-
-    @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-        bone.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-    }
-
-    @Override
-    public ModelPart root() {
-        return bone;
     }
 }

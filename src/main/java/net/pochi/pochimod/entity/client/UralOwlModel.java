@@ -5,7 +5,9 @@ package net.pochi.pochimod.entity.client;// Made with Blockbench 5.0.4
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.animation.KeyframeAnimation;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -13,10 +15,9 @@ import net.minecraft.util.Mth;
 import net.pochi.pochimod.entity.animations.ModAnimationDefinitions;
 import net.pochi.pochimod.entity.custom.UralOwl;
 
-public class UralOwlModel<T extends UralOwl> extends HierarchicalModel<T> {
+public class UralOwlModel extends EntityModel<LivingEntityRenderState> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	//public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath("modid", "UralOwlModel"), "main");
-	private final ModelPart root;
+	//public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(Identifier.fromNamespaceAndPath("modid", "UralOwlModel"), "main");
 	private final ModelPart body;
 	private final ModelPart neck;
 	private final ModelPart head;
@@ -29,7 +30,7 @@ public class UralOwlModel<T extends UralOwl> extends HierarchicalModel<T> {
 	private final ModelPart tail;
 
 	public UralOwlModel(ModelPart root) {
-		this.root = root.getChild("root");
+		super(root.getChild("root"));
 		this.body = this.root.getChild("body");
 		this.neck = this.root.getChild("neck");
 		this.head = this.neck.getChild("head");
@@ -91,13 +92,13 @@ public class UralOwlModel<T extends UralOwl> extends HierarchicalModel<T> {
 	}
 
 	@Override
-	public void setupAnim(UralOwl entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(LivingEntityRenderState state) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
-		if(entity.walkAnimation.isMoving()) {
-			this.animateWalk(ModAnimationDefinitions.URAL_OWL_FLY, limbSwing, limbSwingAmount, 2f, 2.5f);
+		this.applyHeadRotation((state.yRot - state.bodyRot), state.xRot, state.ageInTicks);
+		if((state.walkAnimationSpeed > 0.01F)) {
+			ModAnimationDefinitions.URAL_OWL_FLY.bake(this.root()).applyWalk(state.walkAnimationPos, state.walkAnimationSpeed, 2f, 2.5f);
 		} else {
-			//this.animate(entity.idleAnimationState, ModAnimationDefinitions.ANT_IDLE, ageInTicks, 1f);
+			//// TODO: idle animation state not available in render state
 		}
 	}
 
@@ -107,15 +108,5 @@ public class UralOwlModel<T extends UralOwl> extends HierarchicalModel<T> {
 
 		this.head.yRot = pNetHeadYaw * ((float)Math.PI / 180F);
 		this.head.xRot = pHeadPitch * ((float)Math.PI / 180F);
-	}
-
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-	}
-
-	@Override
-	public ModelPart root() {
-		return root;
 	}
 }

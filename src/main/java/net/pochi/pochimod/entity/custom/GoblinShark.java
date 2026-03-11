@@ -58,7 +58,7 @@ public class GoblinShark extends AgeableaterAnimal {
     }
 
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_28332_, DifficultyInstance p_28333_, MobSpawnType p_28334_, @Nullable SpawnGroupData p_28335_) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_28332_, DifficultyInstance p_28333_, EntitySpawnReason p_28334_, @Nullable SpawnGroupData p_28335_) {
         this.setAirSupply(this.getMaxAirSupply());
         this.setXRot(0.0F);
         return super.finalizeSpawn(p_28332_, p_28333_, p_28334_, p_28335_);
@@ -81,14 +81,14 @@ public class GoblinShark extends AgeableaterAnimal {
         builder.define(MOISTNESS_LEVEL, 2400);
     }
 
-    public void addAdditionalSaveData(CompoundTag p_28364_) {
+    public void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput p_28364_) {
         super.addAdditionalSaveData(p_28364_);
         p_28364_.putInt("Moistness", this.getMoistnessLevel());
     }
 
-    public void readAdditionalSaveData(CompoundTag p_28340_) {
+    public void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput p_28340_) {
         super.readAdditionalSaveData(p_28340_);
-        this.setMoisntessLevel(p_28340_.getInt("Moistness"));
+        this.setMoisntessLevel(p_28340_.getIntOr("Moistness", 0));
     }
 
     protected void registerGoals() {
@@ -111,8 +111,8 @@ public class GoblinShark extends AgeableaterAnimal {
         return new WaterBoundPathNavigation(this, p_28362_);
     }
 
-    public boolean doHurtTarget(Entity p_28319_) {
-        boolean flag = p_28319_.hurt(this.damageSources().mobAttack(this), (float)((int)this.getAttributeValue(Attributes.ATTACK_DAMAGE)));
+    public boolean doHurtTarget(net.minecraft.server.level.ServerLevel pLevel, net.minecraft.world.entity.Entity p_28319_) {
+        boolean flag = false; p_28319_.hurt(this.damageSources().mobAttack(this), (float)((int)this.getAttributeValue(Attributes.ATTACK_DAMAGE)));
         if (flag) {
             this.playSound(SoundEvents.DOLPHIN_ATTACK, 1.0F, 1.0F);
         }
@@ -149,7 +149,7 @@ public class GoblinShark extends AgeableaterAnimal {
         if (this.isNoAi()) {
             this.setAirSupply(this.getMaxAirSupply());
         } else {
-            if (this.isInWaterRainOrBubble()) {
+            if (this.isInWaterOrRain()) {
                 this.setMoisntessLevel(2400);
             } else {
                 this.setMoisntessLevel(this.getMoistnessLevel() - 1);
@@ -161,11 +161,11 @@ public class GoblinShark extends AgeableaterAnimal {
                     this.setDeltaMovement(this.getDeltaMovement().add((double)((this.random.nextFloat() * 2.0F - 1.0F) * 0.2F), 0.5D, (double)((this.random.nextFloat() * 2.0F - 1.0F) * 0.2F)));
                     this.setYRot(this.random.nextFloat() * 360.0F);
                     this.setOnGround(false);
-                    this.hasImpulse = true;
+                    //this.hasImpulse = true; // field removed in 1.21.11
                 }
             }
 
-            if (this.level().isClientSide && this.isInWater() && this.getDeltaMovement().lengthSqr() > 0.03D) {
+            if (this.level().isClientSide() && this.isInWater() && this.getDeltaMovement().lengthSqr() > 0.03D) {
                 Vec3 vec3 = this.getViewVector(0.0F);
                 float f = Mth.cos(this.getYRot() * ((float)Math.PI / 180F)) * 0.3F;
                 float f1 = Mth.sin(this.getYRot() * ((float)Math.PI / 180F)) * 0.3F;
@@ -199,14 +199,14 @@ public class GoblinShark extends AgeableaterAnimal {
 
     }
 
-    public static boolean checkWaterSpawnRules(EntityType<GoblinShark> p_218277_, LevelAccessor p_218278_, MobSpawnType p_218279_, BlockPos p_218280_, RandomSource p_218281_) {
+    public static boolean checkWaterSpawnRules(EntityType<GoblinShark> p_218277_, LevelAccessor p_218278_, EntitySpawnReason p_218279_, BlockPos p_218280_, RandomSource p_218281_) {
         return p_218278_.getFluidState(p_218280_.below()).is(FluidTags.WATER) && p_218278_.getBlockState(p_218280_.above()).is(Blocks.WATER);
     }
 
     public InteractionResult mobInteract(Player p_28359_, InteractionHand p_28360_) {
         ItemStack itemstack = p_28359_.getItemInHand(p_28360_);
         if (!itemstack.isEmpty() && itemstack.is(ItemTags.FISHES)) {
-            if (!this.level().isClientSide) {
+            if (!this.level().isClientSide()) {
                 this.playSound(SoundEvents.DOLPHIN_EAT, 1.0F, 1.0F);
             }
 
@@ -214,7 +214,7 @@ public class GoblinShark extends AgeableaterAnimal {
                 itemstack.shrink(1);
             }
 
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
+            return InteractionResult.SUCCESS;
         } else {
             return super.mobInteract(p_28359_, p_28360_);
         }
@@ -257,9 +257,9 @@ public class GoblinShark extends AgeableaterAnimal {
 
     public void aiStep() {
         super.aiStep();
-        if (!this.level().isClientSide && this.isAlive() && !this.isBaby() && --this.eggTime <= 0) {
+        if (!this.level().isClientSide() && this.isAlive() && !this.isBaby() && --this.eggTime <= 0) {
             this.playSound(SoundEvents.CHICKEN_EGG, 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
-            this.spawnAtLocation(ModItems.CAVIAR.get());
+            this.spawnAtLocation((net.minecraft.server.level.ServerLevel) this.level(), ModItems.CAVIAR.get());
             this.gameEvent(GameEvent.ENTITY_PLACE);
             this.eggTime = this.random.nextInt(6000) + 600;
 

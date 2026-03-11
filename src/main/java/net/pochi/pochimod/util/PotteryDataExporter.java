@@ -19,12 +19,12 @@ public class PotteryDataExporter {
         CompoundTag tag = pottery.get(DataComponents.CUSTOM_DATA).copyTag();
 
         PotteryData data = new PotteryData();
-        data.height = tag.getInt("Height");
-        data.diameter = tag.getInt("Diameter");
-        data.wallThickness = tag.getInt("WallThickness");
-        data.mouthWidth = tag.getInt("MouthWidth");
-        data.shape = tag.getString("Shape");
-        data.glazeColor = String.format("#%06X", tag.getInt("GlazeColor") & 0xFFFFFF);
+        data.height = tag.getIntOr("Height", 0);
+        data.diameter = tag.getIntOr("Diameter", 0);
+        data.wallThickness = tag.getIntOr("WallThickness", 0);
+        data.mouthWidth = tag.getIntOr("MouthWidth", 0);
+        data.shape = tag.getStringOr("Shape", "");
+        data.glazeColor = String.format("#%06X", tag.getIntOr("GlazeColor", 0xFFFFFF) & 0xFFFFFF);
 
         // 実寸換算（1ブロック = 10cm）
         data.realHeight = data.height * 10.0;

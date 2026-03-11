@@ -1,23 +1,24 @@
 package net.pochi.pochimod.entity.client;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.pochi.pochimod.PochiMod;
 import net.pochi.pochimod.entity.custom.Snake;
 import software.bernie.geckolib.model.GeoModel;
+import software.bernie.geckolib.renderer.base.GeoRenderState;
 
 public class SnakeModel extends GeoModel<Snake> {
     @Override
-    public ResourceLocation getModelResource(Snake animatable) {
-        return ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "geo/snake.geo.json");
+    public Identifier getModelResource(GeoRenderState state) {
+        return Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "geo/snake.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureResource(Snake animatable) {
-        return ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "textures/snake.png");
+    public Identifier getTextureResource(GeoRenderState state) {
+        return Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "textures/snake.png");
     }
 
     @Override
-    public ResourceLocation getAnimationResource(Snake animatable) {
-        return ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "animations/snake.animation.json");
+    public Identifier getAnimationResource(Snake animatable) {
+        return Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "animations/snake.animation.json");
     }
 }

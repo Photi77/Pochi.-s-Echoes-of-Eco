@@ -67,7 +67,7 @@ public class TocoToucan extends Animal implements FlyingAnimal {
         FlyingPathNavigation flyingpathnavigation = new FlyingPathNavigation(this, pLevel);
         flyingpathnavigation.setCanOpenDoors(false);
         flyingpathnavigation.setCanFloat(true);
-        flyingpathnavigation.setCanPassDoors(true);
+        //flyingpathnavigation.setCanPassDoors(true); // removed in 1.21.11
         return flyingpathnavigation;
     }
 
@@ -136,7 +136,7 @@ public class TocoToucan extends Animal implements FlyingAnimal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-        return ModEntityTypes.FOLIVORE.get().create(p_146743_);
+        return ModEntityTypes.FOLIVORE.get().create(p_146743_, net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
     }
 
 
@@ -264,7 +264,7 @@ public class TocoToucan extends Animal implements FlyingAnimal {
         }
 
         protected void onReachedTarget() {
-            if (net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(new net.neoforged.neoforge.event.entity.EntityMobGriefingEvent(TocoToucan.this.level(), TocoToucan.this)).canGrief()) {
+            if (net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(new net.neoforged.neoforge.event.entity.EntityMobGriefingEvent((net.minecraft.server.level.ServerLevel)TocoToucan.this.level(), TocoToucan.this)).canGrief()) {
                 BlockState blockstate = TocoToucan.this.level().getBlockState(this.blockPos);
                 if (blockstate.getBlock() instanceof LeavesBlock ) {
                     this.stripped(blockstate, blockPos);

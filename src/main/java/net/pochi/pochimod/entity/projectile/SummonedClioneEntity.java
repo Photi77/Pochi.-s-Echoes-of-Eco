@@ -1,7 +1,6 @@
 package net.pochi.pochimod.entity.projectile;
 
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -88,7 +87,7 @@ public class SummonedClioneEntity extends PathfinderMob {
         // 寿命チェック
         lifeTicks++;
         if (lifeTicks >= LIFETIME_TICKS) {
-            if (!this.level().isClientSide) {
+            if (!this.level().isClientSide()) {
                 this.despawnWithEffect();
             }
             return;
@@ -97,7 +96,7 @@ public class SummonedClioneEntity extends PathfinderMob {
         // オーナーの取得
         Player owner = this.getOwnerPlayer();
         if (owner == null || !owner.isAlive()) {
-            if (!this.level().isClientSide) {
+            if (!this.level().isClientSide()) {
                 this.despawnWithEffect();
             }
             return;
@@ -107,7 +106,7 @@ public class SummonedClioneEntity extends PathfinderMob {
         this.updateOrbitPosition(owner);
 
         // パーティクル効果（クライアント側）
-        if (this.level().isClientSide) {
+        if (this.level().isClientSide()) {
             this.spawnOrbitParticles();
             this.spawnBodyGlow(); // 本体の発光エフェクト
         }
@@ -251,12 +250,12 @@ public class SummonedClioneEntity extends PathfinderMob {
     }
 
     @Override
-    public boolean hurt(DamageSource source, float amount) {
+    public boolean isInvulnerableTo(net.minecraft.server.level.ServerLevel level, DamageSource source) {
         // オーナーからのダメージは無効
         if (source.getEntity() == this.getOwnerPlayer()) {
-            return false;
+            return true;
         }
-        return super.hurt(source, amount);
+        return super.isInvulnerableTo(level, source);
     }
 
     @Override
@@ -265,37 +264,37 @@ public class SummonedClioneEntity extends PathfinderMob {
     }
 
     @Override
-    public boolean canBeCollidedWith() {
+    public boolean canBeCollidedWith(Entity pEntity) {
         return false; // 当たり判定なし
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
+    public void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("LifeTicks", this.lifeTicks);
         compound.putInt("AttackCooldown", this.attackCooldown);
         compound.putDouble("OrbitAngle", this.orbitAngle);
         if (this.ownerUUID != null) {
-            compound.putUUID("OwnerUUID", this.ownerUUID);
+            compound.putString("OwnerUUID", this.ownerUUID.toString());
         }
         compound.putInt("OwnerId", this.entityData.get(OWNER_ID));
         compound.putInt("Index", this.entityData.get(INDEX));
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
+    public void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput compound) {
         super.readAdditionalSaveData(compound);
-        this.lifeTicks = compound.getInt("LifeTicks");
-        this.attackCooldown = compound.getInt("AttackCooldown");
-        this.orbitAngle = compound.getDouble("OrbitAngle");
-        if (compound.hasUUID("OwnerUUID")) {
-            this.ownerUUID = compound.getUUID("OwnerUUID");
+        this.lifeTicks = compound.getIntOr("LifeTicks", 0);
+        this.attackCooldown = compound.getIntOr("AttackCooldown", 0);
+        this.orbitAngle = compound.getDoubleOr("OrbitAngle", 0.0);
+        if (compound.getString("OwnerUUID").isPresent()) {
+            this.ownerUUID = java.util.UUID.fromString(compound.getString("OwnerUUID").orElse("00000000-0000-0000-0000-000000000000"));
         }
-        if (compound.contains("OwnerId")) {
-            this.entityData.set(OWNER_ID, compound.getInt("OwnerId"));
+        if (compound.getInt("OwnerId").isPresent()) {
+            this.entityData.set(OWNER_ID, compound.getIntOr("OwnerId", 0));
         }
-        if (compound.contains("Index")) {
-            this.entityData.set(INDEX, compound.getInt("Index"));
+        if (compound.getInt("Index").isPresent()) {
+            this.entityData.set(INDEX, compound.getIntOr("Index", 0));
         }
     }
 
@@ -316,13 +315,13 @@ public class SummonedClioneEntity extends PathfinderMob {
     public void performAttack(LivingEntity target) {
         // ダメージ適用
         DamageSource damageSource = this.damageSources().indirectMagic(this, this.getOwnerPlayer());
-        boolean hit = target.hurt(damageSource, ATTACK_DAMAGE);
+        boolean hit = false; target.hurt(damageSource, ATTACK_DAMAGE);
 
         if (hit) {
             // 氷結効果
             target.addEffect(
                     new MobEffectInstance(
-                            MobEffects.MOVEMENT_SLOWDOWN,
+                            MobEffects.SLOWNESS,
                             FREEZE_DURATION,
                             FREEZE_AMPLIFIER,
                             false,

@@ -4,7 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -26,6 +26,10 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.*;
+import net.minecraft.world.entity.monster.illager.AbstractIllager;
+import net.minecraft.world.entity.monster.illager.Pillager;
+import net.minecraft.world.entity.monster.skeleton.AbstractSkeleton;
+import net.minecraft.world.entity.monster.zombie.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -96,15 +100,15 @@ public class SootyShearwater extends Animal implements FlyingAnimal {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag tag) {
+    public void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput tag) {
         super.addAdditionalSaveData(tag);
         tag.putInt("AttackCooldown", this.attackCooldownTimer);
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag tag) {
+    public void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput tag) {
         super.readAdditionalSaveData(tag);
-        this.attackCooldownTimer = tag.getInt("AttackCooldown");
+        this.attackCooldownTimer = tag.getIntOr("AttackCooldown", 0);
     }
 
     @Override
@@ -116,7 +120,7 @@ public class SootyShearwater extends Animal implements FlyingAnimal {
         FlyingPathNavigation flyingpathnavigation = new FlyingPathNavigation(this, pLevel);
         flyingpathnavigation.setCanOpenDoors(false);
         flyingpathnavigation.setCanFloat(true);
-        flyingpathnavigation.setCanPassDoors(true);
+        //flyingpathnavigation.setCanPassDoors(true); // removed in 1.21.11
         return flyingpathnavigation;
     }
 
@@ -150,7 +154,7 @@ public class SootyShearwater extends Animal implements FlyingAnimal {
             this.setupAnimationStates();
         }
 
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             if (this.attackCooldownTimer > 0) {
                 this.attackCooldownTimer--;
             }
@@ -194,7 +198,7 @@ public class SootyShearwater extends Animal implements FlyingAnimal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-        return ModEntityTypes.SOOTY_SHEARWATER.get().create(p_146743_);
+        return ModEntityTypes.SOOTY_SHEARWATER.get().create(p_146743_, net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
     }
 
 
@@ -284,7 +288,7 @@ public class SootyShearwater extends Animal implements FlyingAnimal {
     }
 
     @Override
-    public boolean doHurtTarget(Entity target) {
+    public boolean doHurtTarget(net.minecraft.server.level.ServerLevel pLevel, net.minecraft.world.entity.Entity target) {
         if (!(target instanceof LivingEntity livingTarget)) {
             return false;
         }
@@ -294,9 +298,9 @@ public class SootyShearwater extends Animal implements FlyingAnimal {
             return false;
         }
 
-        boolean hitSuccessful = super.doHurtTarget(target);
+        boolean hitSuccessful = super.doHurtTarget(pLevel, target);
 
-        if (hitSuccessful && !this.level().isClientSide) {
+        if (hitSuccessful && !this.level().isClientSide()) {
             // アイテム強制ドロップ処理
             performItemTheft(livingTarget);
 
@@ -405,9 +409,10 @@ public class SootyShearwater extends Animal implements FlyingAnimal {
 
     private ItemStack generateRandomMobDrop(Mob mob) {
         // Mobのルートテーブルから通常のドロップを取得
-        net.minecraft.resources.ResourceKey<LootTable> lootTable = mob.getLootTable();
+        java.util.Optional<net.minecraft.resources.ResourceKey<LootTable>> lootTableOpt = mob.getLootTable();
 
-        if (lootTable != BuiltInLootTables.EMPTY) {
+        if (lootTableOpt.isPresent()) {
+            net.minecraft.resources.ResourceKey<LootTable> lootTable = lootTableOpt.get();
             ServerLevel serverLevel = (ServerLevel) this.level();
             LootTable table = serverLevel.getServer().reloadableRegistries().getLootTable(lootTable);
 
@@ -542,7 +547,7 @@ public class SootyShearwater extends Animal implements FlyingAnimal {
                     this.attackTime++;
 
                     if (this.attackTime >= 20 && this.frigateBird.attackCooldownTimer <= 0) {
-                        this.frigateBird.doHurtTarget(target);
+                        this.frigateBird.doHurtTarget((net.minecraft.server.level.ServerLevel) this.frigateBird.level(), target);
                         this.frigateBird.attackCooldownTimer = ATTACK_COOLDOWN;
                         this.attackTime = 0;
                     }

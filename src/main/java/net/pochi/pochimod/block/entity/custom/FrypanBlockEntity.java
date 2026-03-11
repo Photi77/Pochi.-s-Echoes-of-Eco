@@ -81,17 +81,22 @@ public class FrypanBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        tag.put("inventory", itemHandler.serializeNBT(registries));
+    protected void saveAdditional(net.minecraft.world.level.storage.ValueOutput tag) {
+        itemHandler.serialize(tag.child("inventory"));
         tag.putInt("frypan.progress", progress);
-        super.saveAdditional(tag, registries);
+        super.saveAdditional(tag);
     }
 
     @Override
-    public void loadAdditional(CompoundTag nbt, HolderLookup.Provider registries) {
-        super.loadAdditional(nbt, registries);
-        itemHandler.deserializeNBT(registries, nbt.getCompound("inventory"));
-        progress = nbt.getInt("frypan.progress");
+    public void loadAdditional(net.minecraft.world.level.storage.ValueInput nbt) {
+        super.loadAdditional(nbt);
+        itemHandler.deserialize(nbt.childOrEmpty("inventory"));
+        progress = nbt.getIntOr("frypan.progress", 0);
+    }
+
+    @Override
+    public void preRemoveSideEffects(net.minecraft.core.BlockPos pos, net.minecraft.world.level.block.state.BlockState state) {
+        this.drops();
     }
 
     public void drops() {
@@ -133,7 +138,7 @@ public class FrypanBlockEntity extends BlockEntity implements MenuProvider {
             inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
         }
 
-        Optional<RecipeHolder<FrypanRecipe>> match = level.getRecipeManager()
+        Optional<RecipeHolder<FrypanRecipe>> match = ((net.minecraft.world.item.crafting.RecipeManager) level.recipeAccess())
                 .getRecipeFor(FrypanRecipe.Type.INSTANCE, new SimpleContainerRecipeInput(inventory), level);
 
 
@@ -164,7 +169,7 @@ public class FrypanBlockEntity extends BlockEntity implements MenuProvider {
                 inventory.setItem(i, entity.itemHandler.getStackInSlot(i));
             }
 
-            Optional<RecipeHolder<FrypanRecipe>> match = level.getRecipeManager()
+            Optional<RecipeHolder<FrypanRecipe>> match = ((net.minecraft.world.item.crafting.RecipeManager) level.recipeAccess())
                     .getRecipeFor(FrypanRecipe.Type.INSTANCE, new SimpleContainerRecipeInput(inventory), level);
 
             return match.isPresent() && canInsertAmountIntoOutputSlot(inventory)

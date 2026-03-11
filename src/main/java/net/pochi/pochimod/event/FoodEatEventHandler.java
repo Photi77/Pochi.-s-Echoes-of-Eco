@@ -44,7 +44,7 @@ public class FoodEatEventHandler {
         int hydration = finalData.getHydration();
         if (hydration > 0) vitalData.addHydration(hydration);
 
-        if (!player.level().isClientSide && player instanceof ServerPlayer serverPlayer) {
+        if (!player.level().isClientSide() && player instanceof ServerPlayer serverPlayer) {
             ModMessages.sendToPlayer(new SyncVitalDataPacket(vitalData), serverPlayer);
         }
     }

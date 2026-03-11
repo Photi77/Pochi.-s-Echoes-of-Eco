@@ -19,7 +19,7 @@ public class SanitaryBlock extends Block {
         if(!pLevel.isClientSide()){
             if(pEntity instanceof LivingEntity){
                 LivingEntity livingEntity = ((LivingEntity) pEntity);
-                livingEntity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,300));
+                livingEntity.addEffect(new MobEffectInstance(MobEffects.RESISTANCE,300));
             }
         }
         super.stepOn(pLevel, pPos, pState, pEntity);

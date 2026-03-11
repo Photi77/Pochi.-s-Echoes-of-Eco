@@ -48,14 +48,14 @@ public enum ImpurityType {
 
     public Holder<MobEffect> getMobEffect() {
         return switch (this) {
-            case IRON_3    -> MobEffects.DAMAGE_BOOST;
-            case IRON_2    -> MobEffects.DAMAGE_RESISTANCE;
-            case CHROMIUM  -> MobEffects.MOVEMENT_SPEED;
-            case TITANIUM  -> MobEffects.DIG_SPEED;
+            case IRON_3    -> MobEffects.STRENGTH;
+            case IRON_2    -> MobEffects.RESISTANCE;
+            case CHROMIUM  -> MobEffects.SPEED;
+            case TITANIUM  -> MobEffects.HASTE;
             case MANGANESE -> MobEffects.REGENERATION;
-            case COPPER    -> MobEffects.JUMP;
+            case COPPER    -> MobEffects.JUMP_BOOST;
             case VANADIUM  -> MobEffects.POISON;
-            case CARBON    -> MobEffects.DIG_SPEED;
+            case CARBON    -> MobEffects.HASTE;
             case URANIUM   -> MobEffects.NIGHT_VISION;
         };
     }

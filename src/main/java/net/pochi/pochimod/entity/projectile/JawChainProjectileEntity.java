@@ -9,7 +9,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
+import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -44,7 +44,7 @@ public class JawChainProjectileEntity extends ThrowableItemProjectile {
     }
 
     public JawChainProjectileEntity(Level level, LivingEntity shooter) {
-        super(ModEntityTypes.JAW_CHAIN_PROJECTILE.get(), shooter, level);
+        super(ModEntityTypes.JAW_CHAIN_PROJECTILE.get(), shooter, level, new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.EGG));
         this.initialPos = shooter.position();
     }
 
@@ -74,7 +74,7 @@ public class JawChainProjectileEntity extends ThrowableItemProjectile {
         }
 
         // パーティクル効果
-        if (this.level().isClientSide) {
+        if (this.level().isClientSide()) {
             this.spawnTrailParticles();
         }
     }
@@ -83,7 +83,7 @@ public class JawChainProjectileEntity extends ThrowableItemProjectile {
     protected void onHitEntity(EntityHitResult result) {
         super.onHitEntity(result);
 
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             Entity target = result.getEntity();
             Entity owner = this.getOwner();
 
@@ -144,7 +144,7 @@ public class JawChainProjectileEntity extends ThrowableItemProjectile {
     protected void onHitBlock(BlockHitResult result) {
         super.onHitBlock(result);
 
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             // ブロックに当たったら消滅
             this.discard();
         }
@@ -234,7 +234,7 @@ public class JawChainProjectileEntity extends ThrowableItemProjectile {
         this.level().playSound(
                 null,
                 target.getX(), target.getY(), target.getZ(),
-                SoundEvents.WOLF_GROWL,
+                SoundEvents.FOX_AGGRO,
                 SoundSource.PLAYERS,
                 1.0F,
                 0.8F

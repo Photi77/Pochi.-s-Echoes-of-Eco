@@ -2,7 +2,9 @@ package net.pochi.pochimod.entity.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.animation.KeyframeAnimation;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -10,9 +12,9 @@ import net.minecraft.util.Mth;
 import net.pochi.pochimod.entity.animations.ModAnimationDefinitions;
 import net.pochi.pochimod.entity.custom.DeerEntity;
 
-public class DeerModel<T extends DeerEntity> extends HierarchicalModel<T> {
+public class DeerModel extends EntityModel<LivingEntityRenderState> {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-    //public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath("modid", "deer"), "main");
+    //public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(Identifier.fromNamespaceAndPath("modid", "deer"), "main");
     private final ModelPart deer;
     private final ModelPart rear;
     private final ModelPart leftfront;
@@ -25,6 +27,7 @@ public class DeerModel<T extends DeerEntity> extends HierarchicalModel<T> {
     private final ModelPart head;
 
     public DeerModel(ModelPart root) {
+        super(root.getChild("deer"));
         this.deer = root.getChild("deer");
         this.rear = this.deer.getChild("rear");
         this.leftfront = this.rear.getChild("leftfront");
@@ -154,13 +157,13 @@ public class DeerModel<T extends DeerEntity> extends HierarchicalModel<T> {
 
 
     @Override
-    public void setupAnim(DeerEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(LivingEntityRenderState state) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
-        if(entity.walkAnimation.isMoving()) {
-            this.animateWalk(ModAnimationDefinitions.DEER_WALK, limbSwing, limbSwingAmount, 2f, 2.5f);
+        this.applyHeadRotation((state.yRot - state.bodyRot), state.xRot, state.ageInTicks);
+        if((state.walkAnimationSpeed > 0.01F)) {
+            ModAnimationDefinitions.DEER_WALK.bake(this.root()).applyWalk(state.walkAnimationPos, state.walkAnimationSpeed, 2f, 2.5f);
         } else {
-            this.animate(entity.idleAnimationState, ModAnimationDefinitions.DEER_IDLE, ageInTicks, 1f);
+            // TODO: idle animation state not available in render state
         }
     }
 
@@ -171,15 +174,4 @@ public class DeerModel<T extends DeerEntity> extends HierarchicalModel<T> {
         this.head.yRot = pNetHeadYaw * ((float)Math.PI / 180F);
         this.head.xRot = pHeadPitch * ((float)Math.PI / 180F);
     }
-
-    @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-        deer.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-    }
-
-    @Override
-    public ModelPart root() {
-        return deer;
-    }
-
 }

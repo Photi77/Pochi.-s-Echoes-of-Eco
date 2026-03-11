@@ -35,7 +35,7 @@ public class TuataraArmorEventHandler {
         }
 
         // 繧ｵ繝ｼ繝舌・蛛ｴ縺ｮ縺ｿ
-        if (player.level().isClientSide) {
+        if (player.level().isClientSide()) {
             return;
         }
 
@@ -88,7 +88,7 @@ public class TuataraArmorEventHandler {
      */
     private static boolean isOnCooldown(Player player) {
         return player.getPersistentData().contains(AncientLizardArmor.COOLDOWN_TAG) &&
-                player.getPersistentData().getLong(AncientLizardArmor.COOLDOWN_TAG) > player.level().getGameTime();
+                player.getPersistentData().getLongOr(AncientLizardArmor.COOLDOWN_TAG, 0L) > player.level().getGameTime();
     }
 
     /**
@@ -179,7 +179,7 @@ public class TuataraArmorEventHandler {
         }
 
         // 螂郁誠繝√ぉ繝・け・・ < -64・・
-        if (pos.y < level.getMinBuildHeight()) {
+        if (pos.y < level.getMinY()) {
             return false;
         }
 

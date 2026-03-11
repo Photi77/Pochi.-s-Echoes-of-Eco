@@ -75,7 +75,7 @@ public class Ratel extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-        return ModEntityTypes.RATEL.get().create(p_146743_);
+        return ModEntityTypes.RATEL.get().create(p_146743_, net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
     }
 
     private void setupAnimationStates() {
@@ -95,7 +95,7 @@ public class Ratel extends Animal {
             f = 0.0F;
         }
 
-        this.walkAnimation.update(f, 0.2F);
+        this.walkAnimation.update(f, 0.2F, this.tickCount);
     }
 
     @Override
@@ -154,7 +154,7 @@ public class Ratel extends Animal {
         }
 
         protected void onReachedTarget() {
-            if (net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(new net.neoforged.neoforge.event.entity.EntityMobGriefingEvent(Ratel.this.level(), Ratel.this)).canGrief()) {
+            if (net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(new net.neoforged.neoforge.event.entity.EntityMobGriefingEvent((net.minecraft.server.level.ServerLevel)Ratel.this.level(), Ratel.this)).canGrief()) {
                 BlockState blockstate = Ratel.this.level().getBlockState(this.blockPos);
                 if (blockstate.is(Blocks.BEEHIVE) || blockstate.is(Blocks.BEE_NEST)) {
                     this.stripped(blockstate, blockPos);

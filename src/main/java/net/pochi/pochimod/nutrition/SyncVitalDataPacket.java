@@ -4,9 +4,9 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.api.distmarker.Dist;
-import net.neoforged.fml.loading.FMLEnvironment;
+// import net.neoforged.fml.loading.FMLEnvironment; // removed in NeoForge 21.11
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.pochi.pochimod.PochiMod;
 import net.pochi.pochimod.event.ClientPacketHandler;
@@ -17,7 +17,7 @@ import net.pochi.pochimod.event.ClientPacketHandler;
 public record SyncVitalDataPacket(int hydration, int[] nutritionValues) implements CustomPacketPayload {
 
     public static final CustomPacketPayload.Type<SyncVitalDataPacket> TYPE =
-            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "sync_vital_data"));
+            new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "sync_vital_data"));
 
     public static final StreamCodec<FriendlyByteBuf, SyncVitalDataPacket> STREAM_CODEC =
             new StreamCodec<>() {
@@ -58,9 +58,8 @@ public record SyncVitalDataPacket(int hydration, int[] nutritionValues) implemen
 
     public static void handle(SyncVitalDataPacket packet, IPayloadContext context) {
         context.enqueueWork(() -> {
-            if (FMLEnvironment.dist == Dist.CLIENT) {
-                ClientPacketHandler.handleSyncVitalData(packet);
-            }
+            // FMLEnvironment.dist check removed in 1.21.11; handler is registered client-side only
+            ClientPacketHandler.handleSyncVitalData(packet);
         });
     }
 }

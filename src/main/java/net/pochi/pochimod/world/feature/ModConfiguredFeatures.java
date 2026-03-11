@@ -8,9 +8,9 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.random.SimpleWeightedRandomList;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.level.block.Block;
@@ -214,7 +214,7 @@ public class ModConfiguredFeatures {
         register(context, STONE_PILLAR_CONFIGURED, ModFeature.STONE_PILLAR.get(),new NoneFeatureConfiguration());
         register(context, NATURAL_BRIDGE_CONFIGURED, ModFeature.NATURAL_BRIDGE.get(),new NoneFeatureConfiguration());
 
-        register(context, POINTY_ROCK_KEY, ModFeature.POINTY_ROCK.get(), new PointyRockConfig.Builder().setBlock(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
+        register(context, POINTY_ROCK_KEY, ModFeature.POINTY_ROCK.get(), new PointyRockConfig.Builder().setBlock(new WeightedStateProvider(WeightedList.<BlockState>builder()
                         .add(Blocks.SANDSTONE.defaultBlockState(), 3)
                         .add(Blocks.SMOOTH_BASALT.defaultBlockState(), 2))
                 )
@@ -671,7 +671,7 @@ public class ModConfiguredFeatures {
     }
 
     public static ResourceKey<ConfiguredFeature<?, ?>> registerKey(String name) {
-        return ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, name));
+        return ResourceKey.create(Registries.CONFIGURED_FEATURE, Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, name));
     }
 
     private static <FC extends FeatureConfiguration, F extends Feature<FC>> void register(BootstrapContext<ConfiguredFeature<?, ?>> context,
@@ -680,7 +680,7 @@ public class ModConfiguredFeatures {
     }
 
     public static <FC extends FeatureConfiguration, F extends Feature<FC>> ResourceKey<ConfiguredFeature<?, ?>> createConfiguredFeature(String id, Supplier<? extends F> feature, Function<BootstrapContext<ConfiguredFeature<?, ?>>, ? extends FC> config) {
-        ResourceLocation bygID = ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, id);
+        Identifier bygID = Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, id);
 
         ResourceKey<ConfiguredFeature<?, ?>> configuredFeatureResourceKey = ResourceKey.create(Registries.CONFIGURED_FEATURE, bygID);
 

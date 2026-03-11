@@ -5,17 +5,18 @@ package net.pochi.pochimod.entity.client;// Made with Blockbench 5.0.4
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.animation.KeyframeAnimation;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.pochi.pochimod.entity.animations.ModAnimationDefinitions;
 import net.pochi.pochimod.entity.custom.Chameleon;
 
-public class ChameleonModel<T extends Chameleon> extends HierarchicalModel<T> {
+public class ChameleonModel extends EntityModel<LivingEntityRenderState> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	//public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath("modid", "ChameleonModel"), "main");
-	private final ModelPart root;
+	//public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(Identifier.fromNamespaceAndPath("modid", "ChameleonModel"), "main");
 	private final ModelPart body;
 	private final ModelPart neck;
 	private final ModelPart head;
@@ -28,7 +29,7 @@ public class ChameleonModel<T extends Chameleon> extends HierarchicalModel<T> {
 	private final ModelPart tail;
 
 	public ChameleonModel(ModelPart root) {
-		this.root = root.getChild("root");
+		super(root.getChild("root"));
 		this.body = this.root.getChild("body");
 		this.neck = this.root.getChild("neck");
 		this.head = this.neck.getChild("head");
@@ -95,23 +96,13 @@ public class ChameleonModel<T extends Chameleon> extends HierarchicalModel<T> {
 	}
 
 	@Override
-	public void setupAnim(Chameleon entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(LivingEntityRenderState state) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
 
-		if(entity.walkAnimation.isMoving()) {
-			this.animateWalk(ModAnimationDefinitions.ANT_WALK, limbSwing, limbSwingAmount, 2f, 2.5f);
+		if((state.walkAnimationSpeed > 0.01F)) {
+			ModAnimationDefinitions.ANT_WALK.bake(this.root()).applyWalk(state.walkAnimationPos, state.walkAnimationSpeed, 2f, 2.5f);
 		} else {
-			//this.animate(entity.idleAnimationState, ModAnimationDefinitions.ANT_IDLE, ageInTicks, 1f);
+			//// TODO: idle animation state not available in render state
 		}
-	}
-
-	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-	}
-
-	@Override
-	public ModelPart root() {
-		return root;
 	}
 }

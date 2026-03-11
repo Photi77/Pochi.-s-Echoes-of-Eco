@@ -26,7 +26,7 @@ public class PamukaleLakeFeature extends Feature<PamukaleLakeFeature.Configurati
         WorldGenLevel worldgenlevel = p_159958_.level();
         RandomSource randomsource = p_159958_.random();
         PamukaleLakeFeature.Configuration lakefeature$configuration = p_159958_.config();
-        if (blockpos.getY() <= worldgenlevel.getMinBuildHeight() + 4) {
+        if (blockpos.getY() <= worldgenlevel.getMinY() + 4) {
             return false;
         } else {
             blockpos = blockpos.below(4);

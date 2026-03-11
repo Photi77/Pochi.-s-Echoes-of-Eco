@@ -6,7 +6,8 @@ import mezz.jei.api.registration.IGuiHandlerRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.server.IntegratedServer;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.crafting.RecipeManager;
 import net.pochi.pochimod.PochiMod;
 import net.pochi.pochimod.recipe.BFurnaceRecipe;
@@ -17,8 +18,8 @@ import java.util.List;
 @JeiPlugin
 public class JEIPochiModPlugin implements IModPlugin {
     @Override
-    public ResourceLocation getPluginUid() {
-        return ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "jei_plugin");
+    public Identifier getPluginUid() {
+        return Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "jei_plugin");
     }
 
     @Override
@@ -28,10 +29,15 @@ public class JEIPochiModPlugin implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        RecipeManager recipeManager = Minecraft.getInstance().level.getRecipeManager();
-
-        List<BFurnaceRecipe> bFurnaceRecipes = recipeManager.getAllRecipesFor(BFurnaceRecipe.Type.INSTANCE)
-                .stream().map(net.minecraft.world.item.crafting.RecipeHolder::value).toList();
+        // In MC 1.21.11, ClientLevel no longer exposes RecipeManager; use integrated server
+        IntegratedServer server = Minecraft.getInstance().getSingleplayerServer();
+        if (server == null) return;
+        RecipeManager recipeManager = server.getRecipeManager();
+        List<BFurnaceRecipe> bFurnaceRecipes = recipeManager.getRecipes()
+                .stream()
+                .filter(holder -> holder.value().getType() == BFurnaceRecipe.Type.INSTANCE)
+                .map(holder -> (BFurnaceRecipe) holder.value())
+                .toList();
         registration.addRecipes(BFurnaceCategory.GEM_POLISHING_TYPE, bFurnaceRecipes);
     }
 

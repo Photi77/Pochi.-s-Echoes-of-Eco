@@ -23,9 +23,11 @@ import net.pochi.pochimod.sound.ModSounds;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimationState;
+import software.bernie.geckolib.animation.state.AnimationTest;
+import software.bernie.geckolib.animatable.manager.AnimatableManager;
 import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.object.LoopType;
+import software.bernie.geckolib.animation.object.PlayState;
 
 import javax.annotation.Nullable;
 
@@ -43,7 +45,7 @@ public class Cicada extends Animal implements GeoEntity{
 
     public Cicada(EntityType<? extends Cicada> p_27412_, Level p_27413_) {
         super(p_27412_, p_27413_);
-        if (!p_27413_.isClientSide) {
+        if (!p_27413_.isClientSide()) {
             this.setResting(true);
         }
 
@@ -130,18 +132,18 @@ public class Cicada extends Animal implements GeoEntity{
 
     }
 
-    private PlayState predicate(AnimationState animationState) {
+    private PlayState predicate(AnimationTest animationState) {
         if(this.isResting()){
-            animationState.getController().setAnimation(RawAnimation.begin().then("animation.model.idle", Animation.LoopType.LOOP));
+            animationState.controller().setAnimation(RawAnimation.begin().then("animation.model.idle", LoopType.LOOP));
             return PlayState.CONTINUE;
         }
-        animationState.getController().setAnimation(RawAnimation.begin().then("animation.model.fly", Animation.LoopType.LOOP));
+        animationState.controller().setAnimation(RawAnimation.begin().then("animation.model.fly", LoopType.LOOP));
         return PlayState.CONTINUE;
     }
 
 
-    protected void customServerAiStep() {
-        super.customServerAiStep();
+    protected void customServerAiStep(net.minecraft.server.level.ServerLevel pLevel) {
+        super.customServerAiStep(pLevel);
         BlockPos blockpos = this.blockPosition();
         BlockPos blockpos1 = blockpos.east();
         BlockPos blockpos2 = blockpos.west();
@@ -154,7 +156,7 @@ public class Cicada extends Animal implements GeoEntity{
                     this.level().getBlockState(blockpos3).isRedstoneConductor(this.level(), blockpos)||
                     this.level().getBlockState(blockpos4).isRedstoneConductor(this.level(), blockpos)) {
 
-                if (this.level().getNearestPlayer(BAT_RESTING_TARGETING, this) != null) {
+                if (pLevel.getNearestPlayer(BAT_RESTING_TARGETING, this) != null) {
                     this.setResting(false);
                     if (flag) {
                         this.level().levelEvent((Player)null, 1025, blockpos, 0);
@@ -167,7 +169,7 @@ public class Cicada extends Animal implements GeoEntity{
                 }
             }
         } else {
-            if (this.targetPosition != null && (!this.level().isEmptyBlock(this.targetPosition) || this.targetPosition.getY() <= this.level().getMinBuildHeight())) {
+            if (this.targetPosition != null && (!this.level().isEmptyBlock(this.targetPosition) || this.targetPosition.getY() <= this.level().getMinY())) {
                 this.targetPosition = null;
             }
 
@@ -206,24 +208,24 @@ public class Cicada extends Animal implements GeoEntity{
         return true;
     }
 
-    public boolean hurt(DamageSource p_27424_, float p_27425_) {
-        if (this.isInvulnerableTo(p_27424_)) {
+    public boolean hurtServer(net.minecraft.server.level.ServerLevel pLevel, DamageSource p_27424_, float p_27425_) {
+        if (this.isInvulnerableToBase(p_27424_)) {
             return false;
         } else {
-            if (!this.level().isClientSide && this.isResting()) {
+            if (this.isResting()) {
                 this.setResting(false);
             }
 
-            return super.hurt(p_27424_, p_27425_);
+            super.hurtServer(pLevel, p_27424_, p_27425_); return false;
         }
     }
 
-    public void readAdditionalSaveData(CompoundTag p_27427_) {
+    public void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput p_27427_) {
         super.readAdditionalSaveData(p_27427_);
-        this.entityData.set(DATA_ID_FLAGS, p_27427_.getByte("BatFlags"));
+        this.entityData.set(DATA_ID_FLAGS, p_27427_.getByteOr("BatFlags", (byte)0));
     }
 
-    public void addAdditionalSaveData(CompoundTag p_27443_) {
+    public void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput p_27443_) {
         super.addAdditionalSaveData(p_27443_);
         p_27443_.putByte("BatFlags", this.entityData.get(DATA_ID_FLAGS));
     }
@@ -235,7 +237,7 @@ public class Cicada extends Animal implements GeoEntity{
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController(this, "controller",
+        controllers.add(new AnimationController("controller",
                 0, this::predicate));
     }
 

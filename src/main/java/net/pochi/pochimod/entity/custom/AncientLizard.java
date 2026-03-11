@@ -67,7 +67,7 @@ public class AncientLizard extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-        return ModEntityTypes.ANCIENT_LIZARD.get().create(p_146743_);
+        return ModEntityTypes.ANCIENT_LIZARD.get().create(p_146743_, net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
     }
 
     private void setupAnimationStates() {
@@ -87,7 +87,7 @@ public class AncientLizard extends Animal {
             f = 0.0F;
         }
 
-        this.walkAnimation.update(f, 0.2F);
+        this.walkAnimation.update(f, 0.2F, this.tickCount);
     }
 
     @Override
@@ -107,7 +107,7 @@ public class AncientLizard extends Animal {
     //public InteractionResult mobInteract(Player p_29853_, InteractionHand p_29854_) {
     //    ItemStack itemstack = p_29853_.getItemInHand(p_29854_);
     //    if (itemstack.getItem() == Items.BRUSH) { //Forge: Moved to onSheared
-    //        if (!this.level().isClientSide) {
+    //        if (!this.level().isClientSide()) {
     //            this.shear(SoundSource.PLAYERS);
     //            itemstack.hurtAndBreak(1, p_29853_, (p_29822_) -> {
     //                p_29822_.broadcastBreakEvent(p_29854_);

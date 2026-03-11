@@ -67,7 +67,7 @@ public class Felis extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-        return ModEntityTypes.FELIS.get().create(p_146743_);
+        return ModEntityTypes.FELIS.get().create(p_146743_, net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
     }
 
     private void setupAnimationStates() {
@@ -87,7 +87,7 @@ public class Felis extends Animal {
             f = 0.0F;
         }
 
-        this.walkAnimation.update(f, 0.2F);
+        this.walkAnimation.update(f, 0.2F, this.tickCount);
     }
 
     @Override
@@ -116,7 +116,7 @@ public class Felis extends Animal {
         }
 
         public boolean canUse() {
-            this.player = this.dolphin.level().getNearestPlayer(Felis.SWIM_WITH_PLAYER_TARGETING, this.dolphin);
+            this.player = this.dolphin.level().getNearestPlayer(this.dolphin, 10.0);
             if (this.player == null) {
                 return false;
             } else {

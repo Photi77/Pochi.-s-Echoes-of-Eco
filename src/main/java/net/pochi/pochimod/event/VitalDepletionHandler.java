@@ -31,7 +31,7 @@ public class VitalDepletionHandler {
     public static void onPlayerTick(PlayerTickEvent.Post event) {
         Player player = event.getEntity();
 
-        if (player.level().isClientSide) {
+        if (player.level().isClientSide()) {
             return;
         }
 

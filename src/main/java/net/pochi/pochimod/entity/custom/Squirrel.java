@@ -72,14 +72,14 @@ public class Squirrel extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-        return ModEntityTypes.SQUIRREL.get().create(p_146743_);
+        return ModEntityTypes.SQUIRREL.get().create(p_146743_, net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
     }
 
     @Override
     public void tick() {
         super.tick();
 
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             this.plantingTimer++;
 
             // 植樹アニメーション中
@@ -94,7 +94,7 @@ public class Squirrel extends Animal {
         }
 
         // クライアント側のパーティクル
-        if (this.level().isClientSide && this.currentPlantingPos != null) {
+        if (this.level().isClientSide() && this.currentPlantingPos != null) {
             spawnPlantingParticles();
         }
     }
@@ -112,25 +112,21 @@ public class Squirrel extends Animal {
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag tag) {
+    public void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput tag) {
         super.addAdditionalSaveData(tag);
 
-        if (!this.saplingStack.isEmpty()) {
-            tag.put("SaplingStack", this.saplingStack.save(this.registryAccess()));
-        }
+        tag.store("SaplingStack", ItemStack.OPTIONAL_CODEC, this.saplingStack);
 
         tag.putInt("PlantingTimer", this.plantingTimer);
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag tag) {
+    public void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput tag) {
         super.readAdditionalSaveData(tag);
 
-        if (tag.contains("SaplingStack")) {
-            this.saplingStack = ItemStack.parseOptional(this.registryAccess(), tag.getCompound("SaplingStack"));
-        }
+        this.saplingStack = tag.read("SaplingStack", ItemStack.OPTIONAL_CODEC).orElse(ItemStack.EMPTY);
 
-        this.plantingTimer = tag.getInt("PlantingTimer");
+        this.plantingTimer = tag.getIntOr("PlantingTimer", 0);
     }
 
     public ItemStack getSaplingStack() {
@@ -534,7 +530,7 @@ public class Squirrel extends Animal {
             if (currentStack.isEmpty()) {
                 ItemStack toGive = itemstack.split(Math.min(itemstack.getCount(), itemstack.getMaxStackSize()));
                 this.setSaplingStack(toGive);
-                return InteractionResult.sidedSuccess(this.level().isClientSide);
+                return InteractionResult.SUCCESS;
             } else if (ItemStack.isSameItemSameComponents(currentStack, itemstack)) {
                 int addAmount = Math.min(
                         itemstack.getCount(),
@@ -544,19 +540,19 @@ public class Squirrel extends Animal {
                 if (addAmount > 0) {
                     currentStack.grow(addAmount);
                     itemstack.shrink(addAmount);
-                    return InteractionResult.sidedSuccess(this.level().isClientSide);
+                    return InteractionResult.SUCCESS;
                 }
             }
         }
 
         // Shift+右クリックで苗木を回収
         if (player.isShiftKeyDown() && this.hasSapling()) {
-            if (!this.level().isClientSide) {
+            if (!this.level().isClientSide()) {
                 ItemStack saplingStack = this.getSaplingStack();
                 player.addItem(saplingStack.copy());
                 this.setSaplingStack(ItemStack.EMPTY);
             }
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
+            return InteractionResult.SUCCESS;
         }
 
         // 種で餌付け
@@ -565,12 +561,12 @@ public class Squirrel extends Animal {
                 itemstack.shrink(1);
             }
 
-            if (!this.level().isClientSide) {
+            if (!this.level().isClientSide()) {
                 this.heal(2.0F);
                 this.level().broadcastEntityEvent(this, (byte) 7);
             }
 
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
+            return InteractionResult.SUCCESS;
         }
 
         return super.mobInteract(player, hand);
@@ -581,7 +577,7 @@ public class Squirrel extends Animal {
         super.dropCustomDeathLoot(serverLevel, source, recentlyHit);
 
         if (!this.saplingStack.isEmpty()) {
-            this.spawnAtLocation(this.saplingStack);
+            this.spawnAtLocation(serverLevel, this.saplingStack);
         }
     }
 

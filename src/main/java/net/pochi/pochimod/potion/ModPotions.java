@@ -14,7 +14,7 @@ public class ModPotions {
             DeferredRegister.create(Registries.POTION, PochiMod.MOD_ID);
 
     public static final DeferredHolder<Potion, Potion> BIO_POTION = POTIONS.register("bio_potion",
-            () -> new Potion(new MobEffectInstance(ModEffects.SHIELD, 600, 0)));
+            () -> new Potion("bio_potion", new MobEffectInstance(ModEffects.SHIELD, 600, 0)));
 
     public static void register(IEventBus eventBus) {
         POTIONS.register(eventBus);

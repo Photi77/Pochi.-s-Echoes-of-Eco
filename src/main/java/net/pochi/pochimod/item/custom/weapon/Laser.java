@@ -5,7 +5,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
+
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -24,9 +25,9 @@ public class Laser extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level p_41432_, Player p_41433_, InteractionHand p_41434_) {
+    public InteractionResult use(Level p_41432_, Player p_41433_, InteractionHand p_41434_) {
         ItemStack itemStack = p_41433_.getItemInHand(p_41434_);
-        if (!p_41432_.isClientSide) {
+        if (!p_41432_.isClientSide()) {
             HitResult lookingAt = p_41433_.pick(100, 0.0F, true);
             Entity result = Minecraft.getInstance().crosshairPickEntity;
             BlockPos blockPos = new BlockPos((int) lookingAt.getLocation().x, (int) lookingAt.getLocation().y, (int) lookingAt.getLocation().z);
@@ -43,9 +44,9 @@ public class Laser extends Item {
                                 double d0 = lookingAt.getLocation().distanceToSqr(livingentity.getX(),livingentity.getY(),livingentity.getZ());
                                 if(!(livingentity == p_41433_)) {
                                     if (d0 < 20.0D) {
-                                        livingentity.kill();
+                                        if (p_41432_ instanceof ServerLevel serverLevel2) livingentity.kill(serverLevel2);
                                         if(result.isAlive()) {
-                                            livingentity.kill();
+                                            if (p_41432_ instanceof ServerLevel serverLevel2) livingentity.kill(serverLevel2);
                                         }
                                     }
                                 }
@@ -57,13 +58,13 @@ public class Laser extends Item {
 
             if(p_41432_ instanceof ServerLevel level){
                 for (int l = 0; l < 1000; l++) {
-                    level.sendParticles(new DustParticleOptions(Vec3.fromRGB24(16711680).toVector3f(),3),
+                    level.sendParticles(new DustParticleOptions(16711680, 3),
                             p_41433_.getX() + p_41433_.getLookAngle().x * 2 * l, p_41433_.getY() + p_41433_.getLookAngle().y * 2 * l, p_41433_.getZ() + p_41433_.getLookAngle().z * 2 * l, 5,
                             0, 0, 0, 2);
                 }
             }
         }
 
-        return InteractionResultHolder.fail(itemStack);
+        return InteractionResult.FAIL;
     }
 }

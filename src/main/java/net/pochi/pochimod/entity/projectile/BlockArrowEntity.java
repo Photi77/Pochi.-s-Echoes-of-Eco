@@ -18,11 +18,11 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
-import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.DirectionalPlaceContext;
 import net.minecraft.world.level.ClipContext;
-import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AnvilBlock;
 import net.minecraft.world.level.block.Block;
@@ -132,7 +132,7 @@ public class BlockArrowEntity extends AbstractArrow {
             ++this.time;
 
             this.move(MoverType.SELF, this.getDeltaMovement());
-            if (!this.level().isClientSide) {
+            if (!this.level().isClientSide()) {
                 BlockPos blockpos = this.blockPosition();
                 boolean flag1 = this.blockState.canBeHydrated(this.level(), blockpos, this.level().getFluidState(blockpos), blockpos);
 
@@ -145,9 +145,9 @@ public class BlockArrowEntity extends AbstractArrow {
 
 
                 if (!this.onGround() && !flag1) {
-                    if (!this.level().isClientSide && (this.time > 100 && (blockpos.getY() <= this.level().getMinBuildHeight() || blockpos.getY() > this.level().getMaxBuildHeight()) || this.time > 600)) {
-                        if (this.dropItem && this.level().getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) {
-                            this.spawnAtLocation(block);
+                    if (!this.level().isClientSide() && (this.time > 100 && (blockpos.getY() <= this.level().getMinY() || blockpos.getY() > this.level().getMaxY()) || this.time > 600)) {
+                        if (this.dropItem) {
+                            this.spawnAtLocation((ServerLevel)this.level(), block);
                         }
 
                         this.discard();
@@ -164,7 +164,7 @@ public class BlockArrowEntity extends AbstractArrow {
                                 }
 
                                 if (this.level().setBlock(blockpos, this.blockState, 3)) {
-                                    ((ServerLevel)this.level()).getChunkSource().chunkMap.broadcast(this, new ClientboundBlockUpdatePacket(blockpos, this.level().getBlockState(blockpos)));
+                                    ((ServerLevel)this.level()).sendBlockUpdated(blockpos, this.blockState, this.level().getBlockState(blockpos), 3);
                                     this.discard();
 
 
@@ -173,7 +173,7 @@ public class BlockArrowEntity extends AbstractArrow {
                                         if (blockentity != null) {
                                             CompoundTag compoundtag = blockentity.saveWithoutMetadata(this.level().registryAccess());
 
-                                            for(String s : this.blockData.getAllKeys()) {
+                                            for(String s : this.blockData.keySet()) {
                                                 compoundtag.put(s, this.blockData.get(s).copy());
                                             }
 

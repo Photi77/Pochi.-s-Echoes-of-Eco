@@ -41,21 +41,21 @@ public class BubbleEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+    protected void saveAdditional(net.minecraft.world.level.storage.ValueOutput tag) {
         tag.putInt("blaster.progress", progress);
         tag.putInt("blaster.fuelTime", lava);
-        super.saveAdditional(tag, registries);
+        super.saveAdditional(tag);
     }
 
     @Override
-    public void loadAdditional(CompoundTag nbt, HolderLookup.Provider registries) {
-        super.loadAdditional(nbt, registries);
-        progress = nbt.getInt("blaster.progress");
-        lava = nbt.getInt("blaster.fuelTime");
+    public void loadAdditional(net.minecraft.world.level.storage.ValueInput nbt) {
+        super.loadAdditional(nbt);
+        progress = nbt.getIntOr("blaster.progress", 0);
+        lava = nbt.getIntOr("blaster.fuelTime", 0);
     }
 
     public static void tick(Level pLevel, BlockPos pPos, BlockState pState, BubbleEntity pBlockEntity) {
-        if (!pLevel.isClientSide) {
+        if (!pLevel.isClientSide()) {
             if (pBlockEntity.lava++ >= 160) {
                 pLevel.setBlockAndUpdate(pPos, Blocks.LAVA.defaultBlockState());
             }

@@ -4,49 +4,49 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
+
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SwordItem;
-import net.minecraft.world.item.Tier;
 import net.minecraft.world.level.Level;
 import net.pochi.pochimod.entity.projectile.JawChainProjectileEntity;
 
-public class CrocodileJawChainItem extends SwordItem {
+public class CrocodileJawChainItem extends Item {
 
     private static final int COOLDOWN_TICKS = 100; // 10秒
     private static final int DURABILITY_COST = 15;
 
     private static final String COOLDOWN_TAG = "crocodile_jaw_chain_cooldown";
 
-    public CrocodileJawChainItem(Tier tier, Properties properties) {
-        super(tier, properties);
+    public CrocodileJawChainItem(Properties properties) {
+        super(properties);
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ItemStack itemStack = player.getItemInHand(hand);
 
         // クールダウン中
         if (this.isOnCooldown(player)) {
-            if (level.isClientSide) {
+            if (level.isClientSide()) {
                 level.playSound(player, player.getX(), player.getY(), player.getZ(),
                         SoundEvents.DISPENSER_FAIL, SoundSource.PLAYERS, 0.5F, 1.0F);
             }
-            return InteractionResultHolder.pass(itemStack);
+            return InteractionResult.PASS;
         }
 
         // 耐久値チェック
         if (itemStack.getDamageValue() + DURABILITY_COST > itemStack.getMaxDamage()) {
-            if (level.isClientSide) {
+            if (level.isClientSide()) {
                 level.playSound(player, player.getX(), player.getY(), player.getZ(),
                         SoundEvents.ITEM_BREAK, SoundSource.PLAYERS, 0.5F, 1.0F);
             }
-            return InteractionResultHolder.fail(itemStack);
+            return InteractionResult.FAIL;
         }
 
         // サーバー側でのみ処理
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             // 顎鎖を射出
             JawChainProjectileEntity jawChain = new JawChainProjectileEntity(level, player);
             jawChain.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
@@ -67,7 +67,7 @@ public class CrocodileJawChainItem extends SwordItem {
                 SoundEvents.IRON_GOLEM_ATTACK, SoundSource.PLAYERS,
                 1.0F, 0.8F + level.random.nextFloat() * 0.4F);
 
-        return InteractionResultHolder.sidedSuccess(itemStack, level.isClientSide());
+        return InteractionResult.SUCCESS;
     }
 
     /**
@@ -75,7 +75,7 @@ public class CrocodileJawChainItem extends SwordItem {
      */
     private boolean isOnCooldown(Player player) {
         return player.getPersistentData().contains(COOLDOWN_TAG) &&
-                player.getPersistentData().getLong(COOLDOWN_TAG) > player.level().getGameTime();
+                player.getPersistentData().getLongOr(COOLDOWN_TAG, 0L) > player.level().getGameTime();
     }
 
     /**

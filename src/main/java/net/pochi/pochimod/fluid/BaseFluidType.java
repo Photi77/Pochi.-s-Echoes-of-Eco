@@ -1,26 +1,27 @@
 package net.pochi.pochimod.fluid;
 
-import com.mojang.blaze3d.shaders.FogShape;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.FogRenderer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.fog.FogData;
+import net.minecraft.client.renderer.fog.environment.FogEnvironment;
+import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
 import net.neoforged.neoforge.fluids.FluidType;
 import org.joml.Vector3f;
+import org.joml.Vector4f;
 
 import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
 public class BaseFluidType extends FluidType {
-    private final ResourceLocation stillTexture;
-    private final ResourceLocation flowingTexture;
-    private final ResourceLocation overlayTexture;
+    private final Identifier stillTexture;
+    private final Identifier flowingTexture;
+    private final Identifier overlayTexture;
     private final int tintColor;
     private final Vector3f fogColor;
 
-    public BaseFluidType(final ResourceLocation stillTexture, final ResourceLocation flowingTexture, final ResourceLocation overlayTexture,
+    public BaseFluidType(final Identifier stillTexture, final Identifier flowingTexture, final Identifier overlayTexture,
                          final int tintColor, final  Vector3f fogColor, Properties properties) {
         super(properties);
         this.stillTexture = stillTexture;
@@ -30,11 +31,11 @@ public class BaseFluidType extends FluidType {
         this.fogColor = fogColor;
     }
 
-    public ResourceLocation getStillTexture() {
+    public Identifier getStillTexture() {
         return stillTexture;
     }
 
-    public ResourceLocation getFlowingTexture() {
+    public Identifier getFlowingTexture() {
         return flowingTexture;
     }
 
@@ -42,7 +43,7 @@ public class BaseFluidType extends FluidType {
         return tintColor;
     }
 
-    public ResourceLocation getOverlayTexture() {
+    public Identifier getOverlayTexture() {
         return overlayTexture;
     }
 
@@ -50,22 +51,21 @@ public class BaseFluidType extends FluidType {
         return fogColor;
     }
 
-    @Override
     public void initializeClient(Consumer<IClientFluidTypeExtensions> consumer) {
         consumer.accept(new IClientFluidTypeExtensions() {
 
             @Override
-            public ResourceLocation getStillTexture(){
+            public Identifier getStillTexture(){
                 return stillTexture;
             }
 
             @Override
-            public ResourceLocation getFlowingTexture() {
+            public Identifier getFlowingTexture() {
                 return flowingTexture;
             }
 
             @Override
-            public @Nullable ResourceLocation getOverlayTexture() {
+            public @Nullable Identifier getOverlayTexture() {
                 return overlayTexture;
             }
             @Override
@@ -74,18 +74,17 @@ public class BaseFluidType extends FluidType {
             }
 
             @Override
-            public @Nullable Vector3f modifyFogColor(Camera camera, float partilaTick, ClientLevel level,
-                                                     int renderDistance, float darkenWorldAmount, Vector3f fluidFogColor){
-                return fogColor;
+            public @Nullable Vector4f modifyFogColor(Camera camera, float partilaTick, ClientLevel level,
+                                                     int renderDistance, float darkenWorldAmount, Vector4f fluidFogColor){
+                return new Vector4f(fogColor.x(), fogColor.y(), fogColor.z(), 1.0f);
             }
 
             @Override
-            public void modifyFogRender(Camera camera, FogRenderer.FogMode mode, float renderDistance, float partialTick,
-                                        float nearDistance, float farDistance, FogShape shape) {
-                RenderSystem.setShaderFogStart(1f);
-                RenderSystem.setShaderFogEnd(6f);
+            public void modifyFogRender(Camera camera, FogEnvironment environment, float renderDistance, float partialTick,
+                                        FogData fogData) {
+                fogData.environmentalStart = 1f;
+                fogData.environmentalEnd = 6f;
             }
         });
     }
 }
-

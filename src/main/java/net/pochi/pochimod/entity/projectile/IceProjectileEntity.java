@@ -9,7 +9,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
+import net.minecraft.world.entity.projectile.throwableitemprojectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -28,11 +28,11 @@ public class IceProjectileEntity extends ThrowableItemProjectile {
     }
 
     public IceProjectileEntity(Level level, LivingEntity shooter) {
-        super(ModEntityTypes.ICE_PROJECTILE.get(), shooter, level);
+        super(ModEntityTypes.ICE_PROJECTILE.get(), shooter, level, new net.minecraft.world.item.ItemStack(Items.EGG));
     }
 
     public IceProjectileEntity(Level p_37394_, double p_37395_, double p_37396_, double p_37397_) {
-        super(ModEntityTypes.ICE_PROJECTILE.get(), p_37395_, p_37396_, p_37397_, p_37394_);
+        super(ModEntityTypes.ICE_PROJECTILE.get(), p_37395_, p_37396_, p_37397_, p_37394_, new net.minecraft.world.item.ItemStack(Items.EGG));
     }
 
     @Override
@@ -45,7 +45,7 @@ public class IceProjectileEntity extends ThrowableItemProjectile {
         super.tick();
 
         // クライアント側：飛行中のパーティクル
-        if (this.level().isClientSide) {
+        if (this.level().isClientSide()) {
             // 氷晶の軌跡
             for (int i = 0; i < 2; i++) {
                 this.level().addParticle(
@@ -79,7 +79,7 @@ public class IceProjectileEntity extends ThrowableItemProjectile {
     protected void onHitEntity(EntityHitResult result) {
         super.onHitEntity(result);
 
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             Entity target = result.getEntity();
             Entity owner = this.getOwner();
 
@@ -90,13 +90,13 @@ public class IceProjectileEntity extends ThrowableItemProjectile {
 
             // ダメージ適用
             DamageSource damageSource = this.damageSources().indirectMagic(this, owner);
-            boolean hit = target.hurt(damageSource, DAMAGE);
+            boolean hit = false; target.hurtOrSimulate(damageSource, DAMAGE);
 
             if (hit && target instanceof LivingEntity livingTarget) {
                 // 移動速度低下効果
                 livingTarget.addEffect(
                         new MobEffectInstance(
-                                MobEffects.MOVEMENT_SLOWDOWN,
+                                MobEffects.SLOWNESS,
                                 SLOWNESS_DURATION,
                                 SLOWNESS_AMPLIFIER,
                                 false, // アンビエント効果ではない
@@ -118,7 +118,7 @@ public class IceProjectileEntity extends ThrowableItemProjectile {
     protected void onHitBlock(BlockHitResult result) {
         super.onHitBlock(result);
 
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             // 着弾エフェクト
             spawnImpactEffects();
 

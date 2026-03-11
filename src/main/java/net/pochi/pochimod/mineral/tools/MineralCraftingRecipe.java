@@ -90,7 +90,7 @@ public class MineralCraftingRecipe extends ShapedRecipe {
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<MineralCraftingRecipe> getSerializer() {
         return ModRecipes.MINERAL_SHAPED.get();
     }
 
@@ -103,7 +103,7 @@ public class MineralCraftingRecipe extends ShapedRecipe {
     public static class Serializer implements RecipeSerializer<MineralCraftingRecipe> {
 
         public static final MapCodec<MineralCraftingRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-                Codec.STRING.optionalFieldOf("group", "").forGetter(ShapedRecipe::getGroup),
+                Codec.STRING.optionalFieldOf("group", "").forGetter(ShapedRecipe::group),
                 CraftingBookCategory.CODEC.fieldOf("category").orElse(CraftingBookCategory.MISC).forGetter(ShapedRecipe::category),
                 ShapedRecipePattern.MAP_CODEC.forGetter(r -> r.pattern),
                 ItemStack.STRICT_CODEC.fieldOf("result").forGetter(r -> r.result),
@@ -116,7 +116,7 @@ public class MineralCraftingRecipe extends ShapedRecipe {
         public static final StreamCodec<RegistryFriendlyByteBuf, MineralCraftingRecipe> STREAM_CODEC =
                 StreamCodec.of(
                         (buf, recipe) -> {
-                            buf.writeUtf(recipe.getGroup());
+                            buf.writeUtf(recipe.group());
                             buf.writeEnum(recipe.category());
                             ShapedRecipePattern.STREAM_CODEC.encode(buf, recipe.pattern);
                             ItemStack.STREAM_CODEC.encode(buf, recipe.result);

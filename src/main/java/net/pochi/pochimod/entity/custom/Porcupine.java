@@ -82,14 +82,14 @@ public class Porcupine extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-        return ModEntityTypes.PORCUPINE.get().create(p_146743_);
+        return ModEntityTypes.PORCUPINE.get().create(p_146743_, net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
     }
 
-    public boolean doHurtTarget(Entity p_32257_) {
-        if (super.doHurtTarget(p_32257_)) {
+    public boolean doHurtTarget(net.minecraft.server.level.ServerLevel pLevel, net.minecraft.world.entity.Entity p_32257_) {
+        if (super.doHurtTarget(pLevel, p_32257_)) {
             if (p_32257_ instanceof LivingEntity livingEntity) {
                 if(random.nextInt(10) == 0) {
-                    this.spawnAtLocation(ModItems.CAVIAR.get());
+                    this.spawnAtLocation(pLevel, ModItems.CAVIAR.get());
                 }
                 this.addEffect(new MobEffectInstance(ModEffects.INV,20,0,true,false));
             }
@@ -132,7 +132,7 @@ public class Porcupine extends Animal {
             f = 0.0F;
         }
 
-        this.walkAnimation.update(f, 0.2F);
+        this.walkAnimation.update(f, 0.2F, this.tickCount);
     }
 
     public void setAttacking(boolean attacking) {

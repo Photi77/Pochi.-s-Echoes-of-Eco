@@ -14,6 +14,9 @@ public class BFurnaceRecipe implements Recipe<SimpleContainerRecipeInput> {
     private final ItemStack output;
     private final NonNullList<Ingredient> recipeItems;
 
+    // Static singleton RecipeBookCategory for custom recipe
+    private static final RecipeBookCategory BOOK_CATEGORY = new RecipeBookCategory();
+
     public BFurnaceRecipe(ItemStack output, NonNullList<Ingredient> recipeItems) {
         this.output = output;
         this.recipeItems = recipeItems;
@@ -32,29 +35,39 @@ public class BFurnaceRecipe implements Recipe<SimpleContainerRecipeInput> {
         return output.copy();
     }
 
-    @Override
+    // Not in Recipe interface in 1.21.11, but kept for internal use
     public boolean canCraftInDimensions(int pWidth, int pHeight) {
         return true;
     }
 
-    @Override
+    // Not in Recipe interface in 1.21.11, but kept for JEI/display use
     public ItemStack getResultItem(HolderLookup.Provider registries) {
         return output.copy();
     }
 
-    @Override
+    // Not in Recipe interface in 1.21.11, but kept for ingredient access
     public NonNullList<Ingredient> getIngredients() {
         return recipeItems;
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public PlacementInfo placementInfo() {
+        return PlacementInfo.create(recipeItems);
+    }
+
+    @Override
+    public RecipeSerializer<BFurnaceRecipe> getSerializer() {
         return Serializer.INSTANCE;
     }
 
     @Override
-    public RecipeType<?> getType() {
+    public RecipeType<BFurnaceRecipe> getType() {
         return Type.INSTANCE;
+    }
+
+    @Override
+    public RecipeBookCategory recipeBookCategory() {
+        return BOOK_CATEGORY;
     }
 
     public static class Type implements RecipeType<BFurnaceRecipe> {
@@ -63,14 +76,18 @@ public class BFurnaceRecipe implements Recipe<SimpleContainerRecipeInput> {
         public static final String ID = "bfurnace";
     }
 
+    public ItemStack getOutput() {
+        return output;
+    }
+
     public static class Serializer implements RecipeSerializer<BFurnaceRecipe> {
         public static final Serializer INSTANCE = new Serializer();
 
         public static final MapCodec<BFurnaceRecipe> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
                 ItemStack.STRICT_CODEC.fieldOf("output").forGetter(r -> r.output),
-                Ingredient.CODEC_NONEMPTY.listOf().xmap(
+                Ingredient.CODEC.listOf().xmap(
                         list -> {
-                            NonNullList<Ingredient> nl = NonNullList.withSize(list.size(), Ingredient.EMPTY);
+                            NonNullList<Ingredient> nl = NonNullList.withSize(list.size(), Ingredient.of());
                             for (int i = 0; i < list.size(); i++) nl.set(i, list.get(i));
                             return nl;
                         },
@@ -89,7 +106,7 @@ public class BFurnaceRecipe implements Recipe<SimpleContainerRecipeInput> {
                         },
                         buf -> {
                             int size = buf.readVarInt();
-                            NonNullList<Ingredient> inputs = NonNullList.withSize(size, Ingredient.EMPTY);
+                            NonNullList<Ingredient> inputs = NonNullList.withSize(size, Ingredient.of());
                             for (int i = 0; i < size; i++) {
                                 inputs.set(i, Ingredient.CONTENTS_STREAM_CODEC.decode(buf));
                             }
@@ -107,5 +124,9 @@ public class BFurnaceRecipe implements Recipe<SimpleContainerRecipeInput> {
         public StreamCodec<RegistryFriendlyByteBuf, BFurnaceRecipe> streamCodec() {
             return STREAM_CODEC;
         }
+
+
     }
+
+
 }

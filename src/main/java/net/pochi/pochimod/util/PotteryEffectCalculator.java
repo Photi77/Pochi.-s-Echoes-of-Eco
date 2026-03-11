@@ -15,14 +15,14 @@ public class PotteryEffectCalculator {
 
     @SuppressWarnings("unchecked")
     private static final Holder<MobEffect>[] ALL_EFFECTS = new Holder[] {
-            MobEffects.MOVEMENT_SPEED,
-            MobEffects.MOVEMENT_SLOWDOWN,
-            MobEffects.DIG_SPEED,
-            MobEffects.DIG_SLOWDOWN,
-            MobEffects.DAMAGE_BOOST,
-            MobEffects.DAMAGE_RESISTANCE,
-            MobEffects.JUMP,
-            MobEffects.CONFUSION,
+            MobEffects.SPEED,
+            MobEffects.SLOWNESS,
+            MobEffects.HASTE,
+            MobEffects.MINING_FATIGUE,
+            MobEffects.STRENGTH,
+            MobEffects.RESISTANCE,
+            MobEffects.JUMP_BOOST,
+            MobEffects.NAUSEA,
             MobEffects.REGENERATION,
             MobEffects.FIRE_RESISTANCE,
             MobEffects.WATER_BREATHING,
@@ -50,12 +50,12 @@ public class PotteryEffectCalculator {
     public static Map<Holder<MobEffect>, EffectData> calculateEffects(CompoundTag tag) {
         Map<Holder<MobEffect>, EffectData> effects = new HashMap<>();
 
-        int height = tag.getInt("Height");
-        int diameter = tag.getInt("Diameter");
-        int thickness = tag.getInt("WallThickness");
-        int mouth = tag.getInt("MouthWidth");
-        int firingTime = tag.getInt("FiringTime");
-        int color = tag.getInt("GlazeColor");
+        int height = tag.getIntOr("Height", 0);
+        int diameter = tag.getIntOr("Diameter", 0);
+        int thickness = tag.getIntOr("WallThickness", 0);
+        int mouth = tag.getIntOr("MouthWidth", 0);
+        int firingTime = tag.getIntOr("FiringTime", 0);
+        int color = tag.getIntOr("GlazeColor", 0xFFFFFF);
 
         long seed = generateSeed(height, diameter, thickness, mouth, firingTime, color);
         Random random = new Random(seed);
@@ -229,7 +229,7 @@ public class PotteryEffectCalculator {
         if (h > d && d > m && h - m >= 4) {
             int optimalPyramid = (h + d + m) * 25;
             float quality = calculateQuality(f, optimalPyramid);
-            effects.put(MobEffects.JUMP, new EffectData((int)(quality * 3), (int)(150 * quality * 20)));
+            effects.put(MobEffects.JUMP_BOOST, new EffectData((int)(quality * 3), (int)(150 * quality * 20)));
         }
         float ratio = d > 0 ? (float)h / d : 0;
         if (ratio >= 1.5f && ratio <= 1.7f) {
@@ -269,12 +269,12 @@ public class PotteryEffectCalculator {
     }
 
     public static String getEffectsSummary(Map<Holder<MobEffect>, EffectData> effects, CompoundTag tag) {
-        int h = tag.getInt("Height");
-        int d = tag.getInt("Diameter");
-        int t = tag.getInt("WallThickness");
-        int m = tag.getInt("MouthWidth");
-        int f = tag.getInt("FiringTime");
-        int c = tag.getInt("GlazeColor");
+        int h = tag.getIntOr("Height", 0);
+        int d = tag.getIntOr("Diameter", 0);
+        int t = tag.getIntOr("WallThickness", 0);
+        int m = tag.getIntOr("MouthWidth", 0);
+        int f = tag.getIntOr("FiringTime", 0);
+        int c = tag.getIntOr("GlazeColor", 0xFFFFFF);
 
         long seed = generateSeed(h, d, t, m, f, c);
 

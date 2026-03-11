@@ -12,8 +12,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SaplingBlock;
@@ -56,7 +56,7 @@ public class CoconutBlock extends SaplingBlock {
     }
 
     public VoxelShape getShape(BlockState p_221468_, BlockGetter p_221469_, BlockPos p_221470_, CollisionContext p_221471_) {
-        Vec3 vec3 = p_221468_.getOffset(p_221469_, p_221470_);
+        Vec3 vec3 = p_221468_.getOffset(p_221470_);
         VoxelShape voxelshape;
         if (!p_221468_.getValue(HANGING)) {
             voxelshape = SHAPE_PER_AGE[4];
@@ -77,12 +77,13 @@ public class CoconutBlock extends SaplingBlock {
      * returns its solidified counterpart.
      * Note that this method should ideally consider only the specific direction passed in.
      */
-    public BlockState updateShape(BlockState p_221477_, Direction p_221478_, BlockState p_221479_, LevelAccessor p_221480_, BlockPos p_221481_, BlockPos p_221482_) {
+    @Override
+    protected BlockState updateShape(BlockState p_221477_, LevelReader p_221478_, ScheduledTickAccess p_221479_, BlockPos p_221480_, Direction p_221481_, BlockPos p_221482_, BlockState p_221483_, net.minecraft.util.RandomSource p_221484_) {
         if (p_221477_.getValue(WATERLOGGED)) {
-            p_221480_.scheduleTick(p_221481_, Fluids.WATER, Fluids.WATER.getTickDelay(p_221480_));
+            p_221479_.scheduleTick(p_221480_, Fluids.WATER, Fluids.WATER.getTickDelay(p_221478_));
         }
 
-        return p_221478_ == Direction.UP && !p_221477_.canSurvive(p_221480_, p_221481_) ? Blocks.AIR.defaultBlockState() : super.updateShape(p_221477_, p_221478_, p_221479_, p_221480_, p_221481_, p_221482_);
+        return p_221481_ == Direction.UP && !p_221477_.canSurvive(p_221478_, p_221480_) ? Blocks.AIR.defaultBlockState() : super.updateShape(p_221477_, p_221478_, p_221479_, p_221480_, p_221481_, p_221482_, p_221483_, p_221484_);
     }
 
     public FluidState getFluidState(BlockState p_221494_) {
@@ -151,7 +152,7 @@ public class CoconutBlock extends SaplingBlock {
             BlockState blockstate = pState.setValue(AGE, Integer.valueOf(0));
             pLevel.setBlock(pPos, blockstate, 2);
             pLevel.gameEvent(GameEvent.BLOCK_CHANGE, pPos, GameEvent.Context.of(pPlayer, blockstate));
-            return InteractionResult.sidedSuccess(pLevel.isClientSide);
+            return InteractionResult.SUCCESS;
         } else {
             return super.useWithoutItem(pState, pLevel, pPos, pPlayer, pHit);
         }

@@ -1,7 +1,7 @@
 package net.pochi.pochimod.mineral.tools;
 
-import net.minecraft.world.item.crafting.Ingredient;
-import net.neoforged.neoforge.common.SimpleTier;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.ToolMaterial;
 import net.pochi.pochimod.mineral.MineralData;
 import net.pochi.pochimod.mineral.MineralImpurity;
 
@@ -18,7 +18,7 @@ public final class MineralToolTier {
      * MineralData縺九ｉSimpleTier繧堤函謌・     *
      * @param data MineralData・・ull縺ｮ蝣ｴ蜷医・繝・ヵ繧ｩ繝ｫ繝亥､・・     * @return 蜍慕噪SimpleTier
      */
-    public static SimpleTier from(MineralData data) {
+    public static ToolMaterial from(MineralData data) {
         MineralImpurity primary = MineralStatCalculator.getPrimaryOrDefault(data);
 
         int   durability    = MineralStatCalculator.calcToolDurability(primary);
@@ -26,15 +26,7 @@ public final class MineralToolTier {
         float attackDamage  = MineralStatCalculator.calcAttackDamageBonus(primary); // 繝・・繝ｫ縺ｮ謾ｻ謦・｣懈ｭ｣
         int   harvestLevel  = MineralStatCalculator.calcHarvestLevel(primary);
         int   enchantability = (int)(primary.getRatio() * 15); // ratio鬮倥＞縺ｻ縺ｩ鬲疲ｳ穂ｻ倅ｸ弱＠繧・☆縺・
-        return new SimpleTier(
-                // isCorrectToolForDrops()縺ｧ蜍慕噪蛻､螳壹☆繧九◆繧√％縺薙・DIAMOND蝓ｺ貅悶ｒ繝・ヵ繧ｩ繝ｫ繝医→縺吶ｋ
-                net.minecraft.tags.BlockTags.NEEDS_DIAMOND_TOOL,
-                durability,
-                miningSpeed,
-                attackDamage,
-                enchantability,
-                () -> Ingredient.EMPTY
-        );
+        return new ToolMaterial(net.minecraft.tags.BlockTags.NEEDS_DIAMOND_TOOL, durability, miningSpeed, attackDamage, enchantability, ItemTags.IRON_TOOL_MATERIALS);
     }
 }
 

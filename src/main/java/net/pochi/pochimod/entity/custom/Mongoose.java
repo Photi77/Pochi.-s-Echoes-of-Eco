@@ -53,12 +53,12 @@ public class Mongoose extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-        return ModEntityTypes.MONGOOSE.get().create(p_146743_);
+        return ModEntityTypes.MONGOOSE.get().create(p_146743_, net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
     }
 
 
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.WOLF_AMBIENT;
+        return SoundEvents.FOX_AMBIENT;
     }
 
     private void setupAnimationStates() {
@@ -94,7 +94,7 @@ public class Mongoose extends Animal {
             f = 0.0F;
         }
 
-        this.walkAnimation.update(f, 0.2F);
+        this.walkAnimation.update(f, 0.2F, this.tickCount);
     }
 
     @Override
@@ -120,11 +120,11 @@ public class Mongoose extends Animal {
     }
 
     protected SoundEvent getHurtSound(DamageSource p_30424_) {
-        return SoundEvents.WOLF_HURT;
+        return SoundEvents.FOX_HURT;
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundEvents.WOLF_DEATH;
+        return SoundEvents.FOX_DEATH;
     }
 
     protected float getSoundVolume() {

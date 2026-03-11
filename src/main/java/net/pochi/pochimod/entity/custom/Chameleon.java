@@ -5,7 +5,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -21,7 +21,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.LivingEntity;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
+import software.bernie.geckolib.animatable.manager.AnimatableManager;
 
 public class Chameleon extends PathfinderMob implements GeoEntity {
     private static final EntityDataAccessor<String> CURRENT_BLOCK_TEXTURE = 
@@ -83,7 +83,7 @@ public class Chameleon extends PathfinderMob implements GeoEntity {
         updateAnimations();
         
         // テクスチャ更新（サーバー側のみ）
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide()) {
             updateCamouflageTexture();
             updateCamouflageState();
         }
@@ -139,7 +139,7 @@ public class Chameleon extends PathfinderMob implements GeoEntity {
     
     private void updateTextureFromBlock(BlockState blockState) {
         Block block = blockState.getBlock();
-        ResourceLocation blockRegistryName = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block);
+        Identifier blockRegistryName = net.minecraft.core.registries.BuiltInRegistries.BLOCK.getKey(block);
         
         if (blockRegistryName != null) {
             // ブロックのテクスチャパスを構築
@@ -217,7 +217,7 @@ public class Chameleon extends PathfinderMob implements GeoEntity {
     }
     
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
+    public void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput compound) {
         super.addAdditionalSaveData(compound);
         compound.putString("CurrentBlockTexture", this.currentBlockTexture);
         compound.putBoolean("IsCamouflaged", this.entityData.get(IS_CAMOUFLAGED));
@@ -226,13 +226,13 @@ public class Chameleon extends PathfinderMob implements GeoEntity {
     }
     
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
+    public void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput compound) {
         super.readAdditionalSaveData(compound);
-        this.currentBlockTexture = compound.getString("CurrentBlockTexture");
+        this.currentBlockTexture = compound.getString("CurrentBlockTexture").orElse("");
         this.entityData.set(CURRENT_BLOCK_TEXTURE, this.currentBlockTexture);
-        this.entityData.set(IS_CAMOUFLAGED, compound.getBoolean("IsCamouflaged"));
-        this.entityData.set(CAMOUFLAGE_ALPHA, compound.getFloat("CamouflageAlpha"));
-        this.camouflageTimer = compound.getInt("CamouflageTimer");
+        this.entityData.set(IS_CAMOUFLAGED, compound.getBooleanOr("IsCamouflaged", false));
+        this.entityData.set(CAMOUFLAGE_ALPHA, compound.getFloatOr("CamouflageAlpha", 0.0f));
+        this.camouflageTimer = compound.getIntOr("CamouflageTimer", 0);
     }
     
     // 公開メソッド

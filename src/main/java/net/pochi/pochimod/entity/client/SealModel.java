@@ -2,7 +2,9 @@ package net.pochi.pochimod.entity.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.animation.KeyframeAnimation;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -10,7 +12,7 @@ import net.minecraft.util.Mth;
 import net.pochi.pochimod.entity.animations.ModAnimationDefinitions;
 import net.pochi.pochimod.entity.custom.Seal;
 
-public class SealModel <T extends Seal> extends HierarchicalModel<T> {
+public class SealModel extends EntityModel<LivingEntityRenderState> {
     private final ModelPart bone;
     private final ModelPart head;
     private final ModelPart body;
@@ -22,6 +24,7 @@ public class SealModel <T extends Seal> extends HierarchicalModel<T> {
     private final ModelPart bone2;
 
     public SealModel(ModelPart root) {
+        super(root.getChild("bone"));
         this.bone = root.getChild("bone");
         this.head = this.bone.getChild("head");
         this.body = this.bone.getChild("body");
@@ -76,10 +79,10 @@ public class SealModel <T extends Seal> extends HierarchicalModel<T> {
 
 
     @Override
-    public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(LivingEntityRenderState state) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
-        this.animateWalk(ModAnimationDefinitions.SEAL_SWIM, limbSwing, limbSwingAmount, 1f, 1.5f);
+        this.applyHeadRotation((state.yRot - state.bodyRot), state.xRot, state.ageInTicks);
+        ModAnimationDefinitions.SEAL_SWIM.bake(this.root()).applyWalk(state.walkAnimationPos, state.walkAnimationSpeed, 1f, 1.5f);
     }
 
     private void applyHeadRotation(float pNetHeadYaw, float pHeadPitch, float pAgeInTicks) {
@@ -89,16 +92,4 @@ public class SealModel <T extends Seal> extends HierarchicalModel<T> {
         this.head.yRot = pNetHeadYaw * ((float)Math.PI / 180F);
         this.head.xRot = pHeadPitch * ((float)Math.PI / 180F);
     }
-
-    @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-        bone.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-    }
-
-    @Override
-    public ModelPart root() {
-        return bone;
-    }
-
-
 }

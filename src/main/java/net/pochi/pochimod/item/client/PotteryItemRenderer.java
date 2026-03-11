@@ -3,7 +3,9 @@ package net.pochi.pochimod.item.client;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -21,12 +23,12 @@ public class PotteryItemRenderer {
         if (customData == null) return;
         CompoundTag tag = customData.copyTag();
 
-        int height = tag.getInt("Height");
-        int diameter = tag.getInt("Diameter");
-        int thickness = tag.getInt("WallThickness");
-        int mouth = tag.getInt("MouthWidth");
-        String shapeStr = tag.getString("Shape");
-        int color = tag.getInt("GlazeColor");
+        int height = tag.getIntOr("Height", 0);
+        int diameter = tag.getIntOr("Diameter", 0);
+        int thickness = tag.getIntOr("WallThickness", 0);
+        int mouth = tag.getIntOr("MouthWidth", 0);
+        String shapeStr = tag.getStringOr("Shape", "CUP");
+        int color = tag.getIntOr("GlazeColor", 0xFFFFFF);
 
         PotteryShape shape = PotteryShape.valueOf(shapeStr);
 
@@ -37,7 +39,7 @@ public class PotteryItemRenderer {
         poseStack.scale(scale, scale, scale);
         poseStack.translate(0, 0, 0);
 
-        VertexConsumer consumer = buffer.getBuffer(RenderType.solid());
+        VertexConsumer consumer = buffer.getBuffer(RenderTypes.entitySolid(TextureAtlas.LOCATION_BLOCKS));
 
         // 形状に応じた描画
         switch (shape) {

@@ -68,7 +68,7 @@ public class GuyaneMountain extends NoiseBasedChunkGenerator {
     }
 
     @Override
-    public void applyCarvers(WorldGenRegion p_224224_, long p_224225_, RandomState p_224226_, BiomeManager p_224227_, StructureManager p_224228_, ChunkAccess p_224229_, GenerationStep.Carving p_224230_) {
+    public void applyCarvers(WorldGenRegion p_224224_, long p_224225_, RandomState p_224226_, BiomeManager p_224227_, StructureManager p_224228_, ChunkAccess p_224229_) {
         BiomeManager biomemanager = p_224227_.withDifferentSource((p_255581_, p_255582_, p_255583_) -> {
             return this.biomeSource.getNoiseBiome(p_255581_, p_255582_, p_255583_, p_224226_.sampler());
         });
@@ -80,7 +80,7 @@ public class GuyaneMountain extends NoiseBasedChunkGenerator {
         });
         Aquifer aquifer = noisechunk.aquifer();
         CarvingContext carvingcontext = new CarvingContext(this, p_224224_.registryAccess(), p_224229_.getHeightAccessorForGeneration(), noisechunk, p_224226_, this.settings.value().surfaceRule());
-        CarvingMask carvingmask = ((ProtoChunk)p_224229_).getOrCreateCarvingMask(p_224230_);
+        CarvingMask carvingmask = ((ProtoChunk)p_224229_).getOrCreateCarvingMask();
 
         for(int j = -8; j <= 8; ++j) {
             for(int k = -8; k <= 8; ++k) {
@@ -89,7 +89,7 @@ public class GuyaneMountain extends NoiseBasedChunkGenerator {
                 BiomeGenerationSettings biomegenerationsettings = chunkaccess.carverBiome(() -> {
                     return this.getBiomeGenerationSettings(this.biomeSource.getNoiseBiome(QuartPos.fromBlock(chunkpos1.getMinBlockX()), 0, QuartPos.fromBlock(chunkpos1.getMinBlockZ()), p_224226_.sampler()));
                 });
-                Iterable<Holder<ConfiguredWorldCarver<?>>> iterable = biomegenerationsettings.getCarvers(p_224230_);
+                Iterable<Holder<ConfiguredWorldCarver<?>>> iterable = biomegenerationsettings.getCarvers();
                 int l = 0;
 
                 for(Holder<ConfiguredWorldCarver<?>> holder : iterable) {
@@ -114,7 +114,7 @@ public class GuyaneMountain extends NoiseBasedChunkGenerator {
     public void spawnOriginalMobs(WorldGenRegion p_64379_) {
         if (!this.settings.value().disableMobGeneration()) {
             ChunkPos chunkpos = p_64379_.getCenter();
-            Holder<Biome> holder = p_64379_.getBiome(chunkpos.getWorldPosition().atY(p_64379_.getMaxBuildHeight() - 1));
+            Holder<Biome> holder = p_64379_.getBiome(chunkpos.getWorldPosition().atY(p_64379_.getMaxY() - 1));
             WorldgenRandom worldgenrandom = new WorldgenRandom(new LegacyRandomSource(RandomSupport.generateUniqueSeed()));
             worldgenrandom.setDecorationSeed(p_64379_.getSeed(), chunkpos.getMinBlockX(), chunkpos.getMinBlockZ());
             NaturalSpawner.spawnMobsForChunkGeneration(p_64379_, holder, chunkpos, worldgenrandom);
@@ -143,7 +143,7 @@ public class GuyaneMountain extends NoiseBasedChunkGenerator {
 
     @Override
     public int getBaseHeight(int p_224216_, int p_224217_, Heightmap.Types p_224218_, LevelHeightAccessor p_224219_, RandomState p_224220_) {
-        return this.iterateNoiseColumn(p_224219_, p_224220_, p_224216_, p_224217_, (MutableObject<NoiseColumn>)null, p_224218_.isOpaque()).orElse(p_224219_.getMinBuildHeight());
+        return this.iterateNoiseColumn(p_224219_, p_224220_, p_224216_, p_224217_, (MutableObject<NoiseColumn>)null, p_224218_.isOpaque()).orElse(p_224219_.getMinY());
     }
 
     @Override
@@ -159,6 +159,6 @@ public class GuyaneMountain extends NoiseBasedChunkGenerator {
         NoiseRouter noiserouter = p_224305_.router();
         DensityFunction.SinglePointContext densityfunction$singlepointcontext = new DensityFunction.SinglePointContext(p_224306_.getX(), p_224306_.getY(), p_224306_.getZ());
         double d0 = noiserouter.ridges().compute(densityfunction$singlepointcontext);
-        p_224304_.add("NoiseRouter T: " + decimalformat.format(noiserouter.temperature().compute(densityfunction$singlepointcontext)) + " V: " + decimalformat.format(noiserouter.vegetation().compute(densityfunction$singlepointcontext)) + " C: " + decimalformat.format(noiserouter.continents().compute(densityfunction$singlepointcontext)) + " E: " + decimalformat.format(noiserouter.erosion().compute(densityfunction$singlepointcontext)) + " D: " + decimalformat.format(noiserouter.depth().compute(densityfunction$singlepointcontext)) + " W: " + decimalformat.format(d0) + " PV: " + decimalformat.format((double)NoiseRouterData.peaksAndValleys((float)d0)) + " AS: " + decimalformat.format(noiserouter.initialDensityWithoutJaggedness().compute(densityfunction$singlepointcontext)) + " N: " + decimalformat.format(noiserouter.finalDensity().compute(densityfunction$singlepointcontext)));
+        p_224304_.add("NoiseRouter T: " + decimalformat.format(noiserouter.temperature().compute(densityfunction$singlepointcontext)) + " V: " + decimalformat.format(noiserouter.vegetation().compute(densityfunction$singlepointcontext)) + " C: " + decimalformat.format(noiserouter.continents().compute(densityfunction$singlepointcontext)) + " E: " + decimalformat.format(noiserouter.erosion().compute(densityfunction$singlepointcontext)) + " D: " + decimalformat.format(noiserouter.depth().compute(densityfunction$singlepointcontext)) + " W: " + decimalformat.format(d0) + " PV: " + decimalformat.format((double)NoiseRouterData.peaksAndValleys((float)d0)) + " AS: " + decimalformat.format(noiserouter.preliminarySurfaceLevel().compute(densityfunction$singlepointcontext)) + " N: " + decimalformat.format(noiserouter.finalDensity().compute(densityfunction$singlepointcontext)));
     }
 }

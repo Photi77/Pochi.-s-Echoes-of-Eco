@@ -5,7 +5,8 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
+
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -28,14 +29,14 @@ public class SoulSandItem extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level p_41432_, Player p_41433_, InteractionHand p_41434_) {
+    public InteractionResult use(Level p_41432_, Player p_41433_, InteractionHand p_41434_) {
         Player player = p_41433_;
         ItemStack itemstack = p_41433_.getItemInHand(p_41434_);
         if (player != null) {
             player.startUsingItem(p_41434_);
         }
-        player.getCooldowns().addCooldown(this,1000);
-        return InteractionResultHolder.pass(itemstack);
+        player.getCooldowns().addCooldown(itemstack,1000);
+        return InteractionResult.PASS;
     }
 
     @Override
@@ -44,15 +45,15 @@ public class SoulSandItem extends Item {
     }
 
     @Override
-    public void releaseUsing(ItemStack p_41412_, Level p_41413_, LivingEntity p_41414_, int p_41415_) {
-        super.releaseUsing(p_41412_, p_41413_, p_41414_, p_41415_);
+    public boolean releaseUsing(ItemStack p_41412_, Level p_41413_, LivingEntity p_41414_, int p_41415_) {
+        return super.releaseUsing(p_41412_, p_41413_, p_41414_, p_41415_);
     }
 
     @Override
     public void onUseTick(Level p_41428_, LivingEntity p_41429_, ItemStack p_41430_, int p_41431_) {
         List<LivingEntity> list = p_41429_.level().getEntitiesOfClass(LivingEntity.class, p_41429_.getBoundingBox().inflate(4.0D, 2.0D, 4.0D));
         if (p_41431_ >= 0 && p_41429_ instanceof Player player) {
-            if (!p_41428_.isClientSide) {
+            if (!p_41428_.isClientSide()) {
                 if (!list.isEmpty()) {
                     for (LivingEntity livingentity : list) {
                         double d0 = player.distanceToSqr(livingentity);
@@ -61,7 +62,7 @@ public class SoulSandItem extends Item {
                             if(player.level() instanceof ServerLevel serverLevel) {
                                 if (!(livingentity == player)) {
                                     if (f <= 4F) {
-                                        livingentity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 10, true, false));
+                                        livingentity.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, 100, 10, true, false));
                                         for (double l = 0; l < 20; l++) {
                                             serverLevel.sendParticles(ParticleTypes.SOUL,
                                                     livingentity.getX() + (player.getX() - livingentity.getX()) / l,

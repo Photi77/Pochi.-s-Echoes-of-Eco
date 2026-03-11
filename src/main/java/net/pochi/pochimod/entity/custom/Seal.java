@@ -13,7 +13,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.animal.Turtle;
+import net.minecraft.world.entity.animal.turtle.Turtle;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.DismountHelper;
 import net.minecraft.world.level.Level;
@@ -78,7 +78,7 @@ public class Seal extends Turtle implements PlayerRideable{
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-        return ModEntityTypes.SEAL.get().create(p_146743_);
+        return ModEntityTypes.SEAL.get().create(p_146743_, net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
     }
 
     @Nullable
@@ -102,7 +102,7 @@ public class Seal extends Turtle implements PlayerRideable{
                 float f1 = livingentity.zza * 2;
 
                 // Inside this if statement, we are on the client!
-                if (this.isControlledByLocalInstance()) {
+                if (this.level().isClientSide()) {
                     float newSpeed = (float) this.getAttributeValue(Attributes.MOVEMENT_SPEED);
                     // increasing speed by 100% if the spring key is held down (number for testing purposes)
                     if (Minecraft.getInstance().options.keySprint.isDown()) {
@@ -148,7 +148,7 @@ public class Seal extends Turtle implements PlayerRideable{
         return super.getDismountLocationForPassenger(pLivingEntity);
     }
 
-    public static boolean checkSealSpawnRules(EntityType<Seal> p_218277_, LevelAccessor p_218278_, MobSpawnType p_218279_, BlockPos p_218280_, RandomSource p_218281_) {
+    public static boolean checkSealSpawnRules(EntityType<Seal> p_218277_, LevelAccessor p_218278_, EntitySpawnReason p_218279_, BlockPos p_218280_, RandomSource p_218281_) {
         return p_218278_.getFluidState(p_218280_.below()).is(FluidTags.WATER) && p_218278_.getBlockState(p_218280_.above()).is(Blocks.WATER);
 
     }
@@ -170,7 +170,7 @@ public class Seal extends Turtle implements PlayerRideable{
             f = 0.0F;
         }
 
-        this.walkAnimation.update(f, 0.2F);
+        this.walkAnimation.update(f, 0.2F, this.tickCount);
     }
 
 }

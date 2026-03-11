@@ -11,7 +11,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
+
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
@@ -30,11 +31,11 @@ public class FiredPotteryItem extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
 
         if (player.isCrouching()) { // スニーク + 右クリックで破壊
-            if (!level.isClientSide) {
+            if (!level.isClientSide()) {
                 CustomData customData = stack.get(DataComponents.CUSTOM_DATA);
                 if (customData != null) {
                     CompoundTag tag = customData.copyTag();
@@ -76,14 +77,14 @@ public class FiredPotteryItem extends Item {
                 }
             }
 
-            return InteractionResultHolder.success(stack);
+            return InteractionResult.SUCCESS;
         } else {
             // 通常の右クリック（形状に応じた効果）
-            if (!level.isClientSide) {
+            if (!level.isClientSide()) {
                 CustomData customData = stack.get(DataComponents.CUSTOM_DATA);
                 if (customData != null) {
                     CompoundTag tag = customData.copyTag();
-                    String shape = tag.getString("Shape");
+                    String shape = tag.getStringOr("Shape", "");
 
                     switch (shape) {
                         case "CUP":
@@ -102,12 +103,12 @@ public class FiredPotteryItem extends Item {
                 }
             }
 
-            return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
+            return InteractionResult.SUCCESS;
         }
     }
 
     private void spawnBreakParticles(ServerLevel level, Player player, CompoundTag tag) {
-        int color = tag.getInt("GlazeColor");
+        int color = tag.getIntOr("GlazeColor", 0xFFFFFF);
 
         // 色からRGB値を抽出
         float r = ((color >> 16) & 0xFF) / 255f;
@@ -115,8 +116,8 @@ public class FiredPotteryItem extends Item {
         float b = (color & 0xFF) / 255f;
 
         // 陶器の大きさに応じてパーティクル数を変更
-        int height = tag.getInt("Height");
-        int diameter = tag.getInt("Diameter");
+        int height = tag.getIntOr("Height", 0);
+        int diameter = tag.getIntOr("Diameter", 0);
         int particleCount = (height + diameter) * 3;
 
         for (int i = 0; i < particleCount; i++) {
@@ -215,8 +216,8 @@ public class FiredPotteryItem extends Item {
         CustomData customData = stack.get(DataComponents.CUSTOM_DATA);
         if (customData != null) {
             CompoundTag tag = customData.copyTag();
-            if (tag.contains("Shape")) {
-                String shape = tag.getString("Shape").toLowerCase();
+            if (tag.getString("Shape").isPresent()) {
+                String shape = tag.getStringOr("Shape", "").toLowerCase();
                 return Component.translatable("item.yourmod.fired_pottery." + shape);
             }
         }
@@ -228,6 +229,6 @@ public class FiredPotteryItem extends Item {
         CustomData customData = stack.get(DataComponents.CUSTOM_DATA);
         if (customData == null) return false;
         CompoundTag tag = customData.copyTag();
-        return tag.getInt("GlazeColor") != 0xFFFFFF;
+        return tag.getIntOr("GlazeColor", 0xFFFFFF) != 0xFFFFFF;
     }
 }

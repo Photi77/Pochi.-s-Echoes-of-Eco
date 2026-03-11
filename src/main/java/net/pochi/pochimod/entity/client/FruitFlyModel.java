@@ -2,22 +2,25 @@ package net.pochi.pochimod.entity.client;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.animation.KeyframeAnimation;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.pochi.pochimod.entity.animations.ModAnimationDefinitions;
 import net.pochi.pochimod.entity.custom.FruitFly;
 
-public class FruitFlyModel<T extends FruitFly> extends HierarchicalModel<T> {
+public class FruitFlyModel extends EntityModel<LivingEntityRenderState> {
     // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-    //public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath("modid", "ant"), "main");
+    //public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(Identifier.fromNamespaceAndPath("modid", "ant"), "main");
     private final ModelPart drosophila;
     private final ModelPart body;
     private final ModelPart lwing;
     private final ModelPart rwing;
 
     public FruitFlyModel(ModelPart root) {
+        super(root.getChild("drosophila"));
         this.drosophila = root.getChild("drosophila");
         this.body = this.drosophila.getChild("body");
         this.lwing = this.drosophila.getChild("lwing");
@@ -59,18 +62,8 @@ public class FruitFlyModel<T extends FruitFly> extends HierarchicalModel<T> {
     }
 
     @Override
-    public void setupAnim(T p_102618_, float p_102619_, float p_102620_, float p_102621_, float p_102622_, float p_102623_) {
+    public void setupAnim(LivingEntityRenderState state) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.animateWalk(ModAnimationDefinitions.FRUIT_FLY, p_102619_, p_102620_, 2f, 2.5f);
-    }
-
-    @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-        drosophila.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-    }
-
-    @Override
-    public ModelPart root() {
-        return drosophila;
+        ModAnimationDefinitions.FRUIT_FLY.bake(this.root()).applyWalk(state.walkAnimationPos, state.walkAnimationSpeed, 2f, 2.5f);
     }
 }

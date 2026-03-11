@@ -7,11 +7,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.BlockGetter;
@@ -52,13 +52,13 @@ public class PotteryOnWheelBlock extends Block implements EntityBlock {
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack heldItem, BlockState state, Level level, BlockPos pos,
+    protected InteractionResult useItemOn(ItemStack heldItem, BlockState state, Level level, BlockPos pos,
                                  Player player, InteractionHand hand, BlockHitResult hit) {
-        if (level.isClientSide) return ItemInteractionResult.SUCCESS;
+        if (level.isClientSide()) return InteractionResult.SUCCESS;
 
         BlockEntity be = level.getBlockEntity(pos);
         if (!(be instanceof PotteryOnWheelBlockEntity potteryBE)) {
-            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+            return InteractionResult.PASS;
         }
 
         PotteryState currentState = potteryBE.getState();
@@ -73,7 +73,7 @@ public class PotteryOnWheelBlock extends Block implements EntityBlock {
 
                 // 焼成時間を表示
                 CustomData cd = firedPottery.get(DataComponents.CUSTOM_DATA);
-                int firingTime = cd != null ? cd.copyTag().getInt("FiringTime") : 0;
+                int firingTime = cd != null ? cd.copyTag().getIntOr("FiringTime", 0) : 0;
                 float seconds = firingTime / 20f;
 
                 player.displayClientMessage(
@@ -87,38 +87,38 @@ public class PotteryOnWheelBlock extends Block implements EntityBlock {
                 level.removeBlock(pos, false);
                 level.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 1.0F, 1.0F);
 
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.SUCCESS;
             }
         }
 
         // スニーク時：詳細情報を表示
         if (player.isCrouching() && heldItem.isEmpty()) {
             displayDetailedInfo(player, potteryBE);
-            return ItemInteractionResult.sidedSuccess(level.isClientSide);
+            return InteractionResult.SUCCESS;
         }
 
         // 成形中のみツールで形状変更可能
         if (currentState == PotteryState.SHAPING) {
-            if (heldItem.getItem() instanceof SwordItem) {
+            if (heldItem.is(ItemTags.SWORDS)) {
                 potteryBE.adjustHeight(player.isCrouching() ? -1 : 1);
                 playShapingSound(level, pos);
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.SUCCESS;
             } else if (heldItem.getItem() instanceof ShovelItem) {
                 potteryBE.adjustDiameter(player.isCrouching() ? -1 : 1);
                 playShapingSound(level, pos);
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
-            } else if (heldItem.getItem() instanceof PickaxeItem) {
+                return InteractionResult.SUCCESS;
+            } else if (heldItem.is(ItemTags.PICKAXES)) {
                 potteryBE.adjustThickness(player.isCrouching() ? -1 : 1);
                 playShapingSound(level, pos);
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.SUCCESS;
             } else if (heldItem.getItem() instanceof AxeItem) {
                 potteryBE.adjustMouth(player.isCrouching() ? -1 : 1);
                 playShapingSound(level, pos);
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.SUCCESS;
             } else if (heldItem.getItem() instanceof HoeItem) {
                 potteryBE.cycleShape();
                 playShapingSound(level, pos);
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.SUCCESS;
             } else if (heldItem.isEmpty()) {
                 potteryBE.finishShaping();
                 level.playSound(null, pos, SoundEvents.MUD_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
@@ -126,7 +126,7 @@ public class PotteryOnWheelBlock extends Block implements EntityBlock {
                         Component.translatable("message.yourmod.pottery.drying_started"),
                         true
                 );
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.SUCCESS;
             }
         }
 
@@ -139,18 +139,18 @@ public class PotteryOnWheelBlock extends Block implements EntityBlock {
                 if (!player.getAbilities().instabuild) {
                     heldItem.shrink(1);
                 }
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.SUCCESS;
             } else if (heldItem.isEmpty()) {
                 potteryBE.startFiring();
                 player.displayClientMessage(
                         Component.translatable("message.yourmod.pottery.firing_started"),
                         true
                 );
-                return ItemInteractionResult.sidedSuccess(level.isClientSide);
+                return InteractionResult.SUCCESS;
             }
         }
 
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        return InteractionResult.PASS;
     }
 
     private void playShapingSound(Level level, BlockPos pos) {
@@ -203,7 +203,7 @@ public class PotteryOnWheelBlock extends Block implements EntityBlock {
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state,
                                                                   BlockEntityType<T> type) {
-        return level.isClientSide ? null :
+        return level.isClientSide() ? null :
                 (lvl, pos, st, be) -> {
                     if (be instanceof PotteryOnWheelBlockEntity potteryBE) {
                         PotteryOnWheelBlockEntity.tick(lvl, pos, st, potteryBE);
@@ -211,14 +211,4 @@ public class PotteryOnWheelBlock extends Block implements EntityBlock {
                 };
     }
 
-    @Override
-    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
-        if (!state.is(newState.getBlock())) {
-            BlockEntity be = level.getBlockEntity(pos);
-            if (be instanceof PotteryOnWheelBlockEntity) {
-                // ドロップ処理は手動回収のみ
-            }
-        }
-        super.onRemove(state, level, pos, newState, isMoving);
-    }
 }

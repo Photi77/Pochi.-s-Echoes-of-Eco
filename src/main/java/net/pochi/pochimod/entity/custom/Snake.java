@@ -20,7 +20,10 @@ import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animatable.instance.SingletonAnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.object.LoopType;
+import software.bernie.geckolib.animation.object.PlayState;
+import software.bernie.geckolib.animation.state.AnimationTest;
+import software.bernie.geckolib.animatable.manager.AnimatableManager;
 
 public class Snake extends Animal implements GeoEntity {
 
@@ -48,8 +51,8 @@ public class Snake extends Animal implements GeoEntity {
         return null;
     }
 
-    public boolean doHurtTarget(Entity p_32257_) {
-        if (super.doHurtTarget(p_32257_)) {
+    public boolean doHurtTarget(net.minecraft.server.level.ServerLevel pLevel, net.minecraft.world.entity.Entity p_32257_) {
+        if (super.doHurtTarget(pLevel, p_32257_)) {
             if (p_32257_ instanceof LivingEntity livingEntity) {
                 if(!(livingEntity instanceof Mongoose)) {
                     int i = 0;
@@ -73,9 +76,9 @@ public class Snake extends Animal implements GeoEntity {
 
 
 
-    private PlayState predicate(AnimationState animationState) {
+    private PlayState predicate(AnimationTest animationState) {
         if (animationState.isMoving()) {
-            animationState.getController().setAnimation(RawAnimation.begin().then("animation.model.new", Animation.LoopType.LOOP));
+            animationState.controller().setAnimation(RawAnimation.begin().then("animation.model.new", LoopType.LOOP));
             return PlayState.CONTINUE;
         }
 
@@ -84,7 +87,7 @@ public class Snake extends Animal implements GeoEntity {
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController(this, "controller",
+        controllers.add(new AnimationController("controller",
                 0, this::predicate));
     }
 

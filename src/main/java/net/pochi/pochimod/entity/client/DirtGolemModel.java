@@ -1,13 +1,12 @@
 package net.pochi.pochimod.entity.client;
 
-import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.renderer.entity.state.LivingEntityRenderState;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.util.Mth;
-import net.pochi.pochimod.entity.custom.DirtGolem;
 
-public class DirtGolemModel <T extends DirtGolem> extends HierarchicalModel<T> {
+public class DirtGolemModel extends EntityModel<LivingEntityRenderState> {
     private final ModelPart root;
     private final ModelPart head;
     private final ModelPart rightArm;
@@ -16,6 +15,7 @@ public class DirtGolemModel <T extends DirtGolem> extends HierarchicalModel<T> {
     private final ModelPart leftLeg;
 
     public DirtGolemModel(ModelPart p_170697_) {
+        super(p_170697_);
         this.root = p_170697_;
         this.head = p_170697_.getChild("head");
         this.rightArm = p_170697_.getChild("right_arm");
@@ -36,35 +36,15 @@ public class DirtGolemModel <T extends DirtGolem> extends HierarchicalModel<T> {
         return LayerDefinition.create(meshdefinition, 128, 128);
     }
 
-    public ModelPart root() {
-        return this.root;
-    }
-
-    public void setupAnim(T p_102962_, float p_102963_, float p_102964_, float p_102965_, float p_102966_, float p_102967_) {
-        this.head.yRot = p_102966_ * ((float)Math.PI / 180F);
-        this.head.xRot = p_102967_ * ((float)Math.PI / 180F);
-        this.rightLeg.xRot = -1.5F * Mth.triangleWave(p_102963_, 13.0F) * p_102964_;
-        this.leftLeg.xRot = 1.5F * Mth.triangleWave(p_102963_, 13.0F) * p_102964_;
+    @Override
+    public void setupAnim(LivingEntityRenderState state) {
+        // TODO: implement animation using state fields
+        this.head.yRot = 0.0F;
+        this.head.xRot = 0.0F;
+        this.rightLeg.xRot = 0.0F;
+        this.leftLeg.xRot = 0.0F;
         this.rightLeg.yRot = 0.0F;
         this.leftLeg.yRot = 0.0F;
-    }
-
-    public void prepareMobModel(T p_102957_, float p_102958_, float p_102959_, float p_102960_) {
-        int i = p_102957_.getAttackAnimationTick();
-        if (i > 0) {
-            this.rightArm.xRot = -2.0F + 1.5F * Mth.triangleWave((float)i - p_102960_, 10.0F);
-            this.leftArm.xRot = -2.0F + 1.5F * Mth.triangleWave((float)i - p_102960_, 10.0F);
-        } else {
-            int j = p_102957_.getOfferFlowerTick();
-            if (j > 0) {
-                this.rightArm.xRot = -0.8F + 0.025F * Mth.triangleWave((float)j, 70.0F);
-                this.leftArm.xRot = 0.0F;
-            } else {
-                this.rightArm.xRot = (-0.2F + 1.5F * Mth.triangleWave(p_102958_, 13.0F)) * p_102959_;
-                this.leftArm.xRot = (-0.2F - 1.5F * Mth.triangleWave(p_102958_, 13.0F)) * p_102959_;
-            }
-        }
-
     }
 
     public ModelPart getFlowerHoldingArm() {

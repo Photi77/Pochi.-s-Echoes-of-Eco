@@ -85,7 +85,7 @@ public class DecoyTailEntity extends PathfinderMob {
         // 寿命チェック
         lifeTicks++;
         if (lifeTicks >= LIFETIME_TICKS) {
-            if (!this.level().isClientSide) {
+            if (!this.level().isClientSide()) {
                 this.despawnWithEffect();
             }
             return;
@@ -98,7 +98,7 @@ public class DecoyTailEntity extends PathfinderMob {
         }
 
         // パーティクル効果
-        if (this.level().isClientSide) {
+        if (this.level().isClientSide()) {
             this.spawnWriggleParticles();
         }
 
@@ -116,7 +116,7 @@ public class DecoyTailEntity extends PathfinderMob {
      * 近くの敵の注意を引く
      */
     private void tauntNearbyEnemies() {
-        if (this.level().isClientSide) {
+        if (this.level().isClientSide()) {
             return;
         }
 
@@ -207,12 +207,10 @@ public class DecoyTailEntity extends PathfinderMob {
     }
 
     @Override
-    public boolean hurt(DamageSource source, float amount) {
+    public boolean hurtServer(net.minecraft.server.level.ServerLevel pLevel, DamageSource source, float amount) {
         // 一撃で消える
-        if (!this.level().isClientSide) {
-            this.despawnWithEffect();
-        }
-        return super.hurt(source, amount);
+        this.despawnWithEffect();
+        return false;
     }
 
     @Override
@@ -221,31 +219,31 @@ public class DecoyTailEntity extends PathfinderMob {
     }
 
     @Override
-    public boolean canBeCollidedWith() {
+    public boolean canBeCollidedWith(net.minecraft.world.entity.Entity entity) {
         return true;
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
+    public void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("LifeTicks", this.lifeTicks);
         compound.putBoolean("HasTaunted", this.hasTauntedEnemies);
         if (this.ownerUUID != null) {
-            compound.putUUID("OwnerUUID", this.ownerUUID);
+            compound.putString("OwnerUUID", this.ownerUUID.toString());
         }
         compound.putInt("OwnerId", this.entityData.get(OWNER_ID));
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
+    public void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput compound) {
         super.readAdditionalSaveData(compound);
-        this.lifeTicks = compound.getInt("LifeTicks");
-        this.hasTauntedEnemies = compound.getBoolean("HasTaunted");
-        if (compound.hasUUID("OwnerUUID")) {
-            this.ownerUUID = compound.getUUID("OwnerUUID");
+        this.lifeTicks = compound.getIntOr("LifeTicks", 0);
+        this.hasTauntedEnemies = compound.getBooleanOr("HasTaunted", false);
+        if (compound.getString("OwnerUUID").isPresent()) {
+            this.ownerUUID = java.util.UUID.fromString(compound.getString("OwnerUUID").orElse("00000000-0000-0000-0000-000000000000"));
         }
-        if (compound.contains("OwnerId")) {
-            this.entityData.set(OWNER_ID, compound.getInt("OwnerId"));
+        if (compound.getInt("OwnerId").isPresent()) {
+            this.entityData.set(OWNER_ID, compound.getIntOr("OwnerId", 0));
         }
     }
 }

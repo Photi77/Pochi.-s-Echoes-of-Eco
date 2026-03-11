@@ -43,12 +43,12 @@ public class Jackal extends Animal {
     @Nullable
     @Override
     public AgeableMob getBreedOffspring(ServerLevel p_146743_, AgeableMob p_146744_) {
-        return ModEntityTypes.MEERKAT.get().create(p_146743_);
+        return ModEntityTypes.MEERKAT.get().create(p_146743_, net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
     }
 
 
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.WOLF_AMBIENT;
+        return SoundEvents.FOX_AMBIENT;
     }
 
     private void setupAnimationStates() {
@@ -72,7 +72,7 @@ public class Jackal extends Animal {
             f = 0.0F;
         }
 
-        this.walkAnimation.update(f, 0.2F);
+        this.walkAnimation.update(f, 0.2F, this.tickCount);
     }
 
     @Override
@@ -85,7 +85,7 @@ public class Jackal extends Animal {
 
     public void aiStep() {
         super.aiStep();
-        if (!this.level().isClientSide && this.isAlive() && !this.isBaby() && --this.eggTime <= 0) {
+        if (!this.level().isClientSide() && this.isAlive() && !this.isBaby() && --this.eggTime <= 0) {
             List<LivingEntity> list = this.level().getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(1000, 1000, 1000));
             if (!list.isEmpty()) {
                 for (LivingEntity entity : list) {
@@ -97,11 +97,11 @@ public class Jackal extends Animal {
     }
 
     protected SoundEvent getHurtSound(DamageSource p_30424_) {
-        return SoundEvents.WOLF_HURT;
+        return SoundEvents.FOX_HURT;
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundEvents.WOLF_DEATH;
+        return SoundEvents.FOX_DEATH;
     }
 
     protected float getSoundVolume() {

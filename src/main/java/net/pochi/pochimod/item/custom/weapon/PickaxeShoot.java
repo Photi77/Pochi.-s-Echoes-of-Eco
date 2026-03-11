@@ -1,7 +1,8 @@
 package net.pochi.pochimod.item.custom.weapon;
 
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
+
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -19,24 +20,24 @@ public class PickaxeShoot extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level p_41432_, Player p_41433_, InteractionHand p_41434_) {
+    public InteractionResult use(Level p_41432_, Player p_41433_, InteractionHand p_41434_) {
         ItemStack itemStack = p_41433_.getItemInHand(p_41434_);
-        if (!p_41432_.isClientSide) {
-            PickaxeHead dirtGolem = ModEntityTypes.PICKAXE_HEAD.get().create(p_41432_);
-            dirtGolem.moveTo(p_41433_.getX(), p_41433_.getY(), p_41433_.getZ());
+        if (!p_41432_.isClientSide()) {
+            PickaxeHead dirtGolem = ModEntityTypes.PICKAXE_HEAD.get().create(p_41432_, net.minecraft.world.entity.EntitySpawnReason.MOB_SUMMONED);
+            dirtGolem.absSnapTo(p_41433_.getX(), p_41433_.getY(), p_41433_.getZ());
             p_41432_.addFreshEntity(dirtGolem);
-            p_41433_.getCooldowns().addCooldown(this,600);
+            p_41433_.getCooldowns().addCooldown(itemStack,600);
             use = true;
         }
 
-        return InteractionResultHolder.fail(itemStack);
+        return InteractionResult.FAIL;
     }
 
     @Override
-    public void inventoryTick(ItemStack p_41404_, Level p_41405_, Entity p_41406_, int p_41407_, boolean p_41408_) {
-        super.inventoryTick(p_41404_, p_41405_, p_41406_, p_41407_, p_41408_);
+    public void inventoryTick(ItemStack p_41404_, net.minecraft.server.level.ServerLevel p_41405_, Entity p_41406_, net.minecraft.world.entity.EquipmentSlot p_41407_) {
+        super.inventoryTick(p_41404_, p_41405_, p_41406_, p_41407_);
         Player player = (Player) p_41406_;
-        if(!player.getCooldowns().isOnCooldown(this)){
+        if(!player.getCooldowns().isOnCooldown(p_41404_)){
             use = false;
         }
     }

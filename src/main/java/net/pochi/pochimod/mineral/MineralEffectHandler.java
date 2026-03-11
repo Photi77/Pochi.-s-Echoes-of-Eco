@@ -2,7 +2,7 @@ package net.pochi.pochimod.mineral;
 
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
@@ -63,8 +63,12 @@ public class MineralEffectHandler {
      */
     public static void onLivingTick(LivingEntity entity) {
         // ---- EQUIPPED: 髦ｲ蜈ｷ繧ｹ繝ｭ繝・ヨ ----
-        for (ItemStack armorStack : entity.getArmorSlots()) {
-            applyEquippedEffect(entity, armorStack);
+        for (net.minecraft.world.entity.EquipmentSlot slot : new net.minecraft.world.entity.EquipmentSlot[]{
+                net.minecraft.world.entity.EquipmentSlot.HEAD,
+                net.minecraft.world.entity.EquipmentSlot.CHEST,
+                net.minecraft.world.entity.EquipmentSlot.LEGS,
+                net.minecraft.world.entity.EquipmentSlot.FEET}) {
+            applyEquippedEffect(entity, entity.getItemBySlot(slot));
         }
 
         // ---- HELD: 繝｡繧､繝ｳ繝上Φ繝・/ 繧ｪ繝輔ワ繝ｳ繝・----
@@ -158,20 +162,20 @@ public class MineralEffectHandler {
         float toughness  = MineralStatCalculator.calcToughnessBonus(primary, secondary);
         float knockback  = MineralStatCalculator.calcKnockbackResistance(primary, secondary);
 
-        EquipmentSlotGroup slotGroup = EquipmentSlotGroup.bySlot(armorItem.getEquipmentSlot());
+        EquipmentSlotGroup slotGroup = EquipmentSlotGroup.bySlot(armorItem.getEquipmentSlot(stack));
 
         event.addModifier(Attributes.ARMOR,
                 new AttributeModifier(
-                        ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "mineral_armor_" + slotIndex),
+                        Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "mineral_armor_" + slotIndex),
                         armorValue, AttributeModifier.Operation.ADD_VALUE), slotGroup);
         event.addModifier(Attributes.ARMOR_TOUGHNESS,
                 new AttributeModifier(
-                        ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "mineral_toughness_" + slotIndex),
+                        Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "mineral_toughness_" + slotIndex),
                         toughness, AttributeModifier.Operation.ADD_VALUE), slotGroup);
         if (knockback > 0f) {
             event.addModifier(Attributes.KNOCKBACK_RESISTANCE,
                     new AttributeModifier(
-                            ResourceLocation.fromNamespaceAndPath(PochiMod.MOD_ID, "mineral_kb_" + slotIndex),
+                            Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "mineral_kb_" + slotIndex),
                             knockback, AttributeModifier.Operation.ADD_VALUE), slotGroup);
         }
     }

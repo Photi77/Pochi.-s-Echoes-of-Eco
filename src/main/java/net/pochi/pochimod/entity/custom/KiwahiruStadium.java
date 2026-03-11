@@ -25,7 +25,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WaterBoundPathNavigation;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.monster.Drowned;
+import net.minecraft.world.entity.monster.zombie.Drowned;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -53,7 +53,7 @@ public class KiwahiruStadium extends Animal {
     }
 
     @Nullable
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_28332_, DifficultyInstance p_28333_, MobSpawnType p_28334_, @Nullable SpawnGroupData p_28335_) {
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor p_28332_, DifficultyInstance p_28333_, EntitySpawnReason p_28334_, @Nullable SpawnGroupData p_28335_) {
         this.setAirSupply(this.getMaxAirSupply());
         this.setXRot(0.0F);
         return super.finalizeSpawn(p_28332_, p_28333_, p_28334_, p_28335_);
@@ -82,14 +82,14 @@ public class KiwahiruStadium extends Animal {
         builder.define(ATTACKING, false);
     }
 
-    public void addAdditionalSaveData(CompoundTag p_28364_) {
+    public void addAdditionalSaveData(net.minecraft.world.level.storage.ValueOutput p_28364_) {
         super.addAdditionalSaveData(p_28364_);
         p_28364_.putInt("Moistness", this.getMoistnessLevel());
     }
 
-    public void readAdditionalSaveData(CompoundTag p_28340_) {
+    public void readAdditionalSaveData(net.minecraft.world.level.storage.ValueInput p_28340_) {
         super.readAdditionalSaveData(p_28340_);
-        this.setMoisntessLevel(p_28340_.getInt("Moistness"));
+        this.setMoisntessLevel(p_28340_.getIntOr("Moistness", 0));
     }
 
     protected void registerGoals() {
@@ -113,8 +113,8 @@ public class KiwahiruStadium extends Animal {
         return new WaterBoundPathNavigation(this, p_28362_);
     }
 
-    public boolean doHurtTarget(Entity p_28319_) {
-        boolean flag = p_28319_.hurt(this.damageSources().mobAttack(this), (float)((int)this.getAttributeValue(Attributes.ATTACK_DAMAGE)));
+    public boolean doHurtTarget(net.minecraft.server.level.ServerLevel pLevel, net.minecraft.world.entity.Entity p_28319_) {
+        boolean flag = false; p_28319_.hurt(this.damageSources().mobAttack(this), (float)((int)this.getAttributeValue(Attributes.ATTACK_DAMAGE)));
         if (flag) {
             this.playSound(SoundEvents.DOLPHIN_ATTACK, 1.0F, 1.0F);
         }
@@ -210,7 +210,7 @@ public class KiwahiruStadium extends Animal {
     public InteractionResult mobInteract(Player p_28359_, InteractionHand p_28360_) {
         ItemStack itemstack = p_28359_.getItemInHand(p_28360_);
         if (!itemstack.isEmpty() && itemstack.is(ItemTags.FISHES)) {
-            if (!this.level().isClientSide) {
+            if (!this.level().isClientSide()) {
                 this.playSound(SoundEvents.DOLPHIN_EAT, 1.0F, 1.0F);
             }
 
@@ -218,7 +218,7 @@ public class KiwahiruStadium extends Animal {
                 itemstack.shrink(1);
             }
 
-            return InteractionResult.sidedSuccess(this.level().isClientSide);
+            return InteractionResult.SUCCESS;
         } else {
             return super.mobInteract(p_28359_, p_28360_);
         }

@@ -33,7 +33,7 @@ public class DistillerMenu extends AbstractContainerMenu {
         addPlayerHotbar(inv);
 
         var handler = this.blockEntity.getItemHandler();
-        this.addSlot(new ModFuelSlot(handler, 0, 48, 52));
+        this.addSlot(new ModFuelSlot(handler, 0, 48, 52, this.level));
         this.addSlot(new SlotItemHandler(handler, 1, 30, 17));
         this.addSlot(new SlotItemHandler(handler, 2, 48, 17));
         this.addSlot(new SlotItemHandler(handler, 3, 66, 17));

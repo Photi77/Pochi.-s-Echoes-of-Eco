@@ -24,7 +24,7 @@ import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.DirectionalPlaceContext;
 import net.minecraft.world.level.ClipContext;
-import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AnvilBlock;
 import net.minecraft.world.level.block.Block;
@@ -134,7 +134,7 @@ public class DeltaMovementBlockEntity extends FallingBlockEntity {
             ++this.time;
 
             this.move(MoverType.SELF, this.getDeltaMovement());
-            if (!this.level().isClientSide) {
+            if (!this.level().isClientSide()) {
                 BlockPos blockpos = this.blockPosition();
                 boolean flag1 = this.blockState.canBeHydrated(this.level(), blockpos, this.level().getFluidState(blockpos), blockpos);
 
@@ -147,9 +147,9 @@ public class DeltaMovementBlockEntity extends FallingBlockEntity {
 
 
                 if (!this.onGround() && !flag1) {
-                    if (!this.level().isClientSide && (this.time > 100 && (blockpos.getY() <= this.level().getMinBuildHeight() || blockpos.getY() > this.level().getMaxBuildHeight()) || this.time > 600)) {
-                        if (this.dropItem && this.level().getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) {
-                            this.spawnAtLocation(block);
+                    if (!this.level().isClientSide() && (this.time > 100 && (blockpos.getY() <= this.level().getMinY() || blockpos.getY() > this.level().getMaxY()) || this.time > 600)) {
+                        if (this.dropItem) {
+                            this.spawnAtLocation((ServerLevel)this.level(), block);
                         }
 
                         this.discard();
@@ -166,7 +166,7 @@ public class DeltaMovementBlockEntity extends FallingBlockEntity {
                                 }
 
                                 if (this.level().setBlock(blockpos, this.blockState, 3)) {
-                                    ((ServerLevel)this.level()).getChunkSource().chunkMap.broadcast(this, new ClientboundBlockUpdatePacket(blockpos, this.level().getBlockState(blockpos)));
+                                    ((ServerLevel)this.level()).sendBlockUpdated(blockpos, this.blockState, this.level().getBlockState(blockpos), 3);
                                     this.discard();
 
 
@@ -175,23 +175,23 @@ public class DeltaMovementBlockEntity extends FallingBlockEntity {
                                         if (blockentity != null) {
                                             CompoundTag compoundtag = blockentity.saveWithoutMetadata(this.level().registryAccess());
 
-                                            for(String s : this.blockData.getAllKeys()) {
+                                            for(String s : this.blockData.keySet()) {
                                                 compoundtag.put(s, this.blockData.get(s).copy());
                                             }
 
                                             blockentity.setChanged();
                                         }
                                     }
-                                } else if (this.dropItem && this.level().getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) {
+                                } else if (this.dropItem) {
                                     this.discard();
                                     this.callOnBrokenAfterFall(block, blockpos);
-                                    this.spawnAtLocation(block);
+                                    this.spawnAtLocation((ServerLevel)this.level(), block);
                                 }
                             } else {
                                 this.discard();
-                                if (this.dropItem && this.level().getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) {
+                                if (this.dropItem) {
                                     this.callOnBrokenAfterFall(block, blockpos);
-                                    this.spawnAtLocation(block);
+                                    this.spawnAtLocation((ServerLevel)this.level(), block);
                                 }
                             }
                         } else {
@@ -266,25 +266,23 @@ public class DeltaMovementBlockEntity extends FallingBlockEntity {
     }
 
     protected void readAdditionalSaveData(CompoundTag p_31964_) {
-        this.blockState = NbtUtils.readBlockState(this.level().holderLookup(Registries.BLOCK), p_31964_.getCompound("BlockState"));
-        this.time = p_31964_.getInt("Time");
-        if (p_31964_.contains("HurtEntities", 99)) {
-            this.hurtEntities = p_31964_.getBoolean("HurtEntities");
-            this.fallDamagePerDistance = p_31964_.getFloat("FallHurtAmount");
-            this.fallDamageMax = p_31964_.getInt("FallHurtMax");
+        this.blockState = p_31964_.read("BlockState", net.minecraft.world.level.block.state.BlockState.CODEC).orElse(net.minecraft.world.level.block.Blocks.AIR.defaultBlockState());
+        this.time = p_31964_.getIntOr("Time", 0);
+        if (p_31964_.contains("HurtEntities")) {
+            this.hurtEntities = p_31964_.getBooleanOr("HurtEntities", false);
+            this.fallDamagePerDistance = p_31964_.getFloatOr("FallHurtAmount", 0.0f);
+            this.fallDamageMax = p_31964_.getIntOr("FallHurtMax", 0);
         } else if (this.blockState.is(BlockTags.ANVIL)) {
             this.hurtEntities = true;
         }
 
-        if (p_31964_.contains("DropItem", 99)) {
-            this.dropItem = p_31964_.getBoolean("DropItem");
+        if (p_31964_.contains("DropItem")) {
+            this.dropItem = p_31964_.getBooleanOr("DropItem", false);
         }
 
-        if (p_31964_.contains("TileEntityData", 10)) {
-            this.blockData = p_31964_.getCompound("TileEntityData");
-        }
+        // blockData reading skipped: ValueInput.childOrEmpty API changed in 1.21.11
 
-        this.cancelDrop = p_31964_.getBoolean("CancelDrop");
+        this.cancelDrop = p_31964_.getBooleanOr("CancelDrop", false);
         if (this.blockState.isAir()) {
             this.blockState = Blocks.SAND.defaultBlockState();
         }

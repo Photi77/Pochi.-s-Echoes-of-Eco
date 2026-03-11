@@ -31,9 +31,6 @@ import net.pochi.pochimod.item.ModItems;
 public class PepperBushBlock extends BushBlock implements BonemealableBlock {
     public static final MapCodec<PepperBushBlock> CODEC = simpleCodec(PepperBushBlock::new);
 
-    @Override
-    public MapCodec<PepperBushBlock> codec() { return CODEC; }
-
 
     public static final int MAX_AGE = 1;
     public static final IntegerProperty AGE = BlockStateProperties.AGE_1;
@@ -83,7 +80,7 @@ public class PepperBushBlock extends BushBlock implements BonemealableBlock {
             BlockState blockstate = pState.setValue(AGE, Integer.valueOf(0));
             pLevel.setBlock(pPos, blockstate, 2);
             pLevel.gameEvent(GameEvent.BLOCK_CHANGE, pPos, GameEvent.Context.of(pPlayer, blockstate));
-            return InteractionResult.sidedSuccess(pLevel.isClientSide);
+            return InteractionResult.SUCCESS;
         } else {
             return super.useWithoutItem(pState, pLevel, pPos, pPlayer, pHit);
         }
