@@ -1,0 +1,980 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.14/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+Java: 21.0.4, JVM: 21.0.4+7-LTS (Eclipse Adoptium), Arch: amd64
+
+> Task :neoFormListLibraries UP-TO-DATE
+> Task :neoFormListTransformLibraries UP-TO-DATE
+> Task :cacheVersionManifest1.21.11 UP-TO-DATE
+> Task :cacheVersionMappingsClient1.21.11 UP-TO-DATE
+> Task :cacheVersionExecutableClient1.21.11 UP-TO-DATE
+> Task :neoFormStripClientFinals UP-TO-DATE
+> Task :cacheVersionExecutableServer1.21.11 UP-TO-DATE
+> Task :neoFormStripServerFinals UP-TO-DATE
+> Task :neoFormSetup UP-TO-DATE
+> Task :neoFormDecompile UP-TO-DATE
+> Task :neoFormInject UP-TO-DATE
+> Task :neoFormPatch UP-TO-DATE
+> Task :neoFormPatchUserDev UP-TO-DATE
+> Task :neoFormTransformSource UP-TO-DATE
+> Task :neoFormRecompile UP-TO-DATE
+> Task :supplyRawJarForneoFormJoined1.21.11-20251209.172050 UP-TO-DATE
+> Task :selectRawArtifactNg_dummy_ng.net.neoforged_neoforge_21.11.38-beta UP-TO-DATE
+> Task :compileJava UP-TO-DATE
+> Task :processResources UP-TO-DATE
+> Task :classes UP-TO-DATE
+> Task :neoFormJoined1.21.11-20251209.172050DownloadAssets UP-TO-DATE
+> Task :neoFormJoined1.21.11-20251209.172050ExtractNatives UP-TO-DATE
+
+> Task :runClient
+2026-03-16T14:11:50.030852300Z main WARN Advanced terminal features are not available in this environment
+[23:11:50] [main/INFO] [ne.ne.fm.st.Entrypoint/]: JVM Uptime at startup: 152ms
+[23:11:50] [main/INFO] [ne.ne.fm.lo.FMLLoader/]: Starting FancyModLoader version 10.0.36 (CLIENT in DEV)
+[23:11:50] [main/INFO] [ne.ne.fm.lo.FMLLoader/]: Game directory: E:\mod\PochiMod\runs\client
+[23:11:50] [main/DEBUG] [ne.ne.fm.lo.FMLPaths/CORE]: Path GAMEDIR is E:\mod\PochiMod\runs\client
+[23:11:50] [main/DEBUG] [ne.ne.fm.lo.FMLPaths/CORE]: Path JIJ_CACHEDIR is E:\mod\PochiMod\runs\client\.cache\jij
+[23:11:50] [main/DEBUG] [ne.ne.fm.lo.FMLPaths/CORE]: Path MODSDIR is E:\mod\PochiMod\runs\client\mods
+[23:11:50] [main/DEBUG] [ne.ne.fm.lo.FMLPaths/CORE]: Path CONFIGDIR is E:\mod\PochiMod\runs\client\config
+[23:11:50] [main/DEBUG] [ne.ne.fm.lo.FMLPaths/CORE]: Path FMLCONFIG is E:\mod\PochiMod\runs\client\config\fml.toml
+[23:11:50] [main/DEBUG] [ne.ne.fm.lo.EarlyServiceDiscovery/]: C:\Users\20171\.gradle\caches\modules-2\files-2.1\net.neoforged.fancymodloader\earlydisplay\10.0.36\dbd0e11d545443f602addede111c39d9639708f9\earlydisplay-10.0.36.jar contains early service net.neoforged.neoforgespi.earlywindow.ImmediateWindowProvider
+[23:11:50] [ForkJoinPool.commonPool-worker-13/DEBUG] [ne.ne.fm.lo.EarlyServiceDiscovery/]: C:\Users\20171\.gradle\caches\modules-2\files-2.1\net.neoforged.fancymodloader\loader\10.0.36\f72ab4d3e755fe736829883d90430a281527aca\loader-10.0.36.jar contains early service net.neoforged.neoforgespi.locating.IModFileReader
+[23:11:50] [main/DEBUG] [ne.ne.fm.lo.mo.ModFile/LOADING]: Loading mod file C:\Users\20171\.gradle\caches\modules-2\files-2.1\net.neoforged.fancymodloader\earlydisplay\10.0.36\dbd0e11d545443f602addede111c39d9639708f9\earlydisplay-10.0.36.jar with languages []
+[23:11:50] [ForkJoinPool.commonPool-worker-13/DEBUG] [ne.ne.fm.lo.mo.ModFile/LOADING]: Loading mod file C:\Users\20171\.gradle\caches\modules-2\files-2.1\net.neoforged.fancymodloader\loader\10.0.36\f72ab4d3e755fe736829883d90430a281527aca\loader-10.0.36.jar with languages []
+[23:11:50] [main/INFO] [ne.ne.fm.lo.EarlyServiceDiscovery/]: Found 2 early service jars (out of 111) in 24ms
+[23:11:50] [main/INFO] [ne.ne.fm.lo.FMLLoader/]: Loading FML Early Services:
+[23:11:50] [main/INFO] [ne.ne.fm.lo.FMLLoader/]:  - C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/earlydisplay/10.0.36/dbd0e11d545443f602addede111c39d9639708f9/earlydisplay-10.0.36.jar
+[23:11:50] [main/INFO] [ne.ne.fm.lo.FMLLoader/]:  - C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/loader/10.0.36/f72ab4d3e755fe736829883d90430a281527aca/loader-10.0.36.jar
+[23:11:50] [main/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: Found 0 implementations of GraphicsBootstrapper:
+[23:11:50] [main/INFO] [ne.ne.fm.lo.ImmediateWindowHandler/]: Loading ImmediateWindowProvider fmlearlywindow
+[23:11:50] [main/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: Found 1 implementations of ImmediateWindowProvider:
+[23:11:50] [main/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: 	net.neoforged.fml.earlydisplay.DisplayWindow from C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/earlydisplay/10.0.36/dbd0e11d545443f602addede111c39d9639708f9/earlydisplay-10.0.36.jar
+[23:11:50] [main/DEBUG] [ne.ne.fm.ea.th.ThemeLoader/]: Loading built-in theme default
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: Found 4 implementations of IModFileCandidateLocator:
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: 	    1000 - [built-in] net.neoforged.fml.loading.moddiscovery.locators.GameLocator from C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/loader/10.0.36/f72ab4d3e755fe736829883d90430a281527aca/loader-10.0.36.jar
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: 	    1000 - [built-in] net.neoforged.fml.loading.moddiscovery.locators.InDevFolderLocator from C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/loader/10.0.36/f72ab4d3e755fe736829883d90430a281527aca/loader-10.0.36.jar
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: 	    1000 - [built-in] net.neoforged.fml.loading.moddiscovery.locators.InDevJarLocator from C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/loader/10.0.36/f72ab4d3e755fe736829883d90430a281527aca/loader-10.0.36.jar
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: 	       0 - [built-in] net.neoforged.fml.loading.moddiscovery.locators.ModsFolderLocator from C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/loader/10.0.36/f72ab4d3e755fe736829883d90430a281527aca/loader-10.0.36.jar
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: Found 2 implementations of IModFileReader:
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: 	       0 - net.neoforged.fml.loading.moddiscovery.readers.JarModsDotTomlModFileReader from C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/loader/10.0.36/f72ab4d3e755fe736829883d90430a281527aca/loader-10.0.36.jar
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: 	   -1000 - net.neoforged.fml.loading.moddiscovery.readers.NestedLibraryModReader from C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/loader/10.0.36/f72ab4d3e755fe736829883d90430a281527aca/loader-10.0.36.jar
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: Found 1 implementations of IDependencyLocator:
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: 	       0 - net.neoforged.fml.loading.moddiscovery.locators.JarInJarDependencyLocator from C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/loader/10.0.36/f72ab4d3e755fe736829883d90430a281527aca/loader-10.0.36.jar
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.lo.mo.lo.RequiredSystemFiles/]: Found NeoForge MANIFEST.MF in jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged/neoforge/21.11.38-beta/3425b0afef02d6a90f7204843bd3cb774c48e372/neoforge-21.11.38-beta-universal.jar)
+[23:11:51] [ForkJoinPool.commonPool-worker-14/INFO] [ne.ne.fm.lo.mo.lo.GameLocator/]: Detected a joined NeoForge and Minecraft configuration. Applying filtering...
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.lo.mo.ModFileInfo/LOADING]: Found valid mod file neoforge-21.11.38-beta.jar with {minecraft} mods - versions {1.21.11}
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.lo.mo.ModFile/LOADING]: Loading mod file E:\mod\PochiMod\.gradle\repositories\ng_dummy_ng\net\neoforged\neoforge\21.11.38-beta\neoforge-21.11.38-beta.jar with languages [LanguageSpec[languageName=minecraft, acceptedVersions=1]]
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.lo.mo.ModFileParser/LOADING]: Considering mod file candidate C:\Users\20171\.gradle\caches\modules-2\files-2.1\net.neoforged\neoforge\21.11.38-beta\3425b0afef02d6a90f7204843bd3cb774c48e372\neoforge-21.11.38-beta-universal.jar
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.lo.mo.ModFileInfo/LOADING]: Found valid mod file neoforge-21.11.38-beta-universal.jar with {neoforge} mods - versions {21.11.38-beta}
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.lo.mo.ModFile/LOADING]: Loading mod file C:\Users\20171\.gradle\caches\modules-2\files-2.1\net.neoforged\neoforge\21.11.38-beta\3425b0afef02d6a90f7204843bd3cb774c48e372\neoforge-21.11.38-beta-universal.jar with languages [LanguageSpec[languageName=javafml, acceptedVersions=[3,]]]
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.lo.mo.ModFile/LOADING]: Found mixin config MixinConfig[config=neoforge.mixins.json, requiredMods=[], behaviorVersion=null]
+[23:11:51] [ForkJoinPool.commonPool-worker-14/INFO] [ne.ne.fm.lo.mo.lo.InDevFolderLocator/CORE]: Got mod coordinates PochiMod%%E:\mod\PochiMod\build\resources\main;PochiMod%%E:\mod\PochiMod\build\classes\java\main from env
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.lo.mo.ModFileParser/LOADING]: Considering mod file candidate E:\mod\PochiMod\build\resources\main
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.lo.mo.ModFileInfo/LOADING]: Found valid mod file main with {pochimod} mods - versions {0.0.5-1.21.11}
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.lo.mo.ModFile/LOADING]: Loading mod file E:\mod\PochiMod\build\resources\main with languages [LanguageSpec[languageName=javafml, acceptedVersions=[4,)]]
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping E:\mod\PochiMod\.gradle\repositories\ng_dummy_ng\net\neoforged\neoforge\21.11.38-beta\neoforge-21.11.38-beta.jar because it was already located earlier
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.lo.mo.ModFileParser/LOADING]: Considering mod file candidate C:\Users\20171\.gradle\caches\modules-2\files-2.1\software.bernie.geckolib\geckolib-neoforge-1.21.11\5.4.2\2b07b44da0d5b8f4f4f19b69d23a96ff30477c3\geckolib-neoforge-1.21.11-5.4.2.jar
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.lo.mo.ModFileInfo/LOADING]: Found valid mod file geckolib-neoforge-1.21.11-5.4.2.jar with {geckolib} mods - versions {5.4.2}
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.lo.mo.ModFile/LOADING]: Loading mod file C:\Users\20171\.gradle\caches\modules-2\files-2.1\software.bernie.geckolib\geckolib-neoforge-1.21.11\5.4.2\2b07b44da0d5b8f4f4f19b69d23a96ff30477c3\geckolib-neoforge-1.21.11-5.4.2.jar with languages [LanguageSpec[languageName=javafml, acceptedVersions=[5,)]]
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.lo.mo.ModFile/LOADING]: Found mixin config MixinConfig[config=geckolib.mixins.json, requiredMods=[], behaviorVersion=null]
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.lo.mo.ModFileParser/LOADING]: Considering mod file candidate C:\Users\20171\.gradle\caches\modules-2\files-2.1\com.github.glitchfiend\TerraBlender-neoforge\1.21.11-21.11.0.0\ecd358337a0e0f2f27b3d2bef2a423691c601388\TerraBlender-neoforge-1.21.11-21.11.0.0.jar
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.lo.mo.ModFileInfo/LOADING]: Found valid mod file TerraBlender-neoforge-1.21.11-21.11.0.0.jar with {terrablender} mods - versions {21.11.0.0}
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.lo.mo.ModFile/LOADING]: Loading mod file C:\Users\20171\.gradle\caches\modules-2\files-2.1\com.github.glitchfiend\TerraBlender-neoforge\1.21.11-21.11.0.0\ecd358337a0e0f2f27b3d2bef2a423691c601388\TerraBlender-neoforge-1.21.11-21.11.0.0.jar with languages [LanguageSpec[languageName=javafml, acceptedVersions=[1,)]]
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.lo.mo.ModFile/LOADING]: Found mixin config MixinConfig[config=terrablender.mixins.json, requiredMods=[], behaviorVersion=null]
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.lo.mo.ModFile/LOADING]: Found mixin config MixinConfig[config=terrablender_neoforge.mixins.json, requiredMods=[], behaviorVersion=null]
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.lo.mo.ModFileParser/LOADING]: Considering mod file candidate C:\Users\20171\.gradle\caches\modules-2\files-2.1\mezz.jei\jei-1.21.11-neoforge\27.4.0.15\33991c003af7eaa7abe610641838256130be3a25\jei-1.21.11-neoforge-27.4.0.15.jar
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.lo.mo.ModFileInfo/LOADING]: Found valid mod file jei-1.21.11-neoforge-27.4.0.15.jar with {jei} mods - versions {27.4.0.15}
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.lo.mo.ModFile/LOADING]: Loading mod file C:\Users\20171\.gradle\caches\modules-2\files-2.1\mezz.jei\jei-1.21.11-neoforge\27.4.0.15\33991c003af7eaa7abe610641838256130be3a25\jei-1.21.11-neoforge-27.4.0.15.jar with languages [LanguageSpec[languageName=javafml, acceptedVersions=[4,)]]
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.lo.mo.ModDiscoverer/]: Skipping C:\Users\20171\.gradle\caches\modules-2\files-2.1\net.neoforged\neoforge\21.11.38-beta\3425b0afef02d6a90f7204843bd3cb774c48e372\neoforge-21.11.38-beta-universal.jar because it was already located earlier
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.lo.mo.ModFile/LOADING]: Loading mod file C:\Users\20171\.gradle\caches\modules-2\files-2.1\io.github.llamalad7\mixinextras-neoforge\0.5.0\d734b83ce6542bb70ea31755c1595b88992dbe65\mixinextras-neoforge-0.5.0.jar with languages []
+[23:11:51] [fml-loadingscreen/INFO] [ne.ne.fm.ea.re.LoadingScreenRenderer/]: GL info: NVIDIA GeForce GTX 1660 Ti/PCIe/SSE2 GL version 3.3.0 NVIDIA 581.57, NVIDIA Corporation
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.lo.mo.ModFile/LOADING]: Loading mod file E:\mod\PochiMod\runs\client\.cache\jij\9c617719248f8b89847348fc7ea5e705739c147ae5e172551264d225bc9f2507\mixinextras-neoforge-0.5.0.jar with languages []
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.lo.mo.ModFile/LOADING]: Loading mod file E:\mod\PochiMod\runs\client\.cache\jij\54bb3c61f37ced77ba30dc02ca5b2f71ced259612101a8b1325855cff9d9755c\net.neoforged.neoforge-coremods-21.11.38-beta.jar with languages []
+[23:11:51] [ForkJoinPool.commonPool-worker-14/WARN] [ne.ne.ja.se.JarSelector/]: Attempted to select a dependency jar for JarJar which was passed in as source: library:mixinextras.neoforge. Using jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/io.github.llamalad7/mixinextras-neoforge/0.5.0/d734b83ce6542bb70ea31755c1595b88992dbe65/mixinextras-neoforge-0.5.0.jar)
+[23:11:51] [ForkJoinPool.commonPool-worker-14/INFO] [ne.ne.fm.lo.mo.lo.JarInJarDependencyLocator/]: Found 1 dependencies adding them to mods collection
+[23:11:51] [ForkJoinPool.commonPool-worker-14/INFO] [ne.ne.fm.lo.mo.ModDiscoverer/]: 
+     Mod List:
+		Name Version (Mod Id)
+
+		Echoes of Eco 0.0.5-1.21.11 (pochimod)
+		GeckoLib 5 5.4.2 (geckolib)
+		Just Enough Items 27.4.0.15 (jei)
+		Minecraft 1.21.11 (minecraft)
+		NeoForge 21.11.38-beta (neoforge)
+		TerraBlender 21.11.0.0 (terrablender)
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.lo.ModSorter/]: Configured system mods: [minecraft, neoforge]
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.lo.ModSorter/]: Found system mod: minecraft
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.lo.ModSorter/]: Found system mod: neoforge
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.lo.ModSorter/LOADING]: Found 8 mod requirements (8 mandatory, 0 optional)
+[23:11:51] [ForkJoinPool.commonPool-worker-14/DEBUG] [ne.ne.fm.lo.ModSorter/LOADING]: Found 0 mod requirements missing (0 mandatory, 0 optional)
+[23:11:51] [main/INFO] [mixin/]: SpongePowered MIXIN Subsystem Version=0.8.7 Source=file:/C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.fabricmc/sponge-mixin/0.16.5+mixin.0.8.7/80fc3a9f592673cea87f4cd702f87991c6c9fe4d/sponge-mixin-0.16.5+mixin.0.8.7.jar Service=FML Env=CLIENT
+[23:11:51] [main/DEBUG] [mixin/]: Initialising Mixin Platform Manager
+[23:11:51] [main/DEBUG] [mixin/]: Adding mixin platform agents for container ContainerHandleVirtual(fml:18c85)
+[23:11:51] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentDefault for ContainerHandleVirtual(fml:18c85)
+[23:11:51] [main/DEBUG] [mixin/]: MixinPlatformAgentDefault accepted container ContainerHandleVirtual(fml:18c85)
+[23:11:51] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentDefault for ContainerHandleVirtual(fml:18c85)
+[23:11:51] [main/DEBUG] [mixin/]: MixinPlatformAgentDefault accepted container ContainerHandleVirtual(fml:18c85)
+[23:11:51] [main/DEBUG] [mixin/]: Processing prepare() for PlatformAgent[MixinPlatformAgentDefault:ContainerHandleVirtual(fml:18c85)]
+[23:11:51] [main/DEBUG] [mixin/]: Processing prepare() for PlatformAgent[MixinPlatformAgentDefault:ContainerHandleVirtual(fml:18c85)]
+[23:11:51] [main/INFO] [ne.ne.fm.lo.FMLLoader/]: Loading FML Plugins:
+[23:11:51] [main/INFO] [ne.ne.fm.lo.FMLLoader/]:  - C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged/neoforge/21.11.38-beta/3425b0afef02d6a90f7204843bd3cb774c48e372/neoforge-21.11.38-beta-universal.jar > net.neoforged.neoforge-coremods-21.11.38-beta.jar
+[23:11:51] [main/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: Found 2 implementations of IModLanguageLoader:
+[23:11:51] [main/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: 	net.neoforged.fml.javafmlmod.FMLJavaModLanguageProvider from C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/loader/10.0.36/f72ab4d3e755fe736829883d90430a281527aca/loader-10.0.36.jar
+[23:11:51] [main/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: 	net.neoforged.fml.mclanguageprovider.MinecraftModLanguageProvider from C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/loader/10.0.36/f72ab4d3e755fe736829883d90430a281527aca/loader-10.0.36.jar
+[23:11:51] [main/DEBUG] [ne.ne.fm.lo.LanguageProviderLoader/CORE]: Found language provider javafml, version 10.0
+[23:11:51] [main/DEBUG] [ne.ne.fm.lo.LanguageProviderLoader/CORE]: Found language provider minecraft, version 10.0
+[23:11:51] [main/DEBUG] [ne.ne.fm.lo.FMLLoader/]: Adding Access Transformer META-INF/accesstransformer.cfg in jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/com.github.glitchfiend/TerraBlender-neoforge/1.21.11-21.11.0.0/ecd358337a0e0f2f27b3d2bef2a423691c601388/TerraBlender-neoforge-1.21.11-21.11.0.0.jar)
+[23:11:51] [main/DEBUG] [ne.ne.fm.lo.FMLLoader/]: Adding Access Transformer META-INF/accesstransformer.cfg in jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/software.bernie.geckolib/geckolib-neoforge-1.21.11/5.4.2/2b07b44da0d5b8f4f4f19b69d23a96ff30477c3/geckolib-neoforge-1.21.11-5.4.2.jar)
+[23:11:51] [main/DEBUG] [ne.ne.fm.lo.FMLLoader/]: Adding Access Transformer META-INF/accesstransformer.cfg in composite(filtered(jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged/neoforge/21.11.38-beta/3425b0afef02d6a90f7204843bd3cb774c48e372/neoforge-21.11.38-beta-universal.jar)))
+[23:11:52] [main/DEBUG] [ne.ne.fm.lo.FMLLoader/]: Adding Access Transformer META-INF/accesstransformergenerated.cfg in composite(filtered(jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged/neoforge/21.11.38-beta/3425b0afef02d6a90f7204843bd3cb774c48e372/neoforge-21.11.38-beta-universal.jar)))
+[23:11:52] [main/DEBUG] [ne.ne.fm.lo.FMLLoader/]: Adding Access Transformer META-INF/accesstransformer.cfg in jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/mezz.jei/jei-1.21.11-neoforge/27.4.0.15/33991c003af7eaa7abe610641838256130be3a25/jei-1.21.11-neoforge-27.4.0.15.jar)
+[23:11:52] [main/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: Found 5 implementations of ClassProcessor:
+[23:11:52] [main/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: 	[built-in] net.neoforged.fml.common.asm.AccessTransformerService from C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/loader/10.0.36/f72ab4d3e755fe736829883d90430a281527aca/loader-10.0.36.jar
+[23:11:52] [main/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: 	[built-in] net.neoforged.fml.common.asm.enumextension.RuntimeEnumExtender from C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/loader/10.0.36/f72ab4d3e755fe736829883d90430a281527aca/loader-10.0.36.jar
+[23:11:52] [main/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: 	[built-in] net.neoforged.fml.common.asm.SimpleProcessorsGroup from C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/loader/10.0.36/f72ab4d3e755fe736829883d90430a281527aca/loader-10.0.36.jar
+[23:11:52] [main/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: 	[built-in] net.neoforged.fml.loading.moddiscovery.locators.NeoForgeDevDistCleaner from C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/loader/10.0.36/f72ab4d3e755fe736829883d90430a281527aca/loader-10.0.36.jar
+[23:11:52] [main/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: 	[built-in] net.neoforged.fml.loading.mixin.FMLMixinClassProcessor from C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged.fancymodloader/loader/10.0.36/f72ab4d3e755fe736829883d90430a281527aca/loader-10.0.36.jar
+[23:11:52] [main/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: Found 1 implementations of ClassProcessorProvider:
+[23:11:52] [main/DEBUG] [ne.ne.fm.ut.ServiceLoaderUtil/CORE]: 	net.neoforged.neoforge.coremods.NeoForgeCoreMod from C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged/neoforge/21.11.38-beta/3425b0afef02d6a90f7204843bd3cb774c48e372/neoforge-21.11.38-beta-universal.jar > net.neoforged.neoforge-coremods-21.11.38-beta.jar
+[23:11:52] [main/DEBUG] [ne.ne.fm.lo.FMLLoader/]: Masking classpath elements: [C:/Users/20171/.gradle/caches/modules-2/files-2.1/software.bernie.geckolib/geckolib-neoforge-1.21.11/5.4.2/2b07b44da0d5b8f4f4f19b69d23a96ff30477c3/geckolib-neoforge-1.21.11-5.4.2.jar, E:/mod/PochiMod/build/resources/main, C:/Users/20171/.gradle/caches/modules-2/files-2.1/com.github.glitchfiend/TerraBlender-neoforge/1.21.11-21.11.0.0/ecd358337a0e0f2f27b3d2bef2a423691c601388/TerraBlender-neoforge-1.21.11-21.11.0.0.jar, C:/Users/20171/.gradle/caches/modules-2/files-2.1/mezz.jei/jei-1.21.11-neoforge/27.4.0.15/33991c003af7eaa7abe610641838256130be3a25/jei-1.21.11-neoforge-27.4.0.15.jar, E:/mod/PochiMod/build/classes/java/main, E:/mod/PochiMod/.gradle/repositories/ng_dummy_ng/net/neoforged/neoforge/21.11.38-beta/neoforge-21.11.38-beta.jar, C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged/neoforge/21.11.38-beta/3425b0afef02d6a90f7204843bd3cb774c48e372/neoforge-21.11.38-beta-universal.jar, C:/Users/20171/.gradle/caches/modules-2/files-2.1/io.github.llamalad7/mixinextras-neoforge/0.5.0/d734b83ce6542bb70ea31755c1595b88992dbe65/mixinextras-neoforge-0.5.0.jar]
+[23:11:52] [main/INFO] [ne.ne.fm.lo.FMLLoader/]: Building game content classloader:
+ - geckolib (jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/software.bernie.geckolib/geckolib-neoforge-1.21.11/5.4.2/2b07b44da0d5b8f4f4f19b69d23a96ff30477c3/geckolib-neoforge-1.21.11-5.4.2.jar))
+ - jei (jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/mezz.jei/jei-1.21.11-neoforge/27.4.0.15/33991c003af7eaa7abe610641838256130be3a25/jei-1.21.11-neoforge-27.4.0.15.jar))
+ - minecraft (composite(filtered(jar(E:/mod/PochiMod/.gradle/repositories/ng_dummy_ng/net/neoforged/neoforge/21.11.38-beta/neoforge-21.11.38-beta.jar)), filtered(jar(E:/mod/PochiMod/.gradle/repositories/ng_dummy_ng/net/neoforged/neoforge/21.11.38-beta/neoforge-21.11.38-beta.jar))))
+ - mixinextras.neoforge (jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/io.github.llamalad7/mixinextras-neoforge/0.5.0/d734b83ce6542bb70ea31755c1595b88992dbe65/mixinextras-neoforge-0.5.0.jar))
+ - neoforge (composite(filtered(jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged/neoforge/21.11.38-beta/3425b0afef02d6a90f7204843bd3cb774c48e372/neoforge-21.11.38-beta-universal.jar))))
+ - net.neoforged.fml.generated (empty(VirtualJar/net.neoforged.fml.generated))
+ - pochimod (composite(folder(E:/mod/PochiMod/build/resources/main), folder(E:/mod/PochiMod/build/classes/java/main)))
+ - terrablender (jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/com.github.glitchfiend/TerraBlender-neoforge/1.21.11-21.11.0.0/ecd358337a0e0f2f27b3d2bef2a423691c601388/TerraBlender-neoforge-1.21.11-21.11.0.0.jar))
+[23:11:52] [main/INFO] [ne.ne.fm.lo.FMLLoader/]: Built game content classloader in 35ms
+[23:11:52] [main/DEBUG] [mixin/]: Compatibility level JAVA_17 specified by terrablender.mixins.json is lower than the default level supported by the current mixin service (JAVA_21).
+[23:11:52] [main/DEBUG] [mixin/]: Compatibility level JAVA_17 specified by terrablender.mixins.json is higher than the maximum level supported by this version of mixin (JAVA_13).
+[23:11:52] [main/DEBUG] [mixin/]: Compatibility level JAVA_17 specified by terrablender_neoforge.mixins.json is lower than the default level supported by the current mixin service (JAVA_21).
+[23:11:52] [main/DEBUG] [mixin/]: Compatibility level JAVA_17 specified by terrablender_neoforge.mixins.json is higher than the maximum level supported by this version of mixin (JAVA_13).
+[23:11:52] [main/DEBUG] [mixin/]: Compatibility level JAVA_17 specified by geckolib.mixins.json is lower than the default level supported by the current mixin service (JAVA_21).
+[23:11:52] [main/DEBUG] [mixin/]: Compatibility level JAVA_17 specified by geckolib.mixins.json is higher than the maximum level supported by this version of mixin (JAVA_13).
+[23:11:52] [main/DEBUG] [mixin/]: Processing launch tasks for PlatformAgent[MixinPlatformAgentDefault:ContainerHandleVirtual(fml:18c85)]
+[23:11:52] [main/DEBUG] [mixin/]: Processing launch tasks for PlatformAgent[MixinPlatformAgentDefault:ContainerHandleVirtual(fml:18c85)]
+[23:11:52] [main/DEBUG] [mixin/]: Adding agents for Mixin Container composite(filtered(jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged/neoforge/21.11.38-beta/3425b0afef02d6a90f7204843bd3cb774c48e372/neoforge-21.11.38-beta-universal.jar))) > jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged/neoforge/21.11.38-beta/3425b0afef02d6a90f7204843bd3cb774c48e372/neoforge-21.11.38-beta-universal.jar > net.neoforged.neoforge-coremods-21.11.38-beta.jar)
+[23:11:52] [main/DEBUG] [mixin/]: Adding mixin platform agents for container composite(filtered(jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged/neoforge/21.11.38-beta/3425b0afef02d6a90f7204843bd3cb774c48e372/neoforge-21.11.38-beta-universal.jar))) > jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged/neoforge/21.11.38-beta/3425b0afef02d6a90f7204843bd3cb774c48e372/neoforge-21.11.38-beta-universal.jar > net.neoforged.neoforge-coremods-21.11.38-beta.jar)
+[23:11:52] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentDefault for composite(filtered(jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged/neoforge/21.11.38-beta/3425b0afef02d6a90f7204843bd3cb774c48e372/neoforge-21.11.38-beta-universal.jar))) > jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged/neoforge/21.11.38-beta/3425b0afef02d6a90f7204843bd3cb774c48e372/neoforge-21.11.38-beta-universal.jar > net.neoforged.neoforge-coremods-21.11.38-beta.jar)
+[23:11:52] [main/DEBUG] [mixin/]: MixinPlatformAgentDefault accepted container composite(filtered(jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged/neoforge/21.11.38-beta/3425b0afef02d6a90f7204843bd3cb774c48e372/neoforge-21.11.38-beta-universal.jar))) > jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged/neoforge/21.11.38-beta/3425b0afef02d6a90f7204843bd3cb774c48e372/neoforge-21.11.38-beta-universal.jar > net.neoforged.neoforge-coremods-21.11.38-beta.jar)
+[23:11:52] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentDefault for composite(filtered(jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged/neoforge/21.11.38-beta/3425b0afef02d6a90f7204843bd3cb774c48e372/neoforge-21.11.38-beta-universal.jar))) > jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged/neoforge/21.11.38-beta/3425b0afef02d6a90f7204843bd3cb774c48e372/neoforge-21.11.38-beta-universal.jar > net.neoforged.neoforge-coremods-21.11.38-beta.jar)
+[23:11:52] [main/DEBUG] [mixin/]: MixinPlatformAgentDefault accepted container composite(filtered(jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged/neoforge/21.11.38-beta/3425b0afef02d6a90f7204843bd3cb774c48e372/neoforge-21.11.38-beta-universal.jar))) > jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged/neoforge/21.11.38-beta/3425b0afef02d6a90f7204843bd3cb774c48e372/neoforge-21.11.38-beta-universal.jar > net.neoforged.neoforge-coremods-21.11.38-beta.jar)
+[23:11:52] [main/DEBUG] [mixin/]: Processing prepare() for PlatformAgent[MixinPlatformAgentDefault:composite(filtered(jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged/neoforge/21.11.38-beta/3425b0afef02d6a90f7204843bd3cb774c48e372/neoforge-21.11.38-beta-universal.jar))) > jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged/neoforge/21.11.38-beta/3425b0afef02d6a90f7204843bd3cb774c48e372/neoforge-21.11.38-beta-universal.jar > net.neoforged.neoforge-coremods-21.11.38-beta.jar)]
+[23:11:52] [main/DEBUG] [mixin/]: Processing prepare() for PlatformAgent[MixinPlatformAgentDefault:composite(filtered(jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged/neoforge/21.11.38-beta/3425b0afef02d6a90f7204843bd3cb774c48e372/neoforge-21.11.38-beta-universal.jar))) > jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged/neoforge/21.11.38-beta/3425b0afef02d6a90f7204843bd3cb774c48e372/neoforge-21.11.38-beta-universal.jar > net.neoforged.neoforge-coremods-21.11.38-beta.jar)]
+[23:11:52] [main/DEBUG] [mixin/]: Adding agents for Mixin Container jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/io.github.llamalad7/mixinextras-neoforge/0.5.0/d734b83ce6542bb70ea31755c1595b88992dbe65/mixinextras-neoforge-0.5.0.jar)
+[23:11:52] [main/DEBUG] [mixin/]: Adding mixin platform agents for container jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/io.github.llamalad7/mixinextras-neoforge/0.5.0/d734b83ce6542bb70ea31755c1595b88992dbe65/mixinextras-neoforge-0.5.0.jar)
+[23:11:52] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentDefault for jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/io.github.llamalad7/mixinextras-neoforge/0.5.0/d734b83ce6542bb70ea31755c1595b88992dbe65/mixinextras-neoforge-0.5.0.jar)
+[23:11:52] [main/DEBUG] [mixin/]: MixinPlatformAgentDefault accepted container jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/io.github.llamalad7/mixinextras-neoforge/0.5.0/d734b83ce6542bb70ea31755c1595b88992dbe65/mixinextras-neoforge-0.5.0.jar)
+[23:11:52] [main/DEBUG] [mixin/]: Instancing new MixinPlatformAgentDefault for jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/io.github.llamalad7/mixinextras-neoforge/0.5.0/d734b83ce6542bb70ea31755c1595b88992dbe65/mixinextras-neoforge-0.5.0.jar)
+[23:11:52] [main/DEBUG] [mixin/]: MixinPlatformAgentDefault accepted container jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/io.github.llamalad7/mixinextras-neoforge/0.5.0/d734b83ce6542bb70ea31755c1595b88992dbe65/mixinextras-neoforge-0.5.0.jar)
+[23:11:52] [main/DEBUG] [mixin/]: Processing prepare() for PlatformAgent[MixinPlatformAgentDefault:jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/io.github.llamalad7/mixinextras-neoforge/0.5.0/d734b83ce6542bb70ea31755c1595b88992dbe65/mixinextras-neoforge-0.5.0.jar)]
+[23:11:52] [main/DEBUG] [mixin/]: Registering mixin config: mixinextras.init.mixins.json source=jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/io.github.llamalad7/mixinextras-neoforge/0.5.0/d734b83ce6542bb70ea31755c1595b88992dbe65/mixinextras-neoforge-0.5.0.jar)
+[23:11:52] [main/DEBUG] [mixin/]: Processing prepare() for PlatformAgent[MixinPlatformAgentDefault:jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/io.github.llamalad7/mixinextras-neoforge/0.5.0/d734b83ce6542bb70ea31755c1595b88992dbe65/mixinextras-neoforge-0.5.0.jar)]
+[23:11:52] [main/DEBUG] [mixin/]: Registering mixin config: mixinextras.init.mixins.json source=jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/io.github.llamalad7/mixinextras-neoforge/0.5.0/d734b83ce6542bb70ea31755c1595b88992dbe65/mixinextras-neoforge-0.5.0.jar)
+[23:11:52] [main/DEBUG] [mixin/]: inject() running with 3 agents
+[23:11:52] [main/DEBUG] [mixin/]: Processing inject() for PlatformAgent[MixinPlatformAgentDefault:ContainerHandleVirtual(fml:18c85)]
+[23:11:52] [main/DEBUG] [mixin/]: Processing inject() for PlatformAgent[MixinPlatformAgentDefault:ContainerHandleVirtual(fml:18c85)]
+[23:11:52] [main/DEBUG] [mixin/]: Processing inject() for PlatformAgent[MixinPlatformAgentDefault:composite(filtered(jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged/neoforge/21.11.38-beta/3425b0afef02d6a90f7204843bd3cb774c48e372/neoforge-21.11.38-beta-universal.jar))) > jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged/neoforge/21.11.38-beta/3425b0afef02d6a90f7204843bd3cb774c48e372/neoforge-21.11.38-beta-universal.jar > net.neoforged.neoforge-coremods-21.11.38-beta.jar)]
+[23:11:52] [main/DEBUG] [mixin/]: Processing inject() for PlatformAgent[MixinPlatformAgentDefault:composite(filtered(jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged/neoforge/21.11.38-beta/3425b0afef02d6a90f7204843bd3cb774c48e372/neoforge-21.11.38-beta-universal.jar))) > jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/net.neoforged/neoforge/21.11.38-beta/3425b0afef02d6a90f7204843bd3cb774c48e372/neoforge-21.11.38-beta-universal.jar > net.neoforged.neoforge-coremods-21.11.38-beta.jar)]
+[23:11:52] [main/DEBUG] [mixin/]: Processing inject() for PlatformAgent[MixinPlatformAgentDefault:jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/io.github.llamalad7/mixinextras-neoforge/0.5.0/d734b83ce6542bb70ea31755c1595b88992dbe65/mixinextras-neoforge-0.5.0.jar)]
+[23:11:52] [main/DEBUG] [mixin/]: Processing inject() for PlatformAgent[MixinPlatformAgentDefault:jar(C:/Users/20171/.gradle/caches/modules-2/files-2.1/io.github.llamalad7/mixinextras-neoforge/0.5.0/d734b83ce6542bb70ea31755c1595b88992dbe65/mixinextras-neoforge-0.5.0.jar)]
+[23:11:52] [main/DEBUG] [mixin/]: Preparing mixins for MixinEnvironment[DEFAULT]
+[23:11:52] [main/DEBUG] [mixin/]: Selecting config terrablender.mixins.json
+[23:11:52] [main/WARN] [mixin/]: Reference map 'terrablender.refmap.json' for terrablender.mixins.json could not be read. If this is a development environment you can ignore this message
+[23:11:52] [main/DEBUG] [mixin/]: Selecting config terrablender_neoforge.mixins.json
+[23:11:52] [main/WARN] [mixin/]: Reference map 'terrablender.refmap.json' for terrablender_neoforge.mixins.json could not be read. If this is a development environment you can ignore this message
+[23:11:52] [main/DEBUG] [mixin/]: Selecting config geckolib.mixins.json
+[23:11:52] [main/WARN] [mixin/]: Reference map 'geckolib.refmap.json' for geckolib.mixins.json could not be read. If this is a development environment you can ignore this message
+[23:11:52] [main/DEBUG] [mixin/]: Selecting config neoforge.mixins.json
+[23:11:52] [main/DEBUG] [mixin/]: Selecting config mixinextras.init.mixins.json
+[23:11:52] [main/DEBUG] [MixinExtras|Service/]: com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.0) is taking over from null
+[23:11:52] [main/DEBUG] [mixin/]: Registering new injector for @Inject with org.spongepowered.asm.mixin.injection.struct.CallbackInjectionInfo
+[23:11:52] [main/DEBUG] [mixin/]: Registering new injector for @ModifyArg with org.spongepowered.asm.mixin.injection.struct.ModifyArgInjectionInfo
+[23:11:52] [main/DEBUG] [mixin/]: Registering new injector for @ModifyArgs with org.spongepowered.asm.mixin.injection.struct.ModifyArgsInjectionInfo
+[23:11:52] [main/DEBUG] [mixin/]: Registering new injector for @Redirect with org.spongepowered.asm.mixin.injection.struct.RedirectInjectionInfo
+[23:11:52] [main/DEBUG] [mixin/]: Registering new injector for @ModifyVariable with org.spongepowered.asm.mixin.injection.struct.ModifyVariableInjectionInfo
+[23:11:52] [main/DEBUG] [mixin/]: Registering new injector for @ModifyConstant with org.spongepowered.asm.mixin.injection.struct.ModifyConstantInjectionInfo
+[23:11:52] [main/DEBUG] [mixin/]: Preparing terrablender.mixins.json (11)
+[23:11:52] [main/DEBUG] [mixin/]: Preparing terrablender_neoforge.mixins.json (0)
+[23:11:52] [main/DEBUG] [mixin/]: Preparing geckolib.mixins.json (12)
+[23:11:52] [main/DEBUG] [mixin/]: Preparing neoforge.mixins.json (2)
+[23:11:52] [main/DEBUG] [mixin/]: Preparing mixinextras.init.mixins.json (0)
+[23:11:52] [main/DEBUG] [mixin/]: Prepared 25 mixins in 0.324 sec (13.0ms avg) (0ms load, 0ms transform, 0ms plugin)
+[23:11:52] [main/DEBUG] [io.ne.ut.in.lo.InternalLoggerFactory/]: Using SLF4J as the default logging framework
+[23:11:52] [main/DEBUG] [io.ne.ut.ResourceLeakDetector/]: -Dio.netty.leakDetection.level: simple
+[23:11:52] [main/DEBUG] [io.ne.ut.ResourceLeakDetector/]: -Dio.netty.leakDetection.targetRecords: 4
+[23:11:53] [Datafixer Bootstrap/INFO] [mojang/DataFixerBuilder]: 290 Datafixer optimizations took 519 milliseconds
+[23:11:53] [pool-11-thread-1/INFO] [MixinExtras|Service/]: Initializing MixinExtras via com.llamalad7.mixinextras.service.MixinExtrasServiceImpl(version=0.5.0).
+[23:11:53] [pool-11-thread-1/DEBUG] [mixin/]: Registering new injector for @SugarWrapper with com.llamalad7.mixinextras.sugar.impl.SugarWrapperInjectionInfo
+[23:11:53] [pool-11-thread-1/DEBUG] [mixin/]: Registering new injector for @FactoryRedirectWrapper with com.llamalad7.mixinextras.wrapper.factory.FactoryRedirectWrapperInjectionInfo
+[23:11:53] [pool-11-thread-1/DEBUG] [mixin/]: Registering new injector for @ExpressionInjectorWrapper with com.llamalad7.mixinextras.expression.impl.wrapper.ExpressionInjectorWrapperInjectionInfo
+[23:11:53] [pool-11-thread-1/DEBUG] [mixin/]: Mixing MixinBuiltInRegistries from terrablender.mixins.json into net.minecraft.core.registries.BuiltInRegistries
+[23:11:53] [pool-11-thread-1/DEBUG] [mixin/]: terrablender.mixins.json:MixinBuiltInRegistries from mod terrablender: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[23:11:53] [pool-11-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$registerSimple$0(Lnet/minecraft/core/registries/BuiltInRegistries$RegistryBootstrap;Lnet/minecraft/core/Registry;)Ljava/lang/Object; to md9c388a$terrablender$lambda$registerSimple$0$0 in terrablender.mixins.json:MixinBuiltInRegistries from mod terrablender
+[23:11:54] [pool-11-thread-1/DEBUG] [mixin/]: terrablender.mixins.json:MixinBuiltInRegistries from mod terrablender->@Inject::registerSimple(Lnet/minecraft/resources/ResourceKey;Lnet/minecraft/core/registries/BuiltInRegistries$RegistryBootstrap;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;)V does use it's CallbackInfoReturnable
+[23:11:54] [pool-11-thread-1/DEBUG] [mixin/]: Mixing MappedRegistryAccessor from neoforge.mixins.json into net.minecraft.core.MappedRegistry
+[23:11:54] [pool-11-thread-1/DEBUG] [mixin/]: Mixing common.LivingEntityMixin from geckolib.mixins.json into net.minecraft.world.entity.LivingEntity
+[23:11:54] [pool-11-thread-1/DEBUG] [mixin/]: geckolib.mixins.json:common.LivingEntityMixin from mod geckolib: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[23:11:55] [pool-11-thread-1/DEBUG] [mixin/]: Mixing BlockEntityTypeAccessor from neoforge.mixins.json into net.minecraft.world.level.block.entity.BlockEntityType
+[23:11:55] [pool-11-thread-1/DEBUG] [mixin/]: Mixing common.AbstractContainerMenuMixin from geckolib.mixins.json into net.minecraft.world.inventory.AbstractContainerMenu
+[23:11:55] [pool-11-thread-1/DEBUG] [mixin/]: geckolib.mixins.json:common.AbstractContainerMenuMixin from mod geckolib: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[23:11:55] [pool-11-thread-1/DEBUG] [mixin/]: Mixing common.ItemStackMixin from geckolib.mixins.json into net.minecraft.world.item.ItemStack
+[23:11:55] [pool-11-thread-1/DEBUG] [mixin/]: geckolib.mixins.json:common.ItemStackMixin from mod geckolib: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[23:11:58] [pool-11-thread-1/DEBUG] [mixin/]: Mixing MixinBiomeSource from terrablender.mixins.json into net.minecraft.world.level.biome.BiomeSource
+[23:11:58] [pool-11-thread-1/DEBUG] [mixin/]: terrablender.mixins.json:MixinBiomeSource from mod terrablender: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[23:11:58] [pool-11-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$appendDeferredBiomesList$0(Ljava/util/List;)Ljava/util/Set; to md9c388a$terrablender$lambda$appendDeferredBiomesList$0$0 in terrablender.mixins.json:MixinBiomeSource from mod terrablender
+[23:11:58] [pool-11-thread-1/DEBUG] [mixin/]: Mixing MixinMultiNoiseBiomeSource from terrablender.mixins.json into net.minecraft.world.level.biome.MultiNoiseBiomeSource
+[23:11:58] [pool-11-thread-1/DEBUG] [mixin/]: terrablender.mixins.json:MixinMultiNoiseBiomeSource from mod terrablender: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[23:11:58] [pool-11-thread-1/DEBUG] [mixin/]: Mixing MultiNoiseBiomeSourceAccess from terrablender.mixins.json into net.minecraft.world.level.biome.MultiNoiseBiomeSource
+[23:11:58] [pool-11-thread-1/DEBUG] [mixin/]: terrablender.mixins.json:MultiNoiseBiomeSourceAccess from mod terrablender: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[23:11:58] [pool-11-thread-1/DEBUG] [mixin/]: terrablender.mixins.json:MixinMultiNoiseBiomeSource from mod terrablender->@Inject::getNoiseBiome(IIILnet/minecraft/world/level/biome/Climate$Sampler;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;)V does use it's CallbackInfoReturnable
+[23:11:58] [pool-11-thread-1/DEBUG] [mixin/]: terrablender.mixins.json:MixinMultiNoiseBiomeSource from mod terrablender->@Inject::addDebugInfo(Ljava/util/List;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/biome/Climate$Sampler;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V doesn't use it's CallbackInfo
+[23:11:58] [pool-11-thread-1/DEBUG] [mixin/]: terrablender.mixins.json:MixinMultiNoiseBiomeSource from mod terrablender->@Inject::addDebugInfo(Ljava/util/List;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/biome/Climate$Sampler;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V has 0 override(s) in child classes
+[23:11:58] [pool-11-thread-1/DEBUG] [mixin/]: terrablender.mixins.json:MixinMultiNoiseBiomeSource from mod terrablender->@Inject::addDebugInfo(Ljava/util/List;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/biome/Climate$Sampler;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V won't be passed a CallbackInfo as a result
+[23:11:58] [pool-11-thread-1/DEBUG] [mixin/]: Mixing MixinParameterList from terrablender.mixins.json into net.minecraft.world.level.biome.Climate$ParameterList
+[23:11:58] [pool-11-thread-1/DEBUG] [mixin/]: terrablender.mixins.json:MixinParameterList from mod terrablender: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[23:11:58] [pool-11-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$initializeForTerraBlender$1(Lnet/minecraft/core/Registry;Ljava/util/List;Lcom/mojang/datafixers/util/Pair;)V to md9c388a$terrablender$lambda$initializeForTerraBlender$1$0 in terrablender.mixins.json:MixinParameterList from mod terrablender
+[23:11:58] [pool-11-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$initializeForTerraBlender$0(Lterrablender/api/RegionType;JLterrablender/worldgen/noise/InitialLayer;)Lterrablender/worldgen/noise/Area; to md9c388a$terrablender$lambda$initializeForTerraBlender$0$1 in terrablender.mixins.json:MixinParameterList from mod terrablender
+[23:11:58] [pool-11-thread-1/DEBUG] [mixin/]: Mixing MixinTheEndBiomeSource from terrablender.mixins.json into net.minecraft.world.level.biome.TheEndBiomeSource
+[23:11:58] [pool-11-thread-1/DEBUG] [mixin/]: terrablender.mixins.json:MixinTheEndBiomeSource from mod terrablender: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[23:11:58] [pool-11-thread-1/DEBUG] [mixin/]: Renaming synthetic method lambda$initializeForTerraBlender$0(Lnet/minecraft/resources/ResourceKey;)V to md9c388a$terrablender$lambda$initializeForTerraBlender$0$0 in terrablender.mixins.json:MixinTheEndBiomeSource from mod terrablender
+[23:11:58] [pool-11-thread-1/DEBUG] [mixin/]: terrablender.mixins.json:MixinTheEndBiomeSource from mod terrablender->@Inject::onCollectPossibleBiomes(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;)V does use it's CallbackInfoReturnable
+[23:11:58] [pool-11-thread-1/DEBUG] [mixin/]: terrablender.mixins.json:MixinTheEndBiomeSource from mod terrablender->@Inject::onGetNoiseBiome(IIILnet/minecraft/world/level/biome/Climate$Sampler;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;)V does use it's CallbackInfoReturnable
+[23:11:58] [pool-11-thread-1/DEBUG] [mixin/]: Mixing MixinNoiseBasedChunkGenerator from terrablender.mixins.json into net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator
+[23:11:58] [pool-11-thread-1/DEBUG] [mixin/]: terrablender.mixins.json:MixinNoiseBasedChunkGenerator from mod terrablender: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[23:11:58] [pool-11-thread-1/DEBUG] [mixin/]: Mixing MixinChunkGenerator from terrablender.mixins.json into net.minecraft.world.level.chunk.ChunkGenerator
+[23:11:58] [pool-11-thread-1/DEBUG] [mixin/]: terrablender.mixins.json:MixinChunkGenerator from mod terrablender: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[23:11:58] [pool-11-thread-1/DEBUG] [mixin/]: terrablender.mixins.json:MixinChunkGenerator from mod terrablender->@Inject::validate(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V does use it's CallbackInfo
+[23:11:58] [pool-11-thread-1/DEBUG] [mixin/]: Mixing MixinNoiseGeneratorSettings from terrablender.mixins.json into net.minecraft.world.level.levelgen.NoiseGeneratorSettings
+[23:11:58] [pool-11-thread-1/DEBUG] [mixin/]: terrablender.mixins.json:MixinNoiseGeneratorSettings from mod terrablender: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[23:11:58] [pool-11-thread-1/DEBUG] [mixin/]: terrablender.mixins.json:MixinNoiseGeneratorSettings from mod terrablender->@Inject::surfaceRule(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;)V does use it's CallbackInfoReturnable
+[23:11:59] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [teleport, location] and [teleport, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
+[23:11:59] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [teleport, location] and [teleport, targets] with inputs: [0.1 -0.5 .9, 0 0 0]
+[23:11:59] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [teleport, destination] and [teleport, targets] with inputs: [Player, 0123, @e, dd12be42-52a9-4a91-a8a1-11c01849e498]
+[23:11:59] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [teleport, targets] and [teleport, destination] with inputs: [Player, 0123, dd12be42-52a9-4a91-a8a1-11c01849e498]
+[23:11:59] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [teleport, targets, location] and [teleport, targets, destination] with inputs: [0.1 -0.5 .9, 0 0 0]
+[23:11:59] [main/WARN] [minecraft/Commands]: Ambiguity between arguments [waypoint, modify, waypoint, color, reset] and [waypoint, modify, waypoint, color, color] with inputs: [reset]
+[23:11:59] [main/DEBUG] [ne.ne.fm.ModWorkManager/LOADING]: Using 16 threads for parallel mod-loading
+[23:11:59] [main/DEBUG] [ne.ne.fm.ja.FMLModContainer/LOADING]: Creating FMLModContainer instance for terrablender with entrypoints [terrablender.core.TerraBlenderNeoForge]
+[23:11:59] [main/DEBUG] [ne.ne.fm.ja.FMLModContainer/LOADING]: Creating FMLModContainer instance for geckolib with entrypoints [software.bernie.geckolib.GeckoLib]
+[23:11:59] [main/DEBUG] [ne.ne.fm.ja.FMLModContainer/LOADING]: Creating FMLModContainer instance for neoforge with entrypoints [net.neoforged.neoforge.common.NeoForgeMod, net.neoforged.neoforge.common.OnlyInWarningsHandler, net.neoforged.neoforge.client.ClientNeoForgeMod]
+[23:11:59] [main/DEBUG] [ne.ne.fm.ja.FMLModContainer/LOADING]: Creating FMLModContainer instance for jei with entrypoints [mezz.jei.neoforge.JustEnoughItems]
+[23:11:59] [main/DEBUG] [ne.ne.fm.ja.FMLModContainer/LOADING]: Creating FMLModContainer instance for pochimod with entrypoints [net.pochi.pochimod.PochiMod]
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Attempting to inject @EventBusSubscriber classes into the eventbus for terrablender
+[23:11:59] [modloading-worker-0/DEBUG] [GeckoLib/]: Loaded software.bernie.geckolib.platform.GeckoLibNeoForge@5b47e6ba for service interface software.bernie.geckolib.service.GeckoLibPlatform
+[23:11:59] [modloading-worker-0/DEBUG] [GeckoLib/]: Loaded software.bernie.geckolib.network.GeckoLibNetworkingNeoForge@ad1be10 for service interface software.bernie.geckolib.service.GeckoLibNetworking
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Attempting to inject @EventBusSubscriber classes into the eventbus for geckolib
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class software.bernie.geckolib.GeckoLibClient for @SubscribeEvent-annotated methods
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void software.bernie.geckolib.GeckoLibClient.registerReloadListeners(net.neoforged.neoforge.client.event.AddClientReloadListenersEvent) to the event bus of mod geckolib
+[23:11:59] [modloading-worker-0/INFO] [ne.ne.ne.co.NeoForgeMod/NEOFORGE-MOD]: NeoForge mod loading, version 21.11.38-beta, for MC 1.21.11
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.co.ConfigTracker/CONFIG]: Config file jei-server.toml for jei tracking
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.co.ConfigTracker/CONFIG]: Config file neoforge-server.toml for neoforge tracking
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.co.ConfigTracker/CONFIG]: Config file neoforge-common.toml for neoforge tracking
+[23:11:59] [modloading-worker-0/DEBUG] [me.je.co.pl.Services/]: Loaded mezz.jei.neoforge.platform.PlatformHelper@47072b0f for service interface mezz.jei.common.platform.IPlatformHelper
+[23:11:59] [modloading-worker-0/DEBUG] [me.je.co.co.fi.ConfigSerializer/]: Loading config file: E:\mod\PochiMod\runs\client\config\jei\jei-debug.ini
+[23:11:59] [modloading-worker-0/DEBUG] [me.je.co.co.fi.ConfigSchema/]: Localization has not loaded yet, waiting to save the config file until JEI starts.
+[23:11:59] [modloading-worker-0/DEBUG] [me.je.co.co.fi.ConfigSerializer/]: Loading config file: E:\mod\PochiMod\runs\client\config\jei\jei-mod-id-format.ini
+[23:11:59] [modloading-worker-0/DEBUG] [me.je.co.co.fi.ConfigSchema/]: Localization has not loaded yet, waiting to save the config file until JEI starts.
+[23:11:59] [modloading-worker-0/DEBUG] [me.je.co.co.fi.ConfigSerializer/]: Loading config file: E:\mod\PochiMod\runs\client\config\jei\jei-colors.ini
+[23:11:59] [modloading-worker-0/ERROR] [ne.ne.ne.co.OnlyInWarningsHandler/]: The mod pochimod uses the @OnlyIn annotation; the runtime member-stripping behaviour of this annotation is no longer present, which may lead to issues if that behaviour was relied upon
+[23:11:59] [modloading-worker-0/ERROR] [ne.ne.ne.co.OnlyInWarningsHandler/]: @OnlyIn used on class net.pochi.pochimod.entity.custom.Betta$BettaTextureGenerator
+[23:11:59] [modloading-worker-0/ERROR] [ne.ne.ne.co.OnlyInWarningsHandler/]: @OnlyIn used on method net.pochi.pochimod.entity.custom.Betta.setCachedTexture(Lnet/minecraft/resources/Identifier;)V
+[23:11:59] [modloading-worker-0/ERROR] [ne.ne.ne.co.OnlyInWarningsHandler/]: @OnlyIn used on method net.pochi.pochimod.entity.custom.Betta.getCachedTexture()Lnet/minecraft/resources/Identifier;
+[23:11:59] [modloading-worker-0/DEBUG] [me.je.co.co.fi.ConfigSchema/]: Localization has not loaded yet, waiting to save the config file until JEI starts.
+[23:11:59] [modloading-worker-0/ERROR] [ne.ne.ne.co.OnlyInWarningsHandler/]: @OnlyIn used on field net.pochi.pochimod.entity.custom.Betta.cachedTexture
+[23:11:59] [modloading-worker-0/ERROR] [ne.ne.ne.co.OnlyInWarningsHandler/]: @OnlyIn used on method net.pochi.pochimod.entity.custom.Rhino.spawnChargeParticles()V
+[23:11:59] [modloading-worker-0/ERROR] [ne.ne.ne.co.OnlyInWarningsHandler/]: @OnlyIn used on method net.pochi.pochimod.entity.custom.Rhino.spawnChargeStartParticles()V
+[23:11:59] [modloading-worker-0/ERROR] [ne.ne.ne.co.OnlyInWarningsHandler/]: @OnlyIn used on method net.pochi.pochimod.entity.custom.Squirrel.spawnPlantingParticles()V
+[23:11:59] [modloading-worker-0/ERROR] [ne.ne.ne.co.OnlyInWarningsHandler/]: @OnlyIn used on method net.pochi.pochimod.entity.custom.UralOwl.spawnGrowthParticles()V
+[23:11:59] [modloading-worker-0/ERROR] [ne.ne.ne.co.OnlyInWarningsHandler/]: @OnlyIn used on method net.pochi.pochimod.ferm.SoilTooltipHandler.onRenderGameOverlay(Lnet/neoforged/neoforge/client/event/RenderGuiLayerEvent$Post;)V
+[23:11:59] [modloading-worker-0/ERROR] [ne.ne.ne.co.OnlyInWarningsHandler/]: @OnlyIn used on method net.pochi.pochimod.item.custom.tool.VitalCheckItem.openVitalCheckScreen(Lnet/minecraft/world/entity/player/Player;)V
+[23:11:59] [modloading-worker-0/ERROR] [ne.ne.ne.co.OnlyInWarningsHandler/]: @OnlyIn used on method net.pochi.pochimod.mineral.tools.MineralArmorItem.initializeClient(Ljava/util/function/Consumer;)V
+[23:11:59] [modloading-worker-0/ERROR] [ne.ne.ne.co.OnlyInWarningsHandler/]: @OnlyIn used on class net.pochi.pochimod.networking.packet.SoilDataClientCache
+[23:11:59] [modloading-worker-0/ERROR] [ne.ne.ne.co.OnlyInWarningsHandler/]: @OnlyIn used on class net.pochi.pochimod.nutrition.VitalCheckScreen
+[23:11:59] [modloading-worker-0/DEBUG] [me.je.co.co.fi.ConfigSerializer/]: Loading config file: E:\mod\PochiMod\runs\client\config\jei\jei-client.ini
+[23:11:59] [modloading-worker-0/ERROR] [me.je.co.co.fi.ConfigSerializer/]: 'resourceLocationSearchMode' is not a valid config key for config category 'search'.
+Valid keys: [modNameSearchMode, tagSearchMode, tooltipSearchMode, colorSearchMode, identifierSearchMode, creativeTabSearchMode, searchAdvancedTooltips, searchModIds, searchModAliases, searchShortModNames, searchIngredientAliases]
+Skipping this key.
+Config file: E:\mod\PochiMod\runs\client\config\jei\jei-client.ini
+Line #177: "	resourceLocationSearchMode = DISABLED"
+[23:11:59] [modloading-worker-0/DEBUG] [me.je.co.co.fi.ConfigSchema/]: Localization has not loaded yet, waiting to save the config file until JEI starts.
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.co.ConfigTracker/CONFIG]: Config file neoforge-client.toml for neoforge tracking
+[23:11:59] [modloading-worker-0/INFO] [me.je.li.lo.PluginCaller/]: Sending ConfigManager...
+[23:11:59] [modloading-worker-0/DEBUG] [me.je.li.lo.PluginCallerTimerRunnable/]: Sending ConfigManager: jei:minecraft...
+[23:11:59] [modloading-worker-0/DEBUG] [me.je.li.lo.PluginCallerTimerRunnable/]: Sending ConfigManager: jei:gui...
+[23:11:59] [modloading-worker-0/DEBUG] [me.je.li.lo.PluginCallerTimerRunnable/]: Sending ConfigManager: jei:debug...
+[23:11:59] [modloading-worker-0/DEBUG] [me.je.li.lo.PluginCallerTimerRunnable/]: Sending ConfigManager: jei:neoforge_gui...
+[23:11:59] [modloading-worker-0/DEBUG] [me.je.li.lo.PluginCallerTimerRunnable/]: Sending ConfigManager: pochimod:jei_plugin...
+[23:11:59] [modloading-worker-0/DEBUG] [me.je.li.lo.PluginCallerTimerRunnable/]: Sending ConfigManager: jei:internal...
+[23:11:59] [modloading-worker-0/INFO] [me.je.li.lo.PluginCaller/]: Sending ConfigManager took 3.225 milliseconds
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Attempting to inject @EventBusSubscriber classes into the eventbus for jei
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Attempting to inject @EventBusSubscriber classes into the eventbus for neoforge
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.neoforged.neoforge.attachment.AttachmentInternals for @SubscribeEvent-annotated methods
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.neoforged.neoforge.attachment.AttachmentInternals.onPlayerClone(net.neoforged.neoforge.event.entity.player.PlayerEvent$Clone) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.neoforged.neoforge.attachment.AttachmentInternals.onLivingConvert(net.neoforged.neoforge.event.entity.living.LivingConversionEvent$Post) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.neoforged.neoforge.attachment.AttachmentSync for @SubscribeEvent-annotated methods
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.neoforged.neoforge.attachment.AttachmentSync.onChunkSent(net.neoforged.neoforge.event.level.ChunkWatchEvent$Sent) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.neoforged.neoforge.client.BlockEntityRenderBoundsDebugRenderer for @SubscribeEvent-annotated methods
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.neoforged.neoforge.client.BlockEntityRenderBoundsDebugRenderer.onRenderLevelStage(net.neoforged.neoforge.client.event.RenderLevelStageEvent$AfterEntities) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.neoforged.neoforge.client.BlockEntityRenderBoundsDebugRenderer.onRegisterClientCommands(net.neoforged.neoforge.client.event.RegisterClientCommandsEvent) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.neoforged.neoforge.client.BlockEntityRenderBoundsDebugRenderer.onExtractLevelRenderState(net.neoforged.neoforge.client.event.ExtractLevelRenderStateEvent) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.neoforged.neoforge.client.NeoForgeRenderPipelines for @SubscribeEvent-annotated methods
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method static void net.neoforged.neoforge.client.NeoForgeRenderPipelines.registerPipelines(net.neoforged.neoforge.client.event.RegisterRenderPipelinesEvent) to the event bus of mod neoforge
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.neoforged.neoforge.client.network.ClientPayloadHandler for @SubscribeEvent-annotated methods
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method private static void net.neoforged.neoforge.client.network.ClientPayloadHandler.register(net.neoforged.neoforge.client.network.event.RegisterClientPayloadHandlersEvent) to the event bus of mod neoforge
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.neoforged.neoforge.common.MonsterRoomHooks for @SubscribeEvent-annotated methods
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.neoforged.neoforge.common.MonsterRoomHooks.onDataMapsUpdated(net.neoforged.neoforge.registries.datamaps.DataMapsUpdatedEvent) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.neoforged.neoforge.model.data.ModelDataManager for @SubscribeEvent-annotated methods
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.neoforged.neoforge.model.data.ModelDataManager.onChunkUnload(net.neoforged.neoforge.event.level.ChunkEvent$Unload) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.neoforged.neoforge.network.ConfigurationInitialization for @SubscribeEvent-annotated methods
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method private static void net.neoforged.neoforge.network.ConfigurationInitialization.configureModdedClient(net.neoforged.neoforge.network.event.RegisterConfigurationTasksEvent) to the event bus of mod neoforge
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.neoforged.neoforge.network.NetworkInitialization for @SubscribeEvent-annotated methods
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method private static void net.neoforged.neoforge.network.NetworkInitialization.register(net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent) to the event bus of mod neoforge
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.neoforged.neoforge.network.filters.GenericPacketSplitter for @SubscribeEvent-annotated methods
+[23:11:59] [modloading-worker-0/DEBUG] [io.ne.ut.in.PlatformDependent0/]: Java version: 21
+[23:11:59] [modloading-worker-0/DEBUG] [io.ne.ut.in.PlatformDependent0/]: -Dio.netty.noUnsafe: false
+[23:11:59] [modloading-worker-0/DEBUG] [io.ne.ut.in.PlatformDependent0/]: sun.misc.Unsafe.theUnsafe: available
+[23:11:59] [modloading-worker-0/DEBUG] [io.ne.ut.in.PlatformDependent0/]: sun.misc.Unsafe base methods: all available
+[23:11:59] [modloading-worker-0/DEBUG] [io.ne.ut.in.PlatformDependent0/]: java.nio.Buffer.address: available
+[23:11:59] [modloading-worker-0/DEBUG] [io.ne.ut.in.PlatformDependent0/]: java.nio.Bits.unaligned: available, true
+[23:11:59] [modloading-worker-0/DEBUG] [io.ne.ut.in.PlatformDependent0/]: java.nio.DirectByteBuffer.<init>(long, {int,long}): unavailable
+[23:11:59] [modloading-worker-0/DEBUG] [io.ne.ut.in.PlatformDependent/]: sun.misc.Unsafe: available
+[23:11:59] [modloading-worker-0/DEBUG] [io.ne.ut.in.PlatformDependent/]: -Dio.netty.tmpdir: C:\Users\20171\AppData\Local\Temp (java.io.tmpdir)
+[23:11:59] [modloading-worker-0/DEBUG] [io.ne.ut.in.PlatformDependent/]: -Dio.netty.bitMode: 64 (sun.arch.data.model)
+[23:11:59] [modloading-worker-0/DEBUG] [io.ne.ut.in.PlatformDependent/]: Platform: Windows
+[23:11:59] [modloading-worker-0/DEBUG] [io.ne.ut.in.PlatformDependent/]: -Dio.netty.maxDirectMemory: -1 bytes
+[23:11:59] [modloading-worker-0/DEBUG] [io.ne.ut.in.CleanerJava9/]: java.nio.ByteBuffer.cleaner(): available
+[23:11:59] [modloading-worker-0/DEBUG] [io.ne.ut.in.PlatformDependent/]: -Dio.netty.noPreferDirect: false
+[23:11:59] [modloading-worker-0/DEBUG] [io.ne.ut.in.PlatformDependent/]: -Dio.netty.jfr.enabled: true
+[23:11:59] [modloading-worker-0/DEBUG] [io.ne.bu.AbstractByteBuf/]: -Dio.netty.buffer.checkAccessible: true
+[23:11:59] [modloading-worker-0/DEBUG] [io.ne.bu.AbstractByteBuf/]: -Dio.netty.buffer.checkBounds: true
+[23:11:59] [modloading-worker-0/DEBUG] [io.ne.ut.ResourceLeakDetectorFactory/]: Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@40074997
+[23:11:59] [modloading-worker-0/DEBUG] [io.ne.ut.in.InternalThreadLocalMap/]: -Dio.netty.threadLocalMap.stringBuilder.initialSize: 1024
+[23:11:59] [modloading-worker-0/DEBUG] [io.ne.ut.in.InternalThreadLocalMap/]: -Dio.netty.threadLocalMap.stringBuilder.maxSize: 4096
+[23:11:59] [modloading-worker-0/DEBUG] [io.ne.bu.AdaptiveByteBufAllocator/]: -Dio.netty.allocator.useCachedMagazinesForNonEventLoopThreads: false
+[23:11:59] [modloading-worker-0/DEBUG] [io.ne.ut.Recycler/]: -Dio.netty.recycler.maxCapacityPerThread: 4096
+[23:11:59] [modloading-worker-0/DEBUG] [io.ne.ut.Recycler/]: -Dio.netty.recycler.ratio: 8
+[23:11:59] [modloading-worker-0/DEBUG] [io.ne.ut.Recycler/]: -Dio.netty.recycler.chunkSize: 32
+[23:11:59] [modloading-worker-0/DEBUG] [io.ne.ut.Recycler/]: -Dio.netty.recycler.blocking: false
+[23:11:59] [modloading-worker-0/DEBUG] [io.ne.ut.Recycler/]: -Dio.netty.recycler.batchFastThreadLocalOnly: true
+[23:11:59] [modloading-worker-0/DEBUG] [io.ne.bu.ByteBufUtil/]: -Dio.netty.allocator.type: adaptive
+[23:11:59] [modloading-worker-0/DEBUG] [io.ne.bu.ByteBufUtil/]: -Dio.netty.threadLocalDirectBufferSize: 0
+[23:11:59] [modloading-worker-0/DEBUG] [io.ne.bu.ByteBufUtil/]: -Dio.netty.maxThreadLocalCharBufferSize: 16384
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method private static void net.neoforged.neoforge.network.filters.GenericPacketSplitter.register(net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent) to the event bus of mod neoforge
+[23:11:59] [modloading-worker-0/INFO] [terrablender/]: Registered region minecraft:overworld to index 0 for type OVERWORLD
+[23:11:59] [modloading-worker-0/INFO] [terrablender/]: Registered region minecraft:nether to index 0 for type NETHER
+[23:11:59] [modloading-worker-0/INFO] [terrablender/]: Registered region pochimod:overworld to index 1 for type OVERWORLD
+[23:11:59] [modloading-worker-0/INFO] [terrablender/]: Registered region pochimod:overworld_rare to index 2 for type OVERWORLD
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.co.ConfigTracker/CONFIG]: Config file EchoesOfEco/vital.toml for pochimod tracking
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Attempting to inject @EventBusSubscriber classes into the eventbus for pochimod
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.pochi.pochimod.block.entity.ModCapabilities for @SubscribeEvent-annotated methods
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.block.entity.ModCapabilities.registerCapabilities(net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent) to the event bus of mod pochimod
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.pochi.pochimod.command.SoilDebugCommand for @SubscribeEvent-annotated methods
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.command.SoilDebugCommand.onRegisterCommands(net.neoforged.neoforge.event.RegisterCommandsEvent) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.pochi.pochimod.datagen.DataGenerators for @SubscribeEvent-annotated methods
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.datagen.DataGenerators.gatherServerData(net.neoforged.neoforge.data.event.GatherDataEvent$Server) to the event bus of mod pochimod
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.datagen.DataGenerators.gatherClientData(net.neoforged.neoforge.data.event.GatherDataEvent$Client) to the event bus of mod pochimod
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.pochi.pochimod.event.ActionBasedConsumptionHandler for @SubscribeEvent-annotated methods
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.event.ActionBasedConsumptionHandler.onPlayerTick(net.neoforged.neoforge.event.tick.PlayerTickEvent$Post) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.event.ActionBasedConsumptionHandler.onLivingJump(net.neoforged.neoforge.event.entity.living.LivingEvent$LivingJumpEvent) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.event.ActionBasedConsumptionHandler.onPlayerLogout(net.neoforged.neoforge.event.entity.player.PlayerEvent$PlayerLoggedOutEvent) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.event.ActionBasedConsumptionHandler.onBlockBreak(net.neoforged.neoforge.event.level.BlockEvent$BreakEvent) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.event.ActionBasedConsumptionHandler.onLivingAttack(net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.pochi.pochimod.event.ClientEvents$ClientForgeEvents for @SubscribeEvent-annotated methods
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.event.ClientEvents$ClientForgeEvents.onClientTickRhino(net.neoforged.neoforge.client.event.ClientTickEvent$Post) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.pochi.pochimod.event.ClientEvents$ClientModBusEvents for @SubscribeEvent-annotated methods
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.event.ClientEvents$ClientModBusEvents.onRegisterSpawnPlacements(net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent) to the event bus of mod pochimod
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.event.ClientEvents$ClientModBusEvents.onRegisterStandaloneModels(net.neoforged.neoforge.client.event.ModelEvent$RegisterStandalone) to the event bus of mod pochimod
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.event.ClientEvents$ClientModBusEvents.registerScreens(net.neoforged.neoforge.client.event.RegisterMenuScreensEvent) to the event bus of mod pochimod
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.event.ClientEvents$ClientModBusEvents.registerGuiLayers(net.neoforged.neoforge.client.event.RegisterGuiLayersEvent) to the event bus of mod pochimod
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.event.ClientEvents$ClientModBusEvents.onKeyRegister(net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent) to the event bus of mod pochimod
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.pochi.pochimod.event.FoodEatEventHandler for @SubscribeEvent-annotated methods
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.event.FoodEatEventHandler.onItemUseFinish(net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent$Finish) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.pochi.pochimod.event.LeopardGeckoArmorEventHandler for @SubscribeEvent-annotated methods
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.event.LeopardGeckoArmorEventHandler.onPlayerTick(net.neoforged.neoforge.event.tick.PlayerTickEvent$Post) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.event.LeopardGeckoArmorEventHandler.onItemUseFinish(net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent$Finish) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.event.LeopardGeckoArmorEventHandler.onPlayerAttacked(net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.pochi.pochimod.event.LunarClawEventHandler for @SubscribeEvent-annotated methods
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.event.LunarClawEventHandler.onPlayerTick(net.neoforged.neoforge.event.tick.PlayerTickEvent$Post) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.pochi.pochimod.event.ModEventBusEvents for @SubscribeEvent-annotated methods
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.event.ModEventBusEvents.registerLayers(net.neoforged.neoforge.client.event.EntityRenderersEvent$RegisterLayerDefinitions) to the event bus of mod pochimod
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.pochi.pochimod.event.ModEvents$ForgeEvents for @SubscribeEvent-annotated methods
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.event.ModEvents$ForgeEvents.dreamer(net.neoforged.neoforge.event.entity.living.LivingDamageEvent$Pre) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.event.ModEvents$ForgeEvents.axo(net.neoforged.neoforge.event.tick.EntityTickEvent$Post) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.event.ModEvents$ForgeEvents.tonbo(net.neoforged.neoforge.event.entity.living.LivingDeathEvent) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.event.ModEvents$ForgeEvents.onChunkSave(net.neoforged.neoforge.event.level.ChunkDataEvent$Save) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.event.ModEvents$ForgeEvents.addCustomTrades(net.neoforged.neoforge.event.village.VillagerTradesEvent) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.pochi.pochimod.event.ModEvents$ModEventBusEvents for @SubscribeEvent-annotated methods
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.event.ModEvents$ModEventBusEvents.entityAttributeEvent(net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent) to the event bus of mod pochimod
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.pochi.pochimod.event.TuataraArmorEventHandler for @SubscribeEvent-annotated methods
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.event.TuataraArmorEventHandler.onPlayerAttacked(net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.pochi.pochimod.event.VitalDebuffHandler for @SubscribeEvent-annotated methods
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.event.VitalDebuffHandler.onPlayerTick(net.neoforged.neoforge.event.tick.PlayerTickEvent$Post) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.event.VitalDebuffHandler.onPlayerLogout(net.neoforged.neoforge.event.entity.player.PlayerEvent$PlayerLoggedOutEvent) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.pochi.pochimod.event.VitalDepletionHandler for @SubscribeEvent-annotated methods
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.event.VitalDepletionHandler.onPlayerTick(net.neoforged.neoforge.event.tick.PlayerTickEvent$Post) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.event.VitalDepletionHandler.onPlayerLogout(net.neoforged.neoforge.event.entity.player.PlayerEvent$PlayerLoggedOutEvent) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.pochi.pochimod.ferm.CompostUseEventHandler for @SubscribeEvent-annotated methods
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.ferm.CompostUseEventHandler.onRightClickBlock(net.neoforged.neoforge.event.entity.player.PlayerInteractEvent$RightClickBlock) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.pochi.pochimod.ferm.CropHarvestEventHandler for @SubscribeEvent-annotated methods
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.ferm.CropHarvestEventHandler.onBlockBreak(net.neoforged.neoforge.event.level.BlockEvent$BreakEvent) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.pochi.pochimod.ferm.SoilFallowHandler for @SubscribeEvent-annotated methods
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.ferm.SoilFallowHandler.onChunkUnload(net.neoforged.neoforge.event.level.ChunkEvent$Unload) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.ferm.SoilFallowHandler.onLevelTick(net.neoforged.neoforge.event.tick.LevelTickEvent$Post) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.ferm.SoilFallowHandler.onChunkLoad(net.neoforged.neoforge.event.level.ChunkEvent$Load) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.pochi.pochimod.ferm.SoilTooltipHandler for @SubscribeEvent-annotated methods
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.ferm.SoilTooltipHandler.onRightClickBlock(net.neoforged.neoforge.event.entity.player.PlayerInteractEvent$RightClickBlock) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.ferm.SoilTooltipHandler.onTooltip(net.neoforged.neoforge.event.entity.player.ItemTooltipEvent) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.ferm.SoilTooltipHandler.onRenderGameOverlay(net.neoforged.neoforge.client.event.RenderGuiLayerEvent$Post) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.pochi.pochimod.item.food.TooltipEventHandler for @SubscribeEvent-annotated methods
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.item.food.TooltipEventHandler.onTooltip(net.neoforged.neoforge.event.entity.player.ItemTooltipEvent) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.item.food.TooltipEventHandler.onItemTooltip(net.neoforged.neoforge.event.entity.player.ItemTooltipEvent) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.pochi.pochimod.mineral.MineralEffectHandler for @SubscribeEvent-annotated methods
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.mineral.MineralEffectHandler.onItemAttributeModifiers(net.neoforged.neoforge.event.ItemAttributeModifierEvent) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.mineral.MineralEffectHandler.onEquipmentChange(net.neoforged.neoforge.event.entity.living.LivingEquipmentChangeEvent) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.mineral.MineralEffectHandler.onLivingAttack(net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.pochi.pochimod.networking.ModMessages for @SubscribeEvent-annotated methods
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.networking.ModMessages.register(net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent) to the event bus of mod pochimod
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.pochi.pochimod.nutrition.VitalCapabilityHandler for @SubscribeEvent-annotated methods
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.nutrition.VitalCapabilityHandler.onPlayerChangedDimension(net.neoforged.neoforge.event.entity.player.PlayerEvent$PlayerChangedDimensionEvent) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.nutrition.VitalCapabilityHandler.onPlayerLoggedIn(net.neoforged.neoforge.event.entity.player.PlayerEvent$PlayerLoggedInEvent) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.nutrition.VitalCapabilityHandler.onPlayerRespawn(net.neoforged.neoforge.event.entity.player.PlayerEvent$PlayerRespawnEvent) to the game event bus
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Scanning class net.pochi.pochimod.PochiMod$ClientModEvents for @SubscribeEvent-annotated methods
+[23:11:59] [modloading-worker-0/DEBUG] [ne.ne.fm.ja.AutomaticEventSubscriber/LOADING]: Subscribing method public static void net.pochi.pochimod.PochiMod$ClientModEvents.onClientSetup(net.neoforged.fml.event.lifecycle.FMLClientSetupEvent) to the event bus of mod pochimod
+[23:12:00] [modloading-sync-worker/ERROR] [ne.ne.fm.ja.FMLModContainer/]: Exception caught during firing event: null
+	Index: 0
+	Listeners:
+		0: net.neoforged.bus.EventListenerFactory$entityAttributeEvent/0x0000021584092c00@31a7aac9
+java.lang.ExceptionInInitializerError
+	at TRANSFORMER/pochimod@0.0.5-1.21.11/net.pochi.pochimod.event.ModEvents$ModEventBusEvents.entityAttributeEvent(ModEvents.java:224)
+	at net.neoforged.bus.EventBus.post(EventBus.java:360)
+	at net.neoforged.bus.EventBus.post(EventBus.java:342)
+	at net.neoforged.fml.ModContainer.acceptEvent(ModContainer.java:177)
+	at net.neoforged.fml.ModLoader.lambda$postEvent$10(ModLoader.java:330)
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75)
+	at net.neoforged.fml.ModList.forEachModInOrder(ModList.java:175)
+	at net.neoforged.fml.ModLoader.postEvent(ModLoader.java:330)
+	at TRANSFORMER/neoforge@21.11.38-beta/net.neoforged.neoforge.common.CommonHooks.modifyAttributes(CommonHooks.java:1169)
+	at TRANSFORMER/neoforge@21.11.38-beta/net.neoforged.neoforge.registries.GameData.postRegisterEvents(GameData.java:101)
+	at TRANSFORMER/neoforge@21.11.38-beta/net.neoforged.neoforge.internal.CommonModLoader.lambda$begin$0(CommonModLoader.java:54)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1804)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.lang.IllegalStateException: Identified an attempt to add synced data to a foreign entity: this is highly discouraged.
+Entity class: net.minecraft.world.entity.ambient.Bat
+Declaring class: net.pochi.pochimod.entity.custom.Cicada
+Modders should use syncable data attachments instead, as they do not suffer from potential ID mismatches.
+Please refer to the data attachments documentation available at https://docs.neoforged.net/docs/datastorage/attachments.
+This message will only be printed once per class
+	at TRANSFORMER/neoforge@21.11.38-beta/net.neoforged.neoforge.common.CommonHooks.verifyEntityDataAccessorRegistration(CommonHooks.java:1785)
+	at TRANSFORMER/minecraft@1.21.11/net.minecraft.network.syncher.SynchedEntityData.defineId(SynchedEntityData.java:31)
+	at TRANSFORMER/pochimod@0.0.5-1.21.11/net.pochi.pochimod.entity.custom.Cicada.<clinit>(Cicada.java:40)
+	... 15 more
+
+[23:12:00] [modloading-sync-worker/ERROR] [ne.ne.fm.ModContainer/LOADING]: Caught exception during event net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent@6e3c9d3b dispatch for modid pochimod
+java.lang.ExceptionInInitializerError: null
+	at TRANSFORMER/pochimod@0.0.5-1.21.11/net.pochi.pochimod.event.ModEvents$ModEventBusEvents.entityAttributeEvent(ModEvents.java:224) ~[main/:?] {}
+	at net.neoforged.bus.EventBus.post(EventBus.java:360) ~[bus-8.0.5.jar:?] {}
+	at net.neoforged.bus.EventBus.post(EventBus.java:342) ~[bus-8.0.5.jar:?] {}
+	at net.neoforged.fml.ModContainer.acceptEvent(ModContainer.java:177) ~[loader-10.0.36.jar:10.0] {}
+	at net.neoforged.fml.ModLoader.lambda$postEvent$10(ModLoader.java:330) ~[loader-10.0.36.jar:10.0] {}
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75) ~[?:?] {}
+	at net.neoforged.fml.ModList.forEachModInOrder(ModList.java:175) ~[loader-10.0.36.jar:10.0] {}
+	at net.neoforged.fml.ModLoader.postEvent(ModLoader.java:330) ~[loader-10.0.36.jar:10.0] {}
+	at TRANSFORMER/neoforge@21.11.38-beta/net.neoforged.neoforge.common.CommonHooks.modifyAttributes(CommonHooks.java:1169) ~[neoforge-21.11.38-beta-universal.jar:?] {}
+	at TRANSFORMER/neoforge@21.11.38-beta/net.neoforged.neoforge.registries.GameData.postRegisterEvents(GameData.java:101) ~[neoforge-21.11.38-beta-universal.jar:?] {}
+	at TRANSFORMER/neoforge@21.11.38-beta/net.neoforged.neoforge.internal.CommonModLoader.lambda$begin$0(CommonModLoader.java:54) ~[neoforge-21.11.38-beta-universal.jar:?] {}
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1804) ~[?:?] {}
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144) ~[?:?] {}
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642) ~[?:?] {}
+	at java.base/java.lang.Thread.run(Thread.java:1583) [?:?] {}
+Caused by: java.lang.IllegalStateException: Identified an attempt to add synced data to a foreign entity: this is highly discouraged.
+Entity class: net.minecraft.world.entity.ambient.Bat
+Declaring class: net.pochi.pochimod.entity.custom.Cicada
+Modders should use syncable data attachments instead, as they do not suffer from potential ID mismatches.
+Please refer to the data attachments documentation available at https://docs.neoforged.net/docs/datastorage/attachments.
+This message will only be printed once per class
+	at TRANSFORMER/neoforge@21.11.38-beta/net.neoforged.neoforge.common.CommonHooks.verifyEntityDataAccessorRegistration(CommonHooks.java:1785) ~[neoforge-21.11.38-beta-universal.jar:?] {}
+	at TRANSFORMER/minecraft@1.21.11/net.minecraft.network.syncher.SynchedEntityData.defineId(SynchedEntityData.java:31) ~[neoforge-21.11.38-beta.jar:?] {}
+	at TRANSFORMER/pochimod@0.0.5-1.21.11/net.pochi.pochimod.entity.custom.Cicada.<clinit>(Cicada.java:40) ~[main/:?] {}
+	... 15 more
+2026-03-16T14:12:00.071597700Z modloading-sync-worker ERROR An exception occurred processing Appender File
+org.apache.logging.log4j.core.appender.AppenderLoggingException: java.lang.NoClassDefFoundError: Could not initialize class net.pochi.pochimod.entity.custom.Cicada
+	at org.apache.logging.log4j.core.config.AppenderControl.tryCallAppender(AppenderControl.java:164)
+	at org.apache.logging.log4j.core.config.AppenderControl.callAppender0(AppenderControl.java:133)
+	at org.apache.logging.log4j.core.config.AppenderControl.callAppenderPreventRecursion(AppenderControl.java:124)
+	at org.apache.logging.log4j.core.config.AppenderControl.callAppender(AppenderControl.java:88)
+	at org.apache.logging.log4j.core.config.LoggerConfig.callAppenders(LoggerConfig.java:711)
+	at org.apache.logging.log4j.core.config.LoggerConfig.processLogEvent(LoggerConfig.java:669)
+	at org.apache.logging.log4j.core.config.LoggerConfig.log(LoggerConfig.java:645)
+	at org.apache.logging.log4j.core.config.LoggerConfig.log(LoggerConfig.java:589)
+	at org.apache.logging.log4j.core.config.AwaitCompletionReliabilityStrategy.log(AwaitCompletionReliabilityStrategy.java:92)
+	at org.apache.logging.log4j.core.Logger.log(Logger.java:187)
+	at org.apache.logging.log4j.spi.AbstractLogger.tryLogMessage(AbstractLogger.java:2970)
+	at org.apache.logging.log4j.spi.AbstractLogger.logMessageTrackRecursion(AbstractLogger.java:2922)
+	at org.apache.logging.log4j.spi.AbstractLogger.logMessageSafely(AbstractLogger.java:2904)
+	at org.apache.logging.log4j.spi.AbstractLogger.logMessage(AbstractLogger.java:2697)
+	at org.apache.logging.log4j.spi.AbstractLogger.logIfEnabled(AbstractLogger.java:2449)
+	at org.apache.logging.log4j.spi.AbstractLogger.error(AbstractLogger.java:895)
+	at net.neoforged.fml.ModContainer.acceptEvent(ModContainer.java:180)
+	at net.neoforged.fml.ModLoader.lambda$postEvent$10(ModLoader.java:330)
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75)
+	at net.neoforged.fml.ModList.forEachModInOrder(ModList.java:175)
+	at net.neoforged.fml.ModLoader.postEvent(ModLoader.java:330)
+	at TRANSFORMER/neoforge@21.11.38-beta/net.neoforged.neoforge.common.CommonHooks.modifyAttributes(CommonHooks.java:1169)
+	at TRANSFORMER/neoforge@21.11.38-beta/net.neoforged.neoforge.registries.GameData.postRegisterEvents(GameData.java:101)
+	at TRANSFORMER/neoforge@21.11.38-beta/net.neoforged.neoforge.internal.CommonModLoader.lambda$begin$0(CommonModLoader.java:54)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1804)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.lang.NoClassDefFoundError: Could not initialize class net.pochi.pochimod.entity.custom.Cicada
+	at java.base/java.lang.Class.forName0(Native Method)
+	at java.base/java.lang.Class.forName(Class.java:534)
+	at java.base/java.lang.Class.forName(Class.java:513)
+	at org.apache.logging.log4j.util.LoaderUtil.loadClass(LoaderUtil.java:212)
+	at org.apache.logging.log4j.core.pattern.ThrowableExtendedStackTraceRenderer.lambda$static$1(ThrowableExtendedStackTraceRenderer.java:196)
+	at org.apache.logging.log4j.core.pattern.ThrowableExtendedStackTraceRenderer$ExtendedContext.loadClass(ThrowableExtendedStackTraceRenderer.java:180)
+	at org.apache.logging.log4j.core.pattern.ThrowableExtendedStackTraceRenderer$ExtendedContext.createClassResourceInfoByName(ThrowableExtendedStackTraceRenderer.java:166)
+	at org.apache.logging.log4j.core.pattern.ThrowableExtendedStackTraceRenderer$ExtendedContext.ofThrowable(ThrowableExtendedStackTraceRenderer.java:96)
+	at org.apache.logging.log4j.core.pattern.ThrowableExtendedStackTraceRenderer$ExtendedContext.access$000(ThrowableExtendedStackTraceRenderer.java:81)
+	at org.apache.logging.log4j.core.pattern.ThrowableExtendedStackTraceRenderer.createContext(ThrowableExtendedStackTraceRenderer.java:43)
+	at org.apache.logging.log4j.core.pattern.ThrowableExtendedStackTraceRenderer.createContext(ThrowableExtendedStackTraceRenderer.java:34)
+	at org.apache.logging.log4j.core.pattern.ThrowableStackTraceRenderer.renderThrowable(ThrowableStackTraceRenderer.java:55)
+	at org.apache.logging.log4j.core.pattern.ThrowablePatternConverter.format(ThrowablePatternConverter.java:130)
+	at org.apache.logging.log4j.core.layout.PatternLayout$NoFormatPatternSerializer.toSerializable(PatternLayout.java:354)
+	at org.apache.logging.log4j.core.layout.PatternLayout.toText(PatternLayout.java:251)
+	at org.apache.logging.log4j.core.layout.PatternLayout.encode(PatternLayout.java:237)
+	at org.apache.logging.log4j.core.layout.PatternLayout.encode(PatternLayout.java:57)
+	at org.apache.logging.log4j.core.appender.AbstractOutputStreamAppender.directEncodeEvent(AbstractOutputStreamAppender.java:227)
+	at org.apache.logging.log4j.core.appender.AbstractOutputStreamAppender.tryAppend(AbstractOutputStreamAppender.java:220)
+	at org.apache.logging.log4j.core.appender.AbstractOutputStreamAppender.append(AbstractOutputStreamAppender.java:211)
+	at org.apache.logging.log4j.core.appender.RollingRandomAccessFileAppender.append(RollingRandomAccessFileAppender.java:275)
+	at org.apache.logging.log4j.core.config.AppenderControl.tryCallAppender(AppenderControl.java:160)
+	... 27 more
+Caused by: java.lang.ExceptionInInitializerError: Exception java.lang.IllegalStateException: Identified an attempt to add synced data to a foreign entity: this is highly discouraged.
+Entity class: net.minecraft.world.entity.ambient.Bat
+Declaring class: net.pochi.pochimod.entity.custom.Cicada
+Modders should use syncable data attachments instead, as they do not suffer from potential ID mismatches.
+Please refer to the data attachments documentation available at https://docs.neoforged.net/docs/datastorage/attachments.
+This message will only be printed once per class [in thread "modloading-sync-worker"]
+	at TRANSFORMER/neoforge@21.11.38-beta/net.neoforged.neoforge.common.CommonHooks.verifyEntityDataAccessorRegistration(CommonHooks.java:1785)
+	at TRANSFORMER/minecraft@1.21.11/net.minecraft.network.syncher.SynchedEntityData.defineId(SynchedEntityData.java:31)
+	at TRANSFORMER/pochimod@0.0.5-1.21.11/net.pochi.pochimod.entity.custom.Cicada.<clinit>(Cicada.java:40)
+	at TRANSFORMER/pochimod@0.0.5-1.21.11/net.pochi.pochimod.event.ModEvents$ModEventBusEvents.entityAttributeEvent(ModEvents.java:224)
+	at net.neoforged.bus.EventBus.post(EventBus.java:360)
+	at net.neoforged.bus.EventBus.post(EventBus.java:342)
+	at net.neoforged.fml.ModContainer.acceptEvent(ModContainer.java:177)
+	... 11 more
+
+2026-03-16T14:12:00.072614800Z modloading-sync-worker ERROR An exception occurred processing Appender DebugFile
+org.apache.logging.log4j.core.appender.AppenderLoggingException: java.lang.NoClassDefFoundError: Could not initialize class net.pochi.pochimod.entity.custom.Cicada
+	at org.apache.logging.log4j.core.config.AppenderControl.tryCallAppender(AppenderControl.java:164)
+	at org.apache.logging.log4j.core.config.AppenderControl.callAppender0(AppenderControl.java:133)
+	at org.apache.logging.log4j.core.config.AppenderControl.callAppenderPreventRecursion(AppenderControl.java:124)
+	at org.apache.logging.log4j.core.config.AppenderControl.callAppender(AppenderControl.java:88)
+	at org.apache.logging.log4j.core.config.LoggerConfig.callAppenders(LoggerConfig.java:711)
+	at org.apache.logging.log4j.core.config.LoggerConfig.processLogEvent(LoggerConfig.java:669)
+	at org.apache.logging.log4j.core.config.LoggerConfig.log(LoggerConfig.java:645)
+	at org.apache.logging.log4j.core.config.LoggerConfig.log(LoggerConfig.java:589)
+	at org.apache.logging.log4j.core.config.AwaitCompletionReliabilityStrategy.log(AwaitCompletionReliabilityStrategy.java:92)
+	at org.apache.logging.log4j.core.Logger.log(Logger.java:187)
+	at org.apache.logging.log4j.spi.AbstractLogger.tryLogMessage(AbstractLogger.java:2970)
+	at org.apache.logging.log4j.spi.AbstractLogger.logMessageTrackRecursion(AbstractLogger.java:2922)
+	at org.apache.logging.log4j.spi.AbstractLogger.logMessageSafely(AbstractLogger.java:2904)
+	at org.apache.logging.log4j.spi.AbstractLogger.logMessage(AbstractLogger.java:2697)
+	at org.apache.logging.log4j.spi.AbstractLogger.logIfEnabled(AbstractLogger.java:2449)
+	at org.apache.logging.log4j.spi.AbstractLogger.error(AbstractLogger.java:895)
+	at net.neoforged.fml.ModContainer.acceptEvent(ModContainer.java:180)
+	at net.neoforged.fml.ModLoader.lambda$postEvent$10(ModLoader.java:330)
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75)
+	at net.neoforged.fml.ModList.forEachModInOrder(ModList.java:175)
+	at net.neoforged.fml.ModLoader.postEvent(ModLoader.java:330)
+	at TRANSFORMER/neoforge@21.11.38-beta/net.neoforged.neoforge.common.CommonHooks.modifyAttributes(CommonHooks.java:1169)
+	at TRANSFORMER/neoforge@21.11.38-beta/net.neoforged.neoforge.registries.GameData.postRegisterEvents(GameData.java:101)
+	at TRANSFORMER/neoforge@21.11.38-beta/net.neoforged.neoforge.internal.CommonModLoader.lambda$begin$0(CommonModLoader.java:54)
+	at java.base/java.util.concurrent.CompletableFuture$AsyncRun.run(CompletableFuture.java:1804)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.lang.NoClassDefFoundError: Could not initialize class net.pochi.pochimod.entity.custom.Cicada
+	at java.base/java.lang.Class.forName0(Native Method)
+	at java.base/java.lang.Class.forName(Class.java:534)
+	at java.base/java.lang.Class.forName(Class.java:513)
+	at org.apache.logging.log4j.util.LoaderUtil.loadClass(LoaderUtil.java:212)
+	at org.apache.logging.log4j.core.pattern.ThrowableExtendedStackTraceRenderer.lambda$static$1(ThrowableExtendedStackTraceRenderer.java:196)
+	at org.apache.logging.log4j.core.pattern.ThrowableExtendedStackTraceRenderer$ExtendedContext.loadClass(ThrowableExtendedStackTraceRenderer.java:180)
+	at org.apache.logging.log4j.core.pattern.ThrowableExtendedStackTraceRenderer$ExtendedContext.createClassResourceInfoByName(ThrowableExtendedStackTraceRenderer.java:166)
+	at org.apache.logging.log4j.core.pattern.ThrowableExtendedStackTraceRenderer$ExtendedContext.ofThrowable(ThrowableExtendedStackTraceRenderer.java:96)
+	at org.apache.logging.log4j.core.pattern.ThrowableExtendedStackTraceRenderer$ExtendedContext.access$000(ThrowableExtendedStackTraceRenderer.java:81)
+	at org.apache.logging.log4j.core.pattern.ThrowableExtendedStackTraceRenderer.createContext(ThrowableExtendedStackTraceRenderer.java:43)
+	at org.apache.logging.log4j.core.pattern.ThrowableExtendedStackTraceRenderer.createContext(ThrowableExtendedStackTraceRenderer.java:34)
+	at org.apache.logging.log4j.core.pattern.ThrowableStackTraceRenderer.renderThrowable(ThrowableStackTraceRenderer.java:55)
+	at org.apache.logging.log4j.core.pattern.ThrowablePatternConverter.format(ThrowablePatternConverter.java:130)
+	at org.apache.logging.log4j.core.layout.PatternLayout$NoFormatPatternSerializer.toSerializable(PatternLayout.java:354)
+	at org.apache.logging.log4j.core.layout.PatternLayout.toText(PatternLayout.java:251)
+	at org.apache.logging.log4j.core.layout.PatternLayout.encode(PatternLayout.java:237)
+	at org.apache.logging.log4j.core.layout.PatternLayout.encode(PatternLayout.java:57)
+	at org.apache.logging.log4j.core.appender.AbstractOutputStreamAppender.directEncodeEvent(AbstractOutputStreamAppender.java:227)
+	at org.apache.logging.log4j.core.appender.AbstractOutputStreamAppender.tryAppend(AbstractOutputStreamAppender.java:220)
+	at org.apache.logging.log4j.core.appender.AbstractOutputStreamAppender.append(AbstractOutputStreamAppender.java:211)
+	at org.apache.logging.log4j.core.appender.RollingRandomAccessFileAppender.append(RollingRandomAccessFileAppender.java:275)
+	at org.apache.logging.log4j.core.config.AppenderControl.tryCallAppender(AppenderControl.java:160)
+	... 27 more
+Caused by: java.lang.ExceptionInInitializerError: Exception java.lang.IllegalStateException: Identified an attempt to add synced data to a foreign entity: this is highly discouraged.
+Entity class: net.minecraft.world.entity.ambient.Bat
+Declaring class: net.pochi.pochimod.entity.custom.Cicada
+Modders should use syncable data attachments instead, as they do not suffer from potential ID mismatches.
+Please refer to the data attachments documentation available at https://docs.neoforged.net/docs/datastorage/attachments.
+This message will only be printed once per class [in thread "modloading-sync-worker"]
+	at TRANSFORMER/neoforge@21.11.38-beta/net.neoforged.neoforge.common.CommonHooks.verifyEntityDataAccessorRegistration(CommonHooks.java:1785)
+	at TRANSFORMER/minecraft@1.21.11/net.minecraft.network.syncher.SynchedEntityData.defineId(SynchedEntityData.java:31)
+	at TRANSFORMER/pochimod@0.0.5-1.21.11/net.pochi.pochimod.entity.custom.Cicada.<clinit>(Cicada.java:40)
+	at TRANSFORMER/pochimod@0.0.5-1.21.11/net.pochi.pochimod.event.ModEvents$ModEventBusEvents.entityAttributeEvent(ModEvents.java:224)
+	at net.neoforged.bus.EventBus.post(EventBus.java:360)
+	at net.neoforged.bus.EventBus.post(EventBus.java:342)
+	at net.neoforged.fml.ModContainer.acceptEvent(ModContainer.java:177)
+	... 11 more
+
+[23:12:00] [main/FATAL] [ne.ne.fm.ModLoader/LOADING]: Failed to wait for future Registry initialization, 1 errors found
+[23:12:00] [Render thread/INFO] [mojang/YggdrasilAuthenticationService]: Environment: Environment[sessionHost=https://sessionserver.mojang.com, servicesHost=https://api.minecraftservices.com, profilesHost=https://api.mojang.com, name=PROD]
+[23:12:00] [Render thread/INFO] [minecraft/Minecraft]: Setting user: Dev
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.RegisterDebugEntriesEvent to a broken mod state
+[23:12:00] [Render thread/INFO] [minecraft/Minecraft]: Backend library: LWJGL version 3.3.3+5
+[23:12:00] [Render thread/WARN] [minecraft/Minecraft]: Detected unexpected shutdown during last game startup: resetting fullscreen mode
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.ConfigureGpuDeviceEvent to a broken mod state
+[23:12:00] [Render thread/INFO] [minecraft/Minecraft]: Using optional rendering extensions: GL_ARB_buffer_storage, GL_KHR_debug, GL_ARB_vertex_attrib_binding, GL_ARB_direct_state_access, GL_EXT_texture_filter_anisotropic
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.ConfigureMainRenderTargetEvent to a broken mod state
+[23:12:00] [Render thread/DEBUG] [mixin/]: Mixing client.SpecialModelWrapperMixin from geckolib.mixins.json into net.minecraft.client.renderer.item.SpecialModelWrapper
+[23:12:00] [Render thread/DEBUG] [mixin/]: geckolib.mixins.json:client.SpecialModelWrapperMixin from mod geckolib: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[23:12:00] [Render thread/DEBUG] [mixin/]: Mixing client.SpecialModelRenderersMixin from geckolib.mixins.json into net.minecraft.client.renderer.special.SpecialModelRenderers
+[23:12:00] [Render thread/DEBUG] [mixin/]: geckolib.mixins.json:client.SpecialModelRenderersMixin from mod geckolib: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[23:12:00] [Render thread/DEBUG] [mixin/]: geckolib.mixins.json:client.SpecialModelRenderersMixin from mod geckolib->@Inject::geckolib$addSpecialRenderer(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V doesn't use it's CallbackInfo
+[23:12:00] [Render thread/DEBUG] [mixin/]: Mixing client.BlockEntityRenderStateMixin from geckolib.mixins.json into net.minecraft.client.renderer.blockentity.state.BlockEntityRenderState
+[23:12:00] [Render thread/DEBUG] [mixin/]: geckolib.mixins.json:client.BlockEntityRenderStateMixin from mod geckolib: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.RegisterItemModelsEvent to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.RegisterSpecialModelRendererEvent to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.RegisterColorHandlersEvent$ItemTintSources to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.RegisterSelectItemModelPropertyEvent to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.RegisterConditionalItemModelPropertyEvent to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.RegisterRangeSelectItemModelPropertyEvent to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.RegisterSpriteSourcesEvent to a broken mod state
+[23:12:00] [Render thread/DEBUG] [mixin/]: Mixing client.TextureManagerMixin from geckolib.mixins.json into net.minecraft.client.renderer.texture.TextureManager
+[23:12:00] [Render thread/DEBUG] [mixin/]: geckolib.mixins.json:client.TextureManagerMixin from mod geckolib: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.sound.SoundEngineLoadEvent to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.RegisterTextureAtlasesEvent to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.RegisterColorHandlersEvent$Block to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.ModelEvent$RegisterLoaders to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.RegisterRenderBuffersEvent to a broken mod state
+[23:12:00] [Render thread/DEBUG] [mixin/]: Mixing client.EntityRendererMixin from geckolib.mixins.json into net.minecraft.client.renderer.entity.EntityRenderer
+[23:12:00] [Render thread/DEBUG] [mixin/]: geckolib.mixins.json:client.EntityRendererMixin from mod geckolib: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[23:12:00] [Render thread/DEBUG] [mixin/]: Renaming synthetic method lambda$geckolib$captureDataForArmorLayer$1(Lnet/minecraft/client/renderer/entity/state/EntityRenderState;Lcom/llamalad7/mixinextras/injector/wrapoperation/Operation;Lnet/minecraft/world/entity/Entity;FLnet/minecraft/world/entity/EquipmentSlot;)Lnet/minecraft/client/renderer/entity/state/HumanoidRenderState; to md9c388a$geckolib$lambda$geckolib$captureDataForArmorLayer$1$0 in geckolib.mixins.json:client.EntityRendererMixin from mod geckolib
+[23:12:00] [Render thread/DEBUG] [mixin/]: Renaming synthetic method lambda$geckolib$captureDataForArmorLayer$0(Lnet/minecraft/client/renderer/entity/layers/HumanoidArmorLayer;Lnet/minecraft/client/renderer/entity/state/HumanoidRenderState;Lnet/minecraft/world/entity/EquipmentSlot;)Lnet/minecraft/client/model/HumanoidModel; to md9c388a$geckolib$lambda$geckolib$captureDataForArmorLayer$0$1 in geckolib.mixins.json:client.EntityRendererMixin from mod geckolib
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.RegisterParticleGroupsEvent to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.RegisterPictureInPictureRenderersEvent to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.RegisterDebugRenderersEvent to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent to a broken mod state
+[23:12:00] [Render thread/DEBUG] [mixin/]: Mixing client.EntityRenderStateMixin from geckolib.mixins.json into net.minecraft.client.renderer.entity.state.EntityRenderState
+[23:12:00] [Render thread/DEBUG] [mixin/]: geckolib.mixins.json:client.EntityRenderStateMixin from mod geckolib: Class version 65 required is higher than the class version supported by the current version of Mixin (JAVA_17 supports class version 61)
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.RegisterMenuScreensEvent to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.RegisterJsonAnimationTypesEvent to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.RegisterBlockStateModels to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.InitializeClientRegistriesEvent to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.AddClientReloadListenersEvent to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.EntityRenderersEvent$RegisterLayerDefinitions to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.EntityRenderersEvent$CreateSkullModels to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.EntityRenderersEvent$RegisterRenderers to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.renderstate.RegisterRenderStateModifiersEvent to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.RegisterClientTooltipComponentFactoriesEvent to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.RegisterEntitySpectatorShadersEvent to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.RegisterRecipeBookSearchCategoriesEvent to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.RegisterGuiLayersEvent to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.RegisterCustomEnvironmentEffectRendererEvent to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.RegisterNamedRenderTypesEvent to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.RegisterColorHandlersEvent$ColorResolvers to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.RegisterItemDecorationsEvent to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.RegisterPresetEditorsEvent to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.gui.map.RegisterMapDecorationRenderersEvent to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.RegisterDimensionTransitionScreenEvent to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.event.RegisterRenderPipelinesEvent to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.pipeline.RegisterPipelineModifiersEvent to a broken mod state
+[23:12:00] [Render thread/ERROR] [ne.ne.fm.ModLoader/]: Cowardly refusing to send event net.neoforged.neoforge.client.gamerules.RegisterGameRuleEntryFactoryEvent to a broken mod state
+[23:12:01] [Render thread/INFO] [minecraft/ReloadableResourceManager]: Reloading ResourceManager: vanilla
+[23:12:01] [resourceLoad/INFO] [minecraft/UnihexProvider]: Found unifont_all_no_pua-17.0.01.hex, loading
+[23:12:01] [resourceLoad/INFO] [minecraft/UnihexProvider]: Found unifont_pua-17.0.01.hex, loading
+[23:12:01] [resourceLoad/INFO] [minecraft/UnihexProvider]: Found unifont_jp_patch-17.0.01.hex, loading
+[23:12:01] [Render thread/FATAL] [ne.ne.ne.co.NeoForgeMod/]: Preparing crash report with UUID dfe26e67-204a-4ad1-872a-3c023eb00522
+---- Minecraft Crash Report ----
+// You're mean.
+
+Time: 2026-03-16 23:12:01
+Description: Initializing game
+
+java.lang.NullPointerException: Initializing game
+	at java.base/java.util.Objects.requireNonNull(Objects.java:233) ~[?:?] {}
+	at TRANSFORMER/minecraft@1.21.11/net.minecraft.server.packs.resources.PreparableReloadListener$SharedState.get(PreparableReloadListener.java:44) ~[neoforge-21.11.38-beta.jar:?] {}
+	at TRANSFORMER/minecraft@1.21.11/net.minecraft.client.resources.model.ModelManager.reload(ModelManager.java:110) ~[neoforge-21.11.38-beta.jar:?] {}
+	at TRANSFORMER/minecraft@1.21.11/net.minecraft.server.packs.resources.SimpleReloadInstance$StateFactory.lambda$static$0(SimpleReloadInstance.java:145) ~[neoforge-21.11.38-beta.jar:?] {}
+	at TRANSFORMER/minecraft@1.21.11/net.minecraft.server.packs.resources.SimpleReloadInstance.prepareTasks(SimpleReloadInstance.java:86) ~[neoforge-21.11.38-beta.jar:?] {}
+	at TRANSFORMER/minecraft@1.21.11/net.minecraft.server.packs.resources.SimpleReloadInstance.startTasks(SimpleReloadInstance.java:50) ~[neoforge-21.11.38-beta.jar:?] {}
+	at TRANSFORMER/minecraft@1.21.11/net.minecraft.server.packs.resources.SimpleReloadInstance.of(SimpleReloadInstance.java:33) ~[neoforge-21.11.38-beta.jar:?] {}
+	at TRANSFORMER/minecraft@1.21.11/net.minecraft.server.packs.resources.SimpleReloadInstance.create(SimpleReloadInstance.java:140) ~[neoforge-21.11.38-beta.jar:?] {}
+	at TRANSFORMER/minecraft@1.21.11/net.minecraft.server.packs.resources.ReloadableResourceManager.createReload(ReloadableResourceManager.java:50) ~[neoforge-21.11.38-beta.jar:?] {neoforge:access_transformer}
+	at TRANSFORMER/minecraft@1.21.11/net.minecraft.client.Minecraft.<init>(Minecraft.java:678) [neoforge-21.11.38-beta.jar:?] {neoforge:access_transformer}
+	at TRANSFORMER/minecraft@1.21.11/net.minecraft.client.main.Main.main(Main.java:214) [neoforge-21.11.38-beta.jar:?] {}
+	at net.neoforged.fml.startup.Client.main(Client.java:19) [loader-10.0.36.jar:10.0] {}
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Render thread
+Stacktrace:
+	at java.base/java.util.Objects.requireNonNull(Objects.java:233) ~[?:?] {}
+	at TRANSFORMER/minecraft@1.21.11/net.minecraft.server.packs.resources.PreparableReloadListener$SharedState.get(PreparableReloadListener.java:44) ~[neoforge-21.11.38-beta.jar:?] {}
+	at TRANSFORMER/minecraft@1.21.11/net.minecraft.client.resources.model.ModelManager.reload(ModelManager.java:110) ~[neoforge-21.11.38-beta.jar:?] {}
+	at TRANSFORMER/minecraft@1.21.11/net.minecraft.server.packs.resources.SimpleReloadInstance$StateFactory.lambda$static$0(SimpleReloadInstance.java:145) ~[neoforge-21.11.38-beta.jar:?] {}
+	at TRANSFORMER/minecraft@1.21.11/net.minecraft.server.packs.resources.SimpleReloadInstance.prepareTasks(SimpleReloadInstance.java:86) ~[neoforge-21.11.38-beta.jar:?] {}
+	at TRANSFORMER/minecraft@1.21.11/net.minecraft.server.packs.resources.SimpleReloadInstance.startTasks(SimpleReloadInstance.java:50) ~[neoforge-21.11.38-beta.jar:?] {}
+	at TRANSFORMER/minecraft@1.21.11/net.minecraft.server.packs.resources.SimpleReloadInstance.of(SimpleReloadInstance.java:33) ~[neoforge-21.11.38-beta.jar:?] {}
+	at TRANSFORMER/minecraft@1.21.11/net.minecraft.server.packs.resources.SimpleReloadInstance.create(SimpleReloadInstance.java:140) ~[neoforge-21.11.38-beta.jar:?] {}
+	at TRANSFORMER/minecraft@1.21.11/net.minecraft.server.packs.resources.ReloadableResourceManager.createReload(ReloadableResourceManager.java:50) ~[neoforge-21.11.38-beta.jar:?] {neoforge:access_transformer}
+	at TRANSFORMER/minecraft@1.21.11/net.minecraft.client.Minecraft.<init>(Minecraft.java:678) ~[neoforge-21.11.38-beta.jar:?] {neoforge:access_transformer}
+-- Initialization --
+Details:
+	Modules: 
+		ADVAPI32.dll:Advanced Windows 32 �x�[�X API:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		ApplicationTargetedFeatureDatabase.dll:ApplicationTargetedFeatureDatabase:10.0.26100.7920 (WinBuild.160101.0800):Microsoft Corporation
+		COMCTL32.dll:���[�U�[ �G�N�X�y���G���X �R���g���[�� ���C�u����:6.10 (WinBuild.160101.0800):Microsoft Corporation
+		CRYPT32.dll:Crypto API32:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		CRYPTBASE.DLL:Base cryptographic API DLL:10.0.26100.7623 (WinBuild.160101.0800):Microsoft Corporation
+		CRYPTSP.dll:Cryptographic Service Provider API:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		CoreMessaging.dll:Microsoft CoreMessaging Dll:10.0.26100.7920 (WinBuild.160101.0800):Microsoft Corporation
+		CoreUIComponents.dll:Microsoft Core UI Components Dll:10.0.26100.7627:Microsoft Corporation
+		DBGHELP.DLL:Windows Image Helper:10.0.26100.5074 (WinBuild.160101.0800):Microsoft Corporation
+		DEVOBJ.dll:Device Information Set DLL:10.0.26100.1150 (WinBuild.160101.0800):Microsoft Corporation
+		DNSAPI.dll:DNS �N���C�A���g API DLL:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		GDI32.dll:GDI Client DLL:10.0.26100.8036 (WinBuild.160101.0800):Microsoft Corporation
+		GLU32.dll:OpenGL ���[�e�B���e�B ���C�u���� DLL:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		IMM32.DLL:Multi-User Windows IMM32 API Client DLL:10.0.26100.7309 (WinBuild.160101.0800):Microsoft Corporation
+		IPHLPAPI.DLL:IP �w���p�[ API:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		KERNEL32.DLL:Windows NT �x�[�X API �N���C�A���g DLL:10.0.26100.7920 (WinBuild.160101.0800):Microsoft Corporation
+		KERNELBASE.dll:Windows NT �x�[�X API �N���C�A���g DLL:10.0.26100.7920 (WinBuild.160101.0800):Microsoft Corporation
+		MMDevApi.dll:MMDevice API:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		MSCTF.dll:MSCTF �T�[�o�[ DLL:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		MpOav.dll:IOfficeAntiVirus Module:4.18.26010.5 (1e74b9adf5ed0dd9a81fac912007d1b65cd9b869):Microsoft Corporation
+		NSI.dll:NSI User-mode interface DLL:10.0.26100.7920 (WinBuild.160101.0800):Microsoft Corporation
+		OLEAUT32.dll:OLEAUT32.DLL:10.0.26100.7920 (WinBuild.160101.0800):Microsoft Corporation
+		Oleacc.dll:Active Accessibility Core Component:7.2.26100.7920 (WinBuild.160101.0800):Microsoft Corporation
+		OpenAL.dll:Main implementation library:1.23.1:
+		POWRPROF.dll:�d���v���t�@�C�� �w���p�[ DLL:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		PSAPI.DLL:Process Status Helper:10.0.26100.1 (WinBuild.160101.0800):Microsoft Corporation
+		RPCRT4.dll:�����[�g �v���V�[�W�� �R�[�� �����^�C��:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		SETUPAPI.dll:Windows �Z�b�g�A�b�v API:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		SHCORE.dll:SHCORE:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		SHELL32.dll:Windows �V�F������ DLL:10.0.26100.7920 (WinBuild.160101.0800):Microsoft Corporation
+		SspiCli.dll:Security Support Provider Interface:10.0.26100.7920 (WinBuild.160101.0800):Microsoft Corporation
+		UIAutomationCore.DLL:Microsoft UI �������R�A:7.2.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		UMPDC.dll:User Mode Power Dependency Coordinator:10.0.26100.7019 (WinBuild.160101.0800):Microsoft Corporation
+		USER32.dll:�}���`���[�U�[ Windows ���[�U�[ API �N���C�A���g DLL:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		USERENV.dll:Userenv:10.0.26100.7920 (WinBuild.160101.0800):Microsoft Corporation
+		VCRUNTIME140.dll:Microsoft? C Runtime Library:14.36.32532.0:Microsoft Corporation
+		VERSION.dll:Version Checking and File Installation Libraries:10.0.26100.1150 (WinBuild.160101.0800):Microsoft Corporation
+		WINHTTP.dll:Windows HTTP �T�[�r�X:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		WINMM.dll:MCI API DLL:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		WINSTA.dll:Winstation Library:10.0.26100.8036 (WinBuild.160101.0800):Microsoft Corporation
+		WINTRUST.dll:Microsoft Trust Verification APIs:10.0.26100.8036 (WinBuild.160101.0800):Microsoft Corporation
+		WS2_32.dll:Windows Socket 2.0 32 �r�b�g DLL:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		WTSAPI32.dll:Windows Remote Desktop Session Host Server SDK APIs:10.0.26100.7920 (WinBuild.160101.0800):Microsoft Corporation
+		amsi.dll:Anti-Malware Scan Interface:10.0.26100.7309 (WinBuild.160101.0800):Microsoft Corporation
+		apphelp.dll:�A�v���P�[�V�����̌݊����N���C�A���g ���C�u����:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		awt.dll:OpenJDK Platform binary:21.0.4.0:Eclipse Adoptium
+		bcrypt.dll:Windows �Í����v���~�e�B�u ���C�u����:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		bcryptPrimitives.dll:Windows Cryptographic Primitives Library:10.0.26100.7623 (WinBuild.160101.0800):Microsoft Corporation
+		cfgmgr32.dll:Configuration Manager DLL:10.0.26100.7309 (WinBuild.160101.0800):Microsoft Corporation
+		clbcatq.dll:COM+ Configuration Catalog:2001.12.10941.16384 (WinBuild.160101.0800):Microsoft Corporation
+		combase.dll:Windows �p Microsoft COM:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		cryptnet.dll:Crypto Network Related API:10.0.26100.7309 (WinBuild.160101.0800):Microsoft Corporation
+		dbgcore.DLL:Windows Core Debugging Helpers:10.0.26100.7920 (WinBuild.160101.0800):Microsoft Corporation
+		dinput8.dll:Microsoft DirectInput:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		drvstore.dll:Driver Store API:10.0.26100.7920 (WinBuild.160101.0800):Microsoft Corporation
+		dwmapi.dll:Microsoft �f�X�N�g�b�v �E�B���h�E �}�l�[�W���[ API:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		dxcore.dll:DXCore:10.0.26100.7920 (WinBuild.160101.0800):Microsoft Corporation
+		fastprox.dll:WMI Custom Marshaller:10.0.26100.7920 (WinBuild.160101.0800):Microsoft Corporation
+		fwpuclnt.dll:FWP/IPsec ���[�U�[ ���[�h API:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		gdi32full.dll:GDI Client DLL:10.0.26100.8036 (WinBuild.160101.0800):Microsoft Corporation
+		glfw.dll:GLFW 3.4.0 DLL:3.4.0:GLFW
+		icm32.dll:Microsoft Color Management Module (CMM):10.0.26100.2314 (WinBuild.160101.0800):Microsoft Corporation
+		imagehlp.dll:Windows NT Image Helper:10.0.26100.4202 (WinBuild.160101.0800):Microsoft Corporation
+		inputhost.dll:InputHost:10.0.26100.7920 (WinBuild.160101.0800):Microsoft Corporation
+		java.dll:OpenJDK Platform binary:21.0.4.0:Eclipse Adoptium
+		java.exe:OpenJDK Platform binary:21.0.4.0:Eclipse Adoptium
+		jemalloc.dll
+		jimage.dll:OpenJDK Platform binary:21.0.4.0:Eclipse Adoptium
+		jli.dll:OpenJDK Platform binary:21.0.4.0:Eclipse Adoptium
+		jna9309575496821628877.dll:JNA native library:7.0.2:Java(TM) Native Access (JNA)
+		jsvml.dll:OpenJDK Platform binary:21.0.4.0:Eclipse Adoptium
+		jvm.dll:OpenJDK 64-Bit server VM:21.0.4.0:Eclipse Adoptium
+		kernel.appcore.dll:AppModel API Host:10.0.26100.7920 (WinBuild.160101.0800):Microsoft Corporation
+		lwjgl.dll
+		lwjgl_opengl.dll
+		lwjgl_stb.dll
+		management.dll:OpenJDK Platform binary:21.0.4.0:Eclipse Adoptium
+		management_ext.dll:OpenJDK Platform binary:21.0.4.0:Eclipse Adoptium
+		msasn1.dll:ASN.1 Runtime APIs:10.0.26100.7623 (WinBuild.160101.0800):Microsoft Corporation
+		mscms.dll:Microsoft �J���[ �}�b�`���O �V�X�e�� DLL:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		msvcp140.dll:Microsoft? C Runtime Library:14.36.32532.0:Microsoft Corporation
+		msvcp_win.dll:Microsoft? C Runtime Library:10.0.26100.7623 (WinBuild.160101.0800):Microsoft Corporation
+		msvcrt.dll:Windows NT CRT DLL:7.0.26100.7623 (WinBuild.160101.0800):Microsoft Corporation
+		mswsock.dll:Microsoft Windows Sockets 2.0 �T�[�r�X �v���o�C�_�[:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		napinsp.dll:�d�q���[�� �l�[�~���O Shim �v���o�C�_�[:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		net.dll:OpenJDK Platform binary:21.0.4.0:Eclipse Adoptium
+		nio.dll:OpenJDK Platform binary:21.0.4.0:Eclipse Adoptium
+		nlansp_c.dll:NLA Namespace Service Provider DLL:10.0.26100.7309 (WinBuild.160101.0800):Microsoft Corporation
+		ntdll.dll:NT ���C���[ DLL:10.0.26100.7920 (WinBuild.160101.0800):Microsoft Corporation
+		ntmarta.dll:Windows NT MARTA �v���o�C�_�[:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		nvgpucomp64.dll:NVIDIA GPU Compiler Driver, Version 581.57 :32.0.15.8157:NVIDIA Corporation
+		nvoglv64.dll:NVIDIA Compatible OpenGL ICD:32.0.15.8157:NVIDIA Corporation
+		nvspcap64.dll:NVIDIA Game Proxy 8FileVersion  1:11.0.5.420  8Produc:NVIDIA Corporation  L$FileDescriptio
+		ole32.dll:Windows �p Microsoft OLE:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		opengl32.dll:OpenGL Client DLL:10.0.26100.7920 (WinBuild.160101.0800):Microsoft Corporation
+		pdh.dll:Windows �p�t�H�[�}���X �f�[�^ �w���p�[ DLL:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		perfos.dll:Windows �V�X�e�� �p�t�H�[�}���X �I�u�W�F�N�g DLL:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		perfproc.dll:Windows �V�X�e�� �v���Z�X �p�t�H�[�}���X �I�u�W�F�N�g DLL:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		pfclient.dll:SysMain Client:10.0.26100.4202 (WinBuild.160101.0800):Microsoft Corporation
+		profapi.dll:User Profile Basic API:10.0.26100.7309 (WinBuild.160101.0800):Microsoft Corporation
+		rasadhlp.dll:Remote Access AutoDial Helper:10.0.26100.7920 (WinBuild.160101.0800):Microsoft Corporation
+		rsaenh.dll:Microsoft Enhanced Cryptographic Provider:10.0.26100.1 (WinBuild.160101.0800):Microsoft Corporation
+		sapi.dll:Speech API:5.3.31326.00 (WinBuild.160101.0800):Microsoft Corporation
+		sechost.dll:Host for SCM/SDDL/LSA Lookup APIs:10.0.26100.1 (WinBuild.160101.0800):Microsoft Corporation
+		shlwapi.dll:�V�F�� ���C�g�E�F�C�g ���[�e�B���e�B ���C�u����:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		textinputframework.dll:"TextInputFramework.DYNLINK":10.0.26100.7920 (WinBuild.160101.0800):Microsoft Corporation
+		twinapi.appcore.dll:twinapi.appcore:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		ucrtbase.dll:Microsoft? C Runtime Library:10.0.26100.7623 (WinBuild.160101.0800):Microsoft Corporation
+		uxtheme.dll:Microsoft UxTheme ���C�u����:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		vcruntime140_1.dll:Microsoft? C Runtime Library:14.36.32532.0:Microsoft Corporation
+		verify.dll:OpenJDK Platform binary:21.0.4.0:Eclipse Adoptium
+		wbemcomn.dll:WMI:10.0.26100.7920 (WinBuild.160101.0800):Microsoft Corporation
+		wbemprox.dll:WMI:10.0.26100.7920 (WinBuild.160101.0800):Microsoft Corporation
+		wbemsvc.dll:WMI:10.0.26100.7920 (WinBuild.160101.0800):Microsoft Corporation
+		win32u.dll:Win32u:10.0.26100.8036 (WinBuild.160101.0800):Microsoft Corporation
+		windows.staterepositorycore.dll:Windows StateRepository API Core:10.0.26100.7920 (WinBuild.160101.0800):Microsoft Corporation
+		windows.storage.dll:Microsoft WinRT �X�g���[�W API:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		winrnr.dll:LDAP RnR Provider DLL:10.0.26100.1882 (WinBuild.160101.0800):Microsoft Corporation
+		wintypes.dll:Windows �x�[�X �^�C�v DLL:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		wldp.dll:Windows �̃��b�N�_�E�� �|���V�[:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		wshbth.dll:Windows Sockets Helper DLL:10.0.26100.5074 (WinBuild.160101.0800):Microsoft Corporation
+		xinput1_4.dll:Microsoft ���ʃR���g���[���[ API:10.0.26100.7705 (WinBuild.160101.0800):Microsoft Corporation
+		zip.dll:OpenJDK Platform binary:21.0.4.0:Eclipse Adoptium
+Stacktrace:
+	at TRANSFORMER/minecraft@1.21.11/net.minecraft.client.main.Main.main(Main.java:214) [neoforge-21.11.38-beta.jar:?] {}
+	at net.neoforged.fml.startup.Client.main(Client.java:19) [loader-10.0.36.jar:10.0] {}
+
+
+-- System Details --
+Details:
+	Minecraft Version: 1.21.11
+	Minecraft Version ID: 1.21.11
+	Operating System: Windows 11 (amd64) version 10.0
+	Java Version: 21.0.4, Eclipse Adoptium
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode, sharing), Eclipse Adoptium
+	Memory: 54650880 bytes (52 MiB) / 352321536 bytes (336 MiB) up to 4278190080 bytes (4080 MiB)
+	CPUs: 16
+	Processor Vendor: AuthenticAMD
+	Processor Name: AMD Ryzen 7 3700X 8-Core Processor             
+	Identifier: AuthenticAMD Family 23 Model 113 Stepping 0
+	Microarchitecture: Zen 2
+	Frequency (GHz): 3.60
+	Number of physical packages: 1
+	Number of physical CPUs: 8
+	Number of logical CPUs: 16
+	Graphics card #0 name: NVIDIA GeForce GTX 1660 Ti
+	Graphics card #0 vendor: NVIDIA
+	Graphics card #0 VRAM (MiB): 6144.00
+	Graphics card #0 deviceId: VideoController1
+	Graphics card #0 versionInfo: 32.0.15.8157
+	Memory slot #0 capacity (MiB): 8192.00
+	Memory slot #0 clockSpeed (GHz): 3.20
+	Memory slot #0 type: DDR4
+	Memory slot #1 capacity (MiB): 8192.00
+	Memory slot #1 clockSpeed (GHz): 3.20
+	Memory slot #1 type: DDR4
+	Virtual memory max (MiB): 48059.36
+	Virtual memory used (MiB): 22955.47
+	Swap memory total (MiB): 31744.00
+	Swap memory used (MiB): 1513.80
+	Space in storage for jna.tmpdir (MiB): <path not set>
+	Space in storage for org.lwjgl.system.SharedLibraryExtractPath (MiB): <path not set>
+	Space in storage for io.netty.native.workdir (MiB): <path not set>
+	Space in storage for java.io.tmpdir (MiB): available: 1389425.50, total: 1952245.38
+	Space in storage for workdir (MiB): available: 4463908.00, total: 7630868.00
+	JVM Flags: 1 total; -XX:HeapDumpPath=MojangTricksIntelDriversForPerformance_javaw.exe_minecraft.exe.heapdump
+	Debug Flags: 0 total; 
+	Launched Version: 21.11.38-beta
+	Backend library: LWJGL version 3.3.3+5
+	Backend API: NVIDIA GeForce GTX 1660 Ti/PCIe/SSE2 GL version 3.3.0 NVIDIA 581.57, NVIDIA Corporation
+	Window size: <not initialized>
+	GFLW Platform: win32
+	Render Extensions: GL_ARB_buffer_storage, GL_KHR_debug, GL_ARB_vertex_attrib_binding, GL_ARB_direct_state_access, GL_EXT_texture_filter_anisotropic
+	GL debug messages: 
+	Is Modded: Definitely; Client brand changed to 'neoforge'
+	Universe: 404
+	Type: Client (map_client.txt)
+	Locale: ja_JP
+	System encoding: MS932
+	File encoding: UTF-8
+	CPU: 16x AMD Ryzen 7 3700X 8-Core Processor 
+	Class Processors: 
+		00.00%: neoforge:neoforge_dev_dist_cleaner
+		00.00%: neoforge:computing_frames (marker)
+		00.00%: neoforge:runtime_enum_extender
+		05.41%: neoforge:access_transformer
+		00.31%: neoforge:mixin
+		00.00%: neoforge:simple_processors_default (marker)
+		00.01%: neoforge.coremods:field_to_getter.net.minecraft.world.level.biome.biome
+		00.01%: neoforge.coremods:field_to_getter.net.minecraft.world.level.block.flowerpotblock
+		00.01%: neoforge.coremods:field_to_getter.net.minecraft.world.level.levelgen.structure.structure
+		00.28%: neoforge.coremods:method_redirector
+	Mod List: 
+		main                                              |Echoes of Eco                 |pochimod                      |0.0.5-1.21.11       |Manifest: NOSIGNATURE
+		geckolib-neoforge-1.21.11-5.4.2.jar               |GeckoLib 5                    |geckolib                      |5.4.2               |Manifest: 66ccf3ee4ac09c65c5270a9352456de594241464baa348dfe802a951d2423ad3
+		jei-1.21.11-neoforge-27.4.0.15.jar                |Just Enough Items             |jei                           |27.4.0.15           |Manifest: ecf2a123ad5c1d3738e27359e26127fbb3dc735b7fb0b900da228c44cd61fad4
+		neoforge-21.11.38-beta.jar                        |Minecraft                     |minecraft                     |1.21.11             |Manifest: NOSIGNATURE
+		neoforge-21.11.38-beta-universal.jar              |NeoForge                      |neoforge                      |21.11.38-beta       |Manifest: NOSIGNATURE
+		TerraBlender-neoforge-1.21.11-21.11.0.0.jar       |TerraBlender                  |terrablender                  |21.11.0.0           |Manifest: ea824cc86b802643938d828b68376bd5f762d7f0e4a2b6fe08cac25877535f0b
+	Crash Report UUID: dfe26e67-204a-4ad1-872a-3c023eb00522
+	FML: 10.0.36
+	NeoForge: 21.11.38-beta
+[23:12:01] [Render thread/FATAL] [ne.ne.ne.co.NeoForgeMod/]: Preparing crash report with UUID 46414462-2bff-430e-a20d-feb42c97b1e8
+#@!@# Game crashed! Crash report saved to: #@!@# E:\mod\PochiMod\runs\client\.\crash-reports\crash-2026-03-16_23.12.01-client.txt
+
+> Task :runClient FAILED
+
+[Incubating] Problems report is available at: file:///E:/mod/PochiMod/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':runClient'.
+> Process 'command 'C:\Program Files\Eclipse Adoptium\jdk-21.0.4.7-hotspot\bin\java.exe'' finished with non-zero exit value -1
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.14/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD FAILED in 25s
+22 actionable tasks: 1 executed, 21 up-to-date
