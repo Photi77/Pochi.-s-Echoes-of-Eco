@@ -1,8 +1,0 @@
-{
-  "type": "pochimod:guyana_lake",
-  "config": {
-    "state": {
-      "Name": "minecraft:mud"
-    }
-  }
-}

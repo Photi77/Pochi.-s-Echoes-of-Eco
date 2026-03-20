@@ -210,6 +210,7 @@ public class ModBiomes {
         BiomeDefaultFeatures.addSwampVegetation(biomeBuilder);
         BiomeDefaultFeatures.addLushCavesVegetationFeatures(biomeBuilder);
         BiomeDefaultFeatures.addFossilDecoration(biomeBuilder);
+        BiomeDefaultFeatures.addSurfaceFreezing(biomeBuilder);
 
         return new Biome.BiomeBuilder()
                 .hasPrecipitation(false)
@@ -237,6 +238,7 @@ public class ModBiomes {
         BiomeDefaultFeatures.addSwampVegetation(biomeBuilder);
         BiomeDefaultFeatures.addLushCavesVegetationFeatures(biomeBuilder);
         BiomeDefaultFeatures.addFossilDecoration(biomeBuilder);
+        BiomeDefaultFeatures.addSurfaceFreezing(biomeBuilder);
 
         return new Biome.BiomeBuilder()
                 .hasPrecipitation(false)

@@ -3,7 +3,7 @@ package net.pochi.pochimod.nutrition;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.Gui;
+import net.neoforged.neoforge.client.gui.GuiLayer;
 import net.minecraft.world.entity.player.Player;
 import net.pochi.pochimod.attachment.ModAttachments;
 import net.pochi.pochimod.vital.VitalDeficiencyEffects;
@@ -22,7 +22,7 @@ import net.pochi.pochimod.vital.VitalDeficiencyEffects;
  *   欠乏ライン (黄色) : 値 30 の位置 ← この左側はデバフ発生
  *   過剰ライン (橙色) : 値 120 の位置 ← この右側はデバフ発生
  */
-public class VitalHudOverlay implements Gui.RenderFunction {
+public class VitalHudOverlay implements GuiLayer {
 
     private static final int BAR_WIDTH   = 80;
     private static final int BAR_HEIGHT  = 8;

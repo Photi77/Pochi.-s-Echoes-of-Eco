@@ -50,7 +50,7 @@ public class DeerEntity extends AbstractHorse{
     }
 
     public static AttributeSupplier setAttributes() {
-        return Animal.createMobAttributes()
+        return Animal.createAnimalAttributes()
                 .add(Attributes.MAX_HEALTH, 15D)
                 .add(Attributes.JUMP_STRENGTH, 0.9F)
                 .add(Attributes.MOVEMENT_SPEED, 0.30F).build();

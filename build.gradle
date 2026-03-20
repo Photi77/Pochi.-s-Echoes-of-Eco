@@ -1,37 +1,68 @@
 plugins {
+    id 'java-library'
     id 'eclipse'
+    id 'idea'
     id 'maven-publish'
-    id 'net.neoforged.gradle.userdev' version '7.1.20'
+    id 'net.neoforged.moddev' version '2.0.123'
+}
+
+tasks.named('wrapper', Wrapper).configure {
+    distributionType = Wrapper.DistributionType.BIN
 }
 
 version = '0.0.5-1.21.11'
 group = 'com.pochi.pochimod'
-archivesBaseName = 'EchoesOfEco'
+base.archivesName = 'EchoesOfEco'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
-println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
+neoForge {
+    version = project.neo_version
 
-runs {
-    configureEach {
-        systemProperty 'forge.logging.markers', 'REGISTRIES'
-        systemProperty 'forge.logging.console.level', 'debug'
-        modSource project.sourceSets.main
+    runs {
+        configureEach {
+            systemProperty 'forge.logging.markers', 'REGISTRIES'
+            systemProperty 'forge.logging.console.level', 'debug'
+        }
+
+        client {
+            client()
+            systemProperty 'neoforge.enabledGameTestNamespaces', 'pochimod'
+        }
+
+        server {
+            server()
+            programArgument '--nogui'
+            systemProperty 'neoforge.enabledGameTestNamespaces', 'pochimod'
+        }
+
+        clientData {
+            clientData()
+            programArgument '--mod'
+            programArgument 'pochimod'
+            programArgument '--all'
+            programArgument '--output'
+            programArgument file('src/generated/resources/').absolutePath
+            programArgument '--existing'
+            programArgument file('src/main/resources/').absolutePath
+        }
+
+        serverData {
+            serverData()
+            programArgument '--mod'
+            programArgument 'pochimod'
+            programArgument '--all'
+            programArgument '--output'
+            programArgument file('src/generated/resources/').absolutePath
+            programArgument '--existing'
+            programArgument file('src/main/resources/').absolutePath
+        }
     }
 
-    client {
-        systemProperty 'neoforge.enabledGameTestNamespaces', 'pochimod'
-    }
-
-    server {
-        argument '--nogui'
-        systemProperty 'neoforge.enabledGameTestNamespaces', 'pochimod'
-    }
-
-    clientData {
-        arguments.addAll '--mod', 'pochimod', '--all',
-                '--output', file('src/generated/resources/').getAbsolutePath(),
-                '--existing', file('src/main/resources/').getAbsolutePath()
+    mods {
+        pochimod {
+            sourceSet sourceSets.main
+        }
     }
 }
 
@@ -60,8 +91,6 @@ repositories {
 }
 
 dependencies {
-    implementation "net.neoforged:neoforge:${neo_version}"
-
     // JEI — compile against API only, use full jar at runtime
     compileOnly("mezz.jei:jei-1.21.11-neoforge-api:${jei_version}")
     runtimeOnly("mezz.jei:jei-1.21.11-neoforge:${jei_version}")

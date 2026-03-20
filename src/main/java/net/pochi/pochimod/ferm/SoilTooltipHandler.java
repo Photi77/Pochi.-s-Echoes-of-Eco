@@ -14,14 +14,11 @@ import net.minecraft.world.level.block.FarmBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.client.event.RenderGuiLayerEvent;
-// import net.neoforged.neoforge.client.event.RenderHighlightEvent; // removed in NeoForge 1.21.11
-import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.RenderGuiLayerEvent;
+import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.pochi.pochimod.PochiMod;
 import net.pochi.pochimod.networking.ModMessages;
 import net.pochi.pochimod.networking.packet.SoilDataClientCache;
@@ -86,7 +83,7 @@ public class SoilTooltipHandler {
     // }
 
     // 縺ｾ縺溘・ ItemTooltipEvent 繧剃ｽｿ繧上★縺ｫHUD謠冗判
-    @OnlyIn(Dist.CLIENT)
+
     @SubscribeEvent
     public static void onRenderGameOverlay(RenderGuiLayerEvent.Post event) {
         Minecraft mc = Minecraft.getInstance();

@@ -3,7 +3,6 @@ package net.pochi.pochimod.entity.custom;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -30,8 +29,6 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.PathType;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.pochi.pochimod.entity.ModEntityTypes;
 
 import javax.annotation.Nullable;
@@ -74,7 +71,7 @@ public class UralOwl extends Animal implements FlyingAnimal {
     }
 
     public static AttributeSupplier setAttributes() {
-        return Animal.createMobAttributes()
+        return Animal.createAnimalAttributes()
                 .add(Attributes.MAX_HEALTH, 20.0D)
                 .add(Attributes.ATTACK_DAMAGE, 3.0f)
                 .add(Attributes.ATTACK_SPEED, 2.0f)
@@ -176,7 +173,7 @@ public class UralOwl extends Animal implements FlyingAnimal {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
+
     private void spawnGrowthParticles() {
         if (this.currentGrowthTarget == null) {
             return;

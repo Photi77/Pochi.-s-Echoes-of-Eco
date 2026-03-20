@@ -1,6 +1,8 @@
 package net.pochi.pochimod.item;
 
 import net.minecraft.core.Holder;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.equipment.ArmorMaterial;
@@ -24,7 +26,7 @@ public class ModArmorMaterials {
                 toughness,
                 knockbackResistance,
                 ItemTags.REPAIRS_IRON_ARMOR,
-                EquipmentAssets.createId(PochiMod.MOD_ID + ":" + name)));
+                ResourceKey.create(EquipmentAssets.ROOT_ID, Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, name))));
     }
 
     public static final Holder<ArmorMaterial> LEOPA = register("leopa",
@@ -86,7 +88,7 @@ public class ModArmorMaterials {
             SoundEvents.ARMOR_EQUIP_GENERIC,
             0.0F, 0.0F,
             ItemTags.REPAIRS_IRON_ARMOR,
-            EquipmentAssets.createId(PochiMod.MOD_ID + ":mineral")));
+            ResourceKey.create(EquipmentAssets.ROOT_ID, Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "mineral"))));
 
     private static Map<ArmorType, Integer> makeDefense(int boots, int leggings, int chestplate, int helmet) {
         EnumMap<ArmorType, Integer> map = new EnumMap<>(ArmorType.class);

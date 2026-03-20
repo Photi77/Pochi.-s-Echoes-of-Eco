@@ -4,14 +4,12 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 /**
  * バイタルチェック画面
  * 水分と栄養素をカラーバーで視覚的に表示
  */
-@OnlyIn(Dist.CLIENT)
+
 public class VitalCheckScreen extends Screen {
 
     // 画面サイズ

@@ -2,7 +2,6 @@ package net.pochi.pochimod.entity.custom;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
@@ -25,8 +24,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SaplingBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.pochi.pochimod.entity.ModEntityTypes;
 
 import javax.annotation.Nullable;
@@ -493,7 +490,7 @@ public class Squirrel extends Animal {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
+
     private void spawnPlantingParticles() {
         if (this.currentPlantingPos == null) {
             return;

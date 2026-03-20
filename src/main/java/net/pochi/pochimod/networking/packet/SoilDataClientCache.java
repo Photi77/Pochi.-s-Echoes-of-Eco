@@ -1,11 +1,9 @@
 package net.pochi.pochimod.networking.packet;
 
 import net.minecraft.core.BlockPos;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 // SoilDataClientCache.java
-@OnlyIn(Dist.CLIENT)
+
 public class SoilDataClientCache {
     // 最後に受信した座標のN/P/K値を保持
     private static BlockPos cachedPos = null;

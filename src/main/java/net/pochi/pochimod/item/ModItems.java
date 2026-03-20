@@ -18,6 +18,7 @@ import net.pochi.pochimod.item.custom.weapon.*;
 import net.pochi.pochimod.mineral.MineralChunkItem;
 import net.pochi.pochimod.mineral.RiverBrushItem;
 import net.pochi.pochimod.mineral.tools.*;
+import java.util.function.Function;
 import net.pochi.pochimod.pottery.PotteryPattern;
 
 public class ModItems {
@@ -25,117 +26,106 @@ public class ModItems {
             DeferredRegister.createItems(PochiMod.MOD_ID);
 
 
-    public static final DeferredHolder<Item, Item> MINERAL_SWORD = ITEMS.register("mineral_sword",
-            () -> new MineralSwordItem(
-                    new Item.Properties()));
-    public static final DeferredHolder<Item, Item> MINERAL_PICKAXE = ITEMS.register("mineral_pickaxe",
-            () -> new MineralPickaxeItem(
-                    new Item.Properties()));
-    public static final DeferredHolder<Item, Item> MINERAL_SHOVEL = ITEMS.register("mineral_shovel",
-            () -> new MineralShovelItem(
-                    new Item.Properties()));
-    public static final DeferredHolder<Item, Item> MINERAL_AXE = ITEMS.register("mineral_axe",
-            () -> new MineralAxeItem(
-                    new Item.Properties()));
+    public static final DeferredHolder<Item, Item> MINERAL_SWORD = ITEMS.registerItem("mineral_sword",
+            MineralSwordItem::new);
+    public static final DeferredHolder<Item, Item> MINERAL_PICKAXE = ITEMS.registerItem("mineral_pickaxe",
+            MineralPickaxeItem::new);
+    public static final DeferredHolder<Item, Item> MINERAL_SHOVEL = ITEMS.registerItem("mineral_shovel",
+            MineralShovelItem::new);
+    public static final DeferredHolder<Item, Item> MINERAL_AXE = ITEMS.registerItem("mineral_axe",
+            MineralAxeItem::new);
 
-    public static final DeferredHolder<Item, Item> MINERAL_HELMET = ITEMS.register("mineral_helmet",
-            () -> new MineralArmorItem( ArmorType.HELMET, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> MINERAL_CHESTPLATE = ITEMS.register("mineral_chestplate",
-            () -> new MineralArmorItem( ArmorType.CHESTPLATE, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> MINERAL_LEGGINGS = ITEMS.register("mineral_leggings",
-            () -> new MineralArmorItem(ArmorType.LEGGINGS, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> MINERAL_BOOTS = ITEMS.register("mineral_boots",
-            () -> new MineralArmorItem( ArmorType.BOOTS, new Item.Properties()));
+    public static final DeferredHolder<Item, Item> MINERAL_HELMET = ITEMS.registerItem("mineral_helmet",
+            props -> new MineralArmorItem(ArmorType.HELMET, props));
+    public static final DeferredHolder<Item, Item> MINERAL_CHESTPLATE = ITEMS.registerItem("mineral_chestplate",
+            props -> new MineralArmorItem(ArmorType.CHESTPLATE, props));
+    public static final DeferredHolder<Item, Item> MINERAL_LEGGINGS = ITEMS.registerItem("mineral_leggings",
+            props -> new MineralArmorItem(ArmorType.LEGGINGS, props));
+    public static final DeferredHolder<Item, Item> MINERAL_BOOTS = ITEMS.registerItem("mineral_boots",
+            props -> new MineralArmorItem(ArmorType.BOOTS, props));
 
-    public static final DeferredHolder<Item, Item> MINERAL_RING = ITEMS.register("mineral_ring",
-            () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> MINERAL_RING = ITEMS.registerItem("mineral_ring",
+            Item::new);
 
     //特殊アイテム
-    public static final DeferredHolder<Item, Item> MINERAL_CHUNK = ITEMS.register(
-            "mineral_chunk",
-            () -> new MineralChunkItem(
-                    new Item.Properties()
-                            .stacksTo(64)
-            )
-    );
+    public static final DeferredHolder<Item, Item> MINERAL_CHUNK = ITEMS.registerItem("mineral_chunk",
+            MineralChunkItem::new,
+            new Item.Properties()
+                            .stacksTo(64));
 
-    public static final DeferredHolder<Item, Item> RIVER_BRUSH = ITEMS.register(
-            "river_brush",
-            () -> new RiverBrushItem(
-                    new Item.Properties()
-                            .durability(64)  // バニラブラシと同耐久
-            )
-    );
+    public static final DeferredHolder<Item, Item> RIVER_BRUSH = ITEMS.registerItem("river_brush",
+            RiverBrushItem::new,
+            new Item.Properties().durability(64)); // バニラブラシと同耐久
 
 
-    public static final DeferredHolder<Item, Item> COMPOST = ITEMS.register("compost",
-            () -> new CompostItem(
-                    new Item.Properties().stacksTo(64)));
-    public static final DeferredHolder<Item, Item> BAKED_ALUM = ITEMS.register("baked_alum",
-            () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> COMPOST = ITEMS.registerItem("compost",
+            CompostItem::new,
+            new Item.Properties().stacksTo(64));
+    public static final DeferredHolder<Item, Item> BAKED_ALUM = ITEMS.registerItem("baked_alum",
+            Item::new);
 
-    public static final DeferredHolder<Item, Item> DRAGONFLY_WINGS = ITEMS.register("dragonfly_wings",
-            () ->  new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> DRAGONFLY_WINGS = ITEMS.registerItem("dragonfly_wings",
+            Item::new);
 
-    public static final DeferredHolder<Item, Item> SALT = ITEMS.register("salt",
-            () ->  new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> SALT = ITEMS.registerItem("salt",
+            Item::new);
 
-    public static final DeferredHolder<Item, Item> HABU = ITEMS.register("habu",
-            () ->  new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> HABU = ITEMS.registerItem("habu",
+            Item::new);
 
-    public static final DeferredHolder<Item, Item> FLY_BOAT = ITEMS.register("fly_boat",
-            () -> new FlyBoatItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> FLY_BOAT = ITEMS.registerItem("fly_boat",
+            FlyBoatItem::new);
 
-    public static final DeferredHolder<Item, Item> FLY_CHEST_BOAT = ITEMS.register("fly_chest_boat",
-            () -> new FlyChestBoatItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> FLY_CHEST_BOAT = ITEMS.registerItem("fly_chest_boat",
+            FlyChestBoatItem::new);
 
     //インゴット
-    public static final DeferredHolder<Item, Item> CHROMITE_INGOT = ITEMS.register("chromite_ingot",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> ALUMINIUM_INGOT = ITEMS.register("aluminium_ingot",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> TITANIUM_INGOT = ITEMS.register("titanium_ingot",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> MAGUNESIUM_INGOT = ITEMS.register("magunesium_ingot",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> VANADIUM_INGOT = ITEMS.register("vanadium_ingot",
-            () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> CHROMITE_INGOT = ITEMS.registerItem("chromite_ingot",
+            Item::new);
+    public static final DeferredHolder<Item, Item> ALUMINIUM_INGOT = ITEMS.registerItem("aluminium_ingot",
+            Item::new);
+    public static final DeferredHolder<Item, Item> TITANIUM_INGOT = ITEMS.registerItem("titanium_ingot",
+            Item::new);
+    public static final DeferredHolder<Item, Item> MAGUNESIUM_INGOT = ITEMS.registerItem("magunesium_ingot",
+            Item::new);
+    public static final DeferredHolder<Item, Item> VANADIUM_INGOT = ITEMS.registerItem("vanadium_ingot",
+            Item::new);
 
     //インゴットfrom BFURNACE
-    public static final DeferredHolder<Item, Item> STAINLESS = ITEMS.register("stainless",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> DURALUMIN = ITEMS.register("duralumin",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> TITAN_ALLOY = ITEMS.register("titan_alloy",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> ELECTRON = ITEMS.register("electron",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> VANADIUM_ALLOY = ITEMS.register("vanadium_alloy",
-            () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> STAINLESS = ITEMS.registerItem("stainless",
+            Item::new);
+    public static final DeferredHolder<Item, Item> DURALUMIN = ITEMS.registerItem("duralumin",
+            Item::new);
+    public static final DeferredHolder<Item, Item> TITAN_ALLOY = ITEMS.registerItem("titan_alloy",
+            Item::new);
+    public static final DeferredHolder<Item, Item> ELECTRON = ITEMS.registerItem("electron",
+            Item::new);
+    public static final DeferredHolder<Item, Item> VANADIUM_ALLOY = ITEMS.registerItem("vanadium_alloy",
+            Item::new);
 
     //原石
-    public static final DeferredHolder<Item, Item> ROW_CHROMITE = ITEMS.register("row_chromite",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> ROW_FLUORITE = ITEMS.register("row_fluorite",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> ROW_ALUNITE = ITEMS.register("row_alunite",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> ROW_BAUXITE = ITEMS.register("row_bauxite",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> ROW_TITANIUM = ITEMS.register("row_titanium",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> ROW_MAGUNESIUM = ITEMS.register("row_magunesium",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> ROW_VANADIUM = ITEMS.register("row_vanadium",
-            () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> ROW_CHROMITE = ITEMS.registerItem("row_chromite",
+            Item::new);
+    public static final DeferredHolder<Item, Item> ROW_FLUORITE = ITEMS.registerItem("row_fluorite",
+            Item::new);
+    public static final DeferredHolder<Item, Item> ROW_ALUNITE = ITEMS.registerItem("row_alunite",
+            Item::new);
+    public static final DeferredHolder<Item, Item> ROW_BAUXITE = ITEMS.registerItem("row_bauxite",
+            Item::new);
+    public static final DeferredHolder<Item, Item> ROW_TITANIUM = ITEMS.registerItem("row_titanium",
+            Item::new);
+    public static final DeferredHolder<Item, Item> ROW_MAGUNESIUM = ITEMS.registerItem("row_magunesium",
+            Item::new);
+    public static final DeferredHolder<Item, Item> ROW_VANADIUM = ITEMS.registerItem("row_vanadium",
+            Item::new);
 
-    public static final DeferredHolder<Item, Item> HAMMER_HEAD = ITEMS.register("hammer_head",
-            () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> HAMMER_HEAD = ITEMS.registerItem("hammer_head",
+            Item::new);
 
 
     //ツール
-    public static final DeferredHolder<Item, Item> HAMMER_HEAD_PICKAXE = ITEMS.register("hammer_head_pickaxe",
-            () -> new HammerHeadPickaxe(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> HAMMER_HEAD_PICKAXE = ITEMS.registerItem("hammer_head_pickaxe",
+            HammerHeadPickaxe::new);
 
     //public static final DeferredHolder<Item, Item> MANTIS_SHRIMP_GRAB = ITEMS.register("mantis_shrimp_grab",
     //        () -> new HammerHeadPickaxe(3, -2.4F,
@@ -145,926 +135,913 @@ public class ModItems {
     //        () -> new HammerHeadPickaxe(3, -2.4F,
     //                new Item.Properties()));
 
-    public static final DeferredHolder<Item, Item> CHROMITE_SWORD = ITEMS.register("chromite_sword",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> CHROMITE_PICKAXE = ITEMS.register("chromite_pickaxe",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> CHROMITE_SHOVEL = ITEMS.register("chromite_shovel",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> CHROMITE_AXE = ITEMS.register("chromite_axe",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> CHROMITE_HOE = ITEMS.register("chromite_hoe",
-            () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> CHROMITE_SWORD = ITEMS.registerItem("chromite_sword",
+            Item::new);
+    public static final DeferredHolder<Item, Item> CHROMITE_PICKAXE = ITEMS.registerItem("chromite_pickaxe",
+            Item::new);
+    public static final DeferredHolder<Item, Item> CHROMITE_SHOVEL = ITEMS.registerItem("chromite_shovel",
+            Item::new);
+    public static final DeferredHolder<Item, Item> CHROMITE_AXE = ITEMS.registerItem("chromite_axe",
+            Item::new);
+    public static final DeferredHolder<Item, Item> CHROMITE_HOE = ITEMS.registerItem("chromite_hoe",
+            Item::new);
 
-    public static final DeferredHolder<Item, Item> FLUORITE_SWORD = ITEMS.register("fluorite_sword",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> FLUORITE_PICKAXE = ITEMS.register("fluorite_pickaxe",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> FLUORITE_SHOVEL = ITEMS.register("fluorite_shovel",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> FLUORITE_AXE = ITEMS.register("fluorite_axe",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> FLUORITE_HOE = ITEMS.register("fluorite_hoe",
-            () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> FLUORITE_SWORD = ITEMS.registerItem("fluorite_sword",
+            Item::new);
+    public static final DeferredHolder<Item, Item> FLUORITE_PICKAXE = ITEMS.registerItem("fluorite_pickaxe",
+            Item::new);
+    public static final DeferredHolder<Item, Item> FLUORITE_SHOVEL = ITEMS.registerItem("fluorite_shovel",
+            Item::new);
+    public static final DeferredHolder<Item, Item> FLUORITE_AXE = ITEMS.registerItem("fluorite_axe",
+            Item::new);
+    public static final DeferredHolder<Item, Item> FLUORITE_HOE = ITEMS.registerItem("fluorite_hoe",
+            Item::new);
 
-    public static final DeferredHolder<Item, Item> ALUNITE_SWORD = ITEMS.register("alunite_sword",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> ALUNITE_PICKAXE = ITEMS.register("alunite_pickaxe",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> ALUNITE_SHOVEL = ITEMS.register("alunite_shovel",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> ALUNITE_AXE = ITEMS.register("alunite_axe",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> ALUNITE_HOE = ITEMS.register("alunite_hoe",
-            () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> ALUNITE_SWORD = ITEMS.registerItem("alunite_sword",
+            Item::new);
+    public static final DeferredHolder<Item, Item> ALUNITE_PICKAXE = ITEMS.registerItem("alunite_pickaxe",
+            Item::new);
+    public static final DeferredHolder<Item, Item> ALUNITE_SHOVEL = ITEMS.registerItem("alunite_shovel",
+            Item::new);
+    public static final DeferredHolder<Item, Item> ALUNITE_AXE = ITEMS.registerItem("alunite_axe",
+            Item::new);
+    public static final DeferredHolder<Item, Item> ALUNITE_HOE = ITEMS.registerItem("alunite_hoe",
+            Item::new);
 
-    public static final DeferredHolder<Item, Item> STAINLESS_SWORD = ITEMS.register("stainless_sword",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> STAINLESS_PICKAXE = ITEMS.register("stainless_pickaxe",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> STAINLESS_SHOVEL = ITEMS.register("stainless_shovel",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> STAINLESS_AXE = ITEMS.register("stainless_axe",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> STAINLESS_HOE = ITEMS.register("stainless_hoe",
-            () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> STAINLESS_SWORD = ITEMS.registerItem("stainless_sword",
+            Item::new);
+    public static final DeferredHolder<Item, Item> STAINLESS_PICKAXE = ITEMS.registerItem("stainless_pickaxe",
+            Item::new);
+    public static final DeferredHolder<Item, Item> STAINLESS_SHOVEL = ITEMS.registerItem("stainless_shovel",
+            Item::new);
+    public static final DeferredHolder<Item, Item> STAINLESS_AXE = ITEMS.registerItem("stainless_axe",
+            Item::new);
+    public static final DeferredHolder<Item, Item> STAINLESS_HOE = ITEMS.registerItem("stainless_hoe",
+            Item::new);
 
-    public static final DeferredHolder<Item, Item> ALUMINIUM_SWORD = ITEMS.register("aluminium_sword",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> ALUMINIUM_PICKAXE = ITEMS.register("aluminium_pickaxe",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> ALUMINIUM_SHOVEL = ITEMS.register("aluminium_shovel",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> ALUMINIUM_AXE = ITEMS.register("aluminium_axe",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> ALUMINIUM_HOE = ITEMS.register("aluminium_hoe",
-            () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> ALUMINIUM_SWORD = ITEMS.registerItem("aluminium_sword",
+            Item::new);
+    public static final DeferredHolder<Item, Item> ALUMINIUM_PICKAXE = ITEMS.registerItem("aluminium_pickaxe",
+            Item::new);
+    public static final DeferredHolder<Item, Item> ALUMINIUM_SHOVEL = ITEMS.registerItem("aluminium_shovel",
+            Item::new);
+    public static final DeferredHolder<Item, Item> ALUMINIUM_AXE = ITEMS.registerItem("aluminium_axe",
+            Item::new);
+    public static final DeferredHolder<Item, Item> ALUMINIUM_HOE = ITEMS.registerItem("aluminium_hoe",
+            Item::new);
 
-    public static final DeferredHolder<Item, Item> TITANIUM_SWORD = ITEMS.register("titanium_sword",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> TITANIUM_PICKAXE = ITEMS.register("titanium_pickaxe",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> TITANIUM_SHOVEL = ITEMS.register("titanium_shovel",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> TITANIUM_AXE = ITEMS.register("titanium_axe",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> TITANIUM_HOE = ITEMS.register("titanium_hoe",
-            () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> TITANIUM_SWORD = ITEMS.registerItem("titanium_sword",
+            Item::new);
+    public static final DeferredHolder<Item, Item> TITANIUM_PICKAXE = ITEMS.registerItem("titanium_pickaxe",
+            Item::new);
+    public static final DeferredHolder<Item, Item> TITANIUM_SHOVEL = ITEMS.registerItem("titanium_shovel",
+            Item::new);
+    public static final DeferredHolder<Item, Item> TITANIUM_AXE = ITEMS.registerItem("titanium_axe",
+            Item::new);
+    public static final DeferredHolder<Item, Item> TITANIUM_HOE = ITEMS.registerItem("titanium_hoe",
+            Item::new);
 
-    public static final DeferredHolder<Item, Item> MAGUNESIUM_SWORD = ITEMS.register("magunesium_sword",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> MAGUNESIUM_PICKAXE = ITEMS.register("magunesium_pickaxe",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> MAGUNESIUM_SHOVEL = ITEMS.register("magunesium_shovel",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> MAGUNESIUM_AXE = ITEMS.register("magunesium_axe",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> MAGUNESIUM_HOE = ITEMS.register("magunesium_hoe",
-            () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> MAGUNESIUM_SWORD = ITEMS.registerItem("magunesium_sword",
+            Item::new);
+    public static final DeferredHolder<Item, Item> MAGUNESIUM_PICKAXE = ITEMS.registerItem("magunesium_pickaxe",
+            Item::new);
+    public static final DeferredHolder<Item, Item> MAGUNESIUM_SHOVEL = ITEMS.registerItem("magunesium_shovel",
+            Item::new);
+    public static final DeferredHolder<Item, Item> MAGUNESIUM_AXE = ITEMS.registerItem("magunesium_axe",
+            Item::new);
+    public static final DeferredHolder<Item, Item> MAGUNESIUM_HOE = ITEMS.registerItem("magunesium_hoe",
+            Item::new);
 
-    public static final DeferredHolder<Item, Item> VANADIUM_SWORD = ITEMS.register("vanadium_sword",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> VANADIUM_PICKAXE = ITEMS.register("vanadium_pickaxe",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> VANADIUM_SHOVEL = ITEMS.register("vanadium_shovel",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> VANADIUM_AXE = ITEMS.register("vanadium_axe",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> VANADIUM_HOE = ITEMS.register("vanadium_hoe",
-            () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> VANADIUM_SWORD = ITEMS.registerItem("vanadium_sword",
+            Item::new);
+    public static final DeferredHolder<Item, Item> VANADIUM_PICKAXE = ITEMS.registerItem("vanadium_pickaxe",
+            Item::new);
+    public static final DeferredHolder<Item, Item> VANADIUM_SHOVEL = ITEMS.registerItem("vanadium_shovel",
+            Item::new);
+    public static final DeferredHolder<Item, Item> VANADIUM_AXE = ITEMS.registerItem("vanadium_axe",
+            Item::new);
+    public static final DeferredHolder<Item, Item> VANADIUM_HOE = ITEMS.registerItem("vanadium_hoe",
+            Item::new);
 
-    public static final DeferredHolder<Item, Item> DURALUMIN_SWORD = ITEMS.register("duralumin_sword",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> DURALUMIN_PICKAXE = ITEMS.register("duralumin_pickaxe",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> DURALUMIN_SHOVEL = ITEMS.register("duralumin_shovel",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> DURALUMIN_AXE = ITEMS.register("duralumin_axe",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> DURALUMIN_HOE = ITEMS.register("duralumin_hoe",
-            () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> DURALUMIN_SWORD = ITEMS.registerItem("duralumin_sword",
+            Item::new);
+    public static final DeferredHolder<Item, Item> DURALUMIN_PICKAXE = ITEMS.registerItem("duralumin_pickaxe",
+            Item::new);
+    public static final DeferredHolder<Item, Item> DURALUMIN_SHOVEL = ITEMS.registerItem("duralumin_shovel",
+            Item::new);
+    public static final DeferredHolder<Item, Item> DURALUMIN_AXE = ITEMS.registerItem("duralumin_axe",
+            Item::new);
+    public static final DeferredHolder<Item, Item> DURALUMIN_HOE = ITEMS.registerItem("duralumin_hoe",
+            Item::new);
 
-    public static final DeferredHolder<Item, Item> TITAN_ALLOY_SWORD = ITEMS.register("titan_alloy_sword",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> TITAN_ALLOY_PICKAXE = ITEMS.register("titan_alloy_pickaxe",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> TITAN_ALLOY_SHOVEL = ITEMS.register("titan_alloy_shovel",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> TITAN_ALLOY_AXE = ITEMS.register("titan_alloy_axe",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> TITAN_ALLOY_HOE = ITEMS.register("titan_alloy_hoe",
-            () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> TITAN_ALLOY_SWORD = ITEMS.registerItem("titan_alloy_sword",
+            Item::new);
+    public static final DeferredHolder<Item, Item> TITAN_ALLOY_PICKAXE = ITEMS.registerItem("titan_alloy_pickaxe",
+            Item::new);
+    public static final DeferredHolder<Item, Item> TITAN_ALLOY_SHOVEL = ITEMS.registerItem("titan_alloy_shovel",
+            Item::new);
+    public static final DeferredHolder<Item, Item> TITAN_ALLOY_AXE = ITEMS.registerItem("titan_alloy_axe",
+            Item::new);
+    public static final DeferredHolder<Item, Item> TITAN_ALLOY_HOE = ITEMS.registerItem("titan_alloy_hoe",
+            Item::new);
 
-    public static final DeferredHolder<Item, Item> ELECTRON_SWORD = ITEMS.register("electron_sword",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> ELECTRON_PICKAXE = ITEMS.register("electron_pickaxe",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> ELECTRON_SHOVEL = ITEMS.register("electron_shovel",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> ELECTRON_AXE = ITEMS.register("electron_axe",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> ELECTRON_HOE = ITEMS.register("electron_hoe",
-            () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> ELECTRON_SWORD = ITEMS.registerItem("electron_sword",
+            Item::new);
+    public static final DeferredHolder<Item, Item> ELECTRON_PICKAXE = ITEMS.registerItem("electron_pickaxe",
+            Item::new);
+    public static final DeferredHolder<Item, Item> ELECTRON_SHOVEL = ITEMS.registerItem("electron_shovel",
+            Item::new);
+    public static final DeferredHolder<Item, Item> ELECTRON_AXE = ITEMS.registerItem("electron_axe",
+            Item::new);
+    public static final DeferredHolder<Item, Item> ELECTRON_HOE = ITEMS.registerItem("electron_hoe",
+            Item::new);
 
-    public static final DeferredHolder<Item, Item> VANADIUM_ALLOY_SWORD = ITEMS.register("vanadium_alloy_sword",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> VANADIUM_ALLOY_PICKAXE = ITEMS.register("vanadium_alloy_pickaxe",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> VANADIUM_ALLOY_SHOVEL = ITEMS.register("vanadium_alloy_shovel",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> VANADIUM_ALLOY_AXE = ITEMS.register("vanadium_alloy_axe",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> VANADIUM_ALLOY_HOE = ITEMS.register("vanadium_alloy_hoe",
-            () -> new Item(new Item.Properties().stacksTo(1)
-                            .rarity(Rarity.RARE)));
+    public static final DeferredHolder<Item, Item> VANADIUM_ALLOY_SWORD = ITEMS.registerItem("vanadium_alloy_sword",
+            Item::new);
+    public static final DeferredHolder<Item, Item> VANADIUM_ALLOY_PICKAXE = ITEMS.registerItem("vanadium_alloy_pickaxe",
+            Item::new);
+    public static final DeferredHolder<Item, Item> VANADIUM_ALLOY_SHOVEL = ITEMS.registerItem("vanadium_alloy_shovel",
+            Item::new);
+    public static final DeferredHolder<Item, Item> VANADIUM_ALLOY_AXE = ITEMS.registerItem("vanadium_alloy_axe",
+            Item::new);
+    public static final DeferredHolder<Item, Item> VANADIUM_ALLOY_HOE = ITEMS.registerItem("vanadium_alloy_hoe",
+            Item::new,
+            new Item.Properties().stacksTo(1)
+                            .rarity(Rarity.RARE));
 
     //呪文系
-   public static final DeferredHolder<Item, Item> CROCODILE_JAW_CHAIN = ITEMS.register("crocodile_jaw_chain",
-            () -> new CrocodileJawChainItem(new Item.Properties()
+   public static final DeferredHolder<Item, Item> CROCODILE_JAW_CHAIN = ITEMS.registerItem("crocodile_jaw_chain",
+            CrocodileJawChainItem::new,
+            new Item.Properties()
                             .stacksTo(1)
-                            .rarity(Rarity.RARE)
-            )
-    );
+                            .rarity(Rarity.RARE));
 
-    public static final DeferredHolder<Item, Item> LUNAR_CLAW_BLADE = ITEMS.register("lunar_claw_blade",
-            () -> new LunarClawBladeItem(new Item.Properties()
+    public static final DeferredHolder<Item, Item> LUNAR_CLAW_BLADE = ITEMS.registerItem("lunar_claw_blade",
+            LunarClawBladeItem::new,
+            new Item.Properties()
                             .stacksTo(1)
-                            .rarity(Rarity.RARE)
-            )
-    );
+                            .rarity(Rarity.RARE));
 
-    public static final DeferredHolder<Item, Item> FLOWER_MANTIS_STAFF = ITEMS.register("flower_staff",
-            () -> new FlowerMantisStaffItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> FLOWER_MANTIS_STAFF = ITEMS.registerItem("flower_staff",
+            FlowerMantisStaffItem::new);
 
-    public static final DeferredHolder<Item, Item> CLIONE_STAFF = ITEMS.register("clione_staff",
-            () -> new ClioneStaffItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> CLIONE_STAFF = ITEMS.registerItem("clione_staff",
+            ClioneStaffItem::new);
 
-    public static final DeferredHolder<Item, Item> SHIELD_CAST = ITEMS.register("shield_cast",
-            () -> new ShieldCast(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> SHIELD_CAST = ITEMS.registerItem("shield_cast",
+            ShieldCast::new);
 
-    public static final DeferredHolder<Item, Item> REVERSAL = ITEMS.register("reversal",
-            () -> new Reversal(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> REVERSAL = ITEMS.registerItem("reversal",
+            Reversal::new);
 
-    public static final DeferredHolder<Item, Item> GOLEM_SUMMON = ITEMS.register("golem_summon",
-            () -> new GolemSummon(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> GOLEM_SUMMON = ITEMS.registerItem("golem_summon",
+            GolemSummon::new);
 
-    public static final DeferredHolder<Item, Item> ENDER_SPELL = ITEMS.register("ender_spell",
-            () -> new EnderManItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> ENDER_SPELL = ITEMS.registerItem("ender_spell",
+            EnderManItem::new);
 
-    public static final DeferredHolder<Item, Item> SOUL_SPELL = ITEMS.register("soul_spell",
-            () -> new SoulSandItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> SOUL_SPELL = ITEMS.registerItem("soul_spell",
+            SoulSandItem::new);
 
-    public static final DeferredHolder<Item, Item> HOOK_SHOT = ITEMS.register("hook_shot",
-            () -> new HookShot(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> HOOK_SHOT = ITEMS.registerItem("hook_shot",
+            HookShot::new);
 
-    public static final DeferredHolder<Item, Item> GRAPPLING = ITEMS.register("grappling",
-            () -> new Grappling(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> GRAPPLING = ITEMS.registerItem("grappling",
+            Grappling::new);
 
-    public static final DeferredHolder<Item, Item> TONBOKIRI = ITEMS.register("tonbokiri",
-            () -> new Tonbokiri(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> TONBOKIRI = ITEMS.registerItem("tonbokiri",
+            Tonbokiri::new);
 
-    public static final DeferredHolder<Item, Item> MANTIS_GRAB = ITEMS.register("mantis_grab",
-            () -> new MantisGrab(new Item.Properties().durability(125)));
+    public static final DeferredHolder<Item, Item> MANTIS_GRAB = ITEMS.registerItem("mantis_grab",
+            MantisGrab::new,
+            new Item.Properties().durability(125));
 
-    public static final DeferredHolder<Item, Item> PICKAXE_ROD = ITEMS.register("pickaxe_rod",
-            () -> new PickaxeRod(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> PICKAXE_ROD = ITEMS.registerItem("pickaxe_rod",
+            PickaxeRod::new);
 
-    public static final DeferredHolder<Item, Item> PICKAXE_STICK = ITEMS.register("pickaxe_stick",
-            () -> new PickaxeShoot(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> PICKAXE_STICK = ITEMS.registerItem("pickaxe_stick",
+            PickaxeShoot::new);
 
-    public static final DeferredHolder<Item, Item> WOODEN_NET = ITEMS.register("wooden_net",
-            () -> new CaptureNet(new Item.Properties().durability(10)));
+    public static final DeferredHolder<Item, Item> WOODEN_NET = ITEMS.registerItem("wooden_net",
+            CaptureNet::new,
+            new Item.Properties().durability(10));
 
-    public static final DeferredHolder<Item, Item> IRON_NET = ITEMS.register("iron_net",
-            () -> new CaptureNet(new Item.Properties().durability(20)));
+    public static final DeferredHolder<Item, Item> IRON_NET = ITEMS.registerItem("iron_net",
+            CaptureNet::new,
+            new Item.Properties().durability(20));
 
-    public static final DeferredHolder<Item, Item> DIAMOND_NET = ITEMS.register("diamond_net",
-            () -> new CaptureNet(new Item.Properties().durability(30)));
+    public static final DeferredHolder<Item, Item> DIAMOND_NET = ITEMS.registerItem("diamond_net",
+            CaptureNet::new,
+            new Item.Properties().durability(30));
 
     //防具
-    public static final DeferredHolder<Item, Item> CHROMITE_HELMET = ITEMS.register("chromite_helmet",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> CHROMITE_CHESTPLATE = ITEMS.register("chromite_chestplate",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> CHROMITE_LEGGINGS = ITEMS.register("chromite_leggings",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> CHROMITE_BOOTS = ITEMS.register("chromite_boots",
-            () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> CHROMITE_HELMET = ITEMS.registerItem("chromite_helmet",
+            Item::new);
+    public static final DeferredHolder<Item, Item> CHROMITE_CHESTPLATE = ITEMS.registerItem("chromite_chestplate",
+            Item::new);
+    public static final DeferredHolder<Item, Item> CHROMITE_LEGGINGS = ITEMS.registerItem("chromite_leggings",
+            Item::new);
+    public static final DeferredHolder<Item, Item> CHROMITE_BOOTS = ITEMS.registerItem("chromite_boots",
+            Item::new);
 
-    public static final DeferredHolder<Item, Item> FLUORITE_HELMET = ITEMS.register("fluorite_helmet",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> FLUORITE_CHESTPLATE = ITEMS.register("fluorite_chestplate",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> FLUORITE_LEGGINGS = ITEMS.register("fluorite_leggings",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> FLUORITE_BOOTS = ITEMS.register("fluorite_boots",
-            () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> FLUORITE_HELMET = ITEMS.registerItem("fluorite_helmet",
+            Item::new);
+    public static final DeferredHolder<Item, Item> FLUORITE_CHESTPLATE = ITEMS.registerItem("fluorite_chestplate",
+            Item::new);
+    public static final DeferredHolder<Item, Item> FLUORITE_LEGGINGS = ITEMS.registerItem("fluorite_leggings",
+            Item::new);
+    public static final DeferredHolder<Item, Item> FLUORITE_BOOTS = ITEMS.registerItem("fluorite_boots",
+            Item::new);
 
-    public static final DeferredHolder<Item, Item> STAINLESS_HELMET = ITEMS.register("stainless_helmet",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> STAINLESS_CHESTPLATE = ITEMS.register("stainless_chestplate",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> STAINLESS_LEGGINGS = ITEMS.register("stainless_leggings",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> STAINLESS_BOOTS = ITEMS.register("stainless_boots",
-            () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> STAINLESS_HELMET = ITEMS.registerItem("stainless_helmet",
+            Item::new);
+    public static final DeferredHolder<Item, Item> STAINLESS_CHESTPLATE = ITEMS.registerItem("stainless_chestplate",
+            Item::new);
+    public static final DeferredHolder<Item, Item> STAINLESS_LEGGINGS = ITEMS.registerItem("stainless_leggings",
+            Item::new);
+    public static final DeferredHolder<Item, Item> STAINLESS_BOOTS = ITEMS.registerItem("stainless_boots",
+            Item::new);
 
-    public static final DeferredHolder<Item, Item> ALUMINIUM_HELMET = ITEMS.register("aluminium_helmet",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> ALUMINIUM_CHESTPLATE = ITEMS.register("aluminium_chestplate",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> ALUMINIUM_LEGGINGS = ITEMS.register("aluminium_leggings",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> ALUMINIUM_BOOTS = ITEMS.register("aluminium_boots",
-            () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> ALUMINIUM_HELMET = ITEMS.registerItem("aluminium_helmet",
+            Item::new);
+    public static final DeferredHolder<Item, Item> ALUMINIUM_CHESTPLATE = ITEMS.registerItem("aluminium_chestplate",
+            Item::new);
+    public static final DeferredHolder<Item, Item> ALUMINIUM_LEGGINGS = ITEMS.registerItem("aluminium_leggings",
+            Item::new);
+    public static final DeferredHolder<Item, Item> ALUMINIUM_BOOTS = ITEMS.registerItem("aluminium_boots",
+            Item::new);
 
-    public static final DeferredHolder<Item, Item> TITANIUM_HELMET = ITEMS.register("titanium_helmet",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> TITANIUM_CHESTPLATE = ITEMS.register("titanium_chestplate",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> TITANIUM_LEGGINGS = ITEMS.register("titanium_leggings",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> TITANIUM_BOOTS = ITEMS.register("titanium_boots",
-            () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> TITANIUM_HELMET = ITEMS.registerItem("titanium_helmet",
+            Item::new);
+    public static final DeferredHolder<Item, Item> TITANIUM_CHESTPLATE = ITEMS.registerItem("titanium_chestplate",
+            Item::new);
+    public static final DeferredHolder<Item, Item> TITANIUM_LEGGINGS = ITEMS.registerItem("titanium_leggings",
+            Item::new);
+    public static final DeferredHolder<Item, Item> TITANIUM_BOOTS = ITEMS.registerItem("titanium_boots",
+            Item::new);
 
-    public static final DeferredHolder<Item, Item> MAGUNESIUM_HELMET = ITEMS.register("magunesium_helmet",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> MAGUNESIUM_CHESTPLATE = ITEMS.register("magunesium_chestplate",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> MAGUNESIUM_LEGGINGS = ITEMS.register("magunesium_leggings",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> MAGUNESIUM_BOOTS = ITEMS.register("magunesium_boots",
-            () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> MAGUNESIUM_HELMET = ITEMS.registerItem("magunesium_helmet",
+            Item::new);
+    public static final DeferredHolder<Item, Item> MAGUNESIUM_CHESTPLATE = ITEMS.registerItem("magunesium_chestplate",
+            Item::new);
+    public static final DeferredHolder<Item, Item> MAGUNESIUM_LEGGINGS = ITEMS.registerItem("magunesium_leggings",
+            Item::new);
+    public static final DeferredHolder<Item, Item> MAGUNESIUM_BOOTS = ITEMS.registerItem("magunesium_boots",
+            Item::new);
 
-    public static final DeferredHolder<Item, Item> VANADIUM_HELMET = ITEMS.register("vanadium_helmet",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> VANADIUM_CHESTPLATE = ITEMS.register("vanadium_chestplate",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> VANADIUM_LEGGINGS = ITEMS.register("vanadium_leggings",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> VANADIUM_BOOTS = ITEMS.register("vanadium_boots",
-            () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> VANADIUM_HELMET = ITEMS.registerItem("vanadium_helmet",
+            Item::new);
+    public static final DeferredHolder<Item, Item> VANADIUM_CHESTPLATE = ITEMS.registerItem("vanadium_chestplate",
+            Item::new);
+    public static final DeferredHolder<Item, Item> VANADIUM_LEGGINGS = ITEMS.registerItem("vanadium_leggings",
+            Item::new);
+    public static final DeferredHolder<Item, Item> VANADIUM_BOOTS = ITEMS.registerItem("vanadium_boots",
+            Item::new);
 
-    public static final DeferredHolder<Item, Item> DURALUMIN_HELMET = ITEMS.register("duralumin_helmet",
-            () -> new DuraluminArmorItem(ModArmorMaterials.DURALUMIN, ArmorType.HELMET, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> DURALUMIN_CHESTPLATE = ITEMS.register("duralumin_chestplate",
-            () -> new DuraluminArmorItem(ModArmorMaterials.DURALUMIN, ArmorType.CHESTPLATE, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> DURALUMIN_LEGGINGS = ITEMS.register("duralumin_leggings",
-            () -> new DuraluminArmorItem(ModArmorMaterials.DURALUMIN, ArmorType.LEGGINGS, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> DURALUMIN_BOOTS = ITEMS.register("duralumin_boots",
-            () -> new DuraluminArmorItem(ModArmorMaterials.DURALUMIN, ArmorType.BOOTS, new Item.Properties()));
+    public static final DeferredHolder<Item, Item> DURALUMIN_HELMET = ITEMS.registerItem("duralumin_helmet",
+            props -> new DuraluminArmorItem(ModArmorMaterials.DURALUMIN, ArmorType.HELMET, props));
+    public static final DeferredHolder<Item, Item> DURALUMIN_CHESTPLATE = ITEMS.registerItem("duralumin_chestplate",
+            props -> new DuraluminArmorItem(ModArmorMaterials.DURALUMIN, ArmorType.CHESTPLATE, props));
+    public static final DeferredHolder<Item, Item> DURALUMIN_LEGGINGS = ITEMS.registerItem("duralumin_leggings",
+            props -> new DuraluminArmorItem(ModArmorMaterials.DURALUMIN, ArmorType.LEGGINGS, props));
+    public static final DeferredHolder<Item, Item> DURALUMIN_BOOTS = ITEMS.registerItem("duralumin_boots",
+            props -> new DuraluminArmorItem(ModArmorMaterials.DURALUMIN, ArmorType.BOOTS, props));
 
-    public static final DeferredHolder<Item, Item> TITAN_ALLOY_HELMET = ITEMS.register("titan_alloy_helmet",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> TITAN_ALLOY_CHESTPLATE = ITEMS.register("titan_alloy_chestplate",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> TITAN_ALLOY_LEGGINGS = ITEMS.register("titan_alloy_leggings",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> TITAN_ALLOY_BOOTS = ITEMS.register("titan_alloy_boots",
-            () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> TITAN_ALLOY_HELMET = ITEMS.registerItem("titan_alloy_helmet",
+            Item::new);
+    public static final DeferredHolder<Item, Item> TITAN_ALLOY_CHESTPLATE = ITEMS.registerItem("titan_alloy_chestplate",
+            Item::new);
+    public static final DeferredHolder<Item, Item> TITAN_ALLOY_LEGGINGS = ITEMS.registerItem("titan_alloy_leggings",
+            Item::new);
+    public static final DeferredHolder<Item, Item> TITAN_ALLOY_BOOTS = ITEMS.registerItem("titan_alloy_boots",
+            Item::new);
 
-    public static final DeferredHolder<Item, Item> ELECTRON_HELMET = ITEMS.register("electron_helmet",
-            () -> new ElectronArmorItem(ModArmorMaterials.ELECTRON, ArmorType.HELMET, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> ELECTRON_CHESTPLATE = ITEMS.register("electron_chestplate",
-            () -> new ElectronArmorItem(ModArmorMaterials.ELECTRON, ArmorType.CHESTPLATE, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> ELECTRON_LEGGINGS = ITEMS.register("electron_leggings",
-            () -> new ElectronArmorItem(ModArmorMaterials.ELECTRON, ArmorType.LEGGINGS, new Item.Properties()));
-    public static final DeferredHolder<Item, Item> ELECTRON_BOOTS = ITEMS.register("electron_boots",
-            () -> new ElectronArmorItem(ModArmorMaterials.ELECTRON, ArmorType.BOOTS, new Item.Properties()));
+    public static final DeferredHolder<Item, Item> ELECTRON_HELMET = ITEMS.registerItem("electron_helmet",
+            props -> new ElectronArmorItem(ModArmorMaterials.ELECTRON, ArmorType.HELMET, props));
+    public static final DeferredHolder<Item, Item> ELECTRON_CHESTPLATE = ITEMS.registerItem("electron_chestplate",
+            props -> new ElectronArmorItem(ModArmorMaterials.ELECTRON, ArmorType.CHESTPLATE, props));
+    public static final DeferredHolder<Item, Item> ELECTRON_LEGGINGS = ITEMS.registerItem("electron_leggings",
+            props -> new ElectronArmorItem(ModArmorMaterials.ELECTRON, ArmorType.LEGGINGS, props));
+    public static final DeferredHolder<Item, Item> ELECTRON_BOOTS = ITEMS.registerItem("electron_boots",
+            props -> new ElectronArmorItem(ModArmorMaterials.ELECTRON, ArmorType.BOOTS, props));
 
-    public static final DeferredHolder<Item, Item> VANADIUM_ALLOY_HELMET = ITEMS.register("vanadium_alloy_helmet",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> VANADIUM_ALLOY_CHESTPLATE = ITEMS.register("vanadium_alloy_chestplate",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> VANADIUM_ALLOY_LEGGINGS = ITEMS.register("vanadium_alloy_leggings",
-            () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> VANADIUM_ALLOY_BOOTS = ITEMS.register("vanadium_alloy_boots",
-            () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> VANADIUM_ALLOY_HELMET = ITEMS.registerItem("vanadium_alloy_helmet",
+            Item::new);
+    public static final DeferredHolder<Item, Item> VANADIUM_ALLOY_CHESTPLATE = ITEMS.registerItem("vanadium_alloy_chestplate",
+            Item::new);
+    public static final DeferredHolder<Item, Item> VANADIUM_ALLOY_LEGGINGS = ITEMS.registerItem("vanadium_alloy_leggings",
+            Item::new);
+    public static final DeferredHolder<Item, Item> VANADIUM_ALLOY_BOOTS = ITEMS.registerItem("vanadium_alloy_boots",
+            Item::new);
 
-    public static final DeferredHolder<Item, Item> PERISO_HELMET = ITEMS.register("periso_helmet",
-            () -> new PerissoArmor(ModArmorMaterials.PERISO, ArmorType.HELMET, new Item.Properties()));
+    public static final DeferredHolder<Item, Item> PERISO_HELMET = ITEMS.registerItem("periso_helmet",
+            props -> new PerissoArmor(ModArmorMaterials.PERISO, ArmorType.HELMET, props));
 
-    public static final DeferredHolder<Item, Item> ROCK_PENGUIN_BOOTS = ITEMS.register("rock_penguin_boots",
-            () -> new RockPenguinArmor(ModArmorMaterials.ROCK_PENGUIN, ArmorType.BOOTS, new Item.Properties()));
+    public static final DeferredHolder<Item, Item> ROCK_PENGUIN_BOOTS = ITEMS.registerItem("rock_penguin_boots",
+            props -> new RockPenguinArmor(ModArmorMaterials.ROCK_PENGUIN, ArmorType.BOOTS, props));
 
-    public static final DeferredHolder<Item, Item> EMU_BOOTS = ITEMS.register("emu_boots",
-            () -> new EmuArmorItem(ModArmorMaterials.EMU, ArmorType.BOOTS, new Item.Properties()));
+    public static final DeferredHolder<Item, Item> EMU_BOOTS = ITEMS.registerItem("emu_boots",
+            props -> new EmuArmorItem(ModArmorMaterials.EMU, ArmorType.BOOTS, props));
 
-    public static final DeferredHolder<Item, Item> CASSOWARY_BOOTS = ITEMS.register("cassowary_boots",
-            () -> new CassowaryArmorItem(ModArmorMaterials.CASSOWARY, ArmorType.BOOTS, new Item.Properties()));
+    public static final DeferredHolder<Item, Item> CASSOWARY_BOOTS = ITEMS.registerItem("cassowary_boots",
+            props -> new CassowaryArmorItem(ModArmorMaterials.CASSOWARY, ArmorType.BOOTS, props));
 
-    public static final DeferredHolder<Item, Item> ANCIENT_LIZARD_HELMET = ITEMS.register("ancient_lizard_boots",
-            () -> new AncientLizardArmor(ModArmorMaterials.ANCIENT, ArmorType.HELMET, new Item.Properties()));
+    public static final DeferredHolder<Item, Item> ANCIENT_LIZARD_HELMET = ITEMS.registerItem("ancient_lizard_boots",
+            props -> new AncientLizardArmor(ModArmorMaterials.ANCIENT, ArmorType.HELMET, props));
 
-    public static final DeferredHolder<Item, Item> LEOPARD_GECKO_TAIL_BELT = ITEMS.register("leopard_gecko_tail_belt",
-            () -> new LeopardGeckoArmor(
-                    ModArmorMaterials.LEOPA,
-                    ArmorType.LEGGINGS,
-                    new Item.Properties()));
+    public static final DeferredHolder<Item, Item> LEOPARD_GECKO_TAIL_BELT = ITEMS.registerItem("leopard_gecko_tail_belt",
+            props -> new LeopardGeckoArmor(ModArmorMaterials.LEOPA,
+                    ArmorType.LEGGINGS, props));
 
     //public static final DeferredHolder<Item, Item> PANGOLIN_CHESTPLATE = ITEMS.register("pangolin_chestplate",
     //        () -> new PangolinArmor(ModArmorMaterials.ROCK_PENGUIN, ArmorType.BOOTS, new Item.Properties()));
 
 
     //食べ物
-    public static final DeferredHolder<Item, Item> CAVIAR = ITEMS.register("caviar",
+    public static final DeferredHolder<Item, Item> CAVIAR = ITEMS.registerItem("caviar",
             CustomFoodItems.CaviarItem::new);
 
 
-    public static final DeferredHolder<Item, Item> CABBAGE_LEAF = ITEMS.register("cabbage",
+    public static final DeferredHolder<Item, Item> CABBAGE_LEAF = ITEMS.registerItem("cabbage",
             CustomFoodItems.CabbageItem::new);
 
-    public static final DeferredHolder<Item, Item> ASPARAGUS = ITEMS.register("asparagus",
+    public static final DeferredHolder<Item, Item> ASPARAGUS = ITEMS.registerItem("asparagus",
             CustomFoodItems.AsparagusItem::new);
 
-    public static final DeferredHolder<Item, Item> GRAPE = ITEMS.register("grape",
+    public static final DeferredHolder<Item, Item> GRAPE = ITEMS.registerItem("grape",
             CustomFoodItems.GrapeItem::new);
 
-    public static final DeferredHolder<Item, Item> LEMON = ITEMS.register("lemon",
+    public static final DeferredHolder<Item, Item> LEMON = ITEMS.registerItem("lemon",
             CustomFoodItems.LemonItem::new);
 
-    public static final DeferredHolder<Item, Item> CINNAMON = ITEMS.register("cinnamon",
+    public static final DeferredHolder<Item, Item> CINNAMON = ITEMS.registerItem("cinnamon",
             CustomFoodItems.CinnamonItem::new);
 
-    public static final DeferredHolder<Item, Item> ROW_RICE = ITEMS.register("row_rice",
+    public static final DeferredHolder<Item, Item> ROW_RICE = ITEMS.registerItem("row_rice",
             CustomFoodItems.RiceItem::new);
 
-    public static final DeferredHolder<Item, Item> RICE = ITEMS.register("rice",
+    public static final DeferredHolder<Item, Item> RICE = ITEMS.registerItem("rice",
             CustomFoodItems.RiceItem::new);
 
-    public static final DeferredHolder<Item, Item> MINT = ITEMS.register("mint",
+    public static final DeferredHolder<Item, Item> MINT = ITEMS.registerItem("mint",
             CustomFoodItems.RiceItem::new);
 
-    public static final DeferredHolder<Item, Item> COLA = ITEMS.register("cola",
-            () -> new BlockItem(ModBlocks.COLA_FRUIT.get(),new Item.Properties().food(ModFoods.VEGETABLE1)));
+    public static final DeferredHolder<Item, Item> COLA = ITEMS.registerItem("cola",
+            props -> new BlockItem(ModBlocks.COLA_FRUIT.get(), props),
+            new Item.Properties().food(ModFoods.VEGETABLE1));
 
-    public static final DeferredHolder<Item, Item> TOMATO = ITEMS.register("tomato",
+    public static final DeferredHolder<Item, Item> TOMATO = ITEMS.registerItem("tomato",
             CustomFoodItems.TomatoItem::new);
 
-    public static final DeferredHolder<Item, Item> CORN = ITEMS.register("corn",
+    public static final DeferredHolder<Item, Item> CORN = ITEMS.registerItem("corn",
             CustomFoodItems.CornItem::new);
 
-    public static final DeferredHolder<Item, Item> ONION = ITEMS.register("onion",
+    public static final DeferredHolder<Item, Item> ONION = ITEMS.registerItem("onion",
             CustomFoodItems.OnionItem::new);
 
-    public static final DeferredHolder<Item, Item> GINGER = ITEMS.register("ginger",
+    public static final DeferredHolder<Item, Item> GINGER = ITEMS.registerItem("ginger",
             CustomFoodItems.GingerItem::new);
 
-    public static final DeferredHolder<Item, Item> GREEN_PEPPER = ITEMS.register("green_pepper",
+    public static final DeferredHolder<Item, Item> GREEN_PEPPER = ITEMS.registerItem("green_pepper",
             CustomFoodItems.GreenPepperItem::new);
 
-    public static final DeferredHolder<Item, Item> PAPRIKA = ITEMS.register("paprika",
+    public static final DeferredHolder<Item, Item> PAPRIKA = ITEMS.registerItem("paprika",
             CustomFoodItems.PaprikaItem::new);
 
-    public static final DeferredHolder<Item, Item> EGGPLANT = ITEMS.register("eggplant",
+    public static final DeferredHolder<Item, Item> EGGPLANT = ITEMS.registerItem("eggplant",
             CustomFoodItems.EggPlantItem::new);
 
-    public static final DeferredHolder<Item, Item> WHITE_RADISH = ITEMS.register("white_radish",
+    public static final DeferredHolder<Item, Item> WHITE_RADISH = ITEMS.registerItem("white_radish",
             CustomFoodItems.WhiteRadishItem::new);
 
-    public static final DeferredHolder<Item, Item> PLUM = ITEMS.register("plum",
+    public static final DeferredHolder<Item, Item> PLUM = ITEMS.registerItem("plum",
             CustomFoodItems.PlumItem::new);
 
-    public static final DeferredHolder<Item, Item> CHERRY = ITEMS.register("cherry",
+    public static final DeferredHolder<Item, Item> CHERRY = ITEMS.registerItem("cherry",
             CustomFoodItems.CherryItem::new);
 
-    public static final DeferredHolder<Item, Item> BANANA = ITEMS.register("banana",
+    public static final DeferredHolder<Item, Item> BANANA = ITEMS.registerItem("banana",
             CustomFoodItems.BananaItem::new);
 
-    public static final DeferredHolder<Item, Item> COCONUT = ITEMS.register("coconut",
+    public static final DeferredHolder<Item, Item> COCONUT = ITEMS.registerItem("coconut",
             CustomFoodItems.CoconutItem::new);
 
-    public static final DeferredHolder<Item, Item> PEACH = ITEMS.register("peach",
+    public static final DeferredHolder<Item, Item> PEACH = ITEMS.registerItem("peach",
             CustomFoodItems.PeachItem::new);
 
-    public static final DeferredHolder<Item, Item> KIWI = ITEMS.register("kiwi",
+    public static final DeferredHolder<Item, Item> KIWI = ITEMS.registerItem("kiwi",
             CustomFoodItems.KiwiItem::new);
 
-    public static final DeferredHolder<Item, Item> ALMOND = ITEMS.register("almond",
-            () -> new BlockItem(ModBlocks.ALMOND_FRUIT.get(),new Item.Properties().food(ModFoods.VEGETABLE1)));
+    public static final DeferredHolder<Item, Item> ALMOND = ITEMS.registerItem("almond",
+            props -> new BlockItem(ModBlocks.ALMOND_FRUIT.get(), props),
+            new Item.Properties().food(ModFoods.VEGETABLE1));
 
-    public static final DeferredHolder<Item, Item> DURIAN = ITEMS.register("durian",
-            () -> new BlockItem(ModBlocks.DURIAN_FRUIT.get(),new Item.Properties().food(ModFoods.VEGETABLE1)));
+    public static final DeferredHolder<Item, Item> DURIAN = ITEMS.registerItem("durian",
+            props -> new BlockItem(ModBlocks.DURIAN_FRUIT.get(), props),
+            new Item.Properties().food(ModFoods.VEGETABLE1));
 
-    public static final DeferredHolder<Item, Item> OLIVE = ITEMS.register("olive",
+    public static final DeferredHolder<Item, Item> OLIVE = ITEMS.registerItem("olive",
             CustomFoodItems.OliveItem::new);
 
-    public static final DeferredHolder<Item, Item> BLUE_BERRY = ITEMS.register("blue_berry",
+    public static final DeferredHolder<Item, Item> BLUE_BERRY = ITEMS.registerItem("blue_berry",
             CustomFoodItems.BlueBerryItem::new);
 
-    public static final DeferredHolder<Item, Item> CHILI_PEPPER = ITEMS.register("chili_pepper",
+    public static final DeferredHolder<Item, Item> CHILI_PEPPER = ITEMS.registerItem("chili_pepper",
             CustomFoodItems.ChiliPepperItem::new);
 
-    public static final DeferredHolder<Item, Item> BASIL = ITEMS.register("basil",
+    public static final DeferredHolder<Item, Item> BASIL = ITEMS.registerItem("basil",
             CustomFoodItems.BasilItem::new);
 
-    public static final DeferredHolder<Item, Item> LOTUS_ROOT = ITEMS.register("lotus_root",
+    public static final DeferredHolder<Item, Item> LOTUS_ROOT = ITEMS.registerItem("lotus_root",
             CustomFoodItems.LotusRootItem::new);
 
-    public static final DeferredHolder<Item, Item> TOMATO_SAND = ITEMS.register("tomato_sand",
+    public static final DeferredHolder<Item, Item> TOMATO_SAND = ITEMS.registerItem("tomato_sand",
             CustomFoodItems.TomatoSandItem::new);
 
-    public static final DeferredHolder<Item, Item> BANANA_SAND = ITEMS.register("banana_sand",
+    public static final DeferredHolder<Item, Item> BANANA_SAND = ITEMS.registerItem("banana_sand",
             CustomFoodItems.BananaSandItem::new);
 
-    public static final DeferredHolder<Item, Item> PEACH_SAND = ITEMS.register("peach_sand",
+    public static final DeferredHolder<Item, Item> PEACH_SAND = ITEMS.registerItem("peach_sand",
             CustomFoodItems.PeachSandItem::new);
 
-    public static final DeferredHolder<Item, Item> APPLE_SAND = ITEMS.register("apple_sand",
+    public static final DeferredHolder<Item, Item> APPLE_SAND = ITEMS.registerItem("apple_sand",
             CustomFoodItems.AppleSandItem::new);
 
-    public static final DeferredHolder<Item, Item> GRAPE_SAND = ITEMS.register("grape_sand",
+    public static final DeferredHolder<Item, Item> GRAPE_SAND = ITEMS.registerItem("grape_sand",
             CustomFoodItems.GrapeSandItem::new);
 
 
     //frypanレシピ
-    public static final DeferredHolder<Item, Item> ASPARAGUS_BACON = ITEMS.register("asparagus_bacon",
+    public static final DeferredHolder<Item, Item> ASPARAGUS_BACON = ITEMS.registerItem("asparagus_bacon",
             CustomFoodItems.AsparagusBaconItem::new);
 
-    public static final DeferredHolder<Item, Item> GINGER_PORK = ITEMS.register("ginger_pork",
+    public static final DeferredHolder<Item, Item> GINGER_PORK = ITEMS.registerItem("ginger_pork",
             CustomFoodItems.GingerPorkItem::new);
 
-    public static final DeferredHolder<Item, Item> FRIED_EGGPLANT = ITEMS.register("fried_eggplant",
+    public static final DeferredHolder<Item, Item> FRIED_EGGPLANT = ITEMS.registerItem("fried_eggplant",
             CustomFoodItems.FriedEggplantItem::new);
 
-    public static final DeferredHolder<Item, Item> CHINJAOLOSE = ITEMS.register("chinjaolose",
+    public static final DeferredHolder<Item, Item> CHINJAOLOSE = ITEMS.registerItem("chinjaolose",
             CustomFoodItems.ChinjaoloseeItem::new);
 
-    public static final DeferredHolder<Item, Item> POPCORN = ITEMS.register("popcorn",
+    public static final DeferredHolder<Item, Item> POPCORN = ITEMS.registerItem("popcorn",
             CustomFoodItems.PopcornItem::new);
 
-    public static final DeferredHolder<Item, Item> PIZZA_BRED = ITEMS.register("pizza_bread",
+    public static final DeferredHolder<Item, Item> PIZZA_BRED = ITEMS.registerItem("pizza_bread",
             CustomFoodItems.PizzaBredItem::new);
 
-    public static final DeferredHolder<Item, Item> BOILED_FISH = ITEMS.register("boiled_fish",
+    public static final DeferredHolder<Item, Item> BOILED_FISH = ITEMS.registerItem("boiled_fish",
             CustomFoodItems.BoiledFishItem::new);
 
-    public static final DeferredHolder<Item, Item> CORN_SOUP = ITEMS.register("corn_soup",
+    public static final DeferredHolder<Item, Item> CORN_SOUP = ITEMS.registerItem("corn_soup",
             CustomFoodItems.CornSoupItem::new);
 
-    public static final DeferredHolder<Item, Item> HAMBURGER = ITEMS.register("hamburger",
+    public static final DeferredHolder<Item, Item> HAMBURGER = ITEMS.registerItem("hamburger",
             CustomFoodItems.HambugerItem::new);
 
-    public static final DeferredHolder<Item, Item> PEPERONCINO = ITEMS.register("peperoncino",
+    public static final DeferredHolder<Item, Item> PEPERONCINO = ITEMS.registerItem("peperoncino",
             CustomFoodItems.PeperoncinoItem::new);
 
-    public static final DeferredHolder<Item, Item> MABO_NASU = ITEMS.register("mabo_nasu",
+    public static final DeferredHolder<Item, Item> MABO_NASU = ITEMS.registerItem("mabo_nasu",
             CustomFoodItems.MaboNasuItem::new);
 
-    public static final DeferredHolder<Item, Item> BAKED_CORN = ITEMS.register("baked_corn",
+    public static final DeferredHolder<Item, Item> BAKED_CORN = ITEMS.registerItem("baked_corn",
             CustomFoodItems.BakedCornItem::new);
 
-    public static final DeferredHolder<Item, Item> RADISH_MINCED_MEAT = ITEMS.register("radish_minced_meat",
+    public static final DeferredHolder<Item, Item> RADISH_MINCED_MEAT = ITEMS.registerItem("radish_minced_meat",
             CustomFoodItems.RadishMinciMeatItem::new);
 
-    public static final DeferredHolder<Item, Item> CHICKEN_EGG = ITEMS.register("chicken_egg",
+    public static final DeferredHolder<Item, Item> CHICKEN_EGG = ITEMS.registerItem("chicken_egg",
             CustomFoodItems.ChickenEggItem::new);
 
-    public static final DeferredHolder<Item, Item> GENOVESE = ITEMS.register("genovese",
+    public static final DeferredHolder<Item, Item> GENOVESE = ITEMS.registerItem("genovese",
             CustomFoodItems.GenoveseItem::new);
 
-    public static final DeferredHolder<Item, Item> FRIED_ALMOND = ITEMS.register("fried_almond",
+    public static final DeferredHolder<Item, Item> FRIED_ALMOND = ITEMS.registerItem("fried_almond",
             CustomFoodItems.FriedAlmondItem::new);
 
-    public static final DeferredHolder<Item, Item> GREEN_CARRY = ITEMS.register("green_carry",
+    public static final DeferredHolder<Item, Item> GREEN_CARRY = ITEMS.registerItem("green_carry",
             CustomFoodItems.GreenCarryItem::new);
 
-    public static final DeferredHolder<Item, Item> GREEN_PEPPER_MINCED_MEAT = ITEMS.register("green_pepper_minced_meat",
+    public static final DeferredHolder<Item, Item> GREEN_PEPPER_MINCED_MEAT = ITEMS.registerItem("green_pepper_minced_meat",
             CustomFoodItems.GreenPepperMincedMeatItem::new);
 
-    public static final DeferredHolder<Item, Item> PEPE_CABBAGE = ITEMS.register("pepe_cabbage",
+    public static final DeferredHolder<Item, Item> PEPE_CABBAGE = ITEMS.registerItem("pepe_cabbage",
             CustomFoodItems.PepeCabbageItem::new);
 
-    public static final DeferredHolder<Item, Item> FRIED_LOTUS_ROOT = ITEMS.register("fried_lotus_root",
+    public static final DeferredHolder<Item, Item> FRIED_LOTUS_ROOT = ITEMS.registerItem("fried_lotus_root",
             CustomFoodItems.FriedLotusRootItem::new);
 
-    public static final DeferredHolder<Item, Item> LOTUS_ROOT_MINCED_MEAT = ITEMS.register("lotus_root_minced_meat",
+    public static final DeferredHolder<Item, Item> LOTUS_ROOT_MINCED_MEAT = ITEMS.registerItem("lotus_root_minced_meat",
             CustomFoodItems.LotusRootMincedMeatItem::new);
 
-    public static final DeferredHolder<Item, Item> GAPRAO = ITEMS.register("gaprao",
+    public static final DeferredHolder<Item, Item> GAPRAO = ITEMS.registerItem("gaprao",
             CustomFoodItems.GapraoItem::new);
 
-    public static final DeferredHolder<Item, Item> TACOS = ITEMS.register("tacos",
+    public static final DeferredHolder<Item, Item> TACOS = ITEMS.registerItem("tacos",
             CustomFoodItems.TacosItem::new);
 
-    public static final DeferredHolder<Item, Item> TEA = ITEMS.register("tea",
-            () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> TEA = ITEMS.registerItem("tea",
+            Item::new);
 
-    public static final DeferredHolder<Item, Item> HOP = ITEMS.register("hop",
-            () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> HOP = ITEMS.registerItem("hop",
+            Item::new);
 
-    public static final DeferredHolder<Item, Item> PEPPER = ITEMS.register("pepper",
-            () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> PEPPER = ITEMS.registerItem("pepper",
+            Item::new);
 
-    public static final DeferredHolder<Item, Item> ROW_COFFEE_BEANS = ITEMS.register("row_coffee_beans",
-            () -> new BlockItem(ModBlocks.COFFEE_FRUIT.get(),new Item.Properties()));
+    public static final DeferredHolder<Item, Item> ROW_COFFEE_BEANS = ITEMS.registerItem("row_coffee_beans",
+            props -> new BlockItem(ModBlocks.COFFEE_FRUIT.get(), props));
 
-    public static final DeferredHolder<Item, Item> COFFEE_BEANS = ITEMS.register("coffee_beans",
-            () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> COFFEE_BEANS = ITEMS.registerItem("coffee_beans",
+            Item::new);
 
-    public static final DeferredHolder<Item, Item> MUSK_COFFEE_BEANS = ITEMS.register("musk_coffee_beans",
-            () -> new Item(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> MUSK_COFFEE_BEANS = ITEMS.registerItem("musk_coffee_beans",
+            Item::new);
 
     //燃料
-    public static final DeferredHolder<Item, Item> FIREWOOD = ITEMS.register("fire_wood",
-            () -> new FireWood(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> FIREWOOD = ITEMS.registerItem("fire_wood",
+            FireWood::new);
 
     //飲み物
-    public static final DeferredHolder<Item, Item> FILTERED_WATER = ITEMS.register("filtered_water",
+    public static final DeferredHolder<Item, Item> FILTERED_WATER = ITEMS.registerItem("filtered_water",
             CustomFoodItems.FilteredWaterItem::new);
 
-    public static final DeferredHolder<Item, Item> BOTTLE_OF_MILK = ITEMS.register("bottle_of_milk",
+    public static final DeferredHolder<Item, Item> BOTTLE_OF_MILK = ITEMS.registerItem("bottle_of_milk",
             CustomFoodItems.BottleMilkItem::new);
 
-    public static final DeferredHolder<Item, Item> MAPLE_WATER = ITEMS.register("maple_water",
+    public static final DeferredHolder<Item, Item> MAPLE_WATER = ITEMS.registerItem("maple_water",
             CustomFoodItems.MapleWaterItem::new);
 
-    public static final DeferredHolder<Item, Item> MAPLE_SYRUP = ITEMS.register("maple_syrup",
+    public static final DeferredHolder<Item, Item> MAPLE_SYRUP = ITEMS.registerItem("maple_syrup",
             CustomFoodItems.MapleSyrupItem::new);
 
-    public static final DeferredHolder<Item, Item> COFFEE = ITEMS.register("coffe",
+    public static final DeferredHolder<Item, Item> COFFEE = ITEMS.registerItem("coffe",
             CustomFoodItems.CoffeeItem::new);
 
-    public static final DeferredHolder<Item, Item> MUSK_COFFEE = ITEMS.register("musk_coffe",
+    public static final DeferredHolder<Item, Item> MUSK_COFFEE = ITEMS.registerItem("musk_coffe",
             CustomFoodItems.KopiLuwakCoffeeItem::new);
 
 
     //distiller
-    public static final DeferredHolder<Item, Item> BOTTLE_OF_WHISKEY = ITEMS.register("bottle_of_whiskey",
+    public static final DeferredHolder<Item, Item> BOTTLE_OF_WHISKEY = ITEMS.registerItem("bottle_of_whiskey",
             CustomFoodItems.WhiskeyItem::new);
 
-    public static final DeferredHolder<Item, Item> BOTTLE_OF_WHITE_LIQUOR = ITEMS.register("bottle_of_white_liquor",
+    public static final DeferredHolder<Item, Item> BOTTLE_OF_WHITE_LIQUOR = ITEMS.registerItem("bottle_of_white_liquor",
             CustomFoodItems.WhiteLiquorItem::new);
 
-    public static final DeferredHolder<Item, Item> BOTTLE_OF_COLA = ITEMS.register("bottle_of_cola",
+    public static final DeferredHolder<Item, Item> BOTTLE_OF_COLA = ITEMS.registerItem("bottle_of_cola",
             CustomFoodItems.ColaItem::new);
 
 
     //酒樽
-    public static final DeferredHolder<Item, Item> BOTTLE_OF_RED_WINE = ITEMS.register("bottle_of_red_wine",
+    public static final DeferredHolder<Item, Item> BOTTLE_OF_RED_WINE = ITEMS.registerItem("bottle_of_red_wine",
             CustomFoodItems.RedWineItem::new);
 
-    public static final DeferredHolder<Item, Item> BOTTLE_OF_WHITE_WINE = ITEMS.register("bottle_of_white_wine",
+    public static final DeferredHolder<Item, Item> BOTTLE_OF_WHITE_WINE = ITEMS.registerItem("bottle_of_white_wine",
             CustomFoodItems.WhiteWineItem::new);
 
-    public static final DeferredHolder<Item, Item> BOTTLE_OF_SAKE = ITEMS.register("bottle_of_sake",
+    public static final DeferredHolder<Item, Item> BOTTLE_OF_SAKE = ITEMS.registerItem("bottle_of_sake",
             CustomFoodItems.SakeItem::new);
 
-    public static final DeferredHolder<Item, Item> PEACH_LIQUEUR = ITEMS.register("peach_liqueur",
+    public static final DeferredHolder<Item, Item> PEACH_LIQUEUR = ITEMS.registerItem("peach_liqueur",
             CustomFoodItems.PeachLiquorItem::new);
 
-    public static final DeferredHolder<Item, Item> PLUM_LIQUEUR = ITEMS.register("plum_liqueur",
+    public static final DeferredHolder<Item, Item> PLUM_LIQUEUR = ITEMS.registerItem("plum_liqueur",
             CustomFoodItems.PlumLiquorItem::new);
 
-    public static final DeferredHolder<Item, Item> LEMON_LIQUEUR = ITEMS.register("lemon_liqueur",
+    public static final DeferredHolder<Item, Item> LEMON_LIQUEUR = ITEMS.registerItem("lemon_liqueur",
             CustomFoodItems.LemonLiquorItem::new);
 
-    public static final DeferredHolder<Item, Item> MINT_LIQUEUR = ITEMS.register("mint_liqueur",
+    public static final DeferredHolder<Item, Item> MINT_LIQUEUR = ITEMS.registerItem("mint_liqueur",
             CustomFoodItems.MintLiquorItem::new);
 
-    public static final DeferredHolder<Item, Item> APPLE_LIQUEUR = ITEMS.register("apple_liqueur",
+    public static final DeferredHolder<Item, Item> APPLE_LIQUEUR = ITEMS.registerItem("apple_liqueur",
             CustomFoodItems.AppleLiquorItem::new);
 
-    public static final DeferredHolder<Item, Item> HABU_LIQUEUR = ITEMS.register("habu_liqueur",
+    public static final DeferredHolder<Item, Item> HABU_LIQUEUR = ITEMS.registerItem("habu_liqueur",
             CustomFoodItems.HabuLiquorItem::new);
 
 
     //大釜で酒作る
-    public static final DeferredHolder<Item, Item> ASPERGILLUS = ITEMS.register("aspergillus",
+    public static final DeferredHolder<Item, Item> ASPERGILLUS = ITEMS.registerItem("aspergillus",
             CustomFoodItems.AspergillusItem::new);
 
-    public static final DeferredHolder<Item, Item> JAPANESE_YEAST = ITEMS.register("japanese_yeast",
+    public static final DeferredHolder<Item, Item> JAPANESE_YEAST = ITEMS.registerItem("japanese_yeast",
             CustomFoodItems.JYeastItem::new);
 
 
     //mixerで作る飲み物
-    public static final DeferredHolder<Item, Item> GRAPE_JUICE = ITEMS.register("grape_juice",
+    public static final DeferredHolder<Item, Item> GRAPE_JUICE = ITEMS.registerItem("grape_juice",
             CustomFoodItems.GrapeJuiceItem::new);
 
-    public static final DeferredHolder<Item, Item> APPLE_JUICE = ITEMS.register("apple_juice",
+    public static final DeferredHolder<Item, Item> APPLE_JUICE = ITEMS.registerItem("apple_juice",
             CustomFoodItems.AppleJuiceItem::new);
 
-    public static final DeferredHolder<Item, Item> LEMON_JUICE = ITEMS.register("lemon_juice",
+    public static final DeferredHolder<Item, Item> LEMON_JUICE = ITEMS.registerItem("lemon_juice",
             CustomFoodItems.LemonJuiceItem::new);
 
-    public static final DeferredHolder<Item, Item> PEACH_JUICE = ITEMS.register("peach_juice",
+    public static final DeferredHolder<Item, Item> PEACH_JUICE = ITEMS.registerItem("peach_juice",
             CustomFoodItems.PeachJuiceItem::new);
 
-    public static final DeferredHolder<Item, Item> PLUM_JUICE = ITEMS.register("plum_juice",
+    public static final DeferredHolder<Item, Item> PLUM_JUICE = ITEMS.registerItem("plum_juice",
             CustomFoodItems.PlumJuiceItem::new);
 
-    public static final DeferredHolder<Item, Item> BANANA_JUICE = ITEMS.register("banana_juice",
+    public static final DeferredHolder<Item, Item> BANANA_JUICE = ITEMS.registerItem("banana_juice",
             CustomFoodItems.BananaJuiceItem::new);
 
-    public static final DeferredHolder<Item, Item> ALMOND_MILK = ITEMS.register("almond_juice",
+    public static final DeferredHolder<Item, Item> ALMOND_MILK = ITEMS.registerItem("almond_juice",
             CustomFoodItems.AlmondJuiceItem::new);
 
-    public static final DeferredHolder<Item, Item> COCONUT_MILK = ITEMS.register("coconut_milk",
+    public static final DeferredHolder<Item, Item> COCONUT_MILK = ITEMS.registerItem("coconut_milk",
             CustomFoodItems.CoconutJuiceItem::new);
 
-    public static final DeferredHolder<Item, Item> SMOOTHIE = ITEMS.register("smoothie",
+    public static final DeferredHolder<Item, Item> SMOOTHIE = ITEMS.registerItem("smoothie",
             CustomFoodItems.SmoothieJuiceItem::new);
 
-    public static final DeferredHolder<Item, Item> MIX_JUICE = ITEMS.register("mix_juice",
+    public static final DeferredHolder<Item, Item> MIX_JUICE = ITEMS.registerItem("mix_juice",
             CustomFoodItems.MixJuiceItem::new);
 
-    public static final DeferredHolder<Item, Item> MIX_AU_LAIT = ITEMS.register("mix_au_lait",
+    public static final DeferredHolder<Item, Item> MIX_AU_LAIT = ITEMS.registerItem("mix_au_lait",
             CustomFoodItems.MixAuLaitJuiceItem::new);
 
-    public static final DeferredHolder<Item, Item> CHOCOLATE = ITEMS.register("chocolate",
+    public static final DeferredHolder<Item, Item> CHOCOLATE = ITEMS.registerItem("chocolate",
             CustomFoodItems.ChocoJuiceItem::new);
 
-    public static final DeferredHolder<Item, Item> CHOCO_MINT = ITEMS.register("choco_mint",
+    public static final DeferredHolder<Item, Item> CHOCO_MINT = ITEMS.registerItem("choco_mint",
             CustomFoodItems.ChocoMintJuiceItem::new);
 
 
     //種
-    public static final DeferredHolder<Item, Item> ASPARAGUS_SEEDS = ITEMS.register("asparagus_seeds",
-            () -> new BlockItem(ModBlocks.ASPARAGUS.get(),
-                    new Item.Properties()));
-    public static final DeferredHolder<Item, Item> CABBAGE_SEEDS = ITEMS.register("cabbage_seeds",
-            () -> new BlockItem(ModBlocks.CABBAGE.get(),
-                    new Item.Properties()));
-    public static final DeferredHolder<Item, Item> RICE_SEEDS = ITEMS.register("rice_seeds",
-            () -> new BlockItem(ModBlocks.RICE_BLOCK.get(),
-                    new Item.Properties()));
-    public static final DeferredHolder<Item, Item> MINT_SEEDS = ITEMS.register("mint_seeds",
-            () -> new BlockItem(ModBlocks.MINT_BLOCK.get(),
-                    new Item.Properties()));
-    public static final DeferredHolder<Item, Item> COLA_SEEDS = ITEMS.register("cola_seeds",
-            () -> new BlockItem(ModBlocks.COLA_FRUIT.get(),
-                    new Item.Properties()));
-    public static final DeferredHolder<Item, Item> TOMATO_SEEDS = ITEMS.register("tomato_seeds",
-            () -> new BlockItem(ModBlocks.TOMATO_BLOCK.get(),
-                    new Item.Properties()));
-    public static final DeferredHolder<Item, Item> CORN_SEEDS = ITEMS.register("corn_seeds",
-            () -> new BlockItem(ModBlocks.CORN_BLOCK.get(),
-                    new Item.Properties()));
-    public static final DeferredHolder<Item, Item> ONION_SEEDS = ITEMS.register("onion_seeds",
-            () -> new BlockItem(ModBlocks.ONION_BLOCK.get(),
-                    new Item.Properties()));
-    public static final DeferredHolder<Item, Item> GINGER_SEEDS = ITEMS.register("ginger_seeds",
-            () -> new BlockItem(ModBlocks.GINGER_BLOCK.get(),
-                    new Item.Properties()));
-    public static final DeferredHolder<Item, Item> GREEN_PEPPER_SEEDS = ITEMS.register("green_pepper_seeds",
-            () -> new BlockItem(ModBlocks.GREEN_PEPPER_BLOCK.get(),
-                    new Item.Properties()));
-    public static final DeferredHolder<Item, Item> PAPRIKA_SEEDS = ITEMS.register("paprika_seeds",
-            () -> new BlockItem(ModBlocks.PAPRIKA_BLOCK.get(),
-                    new Item.Properties()));
-    public static final DeferredHolder<Item, Item> EGGPLANT_SEEDS = ITEMS.register("eggplant_seeds",
-            () -> new BlockItem(ModBlocks.EGGPLANT_BLOCK.get(),
-                    new Item.Properties()));
-    public static final DeferredHolder<Item, Item> WHITE_RADISH_SEEDS = ITEMS.register("white_radish_seeds",
-            () -> new BlockItem(ModBlocks.WHITE_RADISH_BLOCK.get(),
-                    new Item.Properties()));
+    public static final DeferredHolder<Item, Item> ASPARAGUS_SEEDS = ITEMS.registerItem("asparagus_seeds",
+            props -> new BlockItem(ModBlocks.ASPARAGUS.get(), props));
+    public static final DeferredHolder<Item, Item> CABBAGE_SEEDS = ITEMS.registerItem("cabbage_seeds",
+            props -> new BlockItem(ModBlocks.CABBAGE.get(), props));
+    public static final DeferredHolder<Item, Item> RICE_SEEDS = ITEMS.registerItem("rice_seeds",
+            props -> new BlockItem(ModBlocks.RICE_BLOCK.get(), props));
+    public static final DeferredHolder<Item, Item> MINT_SEEDS = ITEMS.registerItem("mint_seeds",
+            props -> new BlockItem(ModBlocks.MINT_BLOCK.get(), props));
+    public static final DeferredHolder<Item, Item> COLA_SEEDS = ITEMS.registerItem("cola_seeds",
+            props -> new BlockItem(ModBlocks.COLA_FRUIT.get(), props));
+    public static final DeferredHolder<Item, Item> TOMATO_SEEDS = ITEMS.registerItem("tomato_seeds",
+            props -> new BlockItem(ModBlocks.TOMATO_BLOCK.get(), props));
+    public static final DeferredHolder<Item, Item> CORN_SEEDS = ITEMS.registerItem("corn_seeds",
+            props -> new BlockItem(ModBlocks.CORN_BLOCK.get(), props));
+    public static final DeferredHolder<Item, Item> ONION_SEEDS = ITEMS.registerItem("onion_seeds",
+            props -> new BlockItem(ModBlocks.ONION_BLOCK.get(), props));
+    public static final DeferredHolder<Item, Item> GINGER_SEEDS = ITEMS.registerItem("ginger_seeds",
+            props -> new BlockItem(ModBlocks.GINGER_BLOCK.get(), props));
+    public static final DeferredHolder<Item, Item> GREEN_PEPPER_SEEDS = ITEMS.registerItem("green_pepper_seeds",
+            props -> new BlockItem(ModBlocks.GREEN_PEPPER_BLOCK.get(), props));
+    public static final DeferredHolder<Item, Item> PAPRIKA_SEEDS = ITEMS.registerItem("paprika_seeds",
+            props -> new BlockItem(ModBlocks.PAPRIKA_BLOCK.get(), props));
+    public static final DeferredHolder<Item, Item> EGGPLANT_SEEDS = ITEMS.registerItem("eggplant_seeds",
+            props -> new BlockItem(ModBlocks.EGGPLANT_BLOCK.get(), props));
+    public static final DeferredHolder<Item, Item> WHITE_RADISH_SEEDS = ITEMS.registerItem("white_radish_seeds",
+            props -> new BlockItem(ModBlocks.WHITE_RADISH_BLOCK.get(), props));
 
-    public static final DeferredHolder<Item, Item> CHILI_PEPPER_SEEDS = ITEMS.register("chili_pepper_seeds",
-            () -> new BlockItem(ModBlocks.CHILI_PEPPER_BLOCK.get(),
-                    new Item.Properties()));
+    public static final DeferredHolder<Item, Item> CHILI_PEPPER_SEEDS = ITEMS.registerItem("chili_pepper_seeds",
+            props -> new BlockItem(ModBlocks.CHILI_PEPPER_BLOCK.get(), props));
 
-    public static final DeferredHolder<Item, Item> BASIL_SEEDS = ITEMS.register("basil_seeds",
-            () -> new BlockItem(ModBlocks.BASIL_BLOCK.get(),
-                    new Item.Properties()));
+    public static final DeferredHolder<Item, Item> BASIL_SEEDS = ITEMS.registerItem("basil_seeds",
+            props -> new BlockItem(ModBlocks.BASIL_BLOCK.get(), props));
 
-    public static final DeferredHolder<Item, Item> LOTUS_ROOT_SEEDS = ITEMS.register("lotus_root_seeds",
-            () -> new BlockItem(ModBlocks.LOTUS_ROOT_BLOCK.get(),
-                    new Item.Properties()));
+    public static final DeferredHolder<Item, Item> LOTUS_ROOT_SEEDS = ITEMS.registerItem("lotus_root_seeds",
+            props -> new BlockItem(ModBlocks.LOTUS_ROOT_BLOCK.get(), props));
 
     //飲み物バケツ
-    public static final DeferredHolder<Item, Item> FILTERED_WATER_BUCKET = ITEMS.register("filtered_water_bucket",
-            () -> new BucketItem(ModFluids.SOURCE_CLEAN.get(),
-                    new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
+    public static final DeferredHolder<Item, Item> FILTERED_WATER_BUCKET = ITEMS.registerItem("filtered_water_bucket",
+            props -> new BucketItem(ModFluids.SOURCE_CLEAN.get(), props),
+            new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1));
 
-    public static final DeferredHolder<Item, Item> WHISKEY_BUCKET = ITEMS.register("whiskey_bucket",
-            () -> new BucketItem(ModFluids.SOURCE_WHISKEY.get(),
-                    new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
+    public static final DeferredHolder<Item, Item> WHISKEY_BUCKET = ITEMS.registerItem("whiskey_bucket",
+            props -> new BucketItem(ModFluids.SOURCE_WHISKEY.get(), props),
+            new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1));
 
-    public static final DeferredHolder<Item, Item> MAPLE_BUCKET = ITEMS.register("maple_bucket",
-            () -> new BucketItem(ModFluids.SOURCE_MAPLE.get(),
-                    new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
+    public static final DeferredHolder<Item, Item> MAPLE_BUCKET = ITEMS.registerItem("maple_bucket",
+            props -> new BucketItem(ModFluids.SOURCE_MAPLE.get(), props),
+            new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1));
 
-    public static final DeferredHolder<Item, Item> SAKE_BUCKET = ITEMS.register("sake_bucket",
-            () -> new BucketItem(ModFluids.SOURCE_SAKE.get(),
-                    new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
+    public static final DeferredHolder<Item, Item> SAKE_BUCKET = ITEMS.registerItem("sake_bucket",
+            props -> new BucketItem(ModFluids.SOURCE_SAKE.get(), props),
+            new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1));
 
-    public static final DeferredHolder<Item, Item> WINE_BUCKET = ITEMS.register("wine_bucket",
-            () -> new BucketItem(ModFluids.SOURCE_WINE.get(),
-                    new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
+    public static final DeferredHolder<Item, Item> WINE_BUCKET = ITEMS.registerItem("wine_bucket",
+            props -> new BucketItem(ModFluids.SOURCE_WINE.get(), props),
+            new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1));
 
-    public static final DeferredHolder<Item, Item> WHITE_WINE_BUCKET = ITEMS.register("white_wine_bucket",
-            () -> new BucketItem(ModFluids.SOURCE_WHITE_WINE.get(),
-                    new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
+    public static final DeferredHolder<Item, Item> WHITE_WINE_BUCKET = ITEMS.registerItem("white_wine_bucket",
+            props -> new BucketItem(ModFluids.SOURCE_WHITE_WINE.get(), props),
+            new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1));
 
-    public static final DeferredHolder<Item, Item> J_MALT_BUCKET = ITEMS.register("j_malt_bucket",
-            () -> new SolidBucketItem(ModBlocks.JAPANESE_MALT_P.get(), SoundEvents.BUCKET_EMPTY_POWDER_SNOW,
-                    new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
+    public static final DeferredHolder<Item, Item> J_MALT_BUCKET = ITEMS.registerItem("j_malt_bucket",
+            props -> new SolidBucketItem(ModBlocks.JAPANESE_MALT_P.get(), SoundEvents.BUCKET_EMPTY_POWDER_SNOW, props),
+            new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1));
 
-    public static final DeferredHolder<Item, Item> RICE_BUCKET = ITEMS.register("rice_bucket",
-            () -> new SolidBucketItem(ModBlocks.BOILED_RICE_BLOCK.get(), SoundEvents.BUCKET_EMPTY_POWDER_SNOW,
-                    new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
+    public static final DeferredHolder<Item, Item> RICE_BUCKET = ITEMS.registerItem("rice_bucket",
+            props -> new SolidBucketItem(ModBlocks.BOILED_RICE_BLOCK.get(), SoundEvents.BUCKET_EMPTY_POWDER_SNOW, props),
+            new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1));
 
-    public static final DeferredHolder<Item, Item> MASH_BUCKET = ITEMS.register("mash_bucket",
-            () -> new BucketItem(ModFluids.SOURCE_MASH.get(),
-                    new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
+    public static final DeferredHolder<Item, Item> MASH_BUCKET = ITEMS.registerItem("mash_bucket",
+            props -> new BucketItem(ModFluids.SOURCE_MASH.get(), props),
+            new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1));
 
-    public static final DeferredHolder<Item, Item> YEAST_BUCKET = ITEMS.register("yeast_bucket",
-            () -> new BucketItem(ModFluids.SOURCE_YEAST.get(),
-                    new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
+    public static final DeferredHolder<Item, Item> YEAST_BUCKET = ITEMS.registerItem("yeast_bucket",
+            props -> new BucketItem(ModFluids.SOURCE_YEAST.get(), props),
+            new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1));
 
 
 
 
 
     //卵
-    public static final DeferredHolder<Item, Item> SPARROW_SPAWN_EGG = ITEMS.register("sparrow_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> SPARROW_SPAWN_EGG = ITEMS.registerItem("sparrow_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> DEER_SPAWN_EGG = ITEMS.register("deer_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> DEER_SPAWN_EGG = ITEMS.registerItem("deer_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> DOE_SPAWN_EGG = ITEMS.register("doe_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> DOE_SPAWN_EGG = ITEMS.registerItem("doe_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> SAKABAN_SPAWN_EGG = ITEMS.register("sakaban_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> SAKABAN_SPAWN_EGG = ITEMS.registerItem("sakaban_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> CICADA_SPAWN_EGG = ITEMS.register("cicada_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> CICADA_SPAWN_EGG = ITEMS.registerItem("cicada_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> DRAGONFLY_SPAWN_EGG = ITEMS.register("dragonfly_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> DRAGONFLY_SPAWN_EGG = ITEMS.registerItem("dragonfly_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> BUTTERFLY_SPAWN_EGG = ITEMS.register("butterfly_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> BUTTERFLY_SPAWN_EGG = ITEMS.registerItem("butterfly_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> LONG_TIT_SPAWN_EGG = ITEMS.register("long_tit_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> LONG_TIT_SPAWN_EGG = ITEMS.registerItem("long_tit_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> SEAL_SPAWN_EGG = ITEMS.register("seal_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> SEAL_SPAWN_EGG = ITEMS.registerItem("seal_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> HERMIT_CRAB_SPAWN_EGG = ITEMS.register("hermit_crab_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> HERMIT_CRAB_SPAWN_EGG = ITEMS.registerItem("hermit_crab_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> MINI_HIPO_SPAWN_EGG = ITEMS.register("mini_hipo_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> MINI_HIPO_SPAWN_EGG = ITEMS.registerItem("mini_hipo_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> MONGOOSE_SPAWN_EGG = ITEMS.register("mongoose_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> MONGOOSE_SPAWN_EGG = ITEMS.registerItem("mongoose_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> ANT_SPAWN_EGG = ITEMS.register("ant_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> ANT_SPAWN_EGG = ITEMS.registerItem("ant_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> ETUPIRKA_SPAWN_EGG = ITEMS.register("etupirka_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> ETUPIRKA_SPAWN_EGG = ITEMS.registerItem("etupirka_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> SNAKE_SPAWN_EGG = ITEMS.register("snake_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> SNAKE_SPAWN_EGG = ITEMS.registerItem("snake_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> PEACOCK_SPAWN_EGG = ITEMS.register("peacock_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> PEACOCK_SPAWN_EGG = ITEMS.registerItem("peacock_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> BURROWING_OWL_SPAWN_EGG = ITEMS.register("burrowing_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> BURROWING_OWL_SPAWN_EGG = ITEMS.registerItem("burrowing_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> FOLIVORE_SPAWN_EGG = ITEMS.register("folivore_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> FOLIVORE_SPAWN_EGG = ITEMS.registerItem("folivore_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> GIANT_OTTER_SPAWN_EGG = ITEMS.register("giant_otter_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> GIANT_OTTER_SPAWN_EGG = ITEMS.registerItem("giant_otter_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> GUYANA_RUPICOLA_SPAWN_EGG = ITEMS.register("guyana_rupicola_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> GUYANA_RUPICOLA_SPAWN_EGG = ITEMS.registerItem("guyana_rupicola_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> HARPY_EAGLE_SPAWN_EGG = ITEMS.register("harpy_eagle_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> HARPY_EAGLE_SPAWN_EGG = ITEMS.registerItem("harpy_eagle_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> MUSK_CAT_SPAWN_EGG = ITEMS.register("musk_cat_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> MUSK_CAT_SPAWN_EGG = ITEMS.registerItem("musk_cat_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> PERISSO_SPAWN_EGG = ITEMS.register("perisso_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> PERISSO_SPAWN_EGG = ITEMS.registerItem("perisso_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> RATEL_SPAWN_EGG = ITEMS.register("ratel_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> RATEL_SPAWN_EGG = ITEMS.registerItem("ratel_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> WOMBAT_SPAWN_EGG = ITEMS.register("wombat_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> WOMBAT_SPAWN_EGG = ITEMS.registerItem("wombat_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> BEAVER_SPAWN_EGG = ITEMS.register("beaver_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> BEAVER_SPAWN_EGG = ITEMS.registerItem("beaver_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> HAMMER_HEAD_SPAWN_EGG = ITEMS.register("hammer_head_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> HAMMER_HEAD_SPAWN_EGG = ITEMS.registerItem("hammer_head_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> LEAFY_SEA_SPAWN_EGG = ITEMS.register("leafy_sea_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> LEAFY_SEA_SPAWN_EGG = ITEMS.registerItem("leafy_sea_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> KIWI_SPAWN_EGG = ITEMS.register("kiwi_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> KIWI_SPAWN_EGG = ITEMS.registerItem("kiwi_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> ROCK_PENGUIN_SPAWN_EGG = ITEMS.register("rock_penguin_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> ROCK_PENGUIN_SPAWN_EGG = ITEMS.registerItem("rock_penguin_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> SKUNK_SPAWN_EGG = ITEMS.register("skunk_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> SKUNK_SPAWN_EGG = ITEMS.registerItem("skunk_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> STURGEON_SPAWN_EGG = ITEMS.register("sturgeon_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> STURGEON_SPAWN_EGG = ITEMS.registerItem("sturgeon_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> QUOKKA_SPAWN_EGG = ITEMS.register("quokka_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> QUOKKA_SPAWN_EGG = ITEMS.registerItem("quokka_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> WOOD_PECKER_SPAWN_EGG = ITEMS.register("wood_pecker_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> WOOD_PECKER_SPAWN_EGG = ITEMS.registerItem("wood_pecker_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> FELIS_SPAWN_EGG = ITEMS.register("felis_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> FELIS_SPAWN_EGG = ITEMS.registerItem("felis_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> FRUIT_FLY_SPAWN_EGG = ITEMS.register("fruit_fly_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> FRUIT_FLY_SPAWN_EGG = ITEMS.registerItem("fruit_fly_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> INDICATOR_IDAE_SPAWN_EGG = ITEMS.register("indicate_idae_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> INDICATOR_IDAE_SPAWN_EGG = ITEMS.registerItem("indicate_idae_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> MANTIS_SHRIMP_SPAWN_EGG = ITEMS.register("mantis_shrimp_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> MANTIS_SHRIMP_SPAWN_EGG = ITEMS.registerItem("mantis_shrimp_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> MEERKAT_SPAWN_EGG = ITEMS.register("meerkat_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> MEERKAT_SPAWN_EGG = ITEMS.registerItem("meerkat_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> PALLAS_CAT_SPAWN_EGG = ITEMS.register("pallas_cat_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> PALLAS_CAT_SPAWN_EGG = ITEMS.registerItem("pallas_cat_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> PANGOLIN_SPAWN_EGG = ITEMS.register("pangolin_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> PANGOLIN_SPAWN_EGG = ITEMS.registerItem("pangolin_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> PORCUPINE_SPAWN_EGG = ITEMS.register("porcupine_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> PORCUPINE_SPAWN_EGG = ITEMS.registerItem("porcupine_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> TAPIR_SPAWN_EGG = ITEMS.register("tapir_spawn_egg",
-            () -> new SpawnEggItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> TAPIR_SPAWN_EGG = ITEMS.registerItem("tapir_spawn_egg",
+            SpawnEggItem::new);
 
-    public static final DeferredHolder<Item, Item> EVERY_EGG = ITEMS.register("every_egg",
-            () -> new EveryEgg(new Item.Properties()));
-
-
+    public static final DeferredHolder<Item, Item> EVERY_EGG = ITEMS.registerItem("every_egg",
+            EveryEgg::new);
 
 
-    public static final DeferredHolder<Item, Item> POTTERS_WHEEL_ITEM = ITEMS.register("potters_wheel",
-            () -> new BlockItem(ModBlocks.POTTERS_WHEEL.get(), new Item.Properties()));
+
+
+    public static final DeferredHolder<Item, Item> POTTERS_WHEEL_ITEM = ITEMS.registerItem("potters_wheel",
+            props -> new BlockItem(ModBlocks.POTTERS_WHEEL.get(), props));
 
     // Items
-    public static final DeferredHolder<Item, Item> UNFIRED_POTTERY = ITEMS.register("unfired_pottery",
-            () -> new UnfiredPotteryItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> UNFIRED_POTTERY = ITEMS.registerItem("unfired_pottery",
+            UnfiredPotteryItem::new);
 
-    public static final DeferredHolder<Item, Item> FIRED_POTTERY = ITEMS.register("fired_pottery",
-            () -> new FiredPotteryItem(new Item.Properties()));
+    public static final DeferredHolder<Item, Item> FIRED_POTTERY = ITEMS.registerItem("fired_pottery",
+            FiredPotteryItem::new);
 
     // Glazes
-    public static final DeferredHolder<Item, Item> GLAZE_WHITE = ITEMS.register("glaze_white",
-            () -> new GlazeItem(new Item.Properties(), 0xFFFFFF));
-    public static final DeferredHolder<Item, Item> GLAZE_BLACK = ITEMS.register("glaze_black",
-            () -> new GlazeItem(new Item.Properties(), 0x000000));
-    public static final DeferredHolder<Item, Item> GLAZE_RED = ITEMS.register("glaze_red",
-            () -> new GlazeItem(new Item.Properties(), 0xFF0000));
-    public static final DeferredHolder<Item, Item> GLAZE_BLUE = ITEMS.register("glaze_blue",
-            () -> new GlazeItem(new Item.Properties(), 0x0000FF));
-    public static final DeferredHolder<Item, Item> GLAZE_GREEN = ITEMS.register("glaze_green",
-            () -> new GlazeItem(new Item.Properties(), 0x00FF00));
-    public static final DeferredHolder<Item, Item> GLAZE_YELLOW = ITEMS.register("glaze_yellow",
-            () -> new GlazeItem(new Item.Properties(), 0xFFFF00));
-    public static final DeferredHolder<Item, Item> GLAZE_ORANGE = ITEMS.register("glaze_orange",
-            () -> new GlazeItem(new Item.Properties(), 0xFFA500));
-    public static final DeferredHolder<Item, Item> GLAZE_PURPLE = ITEMS.register("glaze_purple",
-            () -> new GlazeItem(new Item.Properties(), 0x800080));
-    public static final DeferredHolder<Item, Item> GLAZE_PINK = ITEMS.register("glaze_pink",
-            () -> new GlazeItem(new Item.Properties(), 0xFFC0CB));
-    public static final DeferredHolder<Item, Item> GLAZE_BROWN = ITEMS.register("glaze_brown",
-            () -> new GlazeItem(new Item.Properties(), 0x8B4513));
-    public static final DeferredHolder<Item, Item> GLAZE_GRAY = ITEMS.register("glaze_gray",
-            () -> new GlazeItem(new Item.Properties(), 0x808080));
-    public static final DeferredHolder<Item, Item> GLAZE_CYAN = ITEMS.register("glaze_cyan",
-            () -> new GlazeItem(new Item.Properties(), 0x00FFFF));
+    public static final DeferredHolder<Item, Item> GLAZE_WHITE = ITEMS.registerItem("glaze_white",
+            props -> new GlazeItem(props, 0xFFFFFF));
+    public static final DeferredHolder<Item, Item> GLAZE_BLACK = ITEMS.registerItem("glaze_black",
+            props -> new GlazeItem(props, 0x000000));
+    public static final DeferredHolder<Item, Item> GLAZE_RED = ITEMS.registerItem("glaze_red",
+            props -> new GlazeItem(props, 0xFF0000));
+    public static final DeferredHolder<Item, Item> GLAZE_BLUE = ITEMS.registerItem("glaze_blue",
+            props -> new GlazeItem(props, 0x0000FF));
+    public static final DeferredHolder<Item, Item> GLAZE_GREEN = ITEMS.registerItem("glaze_green",
+            props -> new GlazeItem(props, 0x00FF00));
+    public static final DeferredHolder<Item, Item> GLAZE_YELLOW = ITEMS.registerItem("glaze_yellow",
+            props -> new GlazeItem(props, 0xFFFF00));
+    public static final DeferredHolder<Item, Item> GLAZE_ORANGE = ITEMS.registerItem("glaze_orange",
+            props -> new GlazeItem(props, 0xFFA500));
+    public static final DeferredHolder<Item, Item> GLAZE_PURPLE = ITEMS.registerItem("glaze_purple",
+            props -> new GlazeItem(props, 0x800080));
+    public static final DeferredHolder<Item, Item> GLAZE_PINK = ITEMS.registerItem("glaze_pink",
+            props -> new GlazeItem(props, 0xFFC0CB));
+    public static final DeferredHolder<Item, Item> GLAZE_BROWN = ITEMS.registerItem("glaze_brown",
+            props -> new GlazeItem(props, 0x8B4513));
+    public static final DeferredHolder<Item, Item> GLAZE_GRAY = ITEMS.registerItem("glaze_gray",
+            props -> new GlazeItem(props, 0x808080));
+    public static final DeferredHolder<Item, Item> GLAZE_CYAN = ITEMS.registerItem("glaze_cyan",
+            props -> new GlazeItem(props, 0x00FFFF));
 
     // Pattern Stamps
-    public static final DeferredHolder<Item, Item> STAMP_STRIPES = ITEMS.register("stamp_stripes",
-            () -> new PotteryStampItem(new Item.Properties(), PotteryPattern.STRIPES));
-    public static final DeferredHolder<Item, Item> STAMP_DOTS = ITEMS.register("stamp_dots",
-            () -> new PotteryStampItem(new Item.Properties(), PotteryPattern.DOTS));
-    public static final DeferredHolder<Item, Item> STAMP_WAVES = ITEMS.register("stamp_waves",
-            () -> new PotteryStampItem(new Item.Properties(), PotteryPattern.WAVES));
-    public static final DeferredHolder<Item, Item> STAMP_FLOWERS = ITEMS.register("stamp_flowers",
-            () -> new PotteryStampItem(new Item.Properties(), PotteryPattern.FLOWERS));
-    public static final DeferredHolder<Item, Item> STAMP_GEOMETRIC = ITEMS.register("stamp_geometric",
-            () -> new PotteryStampItem(new Item.Properties(), PotteryPattern.GEOMETRIC));
+    public static final DeferredHolder<Item, Item> STAMP_STRIPES = ITEMS.registerItem("stamp_stripes",
+            props -> new PotteryStampItem(props, PotteryPattern.STRIPES));
+    public static final DeferredHolder<Item, Item> STAMP_DOTS = ITEMS.registerItem("stamp_dots",
+            props -> new PotteryStampItem(props, PotteryPattern.DOTS));
+    public static final DeferredHolder<Item, Item> STAMP_WAVES = ITEMS.registerItem("stamp_waves",
+            props -> new PotteryStampItem(props, PotteryPattern.WAVES));
+    public static final DeferredHolder<Item, Item> STAMP_FLOWERS = ITEMS.registerItem("stamp_flowers",
+            props -> new PotteryStampItem(props, PotteryPattern.FLOWERS));
+    public static final DeferredHolder<Item, Item> STAMP_GEOMETRIC = ITEMS.registerItem("stamp_geometric",
+            props -> new PotteryStampItem(props, PotteryPattern.GEOMETRIC));
 
     // バイタルチェックマシン
-    public static final DeferredHolder<Item, Item> VITAL_CHECK = ITEMS.register("vital_check",
-            () -> new VitalCheckItem(new Item.Properties()
-                    .stacksTo(1) // スタック不可
-            ));
+    public static final DeferredHolder<Item, Item> VITAL_CHECK = ITEMS.registerItem("vital_check",
+            VitalCheckItem::new,
+            new Item.Properties().stacksTo(1)); // スタック不可
 
 
 

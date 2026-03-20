@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
 
 public class Cassowary extends Animal{
     private static final EntityDataAccessor<Boolean> DATA_SADDLED =
-            SynchedEntityData.defineId(Emu.class, EntityDataSerializers.BOOLEAN);
+            SynchedEntityData.defineId(Cassowary.class, EntityDataSerializers.BOOLEAN);
 
     public Cassowary(EntityType<? extends Animal> type, Level level) {
         super(type, level);
@@ -75,7 +75,7 @@ public class Cassowary extends Animal{
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes()
+        return Animal.createAnimalAttributes()
                 .add(Attributes.MAX_HEALTH, 20.0D)
                 .add(Attributes.ATTACK_DAMAGE, 3.0D);
     }

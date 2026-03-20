@@ -32,7 +32,7 @@ import net.minecraft.world.phys.Vec3;
 import javax.annotation.Nullable;
 
 public class DirtGolem extends TamableAnimal implements NeutralMob {
-    protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(IronGolem.class, EntityDataSerializers.BYTE);
+    protected static final EntityDataAccessor<Byte> DATA_FLAGS_ID = SynchedEntityData.defineId(DirtGolem.class, EntityDataSerializers.BYTE);
     private static final int IRON_INGOT_HEAL_AMOUNT = 25;
     private int attackAnimationTick;
     private int offerFlowerTick;

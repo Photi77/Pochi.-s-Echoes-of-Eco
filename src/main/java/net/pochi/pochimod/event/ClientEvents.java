@@ -19,6 +19,7 @@ import net.pochi.pochimod.PochiMod;
 import net.pochi.pochimod.entity.custom.Rhino;
 import net.pochi.pochimod.item.ModItems;
 import net.pochi.pochimod.client.renderer.MineralItemRenderer;
+import net.pochi.pochimod.client.renderer.MineralTintSource;
 import net.pochi.pochimod.mineral.MineralChunkItem;
 import net.pochi.pochimod.mineral.tools.AbstractMineralItem;
 import net.pochi.pochimod.networking.ModMessages;
@@ -444,10 +445,10 @@ public class ClientEvents {
 
         @SubscribeEvent
         public static void registerGuiLayers(RegisterGuiLayersEvent event) {
-            //event.registerAboveAll(
-                    //net.minecraft.resources.Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "vital_hud"),
-                    //new VitalHudOverlay()
-            //);
+            event.registerAboveAll(
+                    net.minecraft.resources.Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "vital_hud"),
+                    new VitalHudOverlay()
+            );
         }
 
         @SubscribeEvent
@@ -484,6 +485,15 @@ public class ClientEvents {
         //    event.register(Registries.CHUNK_GENERATOR,codecRegisterHelper ->
         //            codecRegisterHelper.register(Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "guyane"), GuyaneMountain.CODEC));
         //}
+
+        /** mineral_color tint source を登録（MOD バスのみで動作） */
+        @SubscribeEvent
+        public static void registerItemTintSources(net.neoforged.neoforge.client.event.RegisterColorHandlersEvent.ItemTintSources event) {
+            event.register(
+                net.minecraft.resources.Identifier.fromNamespaceAndPath(PochiMod.MOD_ID, "mineral_color"),
+                MineralTintSource.CODEC
+            );
+        }
 
         /** mineral 系アイテムのベースモデルを登録（MOD バスのみで動作） */
         @SubscribeEvent

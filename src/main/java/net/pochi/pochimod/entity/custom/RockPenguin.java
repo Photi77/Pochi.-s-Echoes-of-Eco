@@ -96,7 +96,7 @@ public class RockPenguin extends Turtle{
     }
 
     public static AttributeSupplier setAttributes() {
-        return Animal.createMobAttributes()
+        return Animal.createAnimalAttributes()
                 .add(Attributes.MAX_HEALTH, 100.0D)
                 .add(Attributes.ATTACK_DAMAGE, 8.0f)
                 .add(Attributes.ATTACK_SPEED, 2.0f)

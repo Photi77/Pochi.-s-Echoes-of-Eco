@@ -2,8 +2,6 @@ package net.pochi.pochimod.entity.custom;
 
 import com.mojang.blaze3d.platform.NativeImage;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.DynamicTexture;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -11,14 +9,12 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.pochi.pochimod.PochiMod;
 
 import javax.annotation.Nullable;
@@ -39,8 +35,7 @@ public class Betta extends PathfinderMob {
     private static final EntityDataAccessor<Integer> ACCENT_COLOR =
             SynchedEntityData.defineId(Betta.class, EntityDataSerializers.INT);
 
-    // クライアント側でキャッシュされるテクスチャ
-    @OnlyIn(Dist.CLIENT)
+
     private Identifier cachedTexture;
 
     public Betta(EntityType<? extends PathfinderMob> entityType, Level level) {
@@ -212,18 +207,18 @@ public class Betta extends PathfinderMob {
         this.entityData.set(ACCENT_COLOR, color);
     }
 
-    @OnlyIn(Dist.CLIENT)
+
     public Identifier getCachedTexture() {
         return this.cachedTexture;
     }
 
-    @OnlyIn(Dist.CLIENT)
+
     public void setCachedTexture(Identifier texture) {
         this.cachedTexture = texture;
     }
 
 
-    @OnlyIn(Dist.CLIENT)
+
     public class BettaTextureGenerator {
         private static final Map<Integer, Identifier> TEXTURE_CACHE = new HashMap<>();
         private static final String TEXTURE_PREFIX = "betta_dynamic_";

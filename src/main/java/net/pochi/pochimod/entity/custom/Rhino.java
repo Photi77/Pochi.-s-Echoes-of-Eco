@@ -3,7 +3,6 @@ package net.pochi.pochimod.entity.custom;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -30,8 +29,6 @@ import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.pochi.pochimod.entity.ModEntityTypes;
 
 import javax.annotation.Nullable;
@@ -135,7 +132,7 @@ public class Rhino extends Animal implements PlayerRideable {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes()
+        return Animal.createAnimalAttributes()
                 .add(Attributes.MAX_HEALTH, 40.0D) // 頑丈
                 .add(Attributes.MOVEMENT_SPEED, NORMAL_SPEED)
                 .add(Attributes.KNOCKBACK_RESISTANCE, 0.8D) // ノックバック耐性
@@ -467,7 +464,7 @@ public class Rhino extends Animal implements PlayerRideable {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
+
     private void spawnChargeStartParticles() {
         // 爆発的なエフェクト
         for (int i = 0; i < 20; i++) {
@@ -487,7 +484,7 @@ public class Rhino extends Animal implements PlayerRideable {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
+
     private void spawnChargeParticles() {
         if (this.random.nextInt(2) != 0) {
             return;

@@ -86,7 +86,7 @@ public class SparrowEntity extends Animal implements GeoEntity, FlyingAnimal {
     }
 
     public static AttributeSupplier setAttributes() {
-        return Animal.createMobAttributes()
+        return Animal.createAnimalAttributes()
                 .add(Attributes.MAX_HEALTH, 5.0D)
                 .add(Attributes.ATTACK_DAMAGE, 3.0f)
                 .add(Attributes.ATTACK_SPEED, 2.0f)

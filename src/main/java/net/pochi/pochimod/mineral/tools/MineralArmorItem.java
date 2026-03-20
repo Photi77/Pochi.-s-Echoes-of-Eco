@@ -1,14 +1,12 @@
 package net.pochi.pochimod.mineral.tools;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.item.equipment.ArmorType;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.pochi.pochimod.mineral.MineralColorCalculator;
 import net.pochi.pochimod.mineral.MineralImpurity;
@@ -35,7 +33,7 @@ public class MineralArmorItem extends Item {
         };
     }
 
-    @OnlyIn(Dist.CLIENT)
+
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
         consumer.accept(new IClientItemExtensions() {
             @Override

@@ -86,7 +86,7 @@ public class SootyShearwater extends Animal implements FlyingAnimal {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes()
+        return Animal.createAnimalAttributes()
                 .add(Attributes.MAX_HEALTH, 16.0D)
                 .add(Attributes.FLYING_SPEED, 0.5D)
                 .add(Attributes.MOVEMENT_SPEED, 0.3D)

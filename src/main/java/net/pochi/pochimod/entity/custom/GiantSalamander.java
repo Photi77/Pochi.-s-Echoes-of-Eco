@@ -45,7 +45,7 @@ public class GiantSalamander extends Animal {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 20.0D).add(Attributes.MOVEMENT_SPEED, 0.25D);
+        return Animal.createAnimalAttributes().add(Attributes.MAX_HEALTH, 20.0D).add(Attributes.MOVEMENT_SPEED, 0.25D);
     }
 
     public GiantSalamander(EntityType<? extends Animal> p_27557_, Level p_27558_) {

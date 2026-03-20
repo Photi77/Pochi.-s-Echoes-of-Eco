@@ -40,7 +40,7 @@ public class Dragonfly extends Animal implements GeoEntity{
 
     public static final float FLAP_DEGREES_PER_TICK = 74.48451F;
     public static final int TICKS_PER_FLAP = Mth.ceil(2.4166098F);
-    private static final EntityDataAccessor<Byte> DATA_ID_FLAGS = SynchedEntityData.defineId(Bat.class, EntityDataSerializers.BYTE);
+    private static final EntityDataAccessor<Byte> DATA_ID_FLAGS = SynchedEntityData.defineId(Dragonfly.class, EntityDataSerializers.BYTE);
     private static final int FLAG_RESTING = 1;
     private static final TargetingConditions BAT_RESTING_TARGETING = TargetingConditions.forNonCombat().range(1.0D);
     @Nullable
@@ -115,7 +115,7 @@ public class Dragonfly extends Animal implements GeoEntity{
     }
 
     public static AttributeSupplier setAttributes() {
-        return Animal.createMobAttributes()
+        return Animal.createAnimalAttributes()
                 .add(Attributes.MAX_HEALTH, 5.0D)
                 .add(Attributes.ATTACK_DAMAGE, 3.0f)
                 .add(Attributes.ATTACK_SPEED, 2.0f).build();

@@ -16,7 +16,7 @@ import net.pochi.pochimod.entity.projectile.HookArrow;
 public class HookShot extends BowItem {
 
     public HookShot(Properties p_41383_) {
-        super(new Properties());
+        super(p_41383_);
     }
 
     public InteractionResult use(Level p_40672_, Player p_40673_, InteractionHand p_40674_) {

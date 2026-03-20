@@ -87,8 +87,8 @@ public class BFurnaceRecipe implements Recipe<SimpleContainerRecipeInput> {
                 ItemStack.STRICT_CODEC.fieldOf("output").forGetter(r -> r.output),
                 Ingredient.CODEC.listOf().xmap(
                         list -> {
-                            NonNullList<Ingredient> nl = NonNullList.withSize(list.size(), Ingredient.of());
-                            for (int i = 0; i < list.size(); i++) nl.set(i, list.get(i));
+                            NonNullList<Ingredient> nl = NonNullList.create();
+                            nl.addAll(list);
                             return nl;
                         },
                         nl -> nl
@@ -106,9 +106,9 @@ public class BFurnaceRecipe implements Recipe<SimpleContainerRecipeInput> {
                         },
                         buf -> {
                             int size = buf.readVarInt();
-                            NonNullList<Ingredient> inputs = NonNullList.withSize(size, Ingredient.of());
+                            NonNullList<Ingredient> inputs = NonNullList.create();
                             for (int i = 0; i < size; i++) {
-                                inputs.set(i, Ingredient.CONTENTS_STREAM_CODEC.decode(buf));
+                                inputs.add(Ingredient.CONTENTS_STREAM_CODEC.decode(buf));
                             }
                             ItemStack output = ItemStack.STREAM_CODEC.decode(buf);
                             return new BFurnaceRecipe(output, inputs);
